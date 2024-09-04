@@ -10,7 +10,7 @@ Création d'un clone de Fortnite
 
 - Arthur
 - Maxence
-- Doryan
+- Dorry-san
 - Alice
 - Yanis
 - Antoine
