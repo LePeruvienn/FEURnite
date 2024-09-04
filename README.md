@@ -1,3 +1,4 @@
+![alt text](logo.png)
 
 # FEURnite
 
