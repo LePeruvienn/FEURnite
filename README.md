@@ -20,6 +20,7 @@ Création d'un clone de Fortnite
 - Corentin
 - William
 
+*(Total: 11)*
 
 ## Tech Stack
 
