@@ -16,6 +16,8 @@ Création d'un clone de Fortnite
 - Antonio
 - Adem
 - Théo
+- Corentin
+- William
 
 
 ## Tech Stack
