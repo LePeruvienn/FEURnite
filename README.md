@@ -12,15 +12,13 @@ Création d'un clone de Fortnite
 - Maxence
 - Dorry-san (Doryan)
 - Alice
-- Yanis
 - Antoine
 - Antonio
-- Adem
 - Théo
 - Corentin
 - William
 
-*(Total: 11)*
+*(Total: 9)*
 
 ## Tech Stack
 
