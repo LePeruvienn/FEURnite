@@ -2,25 +2,30 @@
 
 # FEURnite
 
-Projet S5 Développement 3D
+**Projet S5 Développement 3D**
 
-Création d'un clone de Fortnite
+Dans **FEURnite**, tu incarnes un canard appelé "**Koua**", plongé dans une bataille royale où les îles volantes s'effondrent au fil du temps. Dans un mélange de plateforme et de shooter, les Kouas devront looter des armes et des items pour éliminer leurs adversaires et survivre à la chute des îles. Le dernier **Koua** en vie est couronné vainqueur.
 
-## Authors
+## Documentation
 
-- Arthur
-- Maxence
-- Dorry-san (Doryan)
-- Alice
-- Antoine
-- Antonio
-- Théo
-- Corentin
-- William
+- **[Game Design Document](docs/GDD.md)**
+- **[Convention de code](docs/convention-de-code.md)**
+
+## Auteurs
+
+- **Arthur**
+- **Maxence**
+- **Dorry-san** *(Doryan)*
+- **Alice**
+- **Antoine**
+- **Antonio**
+- **Théo**
+- **Corentin**
+- **William**
 
 *(Total: 9)*
 
-## Tech Stack
+## Outils
 
 **Engine:** Unity  
 **Server:** Poth
