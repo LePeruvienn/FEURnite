@@ -26,9 +26,8 @@
 
 **Spawn** : Les joueurs apparaissent sur des îles périphériques avec un set d'items de base.
 
-**Îles et Loot** :
-Les îles périphériques contiennent des armes et des équipements basiques.
-Plus les îles se rapprochent du centre de la carte, plus le butin est rare et puissant.
+**Îles, Lootboxes et Loot** :
+Les îles périphériques contiennent des armes et des équipements basiques. Ce butin est récupérable dans des lootboxes, qui se présentent sous la forme de petites boîtes carrées de différentes raretés. Plus les îles se rapprochent du centre de la carte, plus les lootboxes auront une chance d'être de haute rareté. Les raretés des lootboxes auront chacune leur couleur pour être différenciées, allant de bois, fer, or, à diamant. Plus la rareté est élevée, plus la lootbox a de chances de donner du butin rare et puissant. Les lootboxes auront des points d'apparition prédéfinis et réapparaîtront progressivement au fil du temps.
 
 **Interconnexion des îles** : Des plateformes flottantes ou des ponts volants permettent de naviguer entre les îles.
 
