@@ -61,7 +61,34 @@ Listes des différentes rareté possibles :
 # Armes
 
 ## AK-47
+Arme à feur à fou semi lourde
+
+### Attributs
+- **Dégats** : 30 - 45
+    - Nombre de dégats que l'arme inflige
+- **Cande de tir** : 2 balle par secondes
+    - Nombre de balle tirer par secondes
+- **Balles par chargeur** : 30
+    - Nombre de balle à tirer avant de devoir recharger
+- **Temps de rechargement** : 5 secondes
+    - Temps nécessaire sans intéruption, pour pouvoir recharger les balles de l'armes complétement
+- **Rareté** : Commune - Légendaire
+    - Les dégats augmente en fonction de sa rareté
+
+### Actions
+- Tirer
+- Recharger
+- Viser
+- Lacher au sol
+
+### Animations
+
+- Tirer
+- Recharger
+- Viser
+
 ## Glock 17
+
 ## Bazooka
 ## Desert eagle
 ## Sniper
