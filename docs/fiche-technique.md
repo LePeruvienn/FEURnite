@@ -127,7 +127,7 @@ Les coffres disséminés sur la carte qui contiennent des objets précieux. Les 
 - Apparition
     - Certains coffres sont fixes et toujours présents, tandis que d'autres apparaissent aléatoirement à plusieur endroit prédéfinis
 - Rareté des objets
-    - La couleur des coffres (bronze, argent, or) indique la qualité des objets qu'ils contiennent (commun, rare, légendaire).
+    - La couleur des coffres indique la qualité des objets qu'ils contiennent (commun, rare, épic, légendaire).
 
 ### Actions
 - Ouvrir pour récupérer des objets
