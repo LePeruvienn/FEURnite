@@ -1,3 +1,51 @@
+# Sommaire
+- [Éléments de la carte](#éléments-de-la-carte)
+  - [Île principale](#île-principale)
+  - [Îles périphériques](#îles-périphériques)
+  - [Plateforme](#plateforme)
+  - [Coffre](#coffre)
+- [Personnages](#personnages)
+  - [Koua](#koua)
+- [Raretés](#raretés)
+- [Armes](#armes)
+  - [AK-47](#ak-47)
+  - [Glock 17](#glock-17)
+  - [Bazooka](#bazooka)
+  - [Desert Eagle](#desert-eagle)
+  - [Sniper](#sniper)
+  - [M16](#m16)
+- [Objets](#objets)
+  - [Kit de soin](#kit-de-soin)
+  - [Potion bouclier](#potion-bouclier)
+- [Grenades](#grenades)
+  - [Grenade Explosive](#grenade-explosive)
+
+
+# Elements de la carte
+
+## Ile principale
+
+## Iles périphériques
+
+## Plateforme
+
+## Coffre
+Les coffres disséminés sur la carte qui contiennent des objets précieux. Les objets qui sont données sont aléatoire en fonction de la rareté du coffre.
+
+### Attributs 
+- Taille
+    - De taille moyenne, ils peuvent contenir des armes, des grenades, des potions, ou des améliorations.
+- Apparition
+    - Certains coffres sont fixes et toujours présents, tandis que d'autres apparaissent aléatoirement à plusieur endroit prédéfinis
+- Rareté des objets
+    - La couleur des coffres (bronze, argent, or) indique la qualité des objets qu'ils contiennent (commun, rare, légendaire).
+
+### Actions
+- Ouvrir pour récupérer des objets
+
+### Animations
+- Ouverture du coffre
+
 # Personnages
 
 ## Koua
@@ -50,9 +98,9 @@ Personnage prinipale du jeu, c'est celui que le joueur incarne.
 
 Listes des différentes rareté possibles :
 - Commun
-    - Couleur : *bleu*
+    - Couleur : *gris*
 - Rare
-    - Couleur : *Vert*
+    - Couleur : *bleu*
 - Epic
     - Couleur : *Violet*
 - Légendaire
@@ -61,13 +109,13 @@ Listes des différentes rareté possibles :
 # Armes
 
 ## AK-47
-Arme à feur à fou semi lourde
+
+Fusil automatique lourd, pas très précis mais inflige de lourd dégats
 
 ### Attributs
 - **Dégats** : 30 - 45
-    - Nombre de dégats que l'arme inflige
-- **Cande de tir** : 2 balle par secondes
-    - Nombre de balle tirer par secondes
+- **Mode de tir** : automatique
+- **Candence de tir** : 2 balle par secondes
 - **Balles par chargeur** : 30
     - Nombre de balle à tirer avant de devoir recharger
 - **Temps de rechargement** : 5 secondes
@@ -88,18 +136,135 @@ Arme à feur à fou semi lourde
 - Viser
 
 ## Glock 17
+Pistolet semi-automatique léger et précis à courte distance, efficace en tant qu'arme secondaire.
+
+### Attributs
+
+- **Dégâts** : 15 - 25
+- **Mode de tir** : semi-automatique
+- **Cadence de tir** : 3 balles par seconde
+- **Balles par chargeur** : 17
+    - Nombre de balle à tirer avant de devoir recharger
+- **Temps de rechargement** : 2 secondes
+    - Temps nécessaire sans intéruption, pour pouvoir recharger les balles de l'armes complétement
+- **Rareté** : Commune - Épique
+    - Les dégâts et la précision augmentent en fonction de la rareté.
+
+### Actions
+- Tirer
+- Recharger
+- Viser
+- Lâcher au sol
+
+### Animations
+- Tirer
+- Recharger
+- Viser
 
 ## Bazooka
-## Desert eagle
+Lance-roquettes, permet de tirer des missiles.
+
+*IMPORTANT* : 
+**LES MISSILES SONT EUX MEME DES OBJETS ILES DOIVENT AUSSI CREER POUR LE BON FONCTIONNEMENT DU LANCES-ROQUETTES !**
+
+### Attributs
+
+- **Dégâts** : 50 - 175
+    - Les dégats augmente plus le joueur est proche de l'explosion de la roquette
+- **Roquettes par chargeur** : 1
+- **Temps de rechargement** : 6 secondes
+    - Temps nécessaire sans intéruption, pour pouvoir recharger les balles de l'armes complétement
+- **Rareté** : Epic
+
+### Actions
+- Tirer
+- Recharger
+- Viser
+- Lâcher au sol
+
+### Animations
+- Tirer
+- Recharger
+- Viser
+- explosion
+
+## Desert Eagle
+Pistolet semi-automatique lourd, très puissant mais avec une capacité limitée.
+
+### Attributs
+
+- **Dégâts** : 40 - 60
+- **Mode de tir** : semi-automatique
+- **Cadence de tir** : 1 balle par seconde
+- **Balles par chargeur** : 7
+    - Nombre de balle à tirer avant de devoir recharger
+- **Temps de rechargement** : 3 secondes
+    - Temps nécessaire sans intéruption, pour pouvoir recharger les balles de l'armes complétement
+- **Rareté** : Épique - Légendaire
+    - Les dégats augmente avec la rareté
+
+### Actions
+- Tirer
+- Recharger
+- Viser
+- Lâcher au sol
+
+### Animations
+- Tirer
+- Recharger
+- Viser Desert eagle
+
 ## Sniper
+Fusil à longue portée, extrêmement précis, conçu pour infliger de lourds dégâts à distance.
+
+### Attributs
+
+- **Dégâts** : 60 - 100
+- **Mode de tir** : coup par coup
+- **Cadence de tir** : 0.5 balle par seconde
+- **Balles par chargeur** : 5
+     - Nombre de balle à tirer avant de devoir recharger
+- **Temps de rechargement** : 4 secondes
+    - Temps nécessaire sans interruption pour pouvoir recharger les balles de l'arme complètement
+- **Rareté** : Rare - Légendaire
+    - Les dégâts et la précision augmentent avec la rareté
+
+### Actions
+- Tirer
+- Recharger
+- Viser (avec lunette)
+- Lâcher au sol
+
+### Animations
+- Tirer
+- Recharger
+- Viser
+
 ## M16
+Fusil d'assaut automatique et polyvalent, efficace à moyenne et longue distance avec une meilleure précision que l'AK-47.
 
+### Attributs
+- **Dégâts** : 25 - 35
+- **Mode de tir** : automatique
+- **Cadence de tir** : 3 balles par seconde
+- **Balles par chargeur** : 30
+    - Nombre de balle à tirer avant de devoir recharger
+- **Temps de rechargement** : 3.5 secondes
+    - Temps nécessaire sans interruption pour pouvoir recharger les balles de l'arme complètement
+- **Rareté** : Commune - Légendaire
+    - Les dégâts augmentent avec la rareté
 
+### Actions
+- Tirer automatique
+- Recharger
+- Viser
+- Lâcher au sol
 
+### Animations
+- Tirer
+- Recharger
+- Viser
 
-```
-Partie à compléter ...
-```
 
 # Objets
 
