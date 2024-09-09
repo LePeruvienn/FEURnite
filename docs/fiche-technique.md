@@ -1,8 +1,8 @@
 # :blue_book: Sommaire
-- 🔷 [HUD](-hud)
+- 🔷 [HUD](#-hud)
   - 🔸 [Barre de vie](#-barre-de-vie)
   - 🔸 [Barre de bouclier](#-barre-de-bouclier)
-  - 🔸 [Marqueur de dégats](#-marqeur-de-degats)
+  - 🔸 [Marqueur de dégats](#-marqueur-de-dégats)
   - 🔸 [Annonces](#-annonces)
   - 🔸 [Timer](#-timer)
 - 🔷 [Éléments de la carte](#-elements-de-la-carte)
