@@ -10,6 +10,8 @@ Dans **FEURnite**, tu incarnes un canard appelé "**Koua**", plongé dans une ba
 
 - **[Game Design Document](docs/GDD.md)**
 - **[Convention de code](docs/convention-de-code.md)**
+- **[Fiche technique](docs/fiche-technique.md)**
+
 
 ## ✍️ Auteurs
 
