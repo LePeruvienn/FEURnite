@@ -24,10 +24,38 @@
 # Elements de la carte
 
 ## Ile principale
+C'est l'ile la plus grande (beaucoup beaucoup beaucoup plus grande que les autres) de la carte.
+C'est ici ou se déroulera la plupart des combats, il y aura alors des cachette mais aussi des parcours qui mene à des coffre légendaire.
+
+Cette ile se situe au centre de la carte.
+
+Après 15 minute de jeu, les coté de l'ile commence à tomber petit à petit ...
 
 ## Iles périphériques
+Ces ile sont présente à la périphérie de l'ile principale. Il existe plusieur type de ces iles :
+- **Ile de spawn** : 8 au total
+    - C'est ici ou les joueurs apparaissent au début de la partie
+    - *Coffres* : 1 à 2 coffres maximum
+    - *Taille* : petite
+- **Ile intermédiaire** : 8 au total
+    - C'est l'ile la plus proche à l'*ile de spawn*, elle sont aussi le premier point de contact avec d'autres joueurs
+    - *Coffres* : 2 à 3 coffres maximum
+    - *Taille* : moyenne
+- **Ile secondaire** : 4 au total
+    - C'est l'ile la plus proche à l'ile principale, elle est la porte d'entrée à l'ile principale. Elle est situé après l'ile intermédiaire.
+    - *Coffres* : 3 à 5 coffres maximum
+    - *Taille* : grande
+- **Ile raccourci** : 4 au total
+    - Ce sont des iles qui sont relier directement à l'ile principale mais elle nécessite de passer par un parcours long et difficile pour l'atteindre.
+    - *Coffres* : 2 à 3 coffres maximum
+    - *Taille* : très petite
+
+*(Allez voir le shéma des ile dans le GDD, pour une explication visuelle)*
 
 ## Plateforme
+Les plateforme sont des petite bout d'ile qui consitue des parcours que le joueur peut effectuer pour atteindre d'autres ile ou d'autres zone de la carte.
+
+Les plateforme peuvent avoir des forme varié, mais reste quand meme assez petites.
 
 ## Coffre
 Les coffres disséminés sur la carte qui contiennent des objets précieux. Les objets qui sont données sont aléatoire en fonction de la rareté du coffre.
