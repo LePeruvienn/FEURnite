@@ -1,7 +1,7 @@
 # :blue_book: Sommaire
-- 🔷 [Éléments de la carte](#-éléments-de-la-carte)
-  - 🔸 [Île principale](#-île-principale)
-  - 🔸 [Îles périphériques](#-îles-périphériques)
+- 🔷 [Éléments de la carte](#-elements-de-la-carte)
+  - 🔸 [Île principale](#-ile-principale)
+  - 🔸 [Îles périphériques](#-iles-périphériques)
   - 🔸[Plateforme](#-plateforme)
   - 🔸 [Coffre](#-coffre)
 - 🔷 [Personnages](#-personnages)
