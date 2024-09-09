@@ -1,29 +1,29 @@
-# Sommaire
-- [Éléments de la carte](#éléments-de-la-carte)
-  - [Île principale](#île-principale)
-  - [Îles périphériques](#îles-périphériques)
-  - [Plateforme](#plateforme)
-  - [Coffre](#coffre)
-- [Personnages](#personnages)
-  - [Koua](#koua)
-- [Raretés](#raretés)
-- [Armes](#armes)
-  - [AK-47](#ak-47)
-  - [Glock 17](#glock-17)
-  - [Bazooka](#bazooka)
-  - [Desert Eagle](#desert-eagle)
-  - [Sniper](#sniper)
-  - [M16](#m16)
-- [Objets](#objets)
-  - [Kit de soin](#kit-de-soin)
-  - [Potion bouclier](#potion-bouclier)
-- [Grenades](#grenades)
-  - [Grenade Explosive](#grenade-explosive)
+# :blue_book: Sommaire
+- :large_blue_diamond: [Éléments de la carte](#éléments-de-la-carte)
+  - :small_orange_diamond: [Île principale](#île-principale)
+  - :small_orange_diamond: [Îles périphériques](#îles-périphériques)
+  - :small_orange_diamond:[Plateforme](#plateforme)
+  - :small_orange_diamond: [Coffre](#coffre)
+- :large_blue_diamond: [Personnages](#personnages)
+  - :small_orange_diamond: [Koua](#koua)
+- :large_blue_diamond: [Raretés](#raretés)
+- :large_blue_diamond: [Armes](#armes)
+  - :small_orange_diamond: [AK-47](#ak-47)
+  - :small_orange_diamond: [Glock 17](#glock-17)
+  - :small_orange_diamond: [Bazooka](#bazooka)
+  - :small_orange_diamond: [Desert Eagle](#desert-eagle)
+  - :small_orange_diamond: [Sniper](#sniper)
+  - :small_orange_diamond: [M16](#m16)
+- :large_blue_diamond: [Objets](#objets)
+  - :small_orange_diamond: [Kit de soin](#kit-de-soin)
+  - :small_orange_diamond: [Potion bouclier](#potion-bouclier)
+- :large_blue_diamond: [Grenades](#grenades)
+  - :small_orange_diamond: [Grenade Explosive](#grenade-explosive)
 
 
-# Elements de la carte
+# 🔷 Elements de la carte
 
-## Ile principale
+## :small_orange_diamond: Ile principale
 C'est l'ile la plus grande (beaucoup beaucoup beaucoup plus grande que les autres) de la carte.
 C'est ici ou se déroulera la plupart des combats, il y aura alors des cachette mais aussi des parcours qui mene à des coffre légendaire.
 
@@ -31,7 +31,7 @@ Cette ile se situe au centre de la carte.
 
 Après 15 minute de jeu, les coté de l'ile commence à tomber petit à petit ...
 
-## Iles périphériques
+## :small_orange_diamond: Iles périphériques
 Ces ile sont présente à la périphérie de l'ile principale. Il existe plusieur type de ces iles :
 - **Ile de spawn** : 8 au total
     - C'est ici ou les joueurs apparaissent au début de la partie
@@ -52,12 +52,12 @@ Ces ile sont présente à la périphérie de l'ile principale. Il existe plusieu
 
 *(Allez voir le shéma des ile dans le GDD, pour une explication visuelle)*
 
-## Plateforme
+## :small_orange_diamond: Plateforme
 Les plateforme sont des petite bout d'ile qui consitue des parcours que le joueur peut effectuer pour atteindre d'autres ile ou d'autres zone de la carte.
 
 Les plateforme peuvent avoir des forme varié, mais reste quand meme assez petites.
 
-## Coffre
+## :small_orange_diamond: Coffre
 Les coffres disséminés sur la carte qui contiennent des objets précieux. Les objets qui sont données sont aléatoire en fonction de la rareté du coffre.
 
 ### Attributs 
@@ -72,9 +72,9 @@ Les coffres disséminés sur la carte qui contiennent des objets précieux. Les 
 ### Animations
 - Ouverture du coffre
 
-# Personnages
+# :large_blue_diamond: Personnages
 
-## Koua
+## :small_orange_diamond: Koua
 
 Personnage prinipale du jeu, c'est celui que le joueur incarne.
 
@@ -120,7 +120,7 @@ Personnage prinipale du jeu, c'est celui que le joueur incarne.
 
 
 
-# Raretés
+# :large_blue_diamond: Raretés
 
 Listes des différentes rareté possibles :
 - Commun
@@ -132,9 +132,9 @@ Listes des différentes rareté possibles :
 - Légendaire
     - Couleur : *dorée*
 
-# Armes
+# :large_blue_diamond: Armes
 
-## AK-47
+## :small_orange_diamond: AK-47
 
 Fusil automatique lourd, pas très précis mais inflige de lourd dégats
 
@@ -161,7 +161,7 @@ Fusil automatique lourd, pas très précis mais inflige de lourd dégats
 - Recharger
 - Viser
 
-## Glock 17
+## :small_orange_diamond: Glock 17
 Pistolet semi-automatique léger et précis à courte distance, efficace en tant qu'arme secondaire.
 
 ### Attributs
@@ -187,7 +187,7 @@ Pistolet semi-automatique léger et précis à courte distance, efficace en tant
 - Recharger
 - Viser
 
-## Bazooka
+## :small_orange_diamond: Bazooka
 Lance-roquettes, permet de tirer des missiles.
 
 *IMPORTANT* : 
@@ -214,7 +214,7 @@ Lance-roquettes, permet de tirer des missiles.
 - Viser
 - explosion
 
-## Desert Eagle
+## :small_orange_diamond: Desert Eagle
 Pistolet semi-automatique lourd, très puissant mais avec une capacité limitée.
 
 ### Attributs
@@ -240,7 +240,7 @@ Pistolet semi-automatique lourd, très puissant mais avec une capacité limitée
 - Recharger
 - Viser Desert eagle
 
-## Sniper
+## :small_orange_diamond: Sniper
 Fusil à longue portée, extrêmement précis, conçu pour infliger de lourds dégâts à distance.
 
 ### Attributs
@@ -266,7 +266,7 @@ Fusil à longue portée, extrêmement précis, conçu pour infliger de lourds d�
 - Recharger
 - Viser
 
-## M16
+## :small_orange_diamond: M16
 Fusil d'assaut automatique et polyvalent, efficace à moyenne et longue distance avec une meilleure précision que l'AK-47.
 
 ### Attributs
@@ -292,9 +292,9 @@ Fusil d'assaut automatique et polyvalent, efficace à moyenne et longue distance
 - Viser
 
 
-# Objets
+# :large_blue_diamond: Objets
 
-## Kit de soin
+## :small_orange_diamond: Kit de soin
 
 Objets que le joueur peut utiliser pour gagner de la vie
 
@@ -315,7 +315,7 @@ Objets que le joueur peut utiliser pour gagner de la vie
 - Peut être utiliser
 
 
-## Potion bouclier
+## :small_orange_diamond: Potion bouclier
 
 Objets que le joueur peut utiliser pour gagner des points de bouclier
 
@@ -335,9 +335,9 @@ Objets que le joueur peut utiliser pour gagner des points de bouclier
 - Peut être laché au sol
 - Peut être utiliser
 
-# Grenades
+# :large_blue_diamond: Grenades
 
-## Grenade Explosive
+## :small_orange_diamond: Grenade Explosive
 
 Ce sont des grenades qui sont faites pour être lancé sur d'autres joueur et leurs infligé des dégats
 
