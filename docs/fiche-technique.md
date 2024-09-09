@@ -1,4 +1,10 @@
 # :blue_book: Sommaire
+- 🔷 [HUD](-hud)
+  - 🔸 [Barre de vie](#-barre-de-vie)
+  - 🔸 [Barre de bouclier](#-barre-de-bouclier)
+  - 🔸 [Marqueur de dégats](#-marqeur-de-degats)
+  - 🔸 [Annonces](#-annonces)
+  - 🔸 [Timer](#-timer)
 - 🔷 [Éléments de la carte](#-elements-de-la-carte)
   - 🔸 [Île principale](#-ile-principale)
   - 🔸 [Îles périphériques](#-iles-périphériques)
@@ -20,6 +26,63 @@
 - 🔷 [Grenades](#-grenades)
   - 🔸 [Grenade Explosive](#-grenade-explosive)
 
+
+# 🔷 HUD
+
+## 🔸 Barre de vie
+Affiche la vie actuelle du joueur, ses couleurs sont le vert
+
+### Atrributs
+- **Carré d'arrière plan**
+    - C'est la couleur de la barre qui est affiché quand une parte est vide
+- **Jauge de vie** : 
+    - C'est la jauge qui affiche visuellement la vie actuelle. Elle possède la meme taille maximale que son fond.
+- **Texte vie maximale**
+    - Le texte écris de sa vie maximale
+- **Texte vie actuelle**
+    - Le texte écris de sa vie maximale
+
+### Actions et Animations
+- Perdre de la vie
+- Gagner de la vie
+
+## 🔸 Barre de bouclier
+Affiche le bouclier actuelle du joueur, ses couleurs sont le bleu
+
+### Atrributs
+- **Carré d'arrière plan**
+    - C'est la couleur de la barre qui est affiché quand une parte est vide
+- **Jauge de bouclier** : 
+    - C'est la jauge qui affiche visuellement la bouclier actuelle. Elle possède la meme taille maximale que son fond.
+- **Texte bouclier maximale**
+    - Le texte écris de sa bouclier maximale
+- **Texte bouclier actuelle**
+    - Le texte écris de sa bouclier maximale
+
+### Actions et Animations
+- Perdre de la bouclier
+- Gagner de la bouclier
+
+## 🔸 Marqueur de dégats
+Affiche les dégats infligé par le joueur, sur le joueur directement
+
+### Attributs
+- Nombre de dégats infligé
+### Actions et Animations
+- Infligé les dégats infligé près du joueur qui à subit des dégats
+
+## 🔸 Annonces
+Petit espace qui permet d'affichier du texte avec les différent annonce de la carte.
+
+ex: *5 joueurs restant !* ; *L'ile Rouge va tomber !* ; ...
+
+### Attributs
+- Texte à afficher
+### Actions et Animations
+- Afficher le texte
+
+## 🔸 Timer
+Affiche le temps écouler depuis le début de la partie
 
 # 🔷 Elements de la carte
 
