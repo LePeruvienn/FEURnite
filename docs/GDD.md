@@ -43,6 +43,7 @@ Les îles périphériques contiennent des armes et des équipements basiques. Ce
 
 # 3. Carte du jeu
 
+![alt text](img/map.png)
 
 ## 3.1. Design de la Carte
 
@@ -61,7 +62,9 @@ Le centre de la carte contient les îles avec le meilleur loot mais également l
 
 **Description** : Les joueurs incarnent des canards anthropomorphes, connus sous le nom de Koua. Les Kouas sont des canards avec un sweat à capuche. Leurs sweat change de couleurs en fonction de leurs équipes. (Possibilité de les personnalisez éventuellement, ex: changer de chapeau)
 
-**Images** : (à rajouté)
+**Images** :
+
+![alt text](img/koua.webp)
 
 ## 4.2. Compétences spéciales
 
