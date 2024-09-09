@@ -42,6 +42,7 @@ Personnage prinipale du jeu, c'est celui que le joueur incarne.
 - Emote 
 - Use object (eat)
 - Throw
+- Jump
 
 
 
