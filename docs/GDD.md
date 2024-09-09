@@ -24,7 +24,7 @@
 
 ## 2.2. Spawn et Exploration
 
-**Spawn** : Les joueurs apparaissent sur des îles périphériques avec un set d'items de base.
+**Spawn** : Les joueurs apparaissent sur des îles périphériques. Sur ces iles les joueur trouverons chacun deux coffre qui leurs sont destiné, dans ces coffres une arme et un ou deux objets leurs seront données aléatoirement.
 
 **Îles, Lootboxes et Loot** :
 Les îles périphériques contiennent des armes et des équipements basiques. Ce butin est récupérable dans des lootboxes, qui se présentent sous la forme de petites boîtes carrées de différentes raretés. Plus les îles se rapprochent du centre de la carte, plus les lootboxes ont une chance d'être de haute rareté. Les raretés des lootboxes ont chacune leur couleur pour être différenciées, allant de bois, fer, or, à diamant. Plus la rareté est élevée, plus la lootbox a de chances de donner du butin rare et puissant. Les lootboxes ont des points d'apparition prédéfinis et réapparaissent progressivement au fil du temps. Les armes ont elles aussi différents niveaux de rareté. Plus la rareté d'une arme est haute, plus les dégâts qu'elle inflige le seront. Les raretés sont les mêmes que pour les lootboxes. 
@@ -80,6 +80,13 @@ Le centre de la carte contient les îles avec le meilleur loot mais également l
 **Inventaire rapide** : Barres d’accès rapide pour les armes et les items.
 
 **Indicateurs de danger** : Alertes visuelles et auditives pour avertir de la chute imminente d’une île.
+
+**Barre de vie** : Barre de vie en vert qui affiche la vie actuelle du koua qu'on controle.
+
+**Barre de bouclier** : Barre de bouclier en bleu qui affiche le niveau de bouclier actuelle du koua qu'on controle.
+
+**Damage Popup** : Quand on infligera des dégats à un Koua enemi, le nombre de dégats qu'on lui aura infligé sera afficher (pendant quelques instants) sur lui.
+
 
 # 6. Mode Multijoueur
 
