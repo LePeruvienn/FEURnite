@@ -27,6 +27,24 @@ Personnage prinipale du jeu, c'est celui que le joueur incarne.
 - Dash *(à débloquer)*
     - permet de se rué vers une direction très rapidement
 
+### Animation :
+- Walking
+- Running
+- Crouching
+- Resting
+- Walking (with a weapon)
+- Running (with a weapon)
+- Crouching (with a weapon)
+- Resting (with a weapon)
+- visée
+- Pick up of the ground
+- Changing weapon
+- Emote 
+- Use object (eat)
+- Throw
+
+
+
 # Raretés
 
 Listes des différentes rareté possibles :
@@ -40,6 +58,16 @@ Listes des différentes rareté possibles :
     - Couleur : *dorée*
 
 # Armes
+
+## AK-47
+## Glock 17
+## Bazooka
+## Desert eagle
+## Sniper
+## M16
+
+
+
 
 ```
 Partie à compléter ...
