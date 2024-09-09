@@ -33,8 +33,6 @@
 Les coffres disséminés sur la carte qui contiennent des objets précieux. Les objets qui sont données sont aléatoire en fonction de la rareté du coffre.
 
 ### Attributs 
-- Taille
-    - De taille moyenne, ils peuvent contenir des armes, des grenades, des potions, ou des améliorations.
 - Apparition
     - Certains coffres sont fixes et toujours présents, tandis que d'autres apparaissent aléatoirement à plusieur endroit prédéfinis
 - Rareté des objets
