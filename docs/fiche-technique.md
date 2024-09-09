@@ -51,7 +51,7 @@ Partie à compléter ...
 
 Objets que le joueur peut utiliser pour gagner de la vie
 
-## Attributs
+### Attributs
 
 - **Montant de vie** : 100
     - C'est le montant de ve qui sera données à son utilisateur après l'utilisation de l'objet
@@ -62,7 +62,7 @@ Objets que le joueur peut utiliser pour gagner de la vie
 - **Empilable** : Non
     - Est ce que l'objet peut être emplier dans l'inventaire
 
-## Action
+### Action
 
 - Peut être laché au sol
 - Peut être utiliser
@@ -72,7 +72,7 @@ Objets que le joueur peut utiliser pour gagner de la vie
 
 Objets que le joueur peut utiliser pour gagner des points de bouclier
 
-## Attributs
+### Attributs
 
 - **Montant de bouclier** : 50
     - C'est le montant de ve qui sera données à son utilisateur après l'utilisation de l'objet
@@ -83,7 +83,7 @@ Objets que le joueur peut utiliser pour gagner des points de bouclier
 - **Empilable** : Non
     - Est ce que l'objet peut être emplier dans l'inventaire
 
-## Action
+### Action
 
 - Peut être laché au sol
 - Peut être utiliser
@@ -105,7 +105,7 @@ Ce sont des grenades qui sont faites pour être lancé sur d'autres joueur et le
 - **Empilable** : Oui
     - Jusqu'a 3 grenade max de la meme rareté
 
-## Action
+### Action
 
 - Etre lancée
 - Exploser
