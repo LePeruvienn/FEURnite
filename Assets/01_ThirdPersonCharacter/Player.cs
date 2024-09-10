@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Fusion;
 using Fusion.Addons.SimpleKCC;
+using Unity.VisualScripting;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -19,6 +20,7 @@ namespace Starter.ThirdPersonCharacter
 		[Header("Movement Setup")]
 		public float WalkSpeed = 2f;
 		public float SprintSpeed = 5f;
+		public float AimSpeed = 1f;
 		public float JumpImpulse = 10f;
 		public float UpGravity = 25f;
 		public float DownGravity = 40f;
@@ -101,9 +103,23 @@ namespace Starter.ThirdPersonCharacter
 
 			// It feels better when the player falls quicker
 			KCC.SetGravity(KCC.RealVelocity.y >= 0f ? UpGravity : DownGravity);
-
-			float speed = input.Sprint ? SprintSpeed : WalkSpeed;
-
+		
+			// On définis la variable speed du joueur
+			float speed;
+			
+			if (input.Sprint) // Si il est en train de courrir
+			{
+				speed = SprintSpeed;
+			}
+			else if (input.Aiming) // Si il vise
+			{
+				speed = AimSpeed;
+			}
+			else // Si il fait aucun des deux, alors il marche
+			{
+				speed = WalkSpeed;
+			}
+			
 			var lookRotation = Quaternion.Euler(0f, input.LookRotation.y, 0f);
 			// Calculate correct move direction from input (rotated based on camera look)
 			var moveDirection = lookRotation * new Vector3(input.MoveDirection.x, 0f, input.MoveDirection.y);

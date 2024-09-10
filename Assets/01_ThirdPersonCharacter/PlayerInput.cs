@@ -11,6 +11,7 @@ namespace Starter.ThirdPersonCharacter
 		public Vector2 MoveDirection;
 		public bool Jump;
 		public bool Sprint;
+		public bool Aiming;
 	}
 
 	/// <summary>
@@ -27,6 +28,7 @@ namespace Starter.ThirdPersonCharacter
 			_input.MoveDirection = default;
 			_input.Jump = false;
 			_input.Sprint = false;
+			_input.Aiming = false;
 		}
 
 		private void Update()
@@ -46,6 +48,8 @@ namespace Starter.ThirdPersonCharacter
 
 			_input.Jump |= Input.GetButtonDown("Jump");
 			_input.Sprint |= Input.GetButton("Sprint");
+			_input.Aiming |= Input.GetButton("Fire2");
+			Debug.Log (_input.Aiming);
 		}
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)
