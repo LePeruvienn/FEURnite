@@ -40,6 +40,7 @@ namespace Starter.ThirdPersonCharacter
 
 		[Networked]
 		private NetworkBool _isJumping { get; set; }
+		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
 
 		private Vector3 _moveVelocity;
 
@@ -49,6 +50,7 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDJump;
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
+		private int _animIDAim;
 
 		public override void FixedUpdateNetwork()
 		{
@@ -70,6 +72,8 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDJump, _isJumping);
 			Animator.SetBool(_animIDGrounded, KCC.IsGrounded);
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
+			Animator.SetBool(_animIDAim, _isAiming);
+			Debug.Log(_isAiming);
 		}
 
 		private void Awake()
@@ -101,19 +105,22 @@ namespace Starter.ThirdPersonCharacter
 				_isJumping = true;
 			}
 
+			// Set is Aiming to true if player is aiming
+			_isAiming = input.Aiming;
+
 			// It feels better when the player falls quicker
 			KCC.SetGravity(KCC.RealVelocity.y >= 0f ? UpGravity : DownGravity);
 		
 			// On définis la variable speed du joueur
 			float speed;
 			
-			if (input.Sprint) // Si il est en train de courrir
-			{
-				speed = SprintSpeed;
-			}
-			else if (input.Aiming) // Si il vise
+			if (input.Aiming) // Si il vise
 			{
 				speed = AimSpeed;
+			}
+			else if (input.Sprint) // Si il est en train de courrir
+			{
+				speed = SprintSpeed;
 			}
 			else // Si il fait aucun des deux, alors il marche
 			{
@@ -161,6 +168,7 @@ namespace Starter.ThirdPersonCharacter
 			_animIDJump = Animator.StringToHash("Jump");
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+			_animIDAim = Animator.StringToHash("Aim");
 		}
 
 		// Animation event
