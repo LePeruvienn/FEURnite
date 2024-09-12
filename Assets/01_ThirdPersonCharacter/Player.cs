@@ -33,7 +33,12 @@ namespace Starter.ThirdPersonCharacter
 		public float GroundDeceleration = 25f;
 		public float AirAcceleration = 25f;
 		public float AirDeceleration = 1.3f;
-
+		
+		[Header("Camera Zoom")]
+		public float normalFOV = 40f;    // Regular camera FOV
+		public float aimFOV = 25f;       // Zoomed in FOV when aiming
+		public float zoomSpeed = 5f;     // Speed of zoom transition
+		
 		[Header("Sounds")]
         public AudioClip[] FootstepAudioClips;
 		public AudioClip LandingAudioClip;
@@ -95,6 +100,10 @@ namespace Starter.ThirdPersonCharacter
 			// Update camera pivot and transfer properties from camera handle to Main Camera.
 			CameraPivot.rotation = Quaternion.Euler(PlayerInput.CurrentInput.LookRotation);
 			Camera.main.transform.SetPositionAndRotation(CameraHandle.position, CameraHandle.rotation);
+
+			// Handle camera zooming based on whether the player is aiming
+			float targetFOV = _isAiming ? aimFOV : normalFOV; // Set target FOV
+			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
 		}
 
 		private void ProcessInput(GameplayInput input)
