@@ -20,6 +20,8 @@
   - 🔸 [Desert Eagle](#-desert-eagle)
   - 🔸 [Sniper](#-sniper)
   - 🔸 [M16](#-m16)
+  - 🔸 [SPAS 12](#-SPAS-12)
+  - 🔸 [Couteau Baïonnette](#-Couteau-Baïonnette)
 - 🔷 [Objets](#-objets)
   - 🔸 [Kit de soin](#-kit-de-soin)
   - 🔸 [Potion bouclier](#-potion-bouclier)
@@ -354,6 +356,55 @@ Fusil d'assaut automatique et polyvalent, efficace à moyenne et longue distance
 - Recharger
 - Viser
 
+## 🔸 SPAS 12
+Fusil à pompe, efficace à courte distance. Fais des gros dégâts.
+
+### Attributs
+- **Dégâts** : à determiner
+- **Mode de tir** : coup par coup
+- **Cadence de tir** : à determiner
+- **Balles par chargeur** : à determiner
+    - Nombre de balle à tirer avant de devoir recharger
+- **Temps de rechargement** : à determiner
+    - Temps nécessaire sans interruption pour pouvoir recharger les balles de l'arme complètement
+- **Rareté** : Commune - Légendaire
+    - Les dégâts augmentent avec la rareté
+
+### Actions
+- Tirer
+- Recharger
+- Viser
+- Lâcher au sol
+
+### Animations
+- Tirer
+- Recharger
+- Viser
+
+## 🔸 Couteau Baïonnette
+Couteau en guise d'arme au corps-à-corps, utile pour les combats rapproché.
+
+### Attributs
+- **Dégâts** : à determiner
+- **Mode de tir** : coup par coup
+- **Cadence de tir** : à determiner
+- **Balles par chargeur** : à determiner
+    - Nombre de balle à tirer avant de devoir recharger
+- **Temps de rechargement** : à determiner
+    - Temps nécessaire sans interruption pour pouvoir recharger les balles de l'arme complètement
+- **Rareté** : Commune - Légendaire
+    - Les dégâts augmentent avec la rareté
+
+### Actions
+- Tirer
+- Recharger
+- Viser
+- Lâcher au sol
+
+### Animations
+- Tirer
+- Recharger
+- Viser
 
 # 🔷 Objets
 
