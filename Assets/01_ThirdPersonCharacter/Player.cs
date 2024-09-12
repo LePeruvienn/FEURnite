@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Fusion;
 using Fusion.Addons.SimpleKCC;
+using Unity.VisualScripting;
+using Random = UnityEngine.Random;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -19,6 +22,7 @@ namespace Starter.ThirdPersonCharacter
 		[Header("Movement Setup")]
 		public float WalkSpeed = 2f;
 		public float SprintSpeed = 5f;
+		public float AimSpeed = 1f;
 		public float JumpImpulse = 10f;
 		public float UpGravity = 25f;
 		public float DownGravity = 40f;
@@ -29,7 +33,12 @@ namespace Starter.ThirdPersonCharacter
 		public float GroundDeceleration = 25f;
 		public float AirAcceleration = 25f;
 		public float AirDeceleration = 1.3f;
-
+		
+		[Header("Camera Zoom")]
+		public float normalFOV = 40f;    // Regular camera FOV
+		public float aimFOV = 25f;       // Zoomed in FOV when aiming
+		public float zoomSpeed = 5f;     // Speed of zoom transition
+		
 		[Header("Sounds")]
         public AudioClip[] FootstepAudioClips;
 		public AudioClip LandingAudioClip;
@@ -38,6 +47,8 @@ namespace Starter.ThirdPersonCharacter
 
 		[Networked]
 		private NetworkBool _isJumping { get; set; }
+		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
+		private NetworkBool _isMoving { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
 
 		private Vector3 _moveVelocity;
 
@@ -47,6 +58,8 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDJump;
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
+		private int _animIDAim;
+		private int _animIDMoving;
 
 		public override void FixedUpdateNetwork()
 		{
@@ -68,6 +81,8 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDJump, _isJumping);
 			Animator.SetBool(_animIDGrounded, KCC.IsGrounded);
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
+			Animator.SetBool(_animIDAim, _isAiming);
+			Animator.SetBool(_animIDMoving, _isMoving);
 		}
 
 		private void Awake()
@@ -85,6 +100,10 @@ namespace Starter.ThirdPersonCharacter
 			// Update camera pivot and transfer properties from camera handle to Main Camera.
 			CameraPivot.rotation = Quaternion.Euler(PlayerInput.CurrentInput.LookRotation);
 			Camera.main.transform.SetPositionAndRotation(CameraHandle.position, CameraHandle.rotation);
+
+			// Handle camera zooming based on whether the player is aiming
+			float targetFOV = _isAiming ? aimFOV : normalFOV; // Set target FOV
+			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
 		}
 
 		private void ProcessInput(GameplayInput input)
@@ -99,11 +118,28 @@ namespace Starter.ThirdPersonCharacter
 				_isJumping = true;
 			}
 
+			// Set is Aiming to true if player is aiming
+			_isAiming = input.Aiming;
+
 			// It feels better when the player falls quicker
 			KCC.SetGravity(KCC.RealVelocity.y >= 0f ? UpGravity : DownGravity);
-
-			float speed = input.Sprint ? SprintSpeed : WalkSpeed;
-
+		
+			// On définis la variable speed du joueur
+			float speed;
+			
+			if (input.Aiming) // Si il vise
+			{
+				speed = AimSpeed;
+			}
+			else if (input.Sprint) // Si il est en train de courrir
+			{
+				speed = SprintSpeed;
+			}
+			else // Si il fait aucun des deux, alors il marche
+			{
+				speed = WalkSpeed;
+			}
+			
 			var lookRotation = Quaternion.Euler(0f, input.LookRotation.y, 0f);
 			// Calculate correct move direction from input (rotated based on camera look)
 			var moveDirection = lookRotation * new Vector3(input.MoveDirection.x, 0f, input.MoveDirection.y);
@@ -136,6 +172,9 @@ namespace Starter.ThirdPersonCharacter
 			}
 
 			KCC.Move(_moveVelocity, jumpImpulse);
+			
+			// Check if Player is moving
+			_isMoving = _moveVelocity.magnitude > 0.1f;
 		}
 
 		private void AssignAnimationIDs()
@@ -145,6 +184,8 @@ namespace Starter.ThirdPersonCharacter
 			_animIDJump = Animator.StringToHash("Jump");
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+			_animIDAim = Animator.StringToHash("Aim");
+			_animIDMoving = Animator.StringToHash("Moving");
 		}
 
 		// Animation event
