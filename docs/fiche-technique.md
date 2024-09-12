@@ -386,25 +386,20 @@ Couteau en guise d'arme au corps-à-corps, utile pour les combats rapproché.
 
 ### Attributs
 - **Dégâts** : à determiner
-- **Mode de tir** : coup par coup
+- **Mode de tir** : automatique
 - **Cadence de tir** : à determiner
-- **Balles par chargeur** : à determiner
+- **Balles par chargeur** : infini
     - Nombre de balle à tirer avant de devoir recharger
-- **Temps de rechargement** : à determiner
+- **Temps de rechargement** : aucun
     - Temps nécessaire sans interruption pour pouvoir recharger les balles de l'arme complètement
-- **Rareté** : Commune - Légendaire
+- **Rareté** : Commune
     - Les dégâts augmentent avec la rareté
 
 ### Actions
 - Tirer
-- Recharger
-- Viser
-- Lâcher au sol
 
 ### Animations
 - Tirer
-- Recharger
-- Viser
 
 # 🔷 Objets
 
