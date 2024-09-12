@@ -1510,6 +1510,7 @@ MonoBehaviour:
   CameraHandle: {fileID: 731564128534069688}
   WalkSpeed: 2
   SprintSpeed: 5
+  AimSpeed: 1
   JumpImpulse: 10
   UpGravity: -25
   DownGravity: -40
@@ -1543,7 +1544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6663e986476474cafd83e62cbec46ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LookSensitivity: 3
 --- !u!114 &2550293436682645114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1567,7 +1567,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 1
     ProxyInterpolationMode: 0
-    TeleportThreshold: 1
+    MaxPenetrationSteps: 8
+    CCDRadiusMultiplier: 0.75
     AntiJitterDistance: {x: 0.025, y: 0.01}
     CompressNetworkPosition: 0
     ForcePredictedLookRotation: 0

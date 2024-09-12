@@ -73,7 +73,6 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDGrounded, KCC.IsGrounded);
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
 			Animator.SetBool(_animIDAim, _isAiming);
-			Debug.Log(_isAiming);
 		}
 
 		private void Awake()
