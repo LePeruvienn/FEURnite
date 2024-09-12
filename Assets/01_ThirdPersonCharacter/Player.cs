@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Fusion;
 using Fusion.Addons.SimpleKCC;
 using Unity.VisualScripting;
+using Random = UnityEngine.Random;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -41,6 +43,7 @@ namespace Starter.ThirdPersonCharacter
 		[Networked]
 		private NetworkBool _isJumping { get; set; }
 		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
+		private NetworkBool _isMoving { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
 
 		private Vector3 _moveVelocity;
 
@@ -51,6 +54,7 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
 		private int _animIDAim;
+		private int _animIDMoving;
 
 		public override void FixedUpdateNetwork()
 		{
@@ -73,6 +77,7 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDGrounded, KCC.IsGrounded);
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
 			Animator.SetBool(_animIDAim, _isAiming);
+			Animator.SetBool(_animIDMoving, _isMoving);
 		}
 
 		private void Awake()
@@ -158,6 +163,9 @@ namespace Starter.ThirdPersonCharacter
 			}
 
 			KCC.Move(_moveVelocity, jumpImpulse);
+			
+			// Check if Player is moving
+			_isMoving = _moveVelocity.magnitude > 0.1f;
 		}
 
 		private void AssignAnimationIDs()
@@ -168,6 +176,7 @@ namespace Starter.ThirdPersonCharacter
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDAim = Animator.StringToHash("Aim");
+			_animIDMoving = Animator.StringToHash("Moving");
 		}
 
 		// Animation event
