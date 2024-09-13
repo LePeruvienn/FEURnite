@@ -1,29 +1,7 @@
-![alt text](logo.png)
-
 # FEURnite
 
 Projet S5 Développement 3D
 
-Création d'un clone de Fortnite
+## Développement des animations et modèle 3D ...
 
-## Authors
-
-- Arthur
-- Maxence
-- Dorry-san (Doryan)
-- Alice
-- Yanis
-- Antoine
-- Antonio
-- Adem
-- Théo
-- Corentin
-- William
-
-*(Total: 11)*
-
-## Tech Stack
-
-**Engine:** Unity  
-**Server:** Poth
-
+DE MAXENCE
