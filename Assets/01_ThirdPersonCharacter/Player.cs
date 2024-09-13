@@ -19,7 +19,7 @@ namespace Starter.ThirdPersonCharacter
 		public Transform CameraPivot;
 		public Transform CameraHandle;
 
-		[Header("Movement Setup")]
+        [Header("Movement Setup")]
 		public float WalkSpeed = 2f;
 		public float SprintSpeed = 5f;
 		public float AimSpeed = 1f;
@@ -99,12 +99,15 @@ namespace Starter.ThirdPersonCharacter
 
 			// Update camera pivot and transfer properties from camera handle to Main Camera.
 			CameraPivot.rotation = Quaternion.Euler(PlayerInput.CurrentInput.LookRotation);
-			Camera.main.transform.SetPositionAndRotation(CameraHandle.position, CameraHandle.rotation);
+
+            Camera.main.transform.SetPositionAndRotation(CameraHandle.position, CameraHandle.rotation);
 
 			// Handle camera zooming based on whether the player is aiming
 			float targetFOV = _isAiming ? aimFOV : normalFOV; // Set target FOV
 			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
-		}
+
+
+        }
 
 		private void ProcessInput(GameplayInput input)
 		{
@@ -142,25 +145,55 @@ namespace Starter.ThirdPersonCharacter
 			
 			var lookRotation = Quaternion.Euler(0f, input.LookRotation.y, 0f);
 			// Calculate correct move direction from input (rotated based on camera look)
-			var moveDirection = lookRotation * new Vector3(input.MoveDirection.x, 0f, input.MoveDirection.y);
-			var desiredMoveVelocity = moveDirection * speed;
+			var moveDirection = lookRotation * new Vector3(input.MoveDirection.x, 0f, input.MoveDirection.y); 
+            var desiredMoveVelocity = moveDirection * speed;
 
 			float acceleration;
-			if (desiredMoveVelocity == Vector3.zero)
-			{
-				// No desired move velocity - we are stopping
-				acceleration = KCC.IsGrounded ? GroundDeceleration : AirDeceleration;
-			}
-			else
-			{
-				// Rotate the character towards move direction over time
-				var currentRotation = KCC.TransformRotation;
-				var targetRotation = Quaternion.LookRotation(moveDirection);
-				var nextRotation = Quaternion.Lerp(currentRotation, targetRotation, RotationSpeed * Runner.DeltaTime);
 
-				KCC.SetLookRotation(nextRotation.eulerAngles);
+            //the LookTarget is att the same pos that the camera
+            GameObject CameraHandleOriginalGameObject = GameObject.Find("T-Pose");
+            GameObject LookTarget = CameraHandleOriginalGameObject.transform.GetChild(0).gameObject;
+            LookTarget.transform.position = Camera.main.transform.position;
 
-				acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
+            // Define the distance you want the object to be in front of the camera
+            float distanceFromCamera = 10f;
+
+            // Set LookTarget's position to be in front of the camera, at the specified distance
+            LookTarget.transform.position = Camera.main.transform.position + Camera.main.transform.forward * distanceFromCamera;
+
+            if (PlayerInput.CurrentInput.Aiming)
+            {
+                // When aiming, rotate the character to face the LookTarget object
+                Vector3 directionToTarget = LookTarget.transform.position - KCC.transform.position;
+                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
+
+                // Smoothly rotate the character towards the LookTarget
+                Quaternion nextRotation = Quaternion.Lerp(KCC.TransformRotation, targetRotation, RotationSpeed * Runner.DeltaTime * 3);
+
+                // Apply the rotation
+                KCC.SetLookRotation(nextRotation.eulerAngles);
+
+                // Use the same acceleration, whether grounded or not
+                acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
+            }
+            else
+            {
+                if (desiredMoveVelocity == Vector3.zero)
+				{
+					// No desired move velocity - we are stopping
+					acceleration = KCC.IsGrounded ? GroundDeceleration : AirDeceleration;
+				}
+				else
+				{
+					// Rotate the character towards move direction over time
+					var currentRotation = KCC.TransformRotation;
+					var targetRotation = Quaternion.LookRotation(moveDirection);
+					var nextRotation = Quaternion.Lerp(currentRotation, targetRotation, RotationSpeed * Runner.DeltaTime);
+
+					KCC.SetLookRotation(nextRotation.eulerAngles);
+
+					acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
+				}
 			}
 
 			_moveVelocity = Vector3.Lerp(_moveVelocity, desiredMoveVelocity, acceleration * Runner.DeltaTime);
@@ -175,7 +208,13 @@ namespace Starter.ThirdPersonCharacter
 			
 			// Check if Player is moving
 			_isMoving = _moveVelocity.magnitude > 0.1f;
-		}
+
+
+            Debug.Log(LookTarget.transform.position);
+
+
+
+        }
 
 		private void AssignAnimationIDs()
 		{
