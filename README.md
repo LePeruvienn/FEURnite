@@ -2,7 +2,6 @@
 
 Projet S5 Développement 3D
 
-## Développement des mécaniques de base
+## Développement des animations et modèle 3D ...
 
-- Arthur
-- Antonio
+DE MAXENCE
