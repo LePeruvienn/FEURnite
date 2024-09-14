@@ -12,7 +12,7 @@ namespace Starter.ThirdPersonCharacter
 	/// </summary>
 	public sealed class Player : NetworkBehaviour
 	{
-		[Header("References")]
+        [Header("References")]
 		public SimpleKCC KCC;
 		public PlayerInput PlayerInput;
 		public Animator Animator;
@@ -21,9 +21,9 @@ namespace Starter.ThirdPersonCharacter
 
         [Header("Movement Setup")]
 		public float WalkSpeed = 2f;
-		public float SprintSpeed = 5f;
+		public float SprintSpeed = 7f;
 		public float AimSpeed = 1f;
-		public float JumpImpulse = 10f;
+		public float JumpImpulse = 14f;
 		public float UpGravity = 25f;
 		public float DownGravity = 40f;
 		public float RotationSpeed = 8f;
@@ -36,7 +36,7 @@ namespace Starter.ThirdPersonCharacter
 		
 		[Header("Camera Zoom")]
 		public float normalFOV = 40f;    // Regular camera FOV
-		public float aimFOV = 25f;       // Zoomed in FOV when aiming
+		public float aimFOV = 20f;       // Zoomed in FOV when aiming
 		public float zoomSpeed = 5f;     // Speed of zoom transition
 		
 		[Header("Sounds")]
@@ -50,10 +50,12 @@ namespace Starter.ThirdPersonCharacter
 		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
 		private NetworkBool _isMoving { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
 
-		private Vector3 _moveVelocity;
+        private Vector3 _moveVelocity;
 
-		// Animation IDs
-		private int _animIDSpeed;
+        [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
+
+        // Animation IDs
+        private int _animIDSpeed;
 		private int _animIDGrounded;
 		private int _animIDJump;
 		private int _animIDFreeFall;
@@ -105,13 +107,12 @@ namespace Starter.ThirdPersonCharacter
 			// Handle camera zooming based on whether the player is aiming
 			float targetFOV = _isAiming ? aimFOV : normalFOV; // Set target FOV
 			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
-
-
         }
 
 		private void ProcessInput(GameplayInput input)
 		{
-			float jumpImpulse = 0f;
+
+            float jumpImpulse = 0f;
 
 			// Comparing current input buttons to previous input buttons - this prevents glitches when input is lost
 			if (KCC.IsGrounded && input.Jump)
@@ -150,53 +151,53 @@ namespace Starter.ThirdPersonCharacter
 
 			float acceleration;
 
-            //the LookTarget is att the same pos that the camera
-            GameObject CameraHandleOriginalGameObject = GameObject.Find("T-Pose");
-            GameObject LookTarget = CameraHandleOriginalGameObject.transform.GetChild(0).gameObject;
-            LookTarget.transform.position = Camera.main.transform.position;
 
-            // Define the distance you want the object to be in front of the camera
-            float distanceFromCamera = 10f;
 
-            // Set LookTarget's position to be in front of the camera, at the specified distance
-            LookTarget.transform.position = Camera.main.transform.position + Camera.main.transform.forward * distanceFromCamera;
 
-            if (PlayerInput.CurrentInput.Aiming)
+            Vector3 mouseWorldPosition = Vector3.zero;
+            Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+            Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+            if (Physics.Raycast(ray, out RaycastHit rayCastHit, 999f, aimColliderLayerMask))
             {
-                // When aiming, rotate the character to face the LookTarget object
-                Vector3 directionToTarget = LookTarget.transform.position - KCC.transform.position;
-                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
+                mouseWorldPosition = rayCastHit.point;
+            }
 
+            if (desiredMoveVelocity == Vector3.zero)
+			{
+				// No desired move velocity - we are stopping
+				acceleration = KCC.IsGrounded ? GroundDeceleration : AirDeceleration;
+			}
+			if (input.Aiming) 
+            {
+                Vector3 worldAimTarget = mouseWorldPosition;
+                worldAimTarget.y = transform.position.y;
+                // When aiming, rotate the character to face the LookTarget object
+                Vector3 directionToTarget = worldAimTarget - KCC.transform.position;
+                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
                 // Smoothly rotate the character towards the LookTarget
                 Quaternion nextRotation = Quaternion.Lerp(KCC.TransformRotation, targetRotation, RotationSpeed * Runner.DeltaTime * 3);
-
                 // Apply the rotation
                 KCC.SetLookRotation(nextRotation.eulerAngles);
 
-                // Use the same acceleration, whether grounded or not
+
                 acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
-            }
+			}
             else
             {
-                if (desiredMoveVelocity == Vector3.zero)
-				{
-					// No desired move velocity - we are stopping
-					acceleration = KCC.IsGrounded ? GroundDeceleration : AirDeceleration;
-				}
-				else
-				{
-					// Rotate the character towards move direction over time
-					var currentRotation = KCC.TransformRotation;
-					var targetRotation = Quaternion.LookRotation(moveDirection);
-					var nextRotation = Quaternion.Lerp(currentRotation, targetRotation, RotationSpeed * Runner.DeltaTime);
+                    
+				// Rotate the character towards move direction over time
+				var currentRotation = KCC.TransformRotation;
+				var targetRotation = Quaternion.LookRotation(moveDirection);
+				var nextRotation = Quaternion.Lerp(currentRotation, targetRotation, RotationSpeed * Runner.DeltaTime);
 
-					KCC.SetLookRotation(nextRotation.eulerAngles);
+				KCC.SetLookRotation(nextRotation.eulerAngles);
 
-					acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
-				}
-			}
+				acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
 
-			_moveVelocity = Vector3.Lerp(_moveVelocity, desiredMoveVelocity, acceleration * Runner.DeltaTime);
+            }
+            
+
+            _moveVelocity = Vector3.Lerp(_moveVelocity, desiredMoveVelocity, acceleration * Runner.DeltaTime);
 
 			// Ensure consistent movement speed even on steep slope
 			if (KCC.ProjectOnGround(_moveVelocity, out var projectedVector))
@@ -210,13 +211,9 @@ namespace Starter.ThirdPersonCharacter
 			_isMoving = _moveVelocity.magnitude > 0.1f;
 
 
-            Debug.Log(LookTarget.transform.position);
-
-
-
         }
 
-		private void AssignAnimationIDs()
+        private void AssignAnimationIDs()
 		{
 			_animIDSpeed = Animator.StringToHash("Speed");
 			_animIDGrounded = Animator.StringToHash("Grounded");
