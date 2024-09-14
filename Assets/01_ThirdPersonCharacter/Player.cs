@@ -48,11 +48,14 @@ namespace Starter.ThirdPersonCharacter
 		[Networked]
 		private NetworkBool _isJumping { get; set; }
 		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
-		private NetworkBool _isMoving { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
+		private NetworkBool _isMoving { get; set; }
+        private NetworkBool _isShooting { get; set; }
 
         private Vector3 _moveVelocity;
 
         [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
+        [SerializeField] private Transform BulletPrefab;
+        [SerializeField] private Transform SpawnBulletPosition;
 
         // Animation IDs
         private int _animIDSpeed;
@@ -124,9 +127,11 @@ namespace Starter.ThirdPersonCharacter
 
 			// Set is Aiming to true if player is aiming
 			_isAiming = input.Aiming;
+            // Set is Shooting to true if player Shoot
+            _isShooting = input.Shoot;
 
-			// It feels better when the player falls quicker
-			KCC.SetGravity(KCC.RealVelocity.y >= 0f ? UpGravity : DownGravity);
+            // It feels better when the player falls quicker
+            KCC.SetGravity(KCC.RealVelocity.y >= 0f ? UpGravity : DownGravity);
 		
 			// On définis la variable speed du joueur
 			float speed;
@@ -150,9 +155,6 @@ namespace Starter.ThirdPersonCharacter
             var desiredMoveVelocity = moveDirection * speed;
 
 			float acceleration;
-
-
-
 
             Vector3 mouseWorldPosition = Vector3.zero;
             Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
@@ -184,7 +186,6 @@ namespace Starter.ThirdPersonCharacter
 			}
             else
             {
-                    
 				// Rotate the character towards move direction over time
 				var currentRotation = KCC.TransformRotation;
 				var targetRotation = Quaternion.LookRotation(moveDirection);
@@ -193,9 +194,7 @@ namespace Starter.ThirdPersonCharacter
 				KCC.SetLookRotation(nextRotation.eulerAngles);
 
 				acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
-
             }
-            
 
             _moveVelocity = Vector3.Lerp(_moveVelocity, desiredMoveVelocity, acceleration * Runner.DeltaTime);
 
@@ -210,7 +209,13 @@ namespace Starter.ThirdPersonCharacter
 			// Check if Player is moving
 			_isMoving = _moveVelocity.magnitude > 0.1f;
 
-
+            //Create and Shoot the bullet
+            if (input.Shoot)
+			{
+				Vector3 aimDir = (mouseWorldPosition - SpawnBulletPosition.position).normalized;
+				Instantiate(BulletPrefab,SpawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+				input.Shoot = false;
+			}
         }
 
         private void AssignAnimationIDs()

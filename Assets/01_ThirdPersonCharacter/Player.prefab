@@ -210,7 +210,6 @@ GameObject:
   - component: {fileID: 2832144883721897763}
   - component: {fileID: 8977374523368408542}
   - component: {fileID: 2550293436682645114}
-  - component: {fileID: -8539010030235699729}
   - component: {fileID: 426045580450923874}
   - component: {fileID: 8687737207959842141}
   - component: {fileID: 5944864648535768048}
@@ -235,6 +234,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6001098547448896335}
   - {fileID: 1793217096709504560}
   - {fileID: 4799752737769325237}
   m_Father: {fileID: 0}
@@ -258,7 +258,6 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 2832144883721897763}
   - {fileID: 2550293436682645114}
-  - {fileID: -8539010030235699729}
 --- !u!114 &2832144883721897763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,8 +305,9 @@ MonoBehaviour:
   aimColliderLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  debugTransform: {fileID: 3690674060160691068, guid: 6a6842b064fbf834da7e56e1d1517015,
+  BulletPrefab: {fileID: 2074552820256412260, guid: 630745ea5f2d9be4ab6e40afb3c95d06,
     type: 3}
+  SpawnBulletPosition: {fileID: 6001098547448896335}
 --- !u!114 &8977374523368408542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,25 +356,6 @@ MonoBehaviour:
     StepRequireGroundTarget: 0
     SnapDistance: 0.5
     SnapSpeed: 4
---- !u!114 &-8539010030235699729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5609267092368825421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 750935d450ffe2f40905b50a8abed761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aimColliderLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  debugTransform: {fileID: 3690674060160691068, guid: 6a6842b064fbf834da7e56e1d1517015,
-    type: 3}
-  KCC: {fileID: 0}
-  PlayerInput: {fileID: 8977374523368408542}
 --- !u!54 &426045580450923874
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -491,6 +472,37 @@ MonoBehaviour:
   - {fileID: 8572948724112088405}
   - {fileID: 264555675758390812}
   - {fileID: 3106169652300612739}
+--- !u!1 &6603779748500230594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6001098547448896335}
+  m_Layer: 0
+  m_Name: SpawnBulletPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6001098547448896335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6603779748500230594}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.38, y: 1.19, z: 1.92}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7486161783106940773}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4978338864647005534
 PrefabInstance:
   m_ObjectHideFlags: 0

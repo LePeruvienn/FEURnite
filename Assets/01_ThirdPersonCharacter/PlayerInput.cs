@@ -12,7 +12,8 @@ namespace Starter.ThirdPersonCharacter
 		public bool Jump;
 		public bool Sprint;
 		public bool Aiming;
-	}
+		public bool Shoot;
+    }
 
 	/// <summary>
 	/// PlayerInput handles accumulating player input from Unity.
@@ -29,7 +30,8 @@ namespace Starter.ThirdPersonCharacter
 			_input.Jump = false;
 			_input.Sprint = false;
 			_input.Aiming = false;
-		}
+            _input.Shoot = false;
+        }
 
 		private void Update()
 		{
@@ -49,7 +51,8 @@ namespace Starter.ThirdPersonCharacter
 			_input.Jump |= Input.GetButtonDown("Jump");
 			_input.Sprint |= Input.GetButton("Sprint");
 			_input.Aiming |= Input.GetButton("Fire2");
-		}
+            _input.Shoot |= Input.GetButton("Fire1");
+        }
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)
 		{
