@@ -60,6 +60,21 @@ namespace Starter.ThirdPersonCharacter
 			}
 		}
 		
+		// Use current selection
+		public void useCurrentSelection()
+		{
+			// Getting current selection
+			GameObject obj = inventory[selectedIndex];
+			// If had selected an object
+			if (obj != null)
+			{
+				// Getting current item
+				Item item = obj.GetComponent<Item>();
+				// If object is a item use it
+				if (item != null)
+					item.use();
+			}
+		}
 
 		// Return the current selected object
 		public GameObject getCurrentSelection()

@@ -55,6 +55,7 @@ namespace Starter.ThirdPersonCharacter
 
         private Vector3 _moveVelocity;
 
+        // Shoot mecanism
         [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
         [SerializeField] private Transform BulletPrefab;
         [SerializeField] private Transform SpawnBulletPosition;
@@ -226,9 +227,7 @@ namespace Starter.ThirdPersonCharacter
             //Create and Shoot the bullet
             if (input.Shoot)
 			{
-				Vector3 aimDir = (mouseWorldPosition - SpawnBulletPosition.position).normalized;
-				Instantiate(BulletPrefab,SpawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-				input.Shoot = false;
+				PlayerInventory.useCurrentSelection();
 			}
         }
 
