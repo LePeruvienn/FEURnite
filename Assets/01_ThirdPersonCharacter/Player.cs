@@ -4,6 +4,7 @@ using Fusion;
 using Fusion.Addons.SimpleKCC;
 using Unity.VisualScripting;
 using Random = UnityEngine.Random;
+using UnityEngine.Animations.Rigging;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -56,6 +57,7 @@ namespace Starter.ThirdPersonCharacter
         [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
         [SerializeField] private Transform BulletPrefab;
         [SerializeField] private Transform SpawnBulletPosition;
+        [SerializeField] private Rig aimRig;
 
         // Animation IDs
         private int _animIDSpeed;
@@ -164,13 +166,30 @@ namespace Starter.ThirdPersonCharacter
                 mouseWorldPosition = rayCastHit.point;
             }
 
+
             if (desiredMoveVelocity == Vector3.zero)
 			{
 				// No desired move velocity - we are stopping
 				acceleration = KCC.IsGrounded ? GroundDeceleration : AirDeceleration;
-			}
-			if (input.Aiming) 
+                //animation
+                // aimRig.weight = 0f;
+            }
+            else
             {
+                // Rotate the character towards move direction over time
+                var currentRotation = KCC.TransformRotation;
+                var targetRotation = Quaternion.LookRotation(moveDirection);
+                var nextRotation = Quaternion.Lerp(currentRotation, targetRotation, RotationSpeed * Runner.DeltaTime);
+
+                KCC.SetLookRotation(nextRotation.eulerAngles);
+
+                acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
+                //animation
+                //aimRig.weight = 0f;
+            }
+            if (input.Aiming) 
+            {
+
                 Vector3 worldAimTarget = mouseWorldPosition;
                 worldAimTarget.y = transform.position.y;
                 // When aiming, rotate the character to face the LookTarget object
@@ -181,20 +200,11 @@ namespace Starter.ThirdPersonCharacter
                 // Apply the rotation
                 KCC.SetLookRotation(nextRotation.eulerAngles);
 
-
                 acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
+
+				//animation
+				//aimRig.weight = 1f;
 			}
-            else
-            {
-				// Rotate the character towards move direction over time
-				var currentRotation = KCC.TransformRotation;
-				var targetRotation = Quaternion.LookRotation(moveDirection);
-				var nextRotation = Quaternion.Lerp(currentRotation, targetRotation, RotationSpeed * Runner.DeltaTime);
-
-				KCC.SetLookRotation(nextRotation.eulerAngles);
-
-				acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
-            }
 
             _moveVelocity = Vector3.Lerp(_moveVelocity, desiredMoveVelocity, acceleration * Runner.DeltaTime);
 

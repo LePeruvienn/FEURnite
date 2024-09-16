@@ -51,7 +51,7 @@ namespace Starter.ThirdPersonCharacter
 			_input.Jump |= Input.GetButtonDown("Jump");
 			_input.Sprint |= Input.GetButton("Sprint");
 			_input.Aiming |= Input.GetButton("Fire2");
-            _input.Shoot |= Input.GetButton("Fire1");
+            _input.Shoot |= Input.GetButtonDown("Fire1");
         }
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)
