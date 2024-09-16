@@ -16,6 +16,7 @@ namespace Starter.ThirdPersonCharacter
         [Header("References")]
 		public SimpleKCC KCC;
 		public PlayerInput PlayerInput;
+		public PlayerInventory PlayerInventory;
 		public Animator Animator;
 		public Transform CameraPivot;
 		public Transform CameraHandle;
@@ -150,6 +151,9 @@ namespace Starter.ThirdPersonCharacter
 			{
 				speed = WalkSpeed;
 			}
+			
+			// Inventory Update
+			PlayerInventory.switchSelection(input.Scroll);
 			
 			var lookRotation = Quaternion.Euler(0f, input.LookRotation.y, 0f);
 			// Calculate correct move direction from input (rotated based on camera look)
