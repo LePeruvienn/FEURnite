@@ -22,12 +22,14 @@ namespace Starter.ThirdPersonCharacter
         public float fireRate; // Bullet per seconds that the weapon shoot
         public int damage; // Damage applying for each bullet to the player
         public int realoadCooldown; // Reload time to get full ammo
+        public int currentAmmoAmount; // Amount of bullet currenty in the charger
         public int chargerAmmoAmount; // Bullet per charger
         public int ammoType; // Type of bullet the weapon use
 
         // Privates
+        private int currentAmmo;
         private Transform spawnBulletPosition; // Where the bullet is gonna spawn
-        
+
         public override int getType()
         {
             return Item.__TYPE_WEAPON__;
@@ -59,6 +61,11 @@ namespace Starter.ThirdPersonCharacter
             // Shoot the bullet prefab
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
             Instantiate(bulletPrefab,spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+        }
+
+        public void reload()
+        {
+            // TODO
         }
     }
 }

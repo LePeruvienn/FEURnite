@@ -56,10 +56,8 @@ namespace Starter.ThirdPersonCharacter
         private Vector3 _moveVelocity;
 
         // Shoot mecanism
-        [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
-        [SerializeField] private Transform BulletPrefab;
-        [SerializeField] private Transform SpawnBulletPosition;
-        [SerializeField] private Rig aimRig;
+        [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+        [SerializeField] private Rig aimRig; // Je sais pas à quoi ça sert faut demander à Maxence
 
         // Animation IDs
         private int _animIDSpeed;
@@ -163,6 +161,8 @@ namespace Starter.ThirdPersonCharacter
 
 			float acceleration;
 
+			// Plus utile pour le shoot
+			/*-------------------------------------------------------------------------------------*/
             Vector3 mouseWorldPosition = Vector3.zero;
             Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
             Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
@@ -170,6 +170,7 @@ namespace Starter.ThirdPersonCharacter
             {
                 mouseWorldPosition = rayCastHit.point;
             }
+			/*-------------------------------------------------------------------------------------*/
 
 
             if (desiredMoveVelocity == Vector3.zero)
@@ -195,6 +196,9 @@ namespace Starter.ThirdPersonCharacter
             if (input.Aiming) 
             {
 
+	            
+				// Je sais pas à quoi sert le aimRig, peut être que c'est inutile ?
+				/*-------------------------------------------------------------------------------------*/
                 Vector3 worldAimTarget = mouseWorldPosition;
                 worldAimTarget.y = transform.position.y;
                 // When aiming, rotate the character to face the LookTarget object
