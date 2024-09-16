@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace Starter.ThirdPersonCharacter
         
 		[Header("Weapon References")]
         public GameObject bulletPrefab; // The bullet to use when shooting
+		public Transform CameraPivot;
+		public Transform CameraHandle;
         
 		[Header("Weapon Stats")]
         public float fireRate; // Bullet per seconds that the weapon shoot
@@ -24,7 +27,6 @@ namespace Starter.ThirdPersonCharacter
 
         // Privates
         private Transform spawnBulletPosition; // Where the bullet is gonna spawn
-        private LayerMask aimColliderLayerMask = new LayerMask();
         
         public override int getType()
         {
@@ -37,14 +39,22 @@ namespace Starter.ThirdPersonCharacter
             if (spawnBulletPosition == null)
                 spawnBulletPosition = GameObject.FindGameObjectWithTag("spawnBulletPos").transform; // If he is null we set it
             
-            // Get where we are aiming
-            Vector3 mouseWorldPosition = Vector3.zero;
-            Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-            Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
-            if (Physics.Raycast(ray, out RaycastHit rayCastHit, 999f, aimColliderLayerMask))
+            // Setting up raycast variables
+            Vector3 mouseWorldPosition = Vector3.zero; // Default vector
+            Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
+            float rayLength = 500f; // Raycast length
+            
+            // Doing the raycast !
+            Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
+            
+            // Setting output variable
+            RaycastHit hit;
+            
+            // If raycast hit
+            if (Physics.Raycast(ray, out hit, rayLength))
             {
-                mouseWorldPosition = rayCastHit.point;
-            }
+                mouseWorldPosition = hit.point; // Set the target point to the point hit by the raycast
+            } 
             
             // Shoot the bullet prefab
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
