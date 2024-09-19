@@ -169,43 +169,56 @@ namespace Starter.ThirdPersonCharacter
             {
                 mouseWorldPosition = rayCastHit.point;
             }
-			/*-------------------------------------------------------------------------------------*/
 
+            /*-------------------------------------------------------------------------------------*/
 
-            if (desiredMoveVelocity == Vector3.zero)
-			{
-				// No desired move velocity - we are stopping
-				acceleration = KCC.IsGrounded ? GroundDeceleration : AirDeceleration;
+            // Determine acceleration based on whether the player is grounded or in the air
+            acceleration = (desiredMoveVelocity == Vector3.zero)
+                           ? (KCC.IsGrounded ? GroundDeceleration : AirDeceleration)
+                           : (KCC.IsGrounded ? GroundAcceleration : AirAcceleration);
+
+            // Get the camera's forward direction (ignore the Y axis to keep the rotation horizontal)
+            Vector3 cameraForward = Camera.main.transform.forward;
+            cameraForward.y = 0;  // Keep only the horizontal rotation part
+            cameraForward.Normalize();
+
+            // Smoothly rotate the player based on movement or camera orientation
+            if (desiredMoveVelocity != Vector3.zero)
+            {
+                // Rotate based on movement direction
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                Quaternion nextRotation = Quaternion.Slerp(KCC.TransformRotation, targetRotation, RotationSpeed * Runner.DeltaTime);
+                KCC.SetLookRotation(nextRotation.eulerAngles);
             }
             else
             {
-                // Rotate the character towards move direction over time
-                var currentRotation = KCC.TransformRotation;
-                var targetRotation = Quaternion.LookRotation(moveDirection);
-                var nextRotation = Quaternion.Lerp(currentRotation, targetRotation, RotationSpeed * Runner.DeltaTime);
-
+                // Rotate the player towards the camera's forward direction if not moving
+                Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
+                Quaternion nextRotation = Quaternion.Slerp(KCC.TransformRotation, targetRotation, RotationSpeed * Runner.DeltaTime);
                 KCC.SetLookRotation(nextRotation.eulerAngles);
+            }
 
+            // Aim rotation logic
+            Vector3 worldAimTarget = mouseWorldPosition;
+            worldAimTarget.y = transform.position.y;
+            Vector3 directionToTarget = (worldAimTarget - KCC.transform.position).normalized;
+            float angleToTarget = Vector3.Angle(KCC.transform.forward, directionToTarget);
+
+            // Rotate smoothly if aiming or angle is greater than 80 degrees
+            if (input.Aiming || angleToTarget > 80f)
+            {
+                Quaternion targetAimRotation = Quaternion.LookRotation(directionToTarget);
+                Quaternion nextAimRotation = Quaternion.Slerp(KCC.TransformRotation, targetAimRotation, RotationSpeed * Runner.DeltaTime * 3);
+                KCC.SetLookRotation(nextAimRotation.eulerAngles);
+
+                // Ensure proper acceleration is set while rotating
                 acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
             }
-            if (input.Aiming) 
-            {
 
-	            
-				/*-------------------------------------------------------------------------------------*/
-                Vector3 worldAimTarget = mouseWorldPosition;
-                worldAimTarget.y = transform.position.y;
-                // When aiming, rotate the character to face the LookTarget object
-                Vector3 directionToTarget = worldAimTarget - KCC.transform.position;
-                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
-                // Smoothly rotate the character towards the LookTarget
-                Quaternion nextRotation = Quaternion.Lerp(KCC.TransformRotation, targetRotation, RotationSpeed * Runner.DeltaTime * 3);
-                // Apply the rotation
-                KCC.SetLookRotation(nextRotation.eulerAngles);
 
-                acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
 
-			}
+
+            /*-------------------------------------------------------------------------------------*/
 
             _moveVelocity = Vector3.Lerp(_moveVelocity, desiredMoveVelocity, acceleration * Runner.DeltaTime);
 
