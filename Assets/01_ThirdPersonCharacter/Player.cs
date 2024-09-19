@@ -57,7 +57,6 @@ namespace Starter.ThirdPersonCharacter
 
         // Shoot mecanism
         [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
-        [SerializeField] private Rig aimRig; // Je sais pas à quoi ça sert faut demander à Maxence
 
         // Animation IDs
         private int _animIDSpeed;
@@ -177,8 +176,6 @@ namespace Starter.ThirdPersonCharacter
 			{
 				// No desired move velocity - we are stopping
 				acceleration = KCC.IsGrounded ? GroundDeceleration : AirDeceleration;
-                //animation
-                // aimRig.weight = 0f;
             }
             else
             {
@@ -190,14 +187,11 @@ namespace Starter.ThirdPersonCharacter
                 KCC.SetLookRotation(nextRotation.eulerAngles);
 
                 acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
-                //animation
-                //aimRig.weight = 0f;
             }
             if (input.Aiming) 
             {
 
 	            
-				// Je sais pas à quoi sert le aimRig, peut être que c'est inutile ?
 				/*-------------------------------------------------------------------------------------*/
                 Vector3 worldAimTarget = mouseWorldPosition;
                 worldAimTarget.y = transform.position.y;
@@ -211,8 +205,6 @@ namespace Starter.ThirdPersonCharacter
 
                 acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
 
-				//animation
-				//aimRig.weight = 1f;
 			}
 
             _moveVelocity = Vector3.Lerp(_moveVelocity, desiredMoveVelocity, acceleration * Runner.DeltaTime);
