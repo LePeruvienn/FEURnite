@@ -57,6 +57,9 @@ namespace Starter.ThirdPersonCharacter
 
         // Shoot mecanism
         [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+
+        // Animation input
+        [Header("Animation Constraint")]
         public MultiAimConstraint multiAimConstraintBody; // Reference to the MultiAimConstraint component
         public MultiAimConstraint multiAimConstraintHead; // Reference to the MultiAimConstraint component
         public MultiAimConstraint multiAimConstraintWeapon; // Reference to the TwoBoneIKConstraint component
@@ -158,43 +161,36 @@ namespace Starter.ThirdPersonCharacter
 			// Inventory Update
 			PlayerInventory.switchSelection(input.Scroll);
 			
+
 			var lookRotation = Quaternion.Euler(0f, input.LookRotation.y, 0f);
 			// Calculate correct move direction from input (rotated based on camera look)
 			var moveDirection = lookRotation * new Vector3(input.MoveDirection.x, 0f, input.MoveDirection.y); 
             var desiredMoveVelocity = moveDirection * speed;
 
-			float acceleration;
 
-			// Plus utile pour le shoot
-			/*-------------------------------------------------------------------------------------*/
+			//create a Raycast to get the mouse position to use for the constaint
             Vector3 mouseWorldPosition = Vector3.zero;
-            Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-            Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
             if (Physics.Raycast(ray, out RaycastHit rayCastHit, 999f, aimColliderLayerMask))
             {
                 mouseWorldPosition = rayCastHit.point;
             }
-
-            /*-------------------------------------------------------------------------------------*/
-
-
-
-
-
-
             // Get the forward direction of the player
             Vector3 playerForward = KCC.transform.forward;
-            // Get the mousepos
-            Vector3 worldAimTarget = mouseWorldPosition;
-            worldAimTarget.y = transform.position.y;
+            mouseWorldPosition.y = transform.position.y;
+
             // Calculate the direction to the target
-            Vector3 directionToTarget = (worldAimTarget - KCC.transform.position).normalized;
+            Vector3 directionToTarget = (mouseWorldPosition - KCC.transform.position).normalized;
             // Calculate the angle between the player's forward direction and the direction to the target
             float angleToTarget = Vector3.Angle(playerForward, directionToTarget);
             // Get the currentRotation 
             Quaternion currentRotation = KCC.TransformRotation;
 			Quaternion targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
+
+			//speed of the rotation
 			var multiplicator = 1;
+            //speed of the Player
+            float acceleration;
 
             // Rotate the character towards move direction over time
             if (desiredMoveVelocity == Vector3.zero)
@@ -202,21 +198,22 @@ namespace Starter.ThirdPersonCharacter
                 // No desired move velocity - we are stopping
                 acceleration = KCC.IsGrounded ? GroundDeceleration : AirDeceleration;
 
-                if (input.Aiming || angleToTarget > 80f)
+                if ((input.Aiming || angleToTarget > 80f) && KCC.IsGrounded) // if is aiming or moving the camera we activate the Constrainte on the animation to make him aim properly
                 {
                     ActivateConstraintAim();
                     targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
                     multiplicator = 4;
-				}
-				else
+                }
+                else
                 {
                     DeactivateConstraintAim();
                 }
+				// we alwase need te constraint for movement si le joueur ne mouv pas
                 ActivateConstraintMovement();
             }
-			else 
-			{
-                if (input.Aiming)
+            else
+            {
+                if (input.Aiming && KCC.IsGrounded)// si le joueur mouv et qu'il vise on doit activer les constraint sur l'animation 
                 {
                     ActivateConstraintAim();
                     multiAimConstraintArm.weight = 1f;
@@ -230,7 +227,7 @@ namespace Starter.ThirdPersonCharacter
                     targetRotation = Quaternion.LookRotation(moveDirection);
                     multiplicator = 1;
                 }
-				if (angleToTarget > 130f)
+				if (angleToTarget > 130f) // si le joueur regarde deriére lui pour évité des bug on désactive la constraint
 				{
 					DeactivateConstraintMovement();
 				}
@@ -242,17 +239,11 @@ namespace Starter.ThirdPersonCharacter
 
             // Smoothly rotate the character towards the LookTarget
             Quaternion nextRotation = Quaternion.Lerp(KCC.TransformRotation, targetRotation, RotationSpeed * Runner.DeltaTime * multiplicator);
-            // Apply the rotation
+            // AND Apply the rotation that we calculated 
             KCC.SetLookRotation(nextRotation.eulerAngles);
+
+			//controle la vitesse du player 
             acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
-
-
-
-
-
-
-            /*-------------------------------------------------------------------------------------*/
-
             _moveVelocity = Vector3.Lerp(_moveVelocity, desiredMoveVelocity, acceleration * Runner.DeltaTime);
 
 			// Ensure consistent movement speed even on steep slope
@@ -303,28 +294,28 @@ namespace Starter.ThirdPersonCharacter
 			AudioSource.PlayClipAtPoint(LandingAudioClip, KCC.Position, FootstepAudioVolume);
 		}
 
-        // Activate Constraint
+        // Activate Constraint on the mouvement. for the head and body.
         private void ActivateConstraintMovement()
         {
             multiAimConstraintBody.weight = 1f;
             multiAimConstraintHead.weight = 1f;
         }
 
-        // Deactivate Constraint
+        // Deactivate Constraint on the mouvement. for the head and body.
         private void DeactivateConstraintMovement()
         {
             multiAimConstraintBody.weight = 0f;
             multiAimConstraintHead.weight = 0f;
         }
 
-        // Activate Constraint
+        // Activate Constraint when aiming. for the arm and the weapon.
         private void ActivateConstraintAim()
         {
             multiAimConstraintArm.weight = 1f;
             multiAimConstraintWeapon.weight = 1f;
         }
 
-        // Deactivate Constraint
+        // Deactivate Constraint when not aiming. for the arm and the weapon.
         private void DeactivateConstraintAim()
         {
             multiAimConstraintArm.weight = 0f;
