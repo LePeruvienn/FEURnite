@@ -57,6 +57,11 @@ namespace Starter.ThirdPersonCharacter
 
         // Shoot mecanism
         [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+        public MultiAimConstraint multiAimConstraintBody; // Reference to the MultiAimConstraint component
+        public MultiAimConstraint multiAimConstraintHead; // Reference to the MultiAimConstraint component
+        public MultiAimConstraint multiAimConstraintWeapon; // Reference to the TwoBoneIKConstraint component
+        public TwoBoneIKConstraint multiAimConstraintArm; // Reference to the TwoBoneIKConstraint component
+
 
         // Animation IDs
         private int _animIDSpeed;
@@ -172,48 +177,76 @@ namespace Starter.ThirdPersonCharacter
 
             /*-------------------------------------------------------------------------------------*/
 
-            // Determine acceleration based on whether the player is grounded or in the air
-            acceleration = (desiredMoveVelocity == Vector3.zero)
-                           ? (KCC.IsGrounded ? GroundDeceleration : AirDeceleration)
-                           : (KCC.IsGrounded ? GroundAcceleration : AirAcceleration);
 
-            // Get the camera's forward direction (ignore the Y axis to keep the rotation horizontal)
-            Vector3 cameraForward = Camera.main.transform.forward;
-            cameraForward.y = 0;  // Keep only the horizontal rotation part
-            cameraForward.Normalize();
 
-            // Smoothly rotate the player based on movement or camera orientation
-            if (desiredMoveVelocity != Vector3.zero)
-            {
-                // Rotate based on movement direction
-                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-                Quaternion nextRotation = Quaternion.Slerp(KCC.TransformRotation, targetRotation, RotationSpeed * Runner.DeltaTime);
-                KCC.SetLookRotation(nextRotation.eulerAngles);
-            }
-            else
-            {
-                // Rotate the player towards the camera's forward direction if not moving
-                Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
-                Quaternion nextRotation = Quaternion.Slerp(KCC.TransformRotation, targetRotation, RotationSpeed * Runner.DeltaTime);
-                KCC.SetLookRotation(nextRotation.eulerAngles);
-            }
 
-            // Aim rotation logic
+
+
+            // Get the forward direction of the player
+            Vector3 playerForward = KCC.transform.forward;
+            // Get the mousepos
             Vector3 worldAimTarget = mouseWorldPosition;
             worldAimTarget.y = transform.position.y;
+            // Calculate the direction to the target
             Vector3 directionToTarget = (worldAimTarget - KCC.transform.position).normalized;
-            float angleToTarget = Vector3.Angle(KCC.transform.forward, directionToTarget);
+            // Calculate the angle between the player's forward direction and the direction to the target
+            float angleToTarget = Vector3.Angle(playerForward, directionToTarget);
+            // Get the currentRotation 
+            Quaternion currentRotation = KCC.TransformRotation;
+			Quaternion targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
+			var multiplicator = 1;
 
-            // Rotate smoothly if aiming or angle is greater than 80 degrees
-            if (input.Aiming || angleToTarget > 80f)
+            // Rotate the character towards move direction over time
+            if (desiredMoveVelocity == Vector3.zero)
             {
-                Quaternion targetAimRotation = Quaternion.LookRotation(directionToTarget);
-                Quaternion nextAimRotation = Quaternion.Slerp(KCC.TransformRotation, targetAimRotation, RotationSpeed * Runner.DeltaTime * 3);
-                KCC.SetLookRotation(nextAimRotation.eulerAngles);
+                // No desired move velocity - we are stopping
+                acceleration = KCC.IsGrounded ? GroundDeceleration : AirDeceleration;
 
-                // Ensure proper acceleration is set while rotating
-                acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
+                if (input.Aiming || angleToTarget > 80f)
+                {
+                    ActivateConstraintAim();
+                    targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
+                    multiplicator = 4;
+				}
+				else
+                {
+                    DeactivateConstraintAim();
+                }
+                ActivateConstraintMovement();
             }
+			else 
+			{
+                if (input.Aiming)
+                {
+                    ActivateConstraintAim();
+                    multiAimConstraintArm.weight = 1f;
+                    targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
+                    multiplicator = 3;
+                }
+                else
+                {
+                    DeactivateConstraintAim();
+                    multiAimConstraintArm.weight = 0f;
+                    targetRotation = Quaternion.LookRotation(moveDirection);
+                    multiplicator = 1;
+                }
+				if (angleToTarget > 130f)
+				{
+					DeactivateConstraintMovement();
+				}
+				else
+				{
+                    ActivateConstraintMovement();
+				}
+            }
+
+            // Smoothly rotate the character towards the LookTarget
+            Quaternion nextRotation = Quaternion.Lerp(KCC.TransformRotation, targetRotation, RotationSpeed * Runner.DeltaTime * multiplicator);
+            // Apply the rotation
+            KCC.SetLookRotation(nextRotation.eulerAngles);
+            acceleration = KCC.IsGrounded ? GroundAcceleration : AirAcceleration;
+
+
 
 
 
@@ -269,5 +302,33 @@ namespace Starter.ThirdPersonCharacter
 		{
 			AudioSource.PlayClipAtPoint(LandingAudioClip, KCC.Position, FootstepAudioVolume);
 		}
-	}
+
+        // Activate Constraint
+        private void ActivateConstraintMovement()
+        {
+            multiAimConstraintBody.weight = 1f;
+            multiAimConstraintHead.weight = 1f;
+        }
+
+        // Deactivate Constraint
+        private void DeactivateConstraintMovement()
+        {
+            multiAimConstraintBody.weight = 0f;
+            multiAimConstraintHead.weight = 0f;
+        }
+
+        // Activate Constraint
+        private void ActivateConstraintAim()
+        {
+            multiAimConstraintArm.weight = 1f;
+            multiAimConstraintWeapon.weight = 1f;
+        }
+
+        // Deactivate Constraint
+        private void DeactivateConstraintAim()
+        {
+            multiAimConstraintArm.weight = 0f;
+            multiAimConstraintWeapon.weight = 0f;
+		}
+    }
 }

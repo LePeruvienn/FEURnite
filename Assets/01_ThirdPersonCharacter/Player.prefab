@@ -138,8 +138,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -40
-    m_MaxLimit: 40
+    m_MinLimit: -50
+    m_MaxLimit: 50
     m_AimAxis: 4
     m_UpAxis: 2
     m_WorldUpType: 0
@@ -341,6 +341,10 @@ MonoBehaviour:
   aimColliderLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  multiAimConstraintBody: {fileID: 3804114854490152631}
+  multiAimConstraintHead: {fileID: 3298382428390539741}
+  multiAimConstraintWeapon: {fileID: 336013095502243611}
+  multiAimConstraintArm: {fileID: 5062317366593655448}
 --- !u!114 &8977374523368408542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,7 +580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 0
+  m_Weight: 1
   m_Data:
     m_ConstrainedObject: {fileID: 6675231954069461654}
     m_SourceObjects:
@@ -618,7 +622,7 @@ MonoBehaviour:
     m_ConstrainedAxes:
       x: 1
       y: 1
-      z: 0
+      z: 1
 --- !u!1 &6847606329224042563
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,9 +667,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeda7bfbf984f2a4da5ab4b8967b115d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 0
+  m_Weight: 1
   m_Data:
-    m_Root: {fileID: 7242022971587945898}
+    m_Root: {fileID: 1534377461166061158}
     m_Mid: {fileID: 2576583147326823335}
     m_Tip: {fileID: 2245880067155357853}
     m_Target: {fileID: 3218100070229396283}
