@@ -1,8 +1,8 @@
 # Convention de code 
 
-Dans ce projet nous utiliserons le **camelCase**.
+Dans ce projet, nous utiliserons le **camelCase**.
 
-Le **camelCase** consiste à écrire le nom des variable/fonctions en commençant toujours par une **minuscule** et de rajouter des majuscule seulement au début de chaque nouveau mots.
+Le **camelCase** consiste à écrire le nom des variables/fonctions en commençant toujours par une **minuscule** et à rajouter des majuscules seulement au début de chaque nouveau mot.
 
 ex:
 ```cs
@@ -10,8 +10,8 @@ public int examplePlayerController;
 public string maxHealthPoints;
 public bool endOfFile;
 ```
-**Écriture de variable privés**
-- Lorsqu'on écris des variable privé il faut alors obligatoirement que le nom de la variable commence par `_`
+**Écriture de variables privées**
+- Lorsqu'on écrit des variables privées, il faut alors obligatoirement que le nom de la variable commence par `_`
 ex: 
 ```cs
 private int _examplePlayerController;
@@ -20,7 +20,7 @@ private bool _endOfFile;
 ```
 
 **Écriture des if et else**
-- Voici une exemple de `if`et `else`. On oublie pas de mettre un espace entre le `if`/`else`et les parenthèse
+- Voici un exemple de `if`et `else`. On n'oublie pas de mettre un espace entre le `if`/`else`et les parenthèses.
 ```cs
 if (isSpecialDamage)
 {
@@ -29,7 +29,7 @@ if (isSpecialDamage)
 ```
 
 **Écriture de fonctions**
-- Voici une exemple de fonction. On oublie pas de mettre un espace entre le nom de la fonction et les parenthèse
+- Voici un exemple de fonction. On n'oublie pas de mettre un espace entre le nom de la fonction et les parenthèses.
 ```cs
 public void inflictDamage (float damage, bool isSpecialDamage)
 {
