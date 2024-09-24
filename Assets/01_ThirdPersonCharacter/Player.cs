@@ -15,6 +15,7 @@ namespace Starter.ThirdPersonCharacter
 	{
         [Header("References")]
 		public SimpleKCC KCC;
+		public PlayerModel PlayerModel;
 		public PlayerInput PlayerInput;
 		public PlayerInventory PlayerInventory;
 		public Animator Animator;
@@ -130,12 +131,27 @@ namespace Starter.ThirdPersonCharacter
 			if (KCC.IsGrounded && input.Jump)
 			{
 				// Set world space jump vector
-				jumpImpulse = JumpImpulse;
+				jumpImpulse = JumpImpulse * PlayerModel.jumpPower; // Player Model jumpower
 				_isJumping = true;
 			}
 
-			// Set is Aiming to true if player is aiming
-			_isAiming = input.Aiming;
+			// Check current weapon type selected
+			GameObject selectedObj = PlayerInventory.getCurrentSelection ();
+			
+			// Setup selected item
+			Item selectedItem = null;
+			ItemType selectedType = ItemType.None;
+
+			if (selectedObj != null)
+				selectedItem = selectedObj.GetComponent<Item> ();
+	
+			if (selectedItem != null)
+				selectedType = selectedItem.getType ();
+
+			// Set is Aiming to true if player is aiming and selected item is a weapon
+			_isAiming = (selectedType == ItemType.Weapon) ?
+				input.Aiming : false;
+
             // Set is Shooting to true if player Shoot
             _isShooting = input.Shoot;
 
@@ -145,7 +161,7 @@ namespace Starter.ThirdPersonCharacter
 			// On définis la variable speed du joueur
 			float speed;
 			
-			if (input.Aiming) // Si il vise
+			if (_isAiming) // Si il vise
 			{
 				speed = AimSpeed;
 			}
@@ -157,9 +173,18 @@ namespace Starter.ThirdPersonCharacter
 			{
 				speed = WalkSpeed;
 			}
+
+			// Multiplie by playerSpeed
+			speed *= PlayerModel.speed;
+			//Debug.Log ("speed: ", speed);
 			
 			// Inventory Update
 			PlayerInventory.switchSelection(input.Scroll);
+			// Drop item
+			if (input.DropItem)
+			{
+				PlayerInventory.dropCurrentSelection();
+			}
 			
 
 			var lookRotation = Quaternion.Euler(0f, input.LookRotation.y, 0f);
@@ -198,7 +223,7 @@ namespace Starter.ThirdPersonCharacter
                 // No desired move velocity - we are stopping
                 acceleration = KCC.IsGrounded ? GroundDeceleration : AirDeceleration;
 
-                if ((input.Aiming || angleToTarget > 80f) && KCC.IsGrounded) // if is aiming or moving the camera we activate the Constrainte on the animation to make him aim properly
+                if ((_isAiming || angleToTarget > 80f) && KCC.IsGrounded) // if is aiming or moving the camera we activate the Constrainte on the animation to make him aim properly
                 {
                     ActivateConstraintAim();
                     targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
@@ -213,7 +238,7 @@ namespace Starter.ThirdPersonCharacter
             }
             else
             {
-                if (input.Aiming && KCC.IsGrounded)// si le joueur mouv et qu'il vise on doit activer les constraint sur l'animation 
+                if (_isAiming && KCC.IsGrounded)// si le joueur mouv et qu'il vise on doit activer les constraint sur l'animation 
                 {
                     ActivateConstraintAim();
                     multiAimConstraintArm.weight = 1f;
@@ -257,10 +282,41 @@ namespace Starter.ThirdPersonCharacter
 			// Check if Player is moving
 			_isMoving = _moveVelocity.magnitude > 0.1f;
 
-            //Create and Shoot the bullet
+			// Get current selected object and type
+			GameObject currentSelection = PlayerInventory.getCurrentSelection ();
+			
+			// Setting default itemType and currentItem to null 
+			ItemType itemType = ItemType.None;
+			Item currentItem = null;
+
+			// If current selection is not null
+			if (currentSelection != null) {
+
+				currentItem = currentSelection.GetComponent<Item>();
+				// Trying to get item type
+				if (currentItem != null)
+				itemType = currentItem.getType ();
+			}
+
+            // If player press Fire1
             if (input.Shoot)
 			{
+				// We use current selected Item
 				PlayerInventory.useCurrentSelection();
+
+			// If player is not shooting and his item is a weapon we check if he wants to reaload
+			} 
+			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon) 
+			{
+				
+				Weapon weapon = (Weapon) currentItem;  // Set current Item as a weapon
+				weapon.reload(); // Relaod the weapon
+
+			} // If Player is interacting with a pickable object
+			else if (input.Interact && PlayerInventory.canPickUp ())
+			{
+				// PickUp Item
+				PlayerInventory.pickUp ();
 			}
         }
 

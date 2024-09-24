@@ -16,9 +16,9 @@ namespace Starter.ThirdPersonCharacter
         // Private
         private Transform spawnGrenadePosition; // Where the bullet is gonna spawn
         
-        public override int getType()
+        public override ItemType getType()
         {
-            return Item.__TYPE_GRENADE__;
+            return ItemType.Grenade;
         }
 
         public override void use()

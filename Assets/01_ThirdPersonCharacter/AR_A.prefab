@@ -42,17 +42,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ab05660062a7ddd4da45074f9f543def,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 18.483
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ab05660062a7ddd4da45074f9f543def,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 18.483
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ab05660062a7ddd4da45074f9f543def,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 18.483
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ab05660062a7ddd4da45074f9f543def,
         type: 3}
@@ -121,6 +121,18 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3690424227665133904}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab05660062a7ddd4da45074f9f543def,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2426705870940078735}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab05660062a7ddd4da45074f9f543def,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4766379624787995037}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab05660062a7ddd4da45074f9f543def,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3684941148144302663}
   m_SourcePrefab: {fileID: 100100000, guid: ab05660062a7ddd4da45074f9f543def, type: 3}
 --- !u!1 &4629275374961494662 stripped
 GameObject:
@@ -140,17 +152,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf57fef9b00771d41974f95e1ff5b784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: arme
+  itemName: 
   stackAmount: 0
-  rarity: 0
-  spawnBulletPosition: {fileID: 0}
+  rarity: 3
   bulletPrefab: {fileID: 9186155486514058272, guid: 630745ea5f2d9be4ab6e40afb3c95d06,
     type: 3}
-  fireRate: 0
-  damage: 0
-  realoadCooldown: 0
-  chargerAmmoAmount: 0
-  ammoType: 0
+  shootDelay: 0.1
+  damage: 10
+  reloadCooldown: 1
+  startAmmoAmount: 30
+  chargerAmmoAmount: 30
+  bulletType: 2
+--- !u!54 &2426705870940078735
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4629275374961494662}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &-4766379624787995037
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4629275374961494662}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.0012868713
+  m_Height: 0.04599794
+  m_Direction: 2
+  m_Center: {x: -0.00035743238, y: -0.010768968, z: 0.0032525698}
+--- !u!65 &3684941148144302663
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4629275374961494662}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.003394625, y: 0.016010547, z: 0.047565322}
+  m_Center: {x: 0.00008009299, y: -0.0035997701, z: 0.0036319476}
 --- !u!4 &5437443172491546684 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ab05660062a7ddd4da45074f9f543def,

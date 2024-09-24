@@ -5,41 +5,78 @@ using UnityEngine;
 
 namespace Starter.ThirdPersonCharacter
 {
+	// Enum for weapon states
+	public enum WeaponState
+	{
+		Ready = 1,
+		Reloading = 2
+	}
+
+	// Enum for bullet types
+	public enum BulletType
+	{
+		Sniper = 1,
+		Rifle = 2,
+		Pistol = 3,
+		Rocket = 4
+	}
+
+	[RequireComponent(typeof(Rigidbody))]
     public class Weapon : Item
     {
-        // STATIC VARIABLES
-        protected static int __BULLET_TYPE_SNIPER__ = 1;
-        protected static int __BULLET_TYPE_RIFLE__ = 2;
-        protected static int __BULLET_TYPE_PISTOL__ = 3;
-        protected static int __BULLET_TYPE_ROCKET__ = 4;
         
 		[Header("Weapon References")]
         public GameObject bulletPrefab; // The bullet to use when shooting
-		public Transform CameraPivot;
-		public Transform CameraHandle;
         
 		[Header("Weapon Stats")]
-        public float fireRate; // Bullet per seconds that the weapon shoot
+        public float shootDelay; // Time to wait between each bullets
         public int damage; // Damage applying for each bullet to the player
-        public int realoadCooldown; // Reload time to get full ammo
-        public int currentAmmoAmount; // Amount of bullet currenty in the charger
-        public int chargerAmmoAmount; // Bullet per charger
-        public int ammoType; // Type of bullet the weapon use
+        public int reloadCooldown; // Reload time to get full ammo
+        public int startAmmoAmount; // Amount of bullet currenty in the charger
+        public int chargerAmmoAmount; // Bullets per charger
+        public BulletType bulletType; // Type of bullet the weapon use
 
         // Privates
-        private int currentAmmo;
-        private Transform spawnBulletPosition; // Where the bullet is gonna spawn
+		private WeaponState _currentWeaponState;
+        private int _currentAmmoAmount;
+        private Transform _spawnBulletPosition; // Where the bullet is gonna spawn
+		private float _nextFireTime = 0f;
 
-        public override int getType()
+		// Run when program starts
+		public void Start ()
+		{
+			// Set current amoo to start Ammo amount
+			_currentAmmoAmount = startAmmoAmount; 
+			// Set weapon state to ready
+			_currentWeaponState = WeaponState.Ready;
+		}
+
+        public override ItemType getType ()
         {
-            return Item.__TYPE_WEAPON__;
+            return ItemType.Weapon;
         }
 
-        public override void use()
+        public override void use ()
         {
-            // Check is spawnBulletPosition is not null
-            if (spawnBulletPosition == null)
-                spawnBulletPosition = GameObject.FindGameObjectWithTag("spawnBulletPos").transform; // If he is null we set it
+			// Return if weapon dont have ammo left !
+			if (_currentAmmoAmount <= 0 || _currentWeaponState == WeaponState.Reloading) return;
+			// Check if player can fire
+			if (Time.time >= _nextFireTime) {
+				// Shoot a bullet
+				shoot();
+				// Remove bullet from current charger
+				_currentAmmoAmount--;
+				// Set the _nextFireTime
+				_nextFireTime = Time.time + shootDelay;
+			}
+        }
+
+		private void shoot ()
+		{
+
+            // Check is _spawnBulletPosition is not null
+            if (_spawnBulletPosition == null)
+                _spawnBulletPosition = transform.Find("spawnBulletPos").transform; // If he is null we set it
             
             // Setting up raycast variables
             Vector3 mouseWorldPosition = Vector3.zero; // Default vector
@@ -59,13 +96,42 @@ namespace Starter.ThirdPersonCharacter
             } 
             
             // Shoot the bullet prefab
-            Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
-            Instantiate(bulletPrefab,spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
+            Instantiate(bulletPrefab,_spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+		}
+
+        public void reload ()
+        {
+			// If item is already Reloading stop
+			if (_currentWeaponState == WeaponState.Reloading) return;
+
+			// Set status to reloading
+			_currentWeaponState = WeaponState.Reloading;
+
+			// Check if we are alreadyFull ammo
+			if (_currentAmmoAmount >= chargerAmmoAmount) return;	
+
+            // Start reload couroutine
+			StartCoroutine (reloadCouroutine ());
+
         }
 
-        public void reload()
-        {
-            // TODO
-        }
+		private IEnumerator reloadCouroutine () 
+		{
+
+			// TODO : Realod animation to add
+
+			// Wait for reload cooldown
+			yield return new WaitForSeconds(reloadCooldown);
+
+			// Set charger to to full
+			_currentAmmoAmount = chargerAmmoAmount;
+
+			// Set weapon state to ready
+			_currentWeaponState = WeaponState.Ready;
+
+			// Debug messsage (delete it later)
+			Debug.Log ("Reload Complete !");
+		}
     }
 }

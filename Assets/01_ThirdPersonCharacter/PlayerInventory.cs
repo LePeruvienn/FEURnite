@@ -10,31 +10,99 @@ namespace Starter.ThirdPersonCharacter
 	public class PlayerInventory : MonoBehaviour
 	{
 
+        [Header("Iventory Config")]
 		public int size;
 		public GameObject[] starterItems;
+		public float pickUpRange;
 
 		// Inventory varaible
-		private Transform origin;
-		private GameObject[] inventory;
-		private int selectedIndex = 0;
-
-		private void Awake()
+		private Transform _origin;
+		private GameObject[] _inventory;
+		private int _selectedIndex = 0;
+		private Transform _dropItemOrigin;
+		private bool _canPickUp;
+		private GameObject _lastPickableObject;
+		
+		private void Awake ()
 		{
-			// Set origin
-			origin = GameObject.FindGameObjectWithTag("itemOrigin").transform;
+			// Set pickUp state
+			_canPickUp = false;
+
+			// Setting item origin
+			_origin = GameObject.FindGameObjectWithTag("itemOrigin").transform;
 			
+			// Setting drop origin
+			_dropItemOrigin = GameObject.FindGameObjectWithTag("itemDropOrigin").transform;
+            
 			// Setting up the iventory empty
-			inventory = new GameObject[size];
+			_inventory = new GameObject[size];
 			// If there is starters items:
 			// We put all the starters items in the inventory
 			for (int i = 0; i < size; i++)
 			{
-				if (i < starterItems.Length) // If we can put a start item
-					inventory[i] = starterItems[i];
+				// If we can put a start item
+				if (i < starterItems.Length)
+				{
+                    // We instantiate the object to create a copy
+                    GameObject itemInstance = Instantiate (starterItems[i]);
+					// Getting item compenent
+					Item item = itemInstance.GetComponent<Item> ();
+					if (item != null)
+					{
+						// If Item script exist, set item state to equipped
+						item.setState (ItemState.Equipped);
+						// We save his current default position, scale and rotation config
+						item.saveDefaultPosAndRotation ();
+					}
+					
+					// Setting starter item in inventory
+					_inventory[i] = itemInstance;
+					
+					// Set item pos
+					setItem (itemInstance);
+
+					// Hide item
+					itemInstance.SetActive (false);
+				}
 			}
 			
 			// Update Current selection
 			updateSelection();
+		}
+
+		public void Update ()
+		{
+			// Set pickUp to false to default
+			_canPickUp = false;
+			// Handle detection of pickable objects
+			handlePickup ();
+		}
+
+		public void pickUp ()
+		{
+			// If player can pickup an object
+			if (_canPickUp == true && _lastPickableObject != null) {
+				
+				// Get current selection
+				GameObject selection = getCurrentSelection ();
+
+				// If current selection is not null, we drop the item selected
+				if (selection != null)
+					dropCurrentSelection ();
+
+				// Get Item compenent
+				Item item = _lastPickableObject.GetComponent<Item> ();
+				if (item != null) // If Item script exist, set item state to equipped
+					item.setState (ItemState.Equipped);
+				
+				// Setting starter item in inventory
+				_inventory[_selectedIndex] = _lastPickableObject;
+				
+				// Set item pos
+				setItem (_inventory[_selectedIndex]);
+
+				_inventory[_selectedIndex].SetActive (true);
+			}
 		}
 		
 		// Function that is use to switch from selected intems in inventory
@@ -42,19 +110,19 @@ namespace Starter.ThirdPersonCharacter
 		{
 			if (direciton < 0f) // Scroll down
 			{
-				selectedIndex--; // Tale the previous index
+				_selectedIndex--; // Tale the previous index
 				
-				if (selectedIndex < 0) // If previous item dont exist, take the last item
-					selectedIndex = inventory.Length - 1;
+				if (_selectedIndex < 0) // If previous item dont exist, take the last item
+					_selectedIndex = _inventory.Length - 1;
 				
 				updateSelection(); // Update current selection
 				
 			} else if (direciton > 0f) // Scroll up
 			{
-				selectedIndex++; // Take the next item
+				_selectedIndex++; // Take the next item
 				
-				if (selectedIndex >= inventory.Length) // If next item dont exist, take the first item
-					selectedIndex = 0;
+				if (_selectedIndex >= _inventory.Length) // If next item dont exist, take the first item
+					_selectedIndex = 0;
 				
 				updateSelection(); // Update current selection
 			}
@@ -64,7 +132,7 @@ namespace Starter.ThirdPersonCharacter
 		public void useCurrentSelection()
 		{
 			// Getting current selection
-			GameObject obj = inventory[selectedIndex];
+			GameObject obj = _inventory[_selectedIndex];
 			// If had selected an object
 			if (obj != null)
 			{
@@ -79,46 +147,166 @@ namespace Starter.ThirdPersonCharacter
 		// Return the current selected object
 		public GameObject getCurrentSelection()
 		{
-			return inventory[selectedIndex];
+			return _inventory[_selectedIndex];
 		}
 
-		// Set the current selected item to empty
+		// Drop the current selected item
 		public void dropCurrentSelection ()
 		{
-			inventory[selectedIndex] = null;
+			// Get Selected item
+			GameObject obj = getCurrentSelection();
+			// If current selection is null we stop here
+			if (obj == null) return;
+			// We get his item component
+			Item item = obj.GetComponent<Item>();
+			// If item exist we drop it
+			if (item != null)
+				item.setState(ItemState.OnFloor);
+
+			// Removing obj parent's
+			obj.transform.SetParent(null);
+            // Adding the object to the scene
+            obj.transform.SetPositionAndRotation(_dropItemOrigin.position, Quaternion.identity);
+            
+            // Clearing the data
+			_inventory[_selectedIndex] = null;
+		}
+
+		// Desotry the current selected item
+		public void destoryCurrentSelection ()
+		{
+			// Get Selected item
+			GameObject obj = getCurrentSelection();
+
+			// If current selection is null we stop here
+			if (obj == null) return;
+
+			// Removing object
+            Destroy (obj);
+
+            // Clearing the data
+			_inventory[_selectedIndex] = null;
 		}
 
 		// Return true if player current selection is not attached to an item
 		public bool isSelectionEmpy ()
 		{
-			return inventory[selectedIndex] == null;
+			return _inventory[_selectedIndex] == null;
 		}
 
-		private void setItem(GameObject prefab)
+		public bool canPickUp ()
 		{
-			// Adding prefab to the scene
-			GameObject item = Instantiate(prefab);
-			// Setting origin to be parent's item
-			item.transform.SetParent(origin);
-			// Setting item's tranform to default
-			item.transform.localPosition = Vector3.zero;
-			item.transform.localScale = Vector3.one;
-			item.transform.localRotation = Quaternion.identity;
+			return _canPickUp;
+		}
+
+		private GameObject pickupRayCast ()
+		{
+            // Setting up raycast variables
+            Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
+            
+            // Doing the raycast !
+            Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
+			
+            // Setting raycast output variable
+            RaycastHit hit;
+            
+			// Setting obj output variable
+			GameObject lastHit = null;
+
+            // If raycast hit
+            if (Physics.Raycast(ray, out hit, pickUpRange))
+            {
+                lastHit = hit.transform.gameObject; // Set the target point to the point hit by the raycast
+            }
+
+			return lastHit;
+		}
+
+		private void handlePickup ()
+		{
+			// Detect Object that player is aiming
+			GameObject detectedObj = pickupRayCast ();
+
+			// Return if we dont detect any object
+			if (detectedObj == null) return;
+
+			Item item = detectedObj.GetComponent<Item> ();
+
+			// Return if the object detected is not an Item;
+			if (item == null) return;
+
+			// Set can pickup to true !
+			_canPickUp = true;
+
+			// Set _lastPickableObject to the object detected !
+			_lastPickableObject = detectedObj;
+		}
+
+		private void setItem(GameObject obj)
+		{
+			// Setting origin to be parent's obj
+			obj.transform.SetParent(_origin);
+
+			// Get Item
+			Item item = obj.GetComponent<Item> ();
+
+			// Setting obj's tranform to his game object param
+			if (item != null) 
+			{
+				// We use set default function of the item
+				item.setPosAndRotationToDefault ();
+			}
+			else 
+			{
+				// Set all to 0 except we keep his scale
+				obj.transform.localPosition = Vector3.zero;
+				obj.transform.localScale = obj.transform.lossyScale;
+				obj.transform.localRotation = Quaternion.identity;
+			}
 		}
 
 		private void updateSelection()
 		{
-			// Destroy All childs object
-			foreach (Transform child in origin)
-			{
-				GameObject.Destroy(child.gameObject);
-			}
+			// Disable all items
+			disableAllItems ();
 			
 			// Get currentSelection
-			GameObject selection = getCurrentSelection();
+			GameObject selection = getCurrentSelection ();
 			// If selection is not null
 			if (selection != null)
-				setItem(selection); // Set selection to current item
+				selection.SetActive (true); // Active current selected item
+		}
+
+		private void disableAllItems()
+		{
+			// Destroy each child of the gameObject origin
+			foreach (Transform child in _origin)
+			{
+				child.gameObject.SetActive(false); // Desactivate the object
+			}
+		}
+
+		private void showItem (GameObject item, bool _bool)
+		{
+
+			// Get render compenent
+			Renderer renderer = item.GetComponent<Renderer>(); // Desactivate the object
+			// Disable renderer if exist
+			if (renderer != null)
+				renderer.enabled = _bool;
+		}
+
+		private void hideAllItems ()
+		{
+			// Destroy each child of the gameObject origin
+			foreach (Transform child in _origin)
+			{
+				// Get render compenent
+				Renderer renderer = child.gameObject.GetComponent<Renderer>(); // Desactivate the object
+				// Disable renderer if exist
+				if (renderer != null)
+					renderer.enabled = false;
+			}
 		}
 	}
 }
