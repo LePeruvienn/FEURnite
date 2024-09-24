@@ -24,11 +24,11 @@ Dans **FEURnite**, tu incarnes un canard appelé "**Koua**", plongé dans une ba
 - **Théo**
 - **Corentin**
 - **William**
+- **Keryann**
 
-*(Total: 9)*
+*(Total : 10)*
 
 ## ⚙️ Outils
 
-**Engine:** Unity  
-**Server:** Poth
-
+**Engine :** Unity  
+**Server :** Poth
