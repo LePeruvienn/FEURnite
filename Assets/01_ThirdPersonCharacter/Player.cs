@@ -308,8 +308,9 @@ namespace Starter.ThirdPersonCharacter
 			} 
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon) 
 			{
-				
-				Weapon weapon = (Weapon) currentItem;  // Set current Item as a weapon
+
+                Animator.SetTrigger("ReloadTrigger");
+                Weapon weapon = (Weapon) currentItem;  // Set current Item as a weapon
 				weapon.reload(); // Relaod the weapon
 
 			} // If Player is interacting with a pickable object

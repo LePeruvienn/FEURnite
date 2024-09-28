@@ -155,7 +155,7 @@ MonoBehaviour:
   itemName: 
   stackAmount: 0
   rarity: 3
-  bulletPrefab: {fileID: 9186155486514058272, guid: 630745ea5f2d9be4ab6e40afb3c95d06,
+  bulletPrefab: {fileID: 9186155486514058272, guid: 16a67764509767b45960f963c3c6c7aa,
     type: 3}
   shootDelay: 0.1
   damage: 10
@@ -163,6 +163,8 @@ MonoBehaviour:
   startAmmoAmount: 30
   chargerAmmoAmount: 30
   bulletType: 2
+  muzzleFalshParticlesPrefab: {fileID: 5469508686610169225, guid: 50f09dcbfdf5f3b489ae26fba7fc8a39,
+    type: 3}
 --- !u!54 &2426705870940078735
 Rigidbody:
   m_ObjectHideFlags: 0

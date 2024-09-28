@@ -36,8 +36,11 @@ namespace Starter.ThirdPersonCharacter
         public int chargerAmmoAmount; // Bullets per charger
         public BulletType bulletType; // Type of bullet the weapon use
 
+        [Header("Weapon style")]
+        public ParticleSystem muzzleFalshParticlesPrefab;
+
         // Privates
-		private WeaponState _currentWeaponState;
+        private WeaponState _currentWeaponState;
         private int _currentAmmoAmount;
         private Transform _spawnBulletPosition; // Where the bullet is gonna spawn
 		private float _nextFireTime = 0f;
@@ -58,6 +61,7 @@ namespace Starter.ThirdPersonCharacter
 
         public override void use ()
         {
+
 			// Return if weapon dont have ammo left !
 			if (_currentAmmoAmount <= 0 || _currentWeaponState == WeaponState.Reloading) return;
 			// Check if player can fire
@@ -70,8 +74,9 @@ namespace Starter.ThirdPersonCharacter
 				_nextFireTime = Time.time + shootDelay;
 			}
         }
+        
 
-		private void shoot ()
+        private void shoot ()
 		{
 
             // Check is _spawnBulletPosition is not null
@@ -98,7 +103,8 @@ namespace Starter.ThirdPersonCharacter
             // Shoot the bullet prefab
             Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
             Instantiate(bulletPrefab,_spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-		}
+            Instantiate(muzzleFalshParticlesPrefab, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+        }
 
         public void reload ()
         {
