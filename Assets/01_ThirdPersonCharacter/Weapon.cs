@@ -37,7 +37,7 @@ namespace Starter.ThirdPersonCharacter
         public BulletType bulletType; // Type of bullet the weapon use
 
         [Header("Weapon style")]
-        public ParticleSystem muzzleFalshParticlesPrefab;
+        public ParticleSystem muzzleFalshParticles;
 
         // Privates
         private WeaponState _currentWeaponState;
@@ -103,7 +103,7 @@ namespace Starter.ThirdPersonCharacter
             // Shoot the bullet prefab
             Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
             Instantiate(bulletPrefab,_spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-            Instantiate(muzzleFalshParticlesPrefab, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
         }
 
         public void reload ()
