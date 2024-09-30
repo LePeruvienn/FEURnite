@@ -283,7 +283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b71b4784cf62e64ebaa287ed26c2343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LookSensitivity: 3
 --- !u!114 &1526919877228550752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,10 +347,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialHealth: 4
+  DeathTime: 3
   ScalingRoot: {fileID: 2514133352862161986}
   VisualRoot: {fileID: 3041271417471768361}
   DeathRoot: {fileID: 8394160489372375921}
-  DeathTime: 3
 --- !u!114 &8261807108443789817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +374,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 65
     ProxyInterpolationMode: 0
-    TeleportThreshold: 1
+    MaxPenetrationSteps: 8
+    CCDRadiusMultiplier: 0.75
     AntiJitterDistance: {x: 0.025, y: 0.01}
     CompressNetworkPosition: 0
     ForcePredictedLookRotation: 0

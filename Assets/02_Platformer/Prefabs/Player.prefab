@@ -73,7 +73,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f8c362e7df4441a618baff280f7d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LookSensitivity: 3
   InitialLookRotation: 18
 --- !u!114 &1526919877228550752
 MonoBehaviour:
@@ -135,7 +134,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 65
     ProxyInterpolationMode: 0
-    TeleportThreshold: 1
+    MaxPenetrationSteps: 8
+    CCDRadiusMultiplier: 0.75
     AntiJitterDistance: {x: 0.025, y: 0.01}
     CompressNetworkPosition: 0
     ForcePredictedLookRotation: 0
