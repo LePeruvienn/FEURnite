@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CinemachineTarget
+  - itemOrigin
+  - spawnBulletPos
+  - ItemRaycast
+  - itemDropOrigin
   layers:
   - Default
   - TransparentFX
@@ -11,6 +16,8 @@ TagManager:
   - 
   - Water
   - UI
+  - Player
+  - FirstPersonOverlay
   - 
   - 
   - 
@@ -18,9 +25,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - raycastPlayer
   - 
   - 
   - 

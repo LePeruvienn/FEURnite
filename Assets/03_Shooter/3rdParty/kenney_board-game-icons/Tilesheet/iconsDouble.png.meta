@@ -1,0 +1,5288 @@
+fileFormatVersion: 2
+guid: e0bafaad9daa92a4c992e1a41a16a12a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: iconsDouble_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98ea83a358b97424787d13379081bd49
+      internalID: 1846186434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05213d34a039bbd4196fbae3e0b3af03
+      internalID: -622007703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a68e8242023ff09448ad53466d97931e
+      internalID: -1923422576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb4d6e72dc3b5a14daac3951bfa90ca1
+      internalID: -1194271583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f59419c7af2a2404cac8b744306854d3
+      internalID: -300862234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df173156d7f1b3845931005901cd80f2
+      internalID: 1312369373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_6
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa1ab1c4c12609a4b9b216ac8faff2f6
+      internalID: 2071968609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_7
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ca56395c04126944b6ea44e4c941fc3
+      internalID: -1483097539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skull
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 1412
+        width: 126
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44e9fc8f2f53d6a469d950d0ed34376c
+      internalID: -498329690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_9
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c25625bb0e87884db9d8e954ba1c483
+      internalID: -1802973703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_10
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f575567135d9caf4687454f691dd2cac
+      internalID: 1187238615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_11
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aa84d2611a967443ba0f2aa611b9863
+      internalID: 1174734184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeartBroken
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 135d69852613d6a489e806fefdcc97b2
+      internalID: 236012240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Heart
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b48f70bd20fe6b842a907a20ffbf4e2c
+      internalID: 1648246320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_14
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b662bc15aceb504b8f39243419d8a80
+      internalID: 1370263770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_15
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 577e0f4ce4f611641844437b868d974d
+      internalID: 1674307042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_16
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f3246ffbafbd7a409d4bee3d4528855
+      internalID: 900236733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_17
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f7f61709374a364392103ec8d15a370
+      internalID: 1593986682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_18
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a506688eda74db4da3a184960f548bf
+      internalID: -2000671643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_19
+      rect:
+        serializedVersion: 2
+        x: 2432
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b264a3b91e68d1c47b86cd24507f8e67
+      internalID: -2013266488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_20
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1412
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85531a4688cdf6f4d870c391f3a6f337
+      internalID: -1762106074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58283aa5ec87d034faf4e163ee069e14
+      internalID: 47661458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_22
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed6a44bca6805d1488d00ce4066d00ad
+      internalID: 1982477380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_23
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20d408c7441ac684ea57c3f70cff882f
+      internalID: 927734664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_24
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84124a25067f277408868501386d7726
+      internalID: -1890600181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_25
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fe38e1941e0b6546a651632c6464653
+      internalID: 1251625624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_26
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1ee87c4b3117214eb065bb080779bc9
+      internalID: -658722329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_27
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb0883e17bb69fe4aae5a26d229f7581
+      internalID: -1601413320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_28
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec70e8a256367814eb380671b60edda8
+      internalID: -741350178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_29
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acb6fecd3e1800e46b3d3c7a1e1b0b30
+      internalID: 1483232062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_30
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1900a22706387f14bbbe164b2b76014e
+      internalID: -899583608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_31
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1189fc3fe0126c842b01a0f89257e704
+      internalID: -679258136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_32
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 391b6178a4326a3419ec5d31790d21e4
+      internalID: -68649857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_33
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8de9ca8d78a256b43b3fa3af9db3c64a
+      internalID: 428725145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_34
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb55551cd991aea4c8e894eacea244d9
+      internalID: -940431375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_35
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 067f05cc78383594bb8e100776501d89
+      internalID: 1152647783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_36
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88d0c2c4fb34264459af0f7157ac6ced
+      internalID: 652565779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_37
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a80ae44d96780ab478a35b4819d4f163
+      internalID: -956246823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_38
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6bc3967596d42140a60c9c89b1c24e9
+      internalID: 1928683219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_39
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2f929a81460ef44bae51abd951f0fe6
+      internalID: -825805948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_40
+      rect:
+        serializedVersion: 2
+        x: 2432
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed5a7503bc5faad44a762af6696110c9
+      internalID: 257140671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_41
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1284
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d4afa748a336a54bbc5651dc5665666
+      internalID: -69864249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_42
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5454703665e139419a9724fc02b9035
+      internalID: 2145983702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_43
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cc0bfab0731d2640ad3a33733a60f8f
+      internalID: 1851407664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_44
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa36e20e05da13641b2a4b077358628c
+      internalID: 1522168840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_45
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ee4d80f333e2ba46917673965adf4fb
+      internalID: 28066371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_46
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 170dc3c0235efa04d8a44a5141a89eca
+      internalID: 1834044514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_47
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 586a68032fe406f49bdc3bdd5b638f03
+      internalID: -1577187357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_48
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96c6c523f47617d4886ccad7c63c4397
+      internalID: -1019895810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_49
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bb3a7bfe79e68c46ae1eb3b8ded6024
+      internalID: -1197780106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_50
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a41f8c519ac8044da9aab3467e5ed74
+      internalID: -201652107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_51
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c10d536cd4b8f5344b66c61d7b3b9287
+      internalID: 926801394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_52
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40c54cef8f8480540b48ae994cf4db01
+      internalID: 1134329912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_53
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f383826c243b9e4c9df625d321392fa
+      internalID: 412098370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_54
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd362003d54d9b94eac4cf110da76305
+      internalID: 742210920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_55
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a4fd23108b66024c98e3f772778a66f
+      internalID: 1035034224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_56
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5c03684b3a3d1a41b2187e463faa90a
+      internalID: -162120706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_57
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 072f6d8c191df9b41912ffb46990f5f5
+      internalID: -1832637926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_58
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b745d42e2d0b21742b66a081c2b9b69d
+      internalID: -602871341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_59
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a2559ba9b2a83344b2e3afe34cc18e8
+      internalID: -393845205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_60
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: beb5af5f50ef3164388d15b9ace2dd9b
+      internalID: -1130992857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_61
+      rect:
+        serializedVersion: 2
+        x: 2432
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 806430e9c83e661499b271ef0c773f96
+      internalID: 1331276521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_62
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1156
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ba50e3e7fdc4b0488e3201222260af9
+      internalID: -921125928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_63
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33812f5e6ca68434aa7d7c2f7c2c8fae
+      internalID: 1889382156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_64
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aea083a2a11c4b940aab8e4ad30597ea
+      internalID: -1608417819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_65
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be6bade461e332b4bb6bcec2252e2d43
+      internalID: 777404884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_66
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d27640b7b0e4a5949a840f4d1c620882
+      internalID: -1218104682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_67
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5ef2b808e717974b93b1050ddc04443
+      internalID: -2067238003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_68
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4fe2fa51fc7e3f4082033119f62284b
+      internalID: -2103177498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_69
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d86bff387fea3a41996dbd15172d8b4
+      internalID: 1121931069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_70
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75d1e1b40259147489b6fe31e1324df0
+      internalID: 543830773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_71
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f3fc4b411f278e48b8772ab71ea65dc
+      internalID: -566202370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_72
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59468d1b71066bf419be0214dbacf448
+      internalID: -733590930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_73
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3ab18aad6660c04cbb6f39424c5746a
+      internalID: -1026502495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_74
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a0a8d24df2623e4b9cf50b16a3c6f29
+      internalID: -1649385916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_75
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 138d7714023849d4698e78123b168624
+      internalID: 143675216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_76
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0238f670c572e2488972e2399343872
+      internalID: 220086304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_77
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9a452883e17b044598782a5d8f66cf1
+      internalID: -1352720568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_78
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc1d6292bfa54924c938d882c6536d9d
+      internalID: -1396163148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_79
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16a1ebc2129717446aa165c85b2657c8
+      internalID: 1237256071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_80
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 157a3aa95fedcec4fba0da83f3423e6f
+      internalID: -727620556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_81
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6958a2960a711e64a871f9ecaa48f2c2
+      internalID: 1735090966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_82
+      rect:
+        serializedVersion: 2
+        x: 2432
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4bd5a2bfab960b4bb3b7da879398630
+      internalID: -175708053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_83
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1028
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e309d08fafc380f40843ce4815a2c662
+      internalID: 474358253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_84
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b9f974c854140446b166e638801aea1
+      internalID: 731636293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_85
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a262c1d7aa6343f4593e5a6bb987b517
+      internalID: 317250882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_86
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1e8e43e431965f4cbfbfd34d2bacb0a
+      internalID: 1235984857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_87
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07ac6c679c4975d4f8698eb8f639487e
+      internalID: 464367181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_88
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79c5152914f55f6428730b35d3f78851
+      internalID: -312701347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_89
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1113cb0141e8df947bd2928411d0441a
+      internalID: -1779948149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_90
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a1decd10ce72e943862af13b4f3e82e
+      internalID: 1084796979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_91
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11236a8289be7174bb46428f9108b145
+      internalID: 396519915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_92
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c63e2f9cf7ac96d46b350708cafac762
+      internalID: 1380108017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_93
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cbe510c61bdfb84b81b6acfd6ffc2e9
+      internalID: -1877182799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_94
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09645a58bed4fe04cbaebacaf155cab5
+      internalID: -1920252936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_95
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6952ccdca5d404c4e85bd9150cd62df9
+      internalID: 1740044018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_96
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f7cf9ec885081c4fb5f2f520f3b2685
+      internalID: 873736520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_97
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98a3c9fae4ba7054abfc5f6a7ea7f322
+      internalID: -519169434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_98
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b629d8ed0ecd9145959693819f023c3
+      internalID: 1468057482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_99
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3334f366749d78743b31a28e9986bf8e
+      internalID: 461369438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_100
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b72f89193e046c64e8a645ef5cf7ede5
+      internalID: -2099339393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_101
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bd50f5c118cd9d438be70eb6cd86708
+      internalID: 1973681446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_102
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23a9ef7fbd138ce45ae1c8d94a890931
+      internalID: -922048644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_103
+      rect:
+        serializedVersion: 2
+        x: 2432
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 536d4280646420445ac0382cc06935f3
+      internalID: -1019662502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_104
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 900
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28088d3b3aaee0641abaf5714e02af4b
+      internalID: -1165790448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_105
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e64f12590ce1bea45ac39c46b137b16c
+      internalID: -45995740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_106
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68cb35e047ae9484bae0b2740313a37d
+      internalID: -1267108171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_107
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f06fe0b02e63eb641a8f431cdd89159f
+      internalID: -309235135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_108
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fe166cad3755934a9f5df0afc2ed8aa
+      internalID: 1132280210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_109
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e3629542aa1ea848bb15b9bbe3d63d3
+      internalID: 1974741055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_110
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a6371a5727b7b242afc91afd9e65723
+      internalID: 1290745986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_111
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7b3f5df1b9d0424b9fee67802ed43b5
+      internalID: -1523693459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_112
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d164c2b5b4d62bf4d976f02941f6f218
+      internalID: -1683600065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_113
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f093d7017e3d0a49a724b9df041b81e
+      internalID: -244362543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_114
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7ff434bbf28391408a63e067fff508a
+      internalID: -1040974138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_115
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edfc7282b497e9744bc61dd78a327242
+      internalID: -172421423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_116
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2b71b06fa1001348af1051eb30e1679
+      internalID: -503393134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_117
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d98484ca834ccc94ea11e8c2af0540a5
+      internalID: 92493693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_118
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f64368bb29ccc844b39a13d313e9c0d
+      internalID: -1895633539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_119
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b45a83e0f5f056a48974c288bd036349
+      internalID: 1751238771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_120
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37d1621cc96c8d84593aa435c89f08ac
+      internalID: -788917730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_121
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9002fae3e826a74ebc9e542cd14c220
+      internalID: -817714885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_122
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb37a21024cefb34eba9ae6da13938fe
+      internalID: 1544129249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_123
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfd6863999aadcd43bf87a56ca1a9b33
+      internalID: -758036203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_124
+      rect:
+        serializedVersion: 2
+        x: 2432
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fec761ee4b7cbca42bf53d092e38b48f
+      internalID: -1255288281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_125
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 772
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2c3705c6007d3943901c8caeed21cee
+      internalID: -1461713931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_126
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e510c12ecf30784fb913a7344f3ea7c
+      internalID: -1712284636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_127
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da8b4159ffaeaf24f98ce01d51632e62
+      internalID: -110524488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_128
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 453b1e8219399594197e55cd477dce5c
+      internalID: 821727156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_129
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02db7a663083d604da18a49b2e38404f
+      internalID: 1333410944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_130
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2e7adcab5289ec42b3a2bf99b6d8091
+      internalID: -1852401844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_131
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb3723ca2e81d45489f2d5dbd616bf34
+      internalID: 43367424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_132
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed0451a26063b21468f011de5cecc7be
+      internalID: 522797003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_133
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce58fd1dd95d6d047bff6aadf4dca175
+      internalID: 1054030173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_134
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a658d24b79bdff74dbf7300d41000dd1
+      internalID: 1730853832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_135
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 396d52915c22804458bc5802f0e0a210
+      internalID: -775904180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_136
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 892e4ac2795a3d148b934f2dbf92a7fd
+      internalID: 55092196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_137
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6242028bb13c56147b759a222385d1ae
+      internalID: 403823548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_138
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c93789df311bd94e9d1a8dec5bb9c89
+      internalID: 1931199262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_139
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 014923bf5343fc342a76cb54e5988913
+      internalID: 562458233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_140
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f46e790f37beec4a983fbff7cbf57b9
+      internalID: 399289147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_141
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58547ca0289e7bf409e06798e8e82dfc
+      internalID: 1207101317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_142
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bceea9d58b6b2e84d9b87c2c2b9ad0ae
+      internalID: -2088893780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_143
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe62239831a772f42824c533413a8612
+      internalID: -2103643170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_144
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07a6bbec59af8e345b1012fc2fb978b8
+      internalID: -881890250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_145
+      rect:
+        serializedVersion: 2
+        x: 2432
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a0ad55319cb19b4ba42104147e63457
+      internalID: 638091404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_146
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 644
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f617d17938745894aaea27068c343cb5
+      internalID: 1018557898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_147
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f72fd476a961f1c43baa46fd68f56b53
+      internalID: -748219992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_148
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0cb160c133c4d14aac3ab453e803d39
+      internalID: -597285889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_149
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 093048326fd30684cba6d132f3ff54a1
+      internalID: -904701803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_150
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec94b51c3c4feaa47acffa47e98f94bb
+      internalID: -475672960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_151
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 132d035047608704db2294d991b199d5
+      internalID: 1277014065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_152
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b32fea90beac5944e83d4768caea0fbe
+      internalID: -780140498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_153
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e99088ea72d9e2541a39b631ce6d727a
+      internalID: -2050853648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_154
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7ee8d0710e1e3046a9ca7de5a02b2b4
+      internalID: -1517371482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_155
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88dafe17a0f8a1b4d9dbc4c2448eaf7f
+      internalID: -395161217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_156
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 597f2af6a027ce14488ea4eb794bda4b
+      internalID: 263450248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_157
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77ec602a6bae689488b2a96e056e5e31
+      internalID: -2144315123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_158
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66fa3570ce9505643836c05f7dd119fd
+      internalID: 203176146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_159
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f53784c4d4845cd48ba4111db7edc398
+      internalID: 1324663901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_160
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66c42254321344849bc2514b72918217
+      internalID: 1020033911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_161
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 281be37c867ee914b82177bba363a817
+      internalID: -1293164681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_162
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 661fa87e631846b4c87fe9f8b2ffd63c
+      internalID: 463939599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_163
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ead616e1f3290b047a5bd097baa1bfe7
+      internalID: 1325589985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_164
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 516
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5643f1c4761691d41ad35531440da34a
+      internalID: -785147865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_165
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f3274a5cf1c55847b91b01dee74e9ce
+      internalID: -312500325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_166
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cbe12588e291094ab9d5b371c0782fa
+      internalID: 1584697444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_167
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd825368e6d6c2a438aeda971470151b
+      internalID: 1163780711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_168
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63856357beaaf6c4b97a5b61b35e4eaf
+      internalID: 1181333753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_169
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79978f58771d4d149b31e703265ba62f
+      internalID: 528518899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_170
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d8ac8eb19c1cdc448bc1fc19aba8dcc
+      internalID: 64851473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_171
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59f2983c810874442826a6978f0f63c7
+      internalID: 1498476915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_172
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab3380addedf0d54099d0cfd92f4f183
+      internalID: -710295922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_173
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fd93d024945fb843a9606a1dd1bb6c8
+      internalID: 350086599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_174
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ca20f868263ae94889b05cc26948329
+      internalID: 149025015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_175
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69425eb3a1373ff4082a5b86582648d6
+      internalID: -2038219999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_176
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d28e5eb332df5fc4a9f71cd577143364
+      internalID: -531588497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_177
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3de80a5c22f82d643bf11f71a3e72416
+      internalID: -1968776320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_178
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a9eb8f221c3a534bac06106d41097a0
+      internalID: -2078973652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_179
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2af976eeb74a6f04bbd39f7863692bf2
+      internalID: 2035033032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_180
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4d03d1722b1fad438b65faea44e8e24
+      internalID: 2028054088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_181
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0ec9737b5fb2794cac28bd9e4adaad7
+      internalID: -856173051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_182
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 388
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79b4a33a7ee66fd48833d81912971a7b
+      internalID: 1950954981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_183
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b24524d530c38e41b46d0d8e3ba8744
+      internalID: -281065882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_184
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c37980694f3b094da41e34c6ae1d2fe
+      internalID: -655859765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_185
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4a57a68203b7954f926092e27c17b33
+      internalID: -1181482302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_186
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec4107a2c3bebdf4da5ee5ffd0179dc2
+      internalID: -1405039058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_187
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd6b9960c25e8c34fa7dcaaff28adb3c
+      internalID: 975832311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_188
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07306a9c9f19d1f4dbaa4d050defc790
+      internalID: -1753435080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_189
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95ebf67e4eac4304c95186f661321473
+      internalID: 621849899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_190
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ab44efda93f7a74fa04574b5ffab481
+      internalID: 1470275184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_191
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41a1ac40bef9b384586310c706743972
+      internalID: 625977230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_192
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e69b6b6fa3fc3a94d9ba6c39d513e76d
+      internalID: -1727590032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_193
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40133dd2700ea83479c3652c3f2be075
+      internalID: 1849858675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_194
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57616ce2269ae614281740331f635768
+      internalID: -1060530432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_195
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97499eca90b2d4546be31e6623d2c770
+      internalID: 79778480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_196
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4d5cdd1d1edf244bb9479f12627a934
+      internalID: -1227807578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_197
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5468b60e9992a364bb1b205e3e598507
+      internalID: -2015423676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_198
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcbd54f3642e5574c926e44dce4ea22f
+      internalID: 706577081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_199
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 260
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fab54d7adbbd4d74396b79a0ae99ef44
+      internalID: 1682318523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_200
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 502c299a2fbe1f941b585e8cff826fb1
+      internalID: 378563985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_201
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa04982c437eadd49b685e1e0efdacc8
+      internalID: 2009249994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_202
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9082d4c79c678d459a15ae95eea91b8
+      internalID: 627998658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_203
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c87a23d69cf1ce0489f48647effc16ec
+      internalID: 665999947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_204
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42cfe3df38ea091438ebc2d71e3bd6d5
+      internalID: -2125894231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_205
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abb6cb001b488104f86f9eac2353f4a2
+      internalID: 239371258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_206
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9b4364d1a166aa4a9ccf8b00b61c2f6
+      internalID: 1665717863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_207
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e71ef12fea817142896c2d234e46065
+      internalID: 807469607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_208
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22bf2b34216dce84b93e6407744608a5
+      internalID: -69857488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_209
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5e1b5f843b5bb1428769d4d86f95fbd
+      internalID: -1706372710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_210
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3d42b81652482548a0d7a0d3271bd63
+      internalID: 565978124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_211
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a19028346f80fe4e8192d6aa08087fe
+      internalID: -1946816350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_212
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14596ebc374582f45a66934a1e0bf2ef
+      internalID: 169444678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_213
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 247c8c6d84fd416418cc215c877231ee
+      internalID: 495765911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_214
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d428069e40f61d4f83cfa97f77feb74
+      internalID: 1530490272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_215
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f9abc8419d92834281411d0c3d2e63a
+      internalID: -1283019925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_216
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 132
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc3332dc26a03d5419414e5f8d0ac06b
+      internalID: 1762588691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_217
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc99a0f271e6b5c41a76fb7e4f91b4bf
+      internalID: -605618191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_218
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b147756c549d51045aed1db5651f450b
+      internalID: -164706851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_219
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16c632040d6212e439b678cc6afac019
+      internalID: -1842298972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_220
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c52a67076e1b1154da565e020e24ef2b
+      internalID: 65025219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_221
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 500c450608a05f04e85b8e6ca19f86b1
+      internalID: 980289277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_222
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9764986024f77194fa4fe67c38fbb2a1
+      internalID: -513750521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_223
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 712159252e50da94b9f5b0d793373a9f
+      internalID: 1082697967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_224
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ddb2c1619f5592439af5c440d7a2c82
+      internalID: 175823241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_225
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f39da8b0b6509b94c8707cf231cb11bb
+      internalID: 742089207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_226
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c6c8ac5ffdd00b47922d1e7f0e8382b
+      internalID: -811931352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_227
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58488f479c943c741a55221a792a8fb5
+      internalID: -1980663902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_228
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32c28fb2d2f87d8408edeab32ccf08f7
+      internalID: -1457759816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_229
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8394a80c62735840837f355ab240551
+      internalID: 1650887882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_230
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60a71ed6e5bfa92478bfc51716d581d6
+      internalID: -1431334774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_231
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a91266c13f1f2004a949114959ab2372
+      internalID: -815164834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_232
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b185beaa6c08d6a4294b06d3ba6ceba7
+      internalID: 515442496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iconsDouble_233
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 4
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19b0c77fb7981c54e92cb95eb82d9e03
+      internalID: 866725819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 42b89e3fc32200d42bf20f54e8a43e21
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Heart: 1648246320
+      HeartBroken: 236012240
+      Skull: -498329690
+      iconsDouble_0: 1846186434
+      iconsDouble_1: -622007703
+      iconsDouble_10: 1187238615
+      iconsDouble_100: -2099339393
+      iconsDouble_101: 1973681446
+      iconsDouble_102: -922048644
+      iconsDouble_103: -1019662502
+      iconsDouble_104: -1165790448
+      iconsDouble_105: -45995740
+      iconsDouble_106: -1267108171
+      iconsDouble_107: -309235135
+      iconsDouble_108: 1132280210
+      iconsDouble_109: 1974741055
+      iconsDouble_11: 1174734184
+      iconsDouble_110: 1290745986
+      iconsDouble_111: -1523693459
+      iconsDouble_112: -1683600065
+      iconsDouble_113: -244362543
+      iconsDouble_114: -1040974138
+      iconsDouble_115: -172421423
+      iconsDouble_116: -503393134
+      iconsDouble_117: 92493693
+      iconsDouble_118: -1895633539
+      iconsDouble_119: 1751238771
+      iconsDouble_120: -788917730
+      iconsDouble_121: -817714885
+      iconsDouble_122: 1544129249
+      iconsDouble_123: -758036203
+      iconsDouble_124: -1255288281
+      iconsDouble_125: -1461713931
+      iconsDouble_126: -1712284636
+      iconsDouble_127: -110524488
+      iconsDouble_128: 821727156
+      iconsDouble_129: 1333410944
+      iconsDouble_130: -1852401844
+      iconsDouble_131: 43367424
+      iconsDouble_132: 522797003
+      iconsDouble_133: 1054030173
+      iconsDouble_134: 1730853832
+      iconsDouble_135: -775904180
+      iconsDouble_136: 55092196
+      iconsDouble_137: 403823548
+      iconsDouble_138: 1931199262
+      iconsDouble_139: 562458233
+      iconsDouble_14: 1370263770
+      iconsDouble_140: 399289147
+      iconsDouble_141: 1207101317
+      iconsDouble_142: -2088893780
+      iconsDouble_143: -2103643170
+      iconsDouble_144: -881890250
+      iconsDouble_145: 638091404
+      iconsDouble_146: 1018557898
+      iconsDouble_147: -748219992
+      iconsDouble_148: -597285889
+      iconsDouble_149: -904701803
+      iconsDouble_15: 1674307042
+      iconsDouble_150: -475672960
+      iconsDouble_151: 1277014065
+      iconsDouble_152: -780140498
+      iconsDouble_153: -2050853648
+      iconsDouble_154: -1517371482
+      iconsDouble_155: -395161217
+      iconsDouble_156: 263450248
+      iconsDouble_157: -2144315123
+      iconsDouble_158: 203176146
+      iconsDouble_159: 1324663901
+      iconsDouble_16: 900236733
+      iconsDouble_160: 1020033911
+      iconsDouble_161: -1293164681
+      iconsDouble_162: 463939599
+      iconsDouble_163: 1325589985
+      iconsDouble_164: -785147865
+      iconsDouble_165: -312500325
+      iconsDouble_166: 1584697444
+      iconsDouble_167: 1163780711
+      iconsDouble_168: 1181333753
+      iconsDouble_169: 528518899
+      iconsDouble_17: 1593986682
+      iconsDouble_170: 64851473
+      iconsDouble_171: 1498476915
+      iconsDouble_172: -710295922
+      iconsDouble_173: 350086599
+      iconsDouble_174: 149025015
+      iconsDouble_175: -2038219999
+      iconsDouble_176: -531588497
+      iconsDouble_177: -1968776320
+      iconsDouble_178: -2078973652
+      iconsDouble_179: 2035033032
+      iconsDouble_18: -2000671643
+      iconsDouble_180: 2028054088
+      iconsDouble_181: -856173051
+      iconsDouble_182: 1950954981
+      iconsDouble_183: -281065882
+      iconsDouble_184: -655859765
+      iconsDouble_185: -1181482302
+      iconsDouble_186: -1405039058
+      iconsDouble_187: 975832311
+      iconsDouble_188: -1753435080
+      iconsDouble_189: 621849899
+      iconsDouble_19: -2013266488
+      iconsDouble_190: 1470275184
+      iconsDouble_191: 625977230
+      iconsDouble_192: -1727590032
+      iconsDouble_193: 1849858675
+      iconsDouble_194: -1060530432
+      iconsDouble_195: 79778480
+      iconsDouble_196: -1227807578
+      iconsDouble_197: -2015423676
+      iconsDouble_198: 706577081
+      iconsDouble_199: 1682318523
+      iconsDouble_2: -1923422576
+      iconsDouble_20: -1762106074
+      iconsDouble_200: 378563985
+      iconsDouble_201: 2009249994
+      iconsDouble_202: 627998658
+      iconsDouble_203: 665999947
+      iconsDouble_204: -2125894231
+      iconsDouble_205: 239371258
+      iconsDouble_206: 1665717863
+      iconsDouble_207: 807469607
+      iconsDouble_208: -69857488
+      iconsDouble_209: -1706372710
+      iconsDouble_21: 47661458
+      iconsDouble_210: 565978124
+      iconsDouble_211: -1946816350
+      iconsDouble_212: 169444678
+      iconsDouble_213: 495765911
+      iconsDouble_214: 1530490272
+      iconsDouble_215: -1283019925
+      iconsDouble_216: 1762588691
+      iconsDouble_217: -605618191
+      iconsDouble_218: -164706851
+      iconsDouble_219: -1842298972
+      iconsDouble_22: 1982477380
+      iconsDouble_220: 65025219
+      iconsDouble_221: 980289277
+      iconsDouble_222: -513750521
+      iconsDouble_223: 1082697967
+      iconsDouble_224: 175823241
+      iconsDouble_225: 742089207
+      iconsDouble_226: -811931352
+      iconsDouble_227: -1980663902
+      iconsDouble_228: -1457759816
+      iconsDouble_229: 1650887882
+      iconsDouble_23: 927734664
+      iconsDouble_230: -1431334774
+      iconsDouble_231: -815164834
+      iconsDouble_232: 515442496
+      iconsDouble_233: 866725819
+      iconsDouble_24: -1890600181
+      iconsDouble_25: 1251625624
+      iconsDouble_26: -658722329
+      iconsDouble_27: -1601413320
+      iconsDouble_28: -741350178
+      iconsDouble_29: 1483232062
+      iconsDouble_3: -1194271583
+      iconsDouble_30: -899583608
+      iconsDouble_31: -679258136
+      iconsDouble_32: -68649857
+      iconsDouble_33: 428725145
+      iconsDouble_34: -940431375
+      iconsDouble_35: 1152647783
+      iconsDouble_36: 652565779
+      iconsDouble_37: -956246823
+      iconsDouble_38: 1928683219
+      iconsDouble_39: -825805948
+      iconsDouble_4: -300862234
+      iconsDouble_40: 257140671
+      iconsDouble_41: -69864249
+      iconsDouble_42: 2145983702
+      iconsDouble_43: 1851407664
+      iconsDouble_44: 1522168840
+      iconsDouble_45: 28066371
+      iconsDouble_46: 1834044514
+      iconsDouble_47: -1577187357
+      iconsDouble_48: -1019895810
+      iconsDouble_49: -1197780106
+      iconsDouble_5: 1312369373
+      iconsDouble_50: -201652107
+      iconsDouble_51: 926801394
+      iconsDouble_52: 1134329912
+      iconsDouble_53: 412098370
+      iconsDouble_54: 742210920
+      iconsDouble_55: 1035034224
+      iconsDouble_56: -162120706
+      iconsDouble_57: -1832637926
+      iconsDouble_58: -602871341
+      iconsDouble_59: -393845205
+      iconsDouble_6: 2071968609
+      iconsDouble_60: -1130992857
+      iconsDouble_61: 1331276521
+      iconsDouble_62: -921125928
+      iconsDouble_63: 1889382156
+      iconsDouble_64: -1608417819
+      iconsDouble_65: 777404884
+      iconsDouble_66: -1218104682
+      iconsDouble_67: -2067238003
+      iconsDouble_68: -2103177498
+      iconsDouble_69: 1121931069
+      iconsDouble_7: -1483097539
+      iconsDouble_70: 543830773
+      iconsDouble_71: -566202370
+      iconsDouble_72: -733590930
+      iconsDouble_73: -1026502495
+      iconsDouble_74: -1649385916
+      iconsDouble_75: 143675216
+      iconsDouble_76: 220086304
+      iconsDouble_77: -1352720568
+      iconsDouble_78: -1396163148
+      iconsDouble_79: 1237256071
+      iconsDouble_80: -727620556
+      iconsDouble_81: 1735090966
+      iconsDouble_82: -175708053
+      iconsDouble_83: 474358253
+      iconsDouble_84: 731636293
+      iconsDouble_85: 317250882
+      iconsDouble_86: 1235984857
+      iconsDouble_87: 464367181
+      iconsDouble_88: -312701347
+      iconsDouble_89: -1779948149
+      iconsDouble_9: -1802973703
+      iconsDouble_90: 1084796979
+      iconsDouble_91: 396519915
+      iconsDouble_92: 1380108017
+      iconsDouble_93: -1877182799
+      iconsDouble_94: -1920252936
+      iconsDouble_95: 1740044018
+      iconsDouble_96: 873736520
+      iconsDouble_97: -519169434
+      iconsDouble_98: 1468057482
+      iconsDouble_99: 461369438
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
