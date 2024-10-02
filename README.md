@@ -20,7 +20,7 @@ Dans **FEURnite**, tu incarnes un canard appelé "**Koua**", plongé dans une ba
 - **Dorry-san** *(Doryan)*
 - **Alice**
 - **Antoine**
-- **Antonio**
+- **Anthonio**
 - **Théo**
 - **Corentin**
 - **William**
