@@ -1,3 +1,4 @@
+using Fusion.Addons.SimpleKCC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,12 @@ namespace Starter.ThirdPersonCharacter
         public int throwUpwardForce; // Upward throw force
         public float explosionRadius; // All the radius that the grenade will damage on explode
         public int timeBeforeExplode; // Time before the grenade explode
-        
+
+        [Header("Greande Effect")]
+        public ParticleSystem explosionEffectPrefab; // les particules qui spawn lors de l'explosion
+        public AudioClip explosionAudioClip; // sound lors de l'explosion
+        public float explosionAudioVolume = 0.5f;
+
         // Private
         private Transform spawnGrenadePosition; // Where the bullet is gonna spawn
 		private PlayerInventory _playerInventory;
@@ -50,7 +56,7 @@ namespace Starter.ThirdPersonCharacter
 			StartCoroutine (explodeAfterDelay ());
         }
 
-		private IEnumerator explodeAfterDelay ()
+        private IEnumerator explodeAfterDelay()
 		{
 			// Wait the delay before explode
 			yield return new WaitForSeconds (timeBeforeExplode);
@@ -59,9 +65,11 @@ namespace Starter.ThirdPersonCharacter
 			explode ();
 		}
 
-		private void explode ()
+        private void explode()
 		{
-			Destroy (gameObject);
-		}
+            ParticleSystem Explosion = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(explosionAudioClip, transform.position, explosionAudioVolume);
+            Destroy (gameObject);
+        }
     }
 }
