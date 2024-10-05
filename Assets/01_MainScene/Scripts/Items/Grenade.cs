@@ -23,8 +23,9 @@ namespace Starter.ThirdPersonCharacter
         // Private
         private Transform spawnGrenadePosition; // Where the bullet is gonna spawn
 		private PlayerInventory _playerInventory;
-		private Rigidbody _rigidBody;
-        
+        private Animator _playerAnimator;
+        private Rigidbody _rigidBody;
+
         public override ItemType getType()
         {
             return ItemType.Grenade;
@@ -40,20 +41,26 @@ namespace Starter.ThirdPersonCharacter
 			if (_rigidBody == null)
 				_rigidBody = GetComponent<Rigidbody> ();
 
-			// Drop Grenade
-			_playerInventory.dropCurrentSelection ();
+            // Getting PlayerAnimator
+            if (_playerAnimator == null)
+                _playerAnimator = GetComponentInParent<Animator>();
 
-			// Getting camera transform
-			Transform cameraTransform = Camera.main.transform;
+            // Start dropAndThrow coroutine
+            StartCoroutine(dropAndThrowAfterDelay());
 
-			// Setting up throwForce toward rotation of the camera
-			Vector3 forceToAdd = (cameraTransform.forward * throwForce) + (cameraTransform.up * throwUpwardForce);
+            // Start exploding coroutine
+            StartCoroutine(explodeAfterDelay());
+        }
 
-			// Add the force to the grenade rigidBody
-			_rigidBody.AddForce (forceToAdd);
+        private IEnumerator dropAndThrowAfterDelay()
+        {
+            _playerAnimator.SetTrigger("LaunchTrigger");
+            Debug.Log("LaunchTrigger");
 
-			// Start exploding coroutine
-			StartCoroutine (explodeAfterDelay ());
+            // Wait the delay before explode
+            yield return new WaitForSeconds(0.8f);
+
+            dropAndThrow();
         }
 
         private IEnumerator explodeAfterDelay()
@@ -65,11 +72,28 @@ namespace Starter.ThirdPersonCharacter
 			explode ();
 		}
 
+        private void dropAndThrow()
+        {
+            // Drop Grenade
+            _playerInventory.dropCurrentSelection();
+
+            // Getting camera transform
+            Transform cameraTransform = Camera.main.transform;
+
+            // Setting up throwForce toward rotation of the camera
+            Vector3 forceToAdd = (cameraTransform.forward * throwForce) + (cameraTransform.up * throwUpwardForce);
+
+            // Add the force to the grenade rigidBody
+            _rigidBody.AddForce(forceToAdd);
+
+            _playerAnimator.ResetTrigger("LaunchTrigger");
+        }
+
         private void explode()
-		{
+        {
             ParticleSystem Explosion = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
             AudioSource.PlayClipAtPoint(explosionAudioClip, transform.position, explosionAudioVolume);
-            Destroy (gameObject);
+            Destroy(gameObject);
         }
     }
 }

@@ -5,6 +5,7 @@ using Fusion.Addons.SimpleKCC;
 using Unity.VisualScripting;
 using Random = UnityEngine.Random;
 using UnityEngine.Animations.Rigging;
+using static UnityEditor.Progress;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -140,7 +141,7 @@ namespace Starter.ThirdPersonCharacter
 			
 			// Setup selected item
 			Item selectedItem = null;
-			ItemType selectedType = ItemType.None;
+            ItemType selectedType = ItemType.None;
 
 			if (selectedObj != null)
 				selectedItem = selectedObj.GetComponent<Item> ();
@@ -303,13 +304,12 @@ namespace Starter.ThirdPersonCharacter
 			{
 				// We use current selected Item
 				PlayerInventory.useCurrentSelection();
-
-			// If player is not shooting and his item is a weapon we check if he wants to reaload
-			} 
+           
+                // If player is not shooting and his item is a weapon we check if he wants to reaload
+            } 
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon) 
 			{
 
-                Animator.SetTrigger("ReloadTrigger");
                 Weapon weapon = (Weapon) currentItem;  // Set current Item as a weapon
 				weapon.reload(); // Relaod the weapon
 
