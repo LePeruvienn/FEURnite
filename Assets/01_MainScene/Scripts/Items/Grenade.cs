@@ -6,7 +6,7 @@ namespace Starter.ThirdPersonCharacter
 {
     public class Grenade : Item
     {
-		[Header("Greande Stats")]
+		[Header("Grenade Stats")]
         public int maxDamage; // Max damage that the grenade can deal (when player close to explosion)
         public int minDamage; // Min damage taht the grenade can deal (when player far from explosion)
         public int throwForce; // Forward throw force
@@ -15,7 +15,7 @@ namespace Starter.ThirdPersonCharacter
         public int timeBeforeExplode; // Time before the grenade explode
         
         // Private
-        private Transform spawnGrenadePosition; // Where the bullet is gonna spawn
+        private Transform _spawnGrenadePosition; // Where the bullet is gonna spawn
 		private PlayerInventory _playerInventory;
 		private Rigidbody _rigidBody;
         
@@ -55,7 +55,7 @@ namespace Starter.ThirdPersonCharacter
 			// Wait the delay before explode
 			yield return new WaitForSeconds (timeBeforeExplode);
 
-			// Make the greande explode
+			// Make the grenade explode
 			explode ();
 		}
 

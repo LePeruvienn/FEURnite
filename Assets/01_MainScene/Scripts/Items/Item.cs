@@ -110,9 +110,7 @@ namespace Starter.ThirdPersonCharacter
             // Get the Rigidbody component and disable it (if it exists)
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null)
-            {
                 rb.isKinematic = !_bool; // Making it kinematic so it no longer interacts with physics
-            }
 
             // Get all the Collider components and disable them
             Collider[] colliders = GetComponents<Collider>();

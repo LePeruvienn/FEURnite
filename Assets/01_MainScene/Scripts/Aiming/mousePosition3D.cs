@@ -5,7 +5,7 @@ using static UnityEngine.UI.Image;
 
 public class mousePosition3D : MonoBehaviour
 {
-    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
+    [SerializeField] private LayerMask _aimColliderLayerMask = new LayerMask();
     //Serial
 
     // Start is called before the first frame update
@@ -18,7 +18,7 @@ public class mousePosition3D : MonoBehaviour
     void Update()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit[] hits = Physics.RaycastAll(ray, 999f, aimColliderLayerMask);
+        RaycastHit[] hits = Physics.RaycastAll(ray, 999f, _aimColliderLayerMask);
 
         // Loop through all hits from the ray
         foreach (RaycastHit hit in hits)
