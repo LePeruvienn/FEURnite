@@ -111,11 +111,11 @@ namespace Starter.ThirdPersonCharacter
 			// If item is already Reloading stop
 			if (_currentWeaponState == WeaponState.Reloading) return;
 
+   			// Check if we are alreadyFull ammo
+			if (_currentAmmoAmount >= chargerAmmoAmount) return;
+
 			// Set status to reloading
 			_currentWeaponState = WeaponState.Reloading;
-
-			// Check if we are alreadyFull ammo
-			if (_currentAmmoAmount >= chargerAmmoAmount) return;	
 
             // Start reload couroutine
 			StartCoroutine (reloadCouroutine ());
