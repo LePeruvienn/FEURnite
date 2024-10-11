@@ -18,6 +18,7 @@ namespace Starter.ThirdPersonCharacter
 		public PlayerModel PlayerModel;
 		public PlayerInput PlayerInput;
 		public PlayerInventory PlayerInventory;
+		public InventoryDisplay InventoryDisplay;
 		public Animator Animator;
 		public Transform CameraPivot;
 		public Transform CameraHandle;
@@ -185,6 +186,9 @@ namespace Starter.ThirdPersonCharacter
 			{
 				PlayerInventory.dropCurrentSelection();
 			}
+
+			if (input.ToggleInventory)
+				InventoryDisplay.toggleInventory ();
 			
 
 			var lookRotation = Quaternion.Euler(0f, input.LookRotation.y, 0f);
