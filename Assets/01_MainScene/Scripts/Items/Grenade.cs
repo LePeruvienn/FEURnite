@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Starter.ThirdPersonCharacter
@@ -13,11 +14,16 @@ namespace Starter.ThirdPersonCharacter
         public int throwUpwardForce; // Upward throw force
         public float explosionRadius; // All the radius that the grenade will damage on explode
         public int timeBeforeExplode; // Time before the grenade explode
-        
+		public bool hasBeenTriggered;
+		public bool hasExploded;
+        public float maxDamageDistance;
+        public float minDamageDistance;
+
         // Private
         private Transform _spawnGrenadePosition; // Where the bullet is gonna spawn
 		private PlayerInventory _playerInventory;
 		private Rigidbody _rigidBody;
+		private SphereCollider _sphereCollider;
         
         public override ItemType getType()
         {
@@ -47,7 +53,8 @@ namespace Starter.ThirdPersonCharacter
 			_rigidBody.AddForce (forceToAdd);
 
 			// Start exploding coroutine
-			StartCoroutine (explodeAfterDelay ());
+			if(hasBeenTriggered == false)
+				StartCoroutine (explodeAfterDelay ());
         }
 
 		private IEnumerator explodeAfterDelay ()
@@ -55,13 +62,50 @@ namespace Starter.ThirdPersonCharacter
 			// Wait the delay before explode
 			yield return new WaitForSeconds (timeBeforeExplode);
 
-			// Make the grenade explode
-			explode ();
+			hasBeenTriggered = true;
+
+            // Make the grenade explode
+            explode ();
 		}
 
 		private void explode ()
 		{
-			Destroy (gameObject);
+			if (_sphereCollider == null)
+			{
+                SphereCollider[] sphereColliders = GetComponentsInChildren<SphereCollider>();
+                foreach (SphereCollider collider in sphereColliders)
+                    if (collider.name == "colliderVide")
+                    {
+                        _sphereCollider = collider;
+                        break;
+                    }
+            }
+			_sphereCollider.radius = explosionRadius;
+            Debug.Log("COLLIDER : " + _sphereCollider.name);
+            Debug.Log("RADIUS : " + _sphereCollider.radius);
+			hasExploded = true;
 		}
+
+        private void OnTriggerEnter(Collider other)
+		{
+			if(other.GetComponent<PlayerModel>() != null)
+			{
+                PlayerModel pModel = other.GetComponent<PlayerModel>();
+                Debug.Log("PLAYER: " + pModel.name);
+				if (hasExploded == true)
+				{
+                    float distance = Vector3.Distance(transform.position, other.transform.position);
+                    Debug.Log("DISTANCE: " + distance);
+                    Debug.Log("PV AVANT: " + pModel.getCurrentTotalHealth());
+                    if (distance <= maxDamageDistance)
+                        pModel.takeDamage(maxDamage);
+                    else if (distance <= minDamageDistance)
+                        pModel.takeDamage(minDamage);
+                    Debug.Log("PV APRES: " + pModel.getCurrentTotalHealth());
+                    Destroy(gameObject);
+                }
+
+            }
+        }
     }
 }

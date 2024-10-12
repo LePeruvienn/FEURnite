@@ -98,8 +98,10 @@ namespace Starter.ThirdPersonCharacter
             if (Physics.Raycast(ray, out hit, rayLength))
             {
                 mouseWorldPosition = hit.point; // Set the target point to the point hit by the raycast
-            } 
-            
+            }
+
+            bulletPrefab.GetComponent<BulletProjectile>().damage = damage;
+
             // Shoot the bullet prefab
             Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
             Instantiate(bulletPrefab,_spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));

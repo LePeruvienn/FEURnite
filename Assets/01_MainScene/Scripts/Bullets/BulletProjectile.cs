@@ -1,3 +1,4 @@
+using Starter.ThirdPersonCharacter;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class BulletProjectile : MonoBehaviour
     private Rigidbody bulletRigidbody;
     [SerializeField] private Transform _vfxHitRed;
     [SerializeField] private Transform _vfxHitBlack;
+
+    public int damage;
 
     private void Awake()
     {
@@ -23,10 +26,14 @@ public class BulletProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<BulletTarget>() != null) 
-        { 
-            //hit target
+        PlayerModel pModel = other.GetComponent<PlayerModel>();
+        if (pModel != null)
+        {
+            //hits target
+            Debug.Log("PV AVANT: " + pModel.getCurrentTotalHealth());
+            pModel.takeDamage(damage);
             Instantiate(_vfxHitRed, transform.position, Quaternion.identity);
+            Debug.Log("PV APRES: " + pModel.getCurrentTotalHealth());
         }
         else 
         {
