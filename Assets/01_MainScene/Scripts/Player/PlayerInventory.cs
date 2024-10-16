@@ -308,5 +308,18 @@ namespace Starter.ThirdPersonCharacter
 					renderer.enabled = false;
 			}
 		}
+
+		// Getters
+
+		// Return inventory items list
+		public Item[] getInventoryData ()
+		{
+			Item[] items = new Item[size];
+
+			for (int i = 0; i < size; i ++)
+				items[i] = _inventory[i].GetComponent<Item> ();
+
+			return items;
+		}
 	}
 }
