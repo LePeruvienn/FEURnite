@@ -58,19 +58,23 @@ namespace Starter.ThirdPersonCharacter
 		}
 
 		// Show or unshow player inventory
-		public void toggleInventory () {
-			
-			// Diplaying the inventory or not
+		public void toggleInventory()
+		{
 			_isDisplayed = !_isDisplayed;
-			_inventoryCanvas.SetActive (_isDisplayed);
+			_inventoryCanvas.SetActive(_isDisplayed);
 
-			Debug.Log (_isDisplayed);
-			Debug.Log (Cursor.visible);
-			Debug.Log (Cursor.lockState);
-
-			// Displaying mouse or not
-			Cursor.lockState = _isDisplayed ? CursorLockMode.None : CursorLockMode.Locked;
-			Cursor.visible = _isDisplayed;
+			if (_isDisplayed)
+			{
+				// Rendre le curseur visible, mais garder les inputs actifs
+				Cursor.lockState = CursorLockMode.Confined;  // Confiner le curseur dans la fenêtre
+				Cursor.visible = true;
+			}
+			else
+			{
+				// Cacher le curseur et verrouiller comme avant
+				Cursor.lockState = CursorLockMode.Locked;  // Verrouiller le curseur au centre de l'écran
+				Cursor.visible = false;
+			}
 		}
 	}
 }

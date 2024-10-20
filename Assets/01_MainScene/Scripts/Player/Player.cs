@@ -103,6 +103,11 @@ namespace Starter.ThirdPersonCharacter
 
 		private void Awake()
 		{
+
+			// Cacher le curseur et verrouiller comme avant
+			Cursor.lockState = CursorLockMode.Locked;  // Verrouiller le curseur au centre de l'écran
+			Cursor.visible = false;
+
 			AssignAnimationIDs();
 		}
 
