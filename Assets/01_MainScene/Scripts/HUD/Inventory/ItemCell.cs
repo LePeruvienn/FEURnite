@@ -51,6 +51,16 @@ namespace Starter.ThirdPersonCharacter
 
 			if (itemIcon == null) return;
 
+			// Get the ItemCell of the dragged icon
+			ItemCell sourceItemCell = itemIcon.GetComponentInParent<ItemCell>();
+
+			// Check if we are dropping on the same cell
+			if (sourceItemCell == this)
+			{
+				itemIcon.resetPos ();
+				return;  // If it's the same cell, don't do anything
+			}
+
 			setIcon (itemIcon.getSprite ());
 			itemIcon.removeIcon ();
 		}

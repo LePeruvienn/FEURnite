@@ -8,10 +8,8 @@ using UnityEngine.UI;
 
 namespace Starter.ThirdPersonCharacter
 {
-	public class ItemIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+	public class ItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 	{
-
-		private ItemCell _itemCell;
 		private Image _itemIcon;
 		private RectTransform _rectTransformIcon;
 		private Canvas _canvas;
@@ -19,7 +17,6 @@ namespace Starter.ThirdPersonCharacter
 
 		private void Start()
 		{
-			_itemCell = GetComponentInParent<ItemCell>();
 			_itemIcon = GetComponent<Image> ();
 			_rectTransformIcon = GetComponent<RectTransform> ();
 			_canvas = GetComponentInParent<Canvas> ();
@@ -64,11 +61,6 @@ namespace Starter.ThirdPersonCharacter
 		// ----------------------------
 		// DRANG & DROP EVENTS FUNCTIONS
 		// ----------------------------
-
-		public void OnPointerDown (PointerEventData eventData)
-		{
-			Debug.Log ("POINTER DOWN");
-		}
 		
 		public void OnBeginDrag (PointerEventData eventData)
 		{
@@ -86,7 +78,21 @@ namespace Starter.ThirdPersonCharacter
 			_canvasGroup.alpha = 1f;
 			_canvasGroup.blocksRaycasts = true;
 
-			if (eventData.pointerDrag == null)
+			// Getting obj
+			GameObject obj = eventData.pointerCurrentRaycast.gameObject;
+			
+			// Check if the pointer is not over a valid drop area
+			if (obj == null)
+			{
+				resetPos();  // Reset position if no object is detected
+				return;
+			}
+
+			// Getting itemCell Obj
+			ItemCell itemCell = obj.GetComponent<ItemCell> ();
+
+			// Reset if null
+			if (itemCell == null)
 				resetPos ();
 		}
 	}
