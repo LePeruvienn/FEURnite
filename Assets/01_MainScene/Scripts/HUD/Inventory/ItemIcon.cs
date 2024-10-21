@@ -10,6 +10,7 @@ namespace Starter.ThirdPersonCharacter
 {
 	public class ItemIcon : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 	{
+		// References
 		private Image _itemIcon;
 		private RectTransform _rectTransformIcon;
 		private Canvas _canvas;

@@ -37,6 +37,30 @@ namespace Starter.ThirdPersonCharacter
 			ItemCell[] _weaponsCells = _weapons.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
 			ItemCell[] _itemsCells = _items.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
 
+			// Initiating cells
+			for (int i = 0; i < _hotbarCells.Length; i++)
+			{		
+				_hotbarCells[i].setType (ItemCellType.Hotbar);
+				_hotbarCells[i].setStatus (ItemCellStatus.Free);
+				_hotbarCells[i].setIndex (i);
+			}
+
+
+			for (int i = 0; i < _weaponsCells.Length; i++)
+			{		
+				_weaponsCells[i].setType (ItemCellType.Weapons);
+				_weaponsCells[i].setStatus (ItemCellStatus.Free);
+				_weaponsCells[i].setIndex (i);
+			}
+
+			for (int i = 0; i < _itemsCells.Length; i++)
+			{		
+				_itemsCells[i].setType (ItemCellType.Items);
+				_itemsCells[i].setStatus (ItemCellStatus.Free);
+				_itemsCells[i].setIndex (i);
+			}
+		
+
 			// Setting up inventory items
 			for (int i = 0; i < starterItems.Length; i++)
 			{
@@ -53,6 +77,7 @@ namespace Starter.ThirdPersonCharacter
 				{
 					_hotbarCells[i].setName (item.name);
 					_hotbarCells[i].setIcon (item.icon);
+					_hotbarCells[i].setStatus (ItemCellStatus.Occuped);
 				}
 			}
 		}
