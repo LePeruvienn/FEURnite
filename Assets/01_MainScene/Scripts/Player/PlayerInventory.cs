@@ -7,17 +7,32 @@ using UnityEngine;
 
 namespace Starter.ThirdPersonCharacter
 {
+
+	public enum InventoryType
+	{
+		Hotbar = 0,
+		Weapons = 1,
+		Items = 2,
+	}
+
 	public class PlayerInventory : MonoBehaviour
 	{
 
         [Header("Iventory Config")]
-		public int size;
 		public GameObject[] starterItems;
 		public float pickUpRange;
+
+		// Display
+		private InventoryDisplay _inventoryDisplay;
+
+		// Inventory Size
+		private int _size = 4;
 
 		// Inventory varaible
 		private Transform _origin;
 		private GameObject[] _inventory;
+		private GameObject[] _weapons;
+		private GameObject[] _items;
 		private int _selectedIndex = 0;
 		private Transform _dropItemOrigin;
 		private bool _canPickUp;
@@ -35,10 +50,13 @@ namespace Starter.ThirdPersonCharacter
 			_dropItemOrigin = GameObject.FindGameObjectWithTag("itemDropOrigin").transform;
             
 			// Setting up the iventory empty
-			_inventory = new GameObject[size];
+			_inventory = new GameObject[_size];
+			_weapons = new GameObject[_size];
+			_items = new GameObject[_size];
+
 			// If there is starters items:
 			// We put all the starters items in the inventory
-			for (int i = 0; i < size; i++)
+			for (int i = 0; i < _size; i++)
 			{
 				// If we can put a start item
 				if (i < starterItems.Length)
@@ -54,8 +72,8 @@ namespace Starter.ThirdPersonCharacter
 						// We save his current default position, scale and rotation config
 						item.saveDefaultPosAndRotation ();
 					}
-					
-					// Setting starter item in inventory
+
+					// Setting starter item in display
 					_inventory[i] = itemInstance;
 					
 					// Set item pos
@@ -65,6 +83,12 @@ namespace Starter.ThirdPersonCharacter
 					itemInstance.SetActive (false);
 				}
 			}
+
+
+			// Getting InventoryDisplay
+			_inventoryDisplay = GetComponentInParent<InventoryDisplay> ();
+			// Initialize starterItems in display
+			_inventoryDisplay.init (starterItems);
 			
 			// Update Current selection
 			updateSelection();
@@ -102,7 +126,39 @@ namespace Starter.ThirdPersonCharacter
 				setItem (_inventory[_selectedIndex]);
 
 				_inventory[_selectedIndex].SetActive (true);
+
+				// Setting it on the display
+				_inventoryDisplay.setItem (InventoryType.Hotbar, _selectedIndex, item);
 			}
+		}
+
+		public void moveItemIndex (InventoryType type, int index, int target)
+		{
+			GameObject[] cells = null;
+
+			switch (type)
+			{
+				case InventoryType.Weapons:
+					cells = _weapons;
+					break;
+
+				case InventoryType.Hotbar:
+					cells = _inventory;
+					break;
+
+				case InventoryType.Items:
+					cells = _items;
+					break;
+			}
+
+			if (cells == null) return;
+
+
+			GameObject temp = cells[target];
+			cells[target] = cells[index];
+			cells[index] = temp;
+
+			updateSelection(); // Update current selection
 		}
 		
 		// Function that is use to switch from selected intems in inventory
@@ -170,6 +226,9 @@ namespace Starter.ThirdPersonCharacter
             
             // Clearing the data
 			_inventory[_selectedIndex] = null;
+
+			// Deleting the item display
+			_inventoryDisplay.deleteItem (InventoryType.Hotbar, _selectedIndex);
 		}
 
 		// Desotry the current selected item
@@ -314,9 +373,9 @@ namespace Starter.ThirdPersonCharacter
 		// Return inventory items list
 		public Item[] getInventoryData ()
 		{
-			Item[] items = new Item[size];
+			Item[] items = new Item[_size];
 
-			for (int i = 0; i < size; i ++)
+			for (int i = 0; i < _size; i ++)
 				items[i] = _inventory[i].GetComponent<Item> ();
 
 			return items;

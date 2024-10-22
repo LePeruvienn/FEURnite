@@ -14,16 +14,13 @@ namespace Starter.ThirdPersonCharacter
 		Occuped = 1,
 	}
 
-	public enum ItemCellType
-	{
-		Hotbar = 0,
-		Weapons = 1,
-		Items = 2,
-	}
-
 	public class ItemCell : MonoBehaviour, IDropHandler
 	{
-		private ItemCellType _type;
+		// References
+		private InventoryDisplay _iventoryDisplay;
+
+		// Privates
+		private InventoryType _type;
 		private ItemCellStatus _status;
 		private int _index;
 		
@@ -42,12 +39,17 @@ namespace Starter.ThirdPersonCharacter
 			_itemIcon = itemIconObj.GetComponent<ItemIcon> ();
 		}
 
-		public ItemCellType getType ()
+		public void initDisplay (InventoryDisplay inventoryDisplay)
+		{
+			_iventoryDisplay = inventoryDisplay;
+		}
+
+		public InventoryType getType ()
 		{
 			return _type;
 		}
 
-		public void setType (ItemCellType type)
+		public void setType (InventoryType type)
 		{
 			_type = type;
 		}
@@ -125,6 +127,10 @@ namespace Starter.ThirdPersonCharacter
 			// Check if sourceItemCell is free
 			if (sourceItemCell.getStatus () == ItemCellStatus.Free)
 				return;
+
+			// Moving items in the player invData
+			PlayerInventory playerInventory = _iventoryDisplay.getPlayerInventory ();
+			playerInventory.moveItemIndex (_type, sourceItemCell.getIndex (), _index);
 
 			// Checking if we are occuped with an item
 			if (_status == ItemCellStatus.Occuped)

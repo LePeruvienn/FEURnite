@@ -49,6 +49,9 @@ namespace Starter.ThirdPersonCharacter
 
 		private void Update()
 		{
+
+			_input.ToggleInventory |= Input.GetKeyDown("e");
+
 			// Accumulate input only if the cursor is locked.
 			if (Cursor.lockState != CursorLockMode.Locked)
 				return;
@@ -70,7 +73,6 @@ namespace Starter.ThirdPersonCharacter
 			_input.DropItem |= Input.GetKeyDown("g");
 			_input.Interact |= Input.GetKeyDown("f");
 			_input.RealoadWeapon |= Input.GetKeyDown("r");
-			_input.ToggleInventory |= Input.GetKeyDown("e");
         }
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)

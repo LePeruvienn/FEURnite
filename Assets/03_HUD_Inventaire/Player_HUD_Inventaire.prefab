@@ -474,10 +474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e1a34c1d3c68e6b9731d8466e33f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starterItems:
-  - {fileID: 4822706976654470698, guid: 05215becc0a301b6b988925c215fe28d, type: 3}
-  - {fileID: 4822706976654470698, guid: 05215becc0a301b6b988925c215fe28d, type: 3}
-  - {fileID: 5809297079723940003, guid: 56a17f1154d8d60a8833c165b5fe6949, type: 3}
 --- !u!114 &-3433463954328827346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,13 +486,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61ccabbf518f204aa118b23d8a6db7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 5
+  size: 4
   starterItems:
-  - {fileID: 4629275374961494662, guid: a22272672f3843e4fab7df2af6785277, type: 3}
-  - {fileID: 1846553868190929784, guid: ed23ddaae75641c4ba9bb5c3313a67f3, type: 3}
-  - {fileID: 5446245216496017052, guid: f00abcd844cd57731a768c14bee02705, type: 3}
-  - {fileID: 5446245216496017052, guid: f00abcd844cd57731a768c14bee02705, type: 3}
-  - {fileID: 5446245216496017052, guid: f00abcd844cd57731a768c14bee02705, type: 3}
+  - {fileID: 4822706976654470698, guid: 05215becc0a301b6b988925c215fe28d, type: 3}
+  - {fileID: 5809297079723940003, guid: 56a17f1154d8d60a8833c165b5fe6949, type: 3}
   pickUpRange: 10
 --- !u!54 &426045580450923874
 Rigidbody:
