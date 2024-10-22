@@ -130,7 +130,7 @@ namespace Starter.ThirdPersonCharacter
 
 			// Moving items in the player invData
 			PlayerInventory playerInventory = _iventoryDisplay.getPlayerInventory ();
-			playerInventory.moveItemIndex (_type, sourceItemCell.getIndex (), _index);
+			playerInventory.moveItemIndex (sourceItemCell.getType (), _type, sourceItemCell.getIndex (), _index);
 
 			// Checking if we are occuped with an item
 			if (_status == ItemCellStatus.Occuped)

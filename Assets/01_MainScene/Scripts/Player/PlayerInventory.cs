@@ -17,6 +17,10 @@ namespace Starter.ThirdPersonCharacter
 
 	public class PlayerInventory : MonoBehaviour
 	{
+		// Statics
+		public static int __HOTBAR_SIZE__ = 4;
+		public static int __WEAPONS_SIZE__ = 12;
+		public static int __ITEMS_SIZE__ = 12;
 
         [Header("Iventory Config")]
 		public GameObject[] starterItems;
@@ -24,9 +28,6 @@ namespace Starter.ThirdPersonCharacter
 
 		// Display
 		private InventoryDisplay _inventoryDisplay;
-
-		// Inventory Size
-		private int _size = 4;
 
 		// Inventory varaible
 		private Transform _origin;
@@ -50,13 +51,13 @@ namespace Starter.ThirdPersonCharacter
 			_dropItemOrigin = GameObject.FindGameObjectWithTag("itemDropOrigin").transform;
             
 			// Setting up the iventory empty
-			_inventory = new GameObject[_size];
-			_weapons = new GameObject[_size];
-			_items = new GameObject[_size];
+			_inventory = new GameObject[__HOTBAR_SIZE__];
+			_weapons = new GameObject[__WEAPONS_SIZE__];
+			_items = new GameObject[__ITEMS_SIZE__];
 
 			// If there is starters items:
 			// We put all the starters items in the inventory
-			for (int i = 0; i < _size; i++)
+			for (int i = 0; i < __HOTBAR_SIZE__; i++)
 			{
 				// If we can put a start item
 				if (i < starterItems.Length)
@@ -132,31 +133,16 @@ namespace Starter.ThirdPersonCharacter
 			}
 		}
 
-		public void moveItemIndex (InventoryType type, int index, int target)
+		public void moveItemIndex (InventoryType sourceType, InventoryType targetType, int index, int target)
 		{
-			GameObject[] cells = null;
+			GameObject[] sourceCells = getCells (sourceType);
+			GameObject[] targetCells = getCells (targetType);
 
-			switch (type)
-			{
-				case InventoryType.Weapons:
-					cells = _weapons;
-					break;
+			if (targetCells == null || sourceCells == null) return;
 
-				case InventoryType.Hotbar:
-					cells = _inventory;
-					break;
-
-				case InventoryType.Items:
-					cells = _items;
-					break;
-			}
-
-			if (cells == null) return;
-
-
-			GameObject temp = cells[target];
-			cells[target] = cells[index];
-			cells[index] = temp;
+			GameObject temp = targetCells[target];
+			targetCells[target] = sourceCells[index];
+			sourceCells[index] = temp;
 
 			updateSelection(); // Update current selection
 		}
@@ -368,14 +354,36 @@ namespace Starter.ThirdPersonCharacter
 			}
 		}
 
+		private GameObject[] getCells (InventoryType type)
+		{
+			GameObject[] cells = null;
+
+			switch (type)
+			{
+				case InventoryType.Weapons:
+					cells = _weapons;
+					break;
+
+				case InventoryType.Hotbar:
+					cells = _inventory;
+					break;
+
+				case InventoryType.Items:
+					cells = _items;
+					break;
+			}
+
+			return cells;
+		}
+
 		// Getters
 
 		// Return inventory items list
 		public Item[] getInventoryData ()
 		{
-			Item[] items = new Item[_size];
+			Item[] items = new Item[__HOTBAR_SIZE__];
 
-			for (int i = 0; i < _size; i ++)
+			for (int i = 0; i < __HOTBAR_SIZE__; i ++)
 				items[i] = _inventory[i].GetComponent<Item> ();
 
 			return items;

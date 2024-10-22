@@ -9,10 +9,6 @@ namespace Starter.ThirdPersonCharacter
 		// Reference
 		private PlayerInventory _playerInventory;
 
-		// Static variables
-		private static int __HOTBAR_SIZE__ = 4;
-		private static int __INVENTORY_SIZE__ = 12;
-
 		// Entry var
 		private GameObject[] _starterItems;
 
@@ -91,7 +87,7 @@ namespace Starter.ThirdPersonCharacter
 					continue;
 
 				// Checking if we can still put items into the hotbar
-				if (i < __HOTBAR_SIZE__)
+				if (i < PlayerInventory.__HOTBAR_SIZE__)
 				{
 					_hotbarCells[i].setName (item.name);
 					_hotbarCells[i].setIcon (item.icon);
@@ -148,6 +144,7 @@ namespace Starter.ThirdPersonCharacter
 
 				cells[index].clearIcon ();
 				cells[index].resetName ();
+				cells[index].setStatus (ItemCellStatus.Free);
 			}
 		}
 
