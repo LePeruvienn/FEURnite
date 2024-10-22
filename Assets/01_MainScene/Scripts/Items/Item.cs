@@ -50,7 +50,10 @@ namespace Starter.ThirdPersonCharacter
         public abstract ItemType getType(); // Retourne de type de l'objet
         public abstract void use(); // Utiliser l'item
 
-
+        public ItemRarity GetRarity()
+        {
+            return rarity;
+        }
 		public void saveDefaultPosAndRotation () 
 		{
 			// Save current position scale and rotation in the default data

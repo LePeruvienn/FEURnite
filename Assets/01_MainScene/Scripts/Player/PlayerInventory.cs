@@ -110,21 +110,16 @@ namespace Starter.ThirdPersonCharacter
 
 					_inventory[_selectedIndex].SetActive(true);
 
-				}
-				else // if it's a LootBox
-				{
-					
-					LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
-					if (lootBox != null)
-					{
-						Debug.Log("Open LootBox");
-					}
+					return;
 
 				}
+			
+				LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
+				if (lootBox != null) 
+					lootBox.Open();
+
 
             }
-
-
 
 
         }
