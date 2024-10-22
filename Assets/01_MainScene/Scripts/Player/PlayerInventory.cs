@@ -78,35 +78,54 @@ namespace Starter.ThirdPersonCharacter
 			handlePickup ();
 		}
 
-		public void pickUp ()
-		{
-			// If player can pickup an object
-			if (_canPickUp == true && _lastPickableObject != null) {
-				
-				// Get current selection
-				GameObject selection = getCurrentSelection ();
+        public void pickUp()
+        {
+            // If player can pickup an object
+            if (_canPickUp == true && _lastPickableObject != null)
+            {
 
-				// If current selection is not null, we drop the item selected
-				if (selection != null)
-					dropCurrentSelection ();
+                // Get current selection
+                GameObject selection = getCurrentSelection();
 
-				// Get Item compenent
-				Item item = _lastPickableObject.GetComponent<Item> ();
-				if (item != null) // If Item script exist, set item state to equipped
-					item.setState (ItemState.Equipped);
-				
-				// Setting starter item in inventory
-				_inventory[_selectedIndex] = _lastPickableObject;
-				
-				// Set item pos
-				setItem (_inventory[_selectedIndex]);
+                
+                
 
-				_inventory[_selectedIndex].SetActive (true);
-			}
-		}
-		
-		// Function that is use to switch from selected intems in inventory
-		public void switchSelection (float direciton)
+                // Get Item compenent
+                Item item = _lastPickableObject.GetComponent<Item>();
+
+				if (item != null)// If Item script exist, set item state to equipped
+
+                {  
+                    
+                    if (selection != null)// If current selection is not null, we drop the item selected
+                        dropCurrentSelection();
+
+                    item.setState(ItemState.Equipped);
+
+					// Setting starter item in inventory
+					_inventory[_selectedIndex] = _lastPickableObject;
+
+					// Set item pos
+					setItem(_inventory[_selectedIndex]);
+
+					_inventory[_selectedIndex].SetActive(true);
+
+					return;
+
+				}
+			
+				LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
+				if (lootBox != null) 
+					lootBox.Open();
+
+
+            }
+
+
+        }
+
+        // Function that is use to switch from selected intems in inventory
+        public void switchSelection (float direciton)
 		{
 			if (direciton < 0f) // Scroll down
 			{
@@ -231,9 +250,11 @@ namespace Starter.ThirdPersonCharacter
 			if (detectedObj == null) return;
 
 			Item item = detectedObj.GetComponent<Item> ();
+			LootBox lootBox = detectedObj.GetComponent<LootBox> ();
 
-			// Return if the object detected is not an Item;
-			if (item == null) return;
+            // Return if the object detected is not an Item or LootBox;
+            if (item == null && lootBox == null) return;
+            
 
 			// Set can pickup to true !
 			_canPickUp = true;
