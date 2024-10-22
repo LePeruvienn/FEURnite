@@ -165,7 +165,7 @@ namespace Starter.ThirdPersonCharacter
 			if (_isAiming) // Si il vise
 			{
 				speed = AimSpeed;
-			}
+            }
 			else if (input.Sprint) // Si il est en train de courrir
 			{
 				speed = SprintSpeed;
@@ -302,8 +302,11 @@ namespace Starter.ThirdPersonCharacter
             // If player press Fire1
             if (input.Shoot)
 			{
-				// We use current selected Item
-				PlayerInventory.useCurrentSelection();
+                if (_isAiming) // Si il vise
+                {
+                    PlayerInventory.useCurrentSelection();// We use current selected Item
+                }
+                
            
                 // If player is not shooting and his item is a weapon we check if he wants to reaload
             } 
