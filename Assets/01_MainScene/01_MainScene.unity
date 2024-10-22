@@ -258,6 +258,16 @@ MonoBehaviour:
   HealthBar: {fileID: 894710565}
   ShieldBar: {fileID: 1339624704}
   SuperShieldBar: {fileID: 564021928}
+  _healt: 0
+  _maxHealth: 100
+  _shield: 0
+  _maxShield: 100
+  _superShield: 0
+  _maxSuperShield: 50
+  wait: 3
+  ShieldUp: 5
+  lastTimeHeat: 0
+  heat: 10
   debugTakeDamage: 0
 --- !u!1 &31813265
 GameObject:
