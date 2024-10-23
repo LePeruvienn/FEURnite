@@ -18,10 +18,15 @@ namespace Starter.ThirdPersonCharacter
 		private GameObject _weapons;
 		private GameObject _items;
 
+		private GameObject _inGameBarObj;
+		private InGameHotbar _inGameBar;
+
 		// Interface cells
 		private ItemCell[] _hotbarCells;
 		private ItemCell[] _weaponsCells;
 		private ItemCell[] _itemsCells;
+
+		private ItemCell[] _inGameBarObjCells;
 
 		// Privates variables
 		private bool _isDisplayed = false;
@@ -36,17 +41,25 @@ namespace Starter.ThirdPersonCharacter
 
 			// Getting Intefaces Objects
 			_inventoryCanvas = GameObject.FindGameObjectWithTag ("cnvInventory");
+			_inGameBarObj = _inventoryCanvas.transform.Find ("InGameBar").gameObject;
 			_hotbar = _inventoryCanvas.transform.Find ("HotBar").gameObject;
 			_weapons = _inventoryCanvas.transform.Find ("WeaponsBox").gameObject;
 			_items = _inventoryCanvas.transform.Find ("ItemsBox").gameObject;
 
+			// Getting in game hotbar script
+			_inGameBar.GetComponent<InGameHotbar> ();
+
 			// Disabling Inventory showing
-			_inventoryCanvas.SetActive (_isDisplayed);
+			_inGameBarObj.SetActive (!_isDisplayed);
+			_hotbar.SetActive (_isDisplayed);
+			_weapons.SetActive (_isDisplayed);
+			_items.SetActive (_isDisplayed);
 
 			// Getting Inventory elements
 			_hotbarCells = _hotbar.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
 			_weaponsCells = _weapons.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
 			_itemsCells = _items.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
+			_inGameBarObjCells = _inGameBarObj.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
 
 			// Initiating cells
 			for (int i = 0; i < _hotbarCells.Length; i++)
@@ -89,9 +102,14 @@ namespace Starter.ThirdPersonCharacter
 				// Checking if we can still put items into the hotbar
 				if (i < PlayerInventory.__HOTBAR_SIZE__)
 				{
-					_hotbarCells[i].setName (item.name);
+					// Setting into hotbar
+					_hotbarCells[i].setName (item.itemName);
 					_hotbarCells[i].setIcon (item.icon);
 					_hotbarCells[i].setStatus (ItemCellStatus.Occuped);
+
+					// Setting into in game bar
+					_inGameBarObjCells[i].setName (item.itemName);
+					_inGameBarObjCells[i].setIcon (item.icon);
 				}
 			}
 		}
@@ -105,7 +123,12 @@ namespace Starter.ThirdPersonCharacter
 		public void toggleInventory()
 		{
 			_isDisplayed = !_isDisplayed;
-			_inventoryCanvas.SetActive(_isDisplayed);
+
+			// Disabling Inventory showing
+			_inGameBarObj.SetActive (!_isDisplayed);
+			_hotbar.SetActive (_isDisplayed);
+			_weapons.SetActive (_isDisplayed);
+			_items.SetActive (_isDisplayed);
 
 			if (_isDisplayed)
 			{
@@ -159,6 +182,8 @@ namespace Starter.ThirdPersonCharacter
 					break;
 
 				case InventoryType.Hotbar:
+					_inGameBarObjCells[index].setIcon (item.icon);
+					_inGameBarObjCells[index].setName (item.itemName);
 					cells = _hotbarCells;
 					break;
 
@@ -171,6 +196,7 @@ namespace Starter.ThirdPersonCharacter
 			{
 				cells[index].setIcon (item.icon);
 				cells[index].setName (item.itemName);
+				cells[index].setStatus (ItemCellStatus.Occuped);
 			}
 		}
 	}

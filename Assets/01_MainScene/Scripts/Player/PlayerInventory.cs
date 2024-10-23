@@ -217,6 +217,11 @@ namespace Starter.ThirdPersonCharacter
 			_inventoryDisplay.deleteItem (InventoryType.Hotbar, _selectedIndex);
 		}
 
+		public void dropIndex (InventoryType type, int index)
+		{
+
+		}
+
 		// Desotry the current selected item
 		public void destoryCurrentSelection ()
 		{
