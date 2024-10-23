@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InGameHotbar : MonoBehaviour
+namespace Starter.ThirdPersonCharacter
 {
-	private GameObject[] _cells;
-	private ItemCell[] _itemsCells;
-
-	public void setCell (int index, Sprite sprite, string name)
+	public class InGameHotbar : MonoBehaviour
 	{
+		private GameObject[] _cells;
+		private ItemCell[] _itemsCells;
 
-	}
+		public void setCell (int index, Sprite sprite, string name)
+		{
 
-	public void swap (int index, int target)
-	{
+		}
 
+		public void swap (int index, int target)
+		{
+
+		}
 	}
 }
