@@ -89,6 +89,11 @@ namespace Starter.ThirdPersonCharacter
 			return _itemName.text;
 		}
 
+		public Sprite getIcon ()
+		{
+			return _itemIcon.getSprite ();
+		}
+
 		public void setIcon (Sprite icon)
 		{
 			_itemIcon.setIcon (icon);
@@ -149,6 +154,10 @@ namespace Starter.ThirdPersonCharacter
 				sourceItemCell.setIcon(targetCellIcon);
 				sourceItemCell.setName(targetCellName);
 
+				// Updating hotbar if hotbar is concerned
+				if (sourceItemCell.getType () == InventoryType.Hotbar || _type == InventoryType.Hotbar)
+					_iventoryDisplay.updateInGameHotbar ();
+
 				return;
 			}
 
@@ -163,6 +172,10 @@ namespace Starter.ThirdPersonCharacter
 			itemIcon.removeIcon ();
 			// Setting source item cell status to freea
 			sourceItemCell.setStatus (ItemCellStatus.Free);
+
+			// Updating hotbar if hotbar is concerned
+			if (sourceItemCell.getType () == InventoryType.Hotbar || _type == InventoryType.Hotbar)
+				_iventoryDisplay.updateInGameHotbar ();
 		}
 	}
 }

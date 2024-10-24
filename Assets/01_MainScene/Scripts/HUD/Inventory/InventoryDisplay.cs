@@ -17,16 +17,13 @@ namespace Starter.ThirdPersonCharacter
 		private GameObject _hotbar;
 		private GameObject _weapons;
 		private GameObject _items;
-
-		private GameObject _inGameBarObj;
-		private InGameHotbar _inGameBar;
+		private GameObject _inGameBar;
 
 		// Interface cells
 		private ItemCell[] _hotbarCells;
 		private ItemCell[] _weaponsCells;
 		private ItemCell[] _itemsCells;
-
-		private ItemCell[] _inGameBarObjCells;
+		private ItemCell[] _inGameBarCells;
 
 		// Privates variables
 		private bool _isDisplayed = false;
@@ -41,16 +38,13 @@ namespace Starter.ThirdPersonCharacter
 
 			// Getting Intefaces Objects
 			_inventoryCanvas = GameObject.FindGameObjectWithTag ("cnvInventory");
-			_inGameBarObj = _inventoryCanvas.transform.Find ("InGameBar").gameObject;
+			_inGameBar = _inventoryCanvas.transform.Find ("InGameBar").gameObject;
 			_hotbar = _inventoryCanvas.transform.Find ("HotBar").gameObject;
 			_weapons = _inventoryCanvas.transform.Find ("WeaponsBox").gameObject;
 			_items = _inventoryCanvas.transform.Find ("ItemsBox").gameObject;
 
-			// Getting in game hotbar script
-			_inGameBar.GetComponent<InGameHotbar> ();
-
 			// Disabling Inventory showing
-			_inGameBarObj.SetActive (!_isDisplayed);
+			_inGameBar.SetActive (!_isDisplayed);
 			_hotbar.SetActive (_isDisplayed);
 			_weapons.SetActive (_isDisplayed);
 			_items.SetActive (_isDisplayed);
@@ -59,7 +53,7 @@ namespace Starter.ThirdPersonCharacter
 			_hotbarCells = _hotbar.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
 			_weaponsCells = _weapons.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
 			_itemsCells = _items.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
-			_inGameBarObjCells = _inGameBarObj.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
+			_inGameBarCells = _inGameBar.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
 
 			// Initiating cells
 			for (int i = 0; i < _hotbarCells.Length; i++)
@@ -108,8 +102,8 @@ namespace Starter.ThirdPersonCharacter
 					_hotbarCells[i].setStatus (ItemCellStatus.Occuped);
 
 					// Setting into in game bar
-					_inGameBarObjCells[i].setName (item.itemName);
-					_inGameBarObjCells[i].setIcon (item.icon);
+					_inGameBarCells[i].setName (item.itemName);
+					_inGameBarCells[i].setIcon (item.icon);
 				}
 			}
 		}
@@ -125,7 +119,7 @@ namespace Starter.ThirdPersonCharacter
 			_isDisplayed = !_isDisplayed;
 
 			// Disabling Inventory showing
-			_inGameBarObj.SetActive (!_isDisplayed);
+			_inGameBar.SetActive (!_isDisplayed);
 			_hotbar.SetActive (_isDisplayed);
 			_weapons.SetActive (_isDisplayed);
 			_items.SetActive (_isDisplayed);
@@ -155,6 +149,9 @@ namespace Starter.ThirdPersonCharacter
 					break;
 
 				case InventoryType.Hotbar:
+					_inGameBarCells[index].clearIcon ();
+					_inGameBarCells[index].resetName ();
+					_inGameBarCells[index].setStatus (ItemCellStatus.Free);
 					cells = _hotbarCells;
 					break;
 
@@ -182,8 +179,8 @@ namespace Starter.ThirdPersonCharacter
 					break;
 
 				case InventoryType.Hotbar:
-					_inGameBarObjCells[index].setIcon (item.icon);
-					_inGameBarObjCells[index].setName (item.itemName);
+					_inGameBarCells[index].setIcon (item.icon);
+					_inGameBarCells[index].setName (item.itemName);
 					cells = _hotbarCells;
 					break;
 
@@ -197,6 +194,27 @@ namespace Starter.ThirdPersonCharacter
 				cells[index].setIcon (item.icon);
 				cells[index].setName (item.itemName);
 				cells[index].setStatus (ItemCellStatus.Occuped);
+			}
+		}
+
+		public void updateInGameHotbar ()
+		{
+			for (int i = 0; i < _hotbarCells.Length; i ++)
+			{
+				ItemCell cell = _hotbarCells[i];
+
+				if (cell.getStatus () == ItemCellStatus.Occuped)
+				{
+					_inGameBarCells[i].setIcon (cell.getIcon ());
+					_inGameBarCells[i].setName (cell.getName ());
+					_inGameBarCells[i].setStatus (ItemCellStatus.Occuped);
+				}
+				else 
+				{
+					_inGameBarCells[i].clearIcon ();
+					_inGameBarCells[i].resetName ();
+					_inGameBarCells[i].setStatus (ItemCellStatus.Free);
+				}
 			}
 		}
 	}
