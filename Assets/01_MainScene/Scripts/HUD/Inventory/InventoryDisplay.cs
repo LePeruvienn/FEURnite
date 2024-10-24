@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Starter.ThirdPersonCharacter
 {
 	public class InventoryDisplay : MonoBehaviour
 	{
+		public Sprite inGameBarSelectSprite;
+
 		// Reference
 		private PlayerInventory _playerInventory;
 
@@ -55,6 +58,13 @@ namespace Starter.ThirdPersonCharacter
 			_itemsCells = _items.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
 			_inGameBarCells = _inGameBar.transform.Find("CellsParent").GetComponentsInChildren<ItemCell>();
 
+			// Initiaing in game bar cells
+			for (int i = 0; i < _inGameBarCells.Length; i++)
+			{
+				_inGameBarCells[i].initSelect ();
+				_inGameBarCells[i].resetName ();
+			}
+
 			// Initiating cells
 			for (int i = 0; i < _hotbarCells.Length; i++)
 			{		
@@ -62,6 +72,7 @@ namespace Starter.ThirdPersonCharacter
 				_hotbarCells[i].setType (InventoryType.Hotbar);
 				_hotbarCells[i].setStatus (ItemCellStatus.Free);
 				_hotbarCells[i].setIndex (i);
+				_hotbarCells[i].resetName ();
 			}
 
 
@@ -71,6 +82,7 @@ namespace Starter.ThirdPersonCharacter
 				_weaponsCells[i].setType (InventoryType.Weapons);
 				_weaponsCells[i].setStatus (ItemCellStatus.Free);
 				_weaponsCells[i].setIndex (i);
+				_weaponsCells[i].resetName ();
 			}
 
 			for (int i = 0; i < _itemsCells.Length; i++)
@@ -79,6 +91,7 @@ namespace Starter.ThirdPersonCharacter
 				_itemsCells[i].setType (InventoryType.Items);
 				_itemsCells[i].setStatus (ItemCellStatus.Free);
 				_itemsCells[i].setIndex (i);
+				_itemsCells[i].resetName ();
 			}
 		
 
@@ -194,6 +207,28 @@ namespace Starter.ThirdPersonCharacter
 				cells[index].setIcon (item.icon);
 				cells[index].setName (item.itemName);
 				cells[index].setStatus (ItemCellStatus.Occuped);
+			}
+		}
+
+		public void updateInGameHotbarSelection (int index)
+		{
+			for (int i = 0; i < _inGameBarCells.Length; i++)
+			{
+				Image select = _inGameBarCells[i].getSelect ();
+
+				if (i == index)
+				{
+					// Making the image visible
+					Color tempColor = select.color;
+					tempColor.a = 1f;
+					select.color = tempColor;
+				}
+				else {
+					// Making the image fully transparent
+					Color tempColor = select.color;
+					tempColor.a = 0f;
+					select.color = tempColor;
+				}
 			}
 		}
 

@@ -152,7 +152,7 @@ namespace Starter.ThirdPersonCharacter
 		{
 			if (direciton < 0f) // Scroll down
 			{
-				_selectedIndex--; // Tale the previous index
+				_selectedIndex++; // Tale the previous index
 				
 				if (_selectedIndex < 0) // If previous item dont exist, take the last item
 					_selectedIndex = _inventory.Length - 1;
@@ -161,7 +161,7 @@ namespace Starter.ThirdPersonCharacter
 				
 			} else if (direciton > 0f) // Scroll up
 			{
-				_selectedIndex++; // Take the next item
+				_selectedIndex--; // Take the next item
 				
 				if (_selectedIndex >= _inventory.Length) // If next item dont exist, take the first item
 					_selectedIndex = 0;
@@ -325,6 +325,9 @@ namespace Starter.ThirdPersonCharacter
 			// If selection is not null
 			if (selection != null)
 				selection.SetActive (true); // Active current selected item
+
+			// Updating UI
+			_inventoryDisplay.updateInGameHotbarSelection (_selectedIndex);
 		}
 
 		private void disableAllItems()

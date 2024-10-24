@@ -28,12 +28,16 @@ namespace Starter.ThirdPersonCharacter
 		private TextMeshProUGUI  _itemName;
 		private ItemIcon _itemIcon;
 
+		// If item is a in game bar cell
+		private Image _select;
+
 		// Start is called before the first frame update
 		private void Start()
 		{
 			// Getting references
 			GameObject itemNameObj = transform.Find ("itemName").gameObject;
 			GameObject itemIconObj = transform.Find ("itemIcon").gameObject;
+
 			// Settting components
 			_itemName = itemNameObj.GetComponent<TextMeshProUGUI> ();
 			_itemIcon = itemIconObj.GetComponent<ItemIcon> ();
@@ -81,7 +85,7 @@ namespace Starter.ThirdPersonCharacter
 
 		public void resetName ()
 		{
-			_itemName.text = "Name";
+			_itemName.text = "";
 		}
 
 		public string getName ()
@@ -102,6 +106,26 @@ namespace Starter.ThirdPersonCharacter
 		public void clearIcon ()
 		{
 			_itemIcon.removeIcon ();
+		}
+
+		public void initSelect ()
+		{
+			Debug.Log ("Init select ....");
+
+			Transform selectTransform = transform.Find ("select");
+
+			if (selectTransform == null) return;
+
+			Debug.Log ("Founded select !!");
+
+			GameObject selectObj = selectTransform.gameObject;
+
+			_select = selectObj.GetComponent<Image> ();
+		}
+
+		public Image getSelect ()
+		{
+			return _select;
 		}
 
 		// ----------------------------
