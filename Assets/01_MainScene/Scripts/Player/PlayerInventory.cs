@@ -40,6 +40,8 @@ namespace Starter.ThirdPersonCharacter
 
 			// Proceed with your existing spawning logic...
 			initializeInventory ();
+
+			RPC_setItem (_currentItem);
 		}
 		
 		private void initializeInventory ()
@@ -80,7 +82,7 @@ namespace Starter.ThirdPersonCharacter
 					_inventory[i] = itemInstance.gameObject;
 					
 					// Set item pos
-					RPC_setItem (itemInstance);
+					setItem (itemInstance.gameObject);
 
 					// Hide item
 					itemInstance.gameObject.SetActive (false);
