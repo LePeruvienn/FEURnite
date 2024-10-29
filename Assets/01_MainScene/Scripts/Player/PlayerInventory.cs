@@ -264,6 +264,9 @@ namespace Starter.ThirdPersonCharacter
 		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
 		private void RPC_setItem (NetworkObject obj)
 		{
+			// Check if function is executed by the server
+			if (!Runner.IsServer) return;
+			
 			// Setting origin to be parent's obj
 			obj.transform.SetParent(_origin);
 
