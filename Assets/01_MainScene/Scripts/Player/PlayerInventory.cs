@@ -64,7 +64,7 @@ namespace Starter.ThirdPersonCharacter
 				if (i < starterItems.Length)
 				{
                     // We instantiate the object to create a copy
-                    NetworkObject itemInstance = Runner.Spawn (starterItems[i], Vector3.zero, Quaternion.identity);
+                    NetworkObject itemInstance = Runner.Spawn (starterItems[i], _origin.position, Quaternion.identity, Object.InputAuthority);
 
 					// Getting item compenent
 					Item item = itemInstance.GetComponent<Item> ();
@@ -80,7 +80,7 @@ namespace Starter.ThirdPersonCharacter
 					_inventory[i] = itemInstance.gameObject;
 					
 					// Set item pos
-					RPC_setItem (itemInstance);
+					//RPC_setItem (itemInstance);
 
 					// Hide item
 					itemInstance.gameObject.SetActive (false);
