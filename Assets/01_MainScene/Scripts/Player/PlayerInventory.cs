@@ -60,7 +60,7 @@ namespace Starter.ThirdPersonCharacter
 				if (i < starterItems.Length)
 				{
                     // We instantiate the object to create a copy
-                    NetworkObject itemInstance = Runner.Spawn (starterItems[i], Vector3.zero, Quaternion.identity, Runner.LocalPlayer);
+                    NetworkObject itemInstance = Runner.Spawn (starterItems[i], Vector3.zero, Quaternion.identity);
 
 					// Getting item compenent
 					Item item = itemInstance.GetComponent<Item> ();
@@ -261,7 +261,7 @@ namespace Starter.ThirdPersonCharacter
 			_lastPickableObject = detectedObj;
 		}
 
-        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
 		private void RPC_setItem (NetworkObject obj)
 		{
 			// Setting origin to be parent's obj
