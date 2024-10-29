@@ -60,7 +60,7 @@ namespace Starter.ThirdPersonCharacter
 				if (i < starterItems.Length)
 				{
                     // We instantiate the object to create a copy
-                    NetworkObject itemInstance = Runner.Spawn (starterItems[i], Vector3.zero, Quaternion.identity);
+                    NetworkObject itemInstance = Runner.Spawn (starterItems[i], Vector3.zero, Quaternion.identity, Runner.LocalPlayer);
 
 					// Getting item compenent
 					Item item = itemInstance.GetComponent<Item> ();
@@ -76,7 +76,7 @@ namespace Starter.ThirdPersonCharacter
 					_inventory[i] = itemInstance.gameObject;
 					
 					// Set item pos
-					setItem (itemInstance.gameObject);
+					RPC_setItem (itemInstance);
 
 					// Hide item
 					itemInstance.gameObject.SetActive (false);
@@ -115,8 +115,10 @@ namespace Starter.ThirdPersonCharacter
 				// Setting starter item in inventory
 				_inventory[_selectedIndex] = _lastPickableObject;
 				
+				// Getting networked object
+				NetworkObject networkedObj = _inventory[_selectedIndex].GetComponent<NetworkObject> ();
 				// Set item pos
-				setItem (_inventory[_selectedIndex]);
+				RPC_setItem (networkedObj);
 
 				_inventory[_selectedIndex].SetActive (true);
 			}
@@ -258,8 +260,8 @@ namespace Starter.ThirdPersonCharacter
 			// Set _lastPickableObject to the object detected !
 			_lastPickableObject = detectedObj;
 		}
-
-		private void setItem(GameObject obj)
+        [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+		private void RPC_setItem (NetworkObject obj)
 		{
 			// Setting origin to be parent's obj
 			obj.transform.SetParent(_origin);
@@ -272,8 +274,6 @@ namespace Starter.ThirdPersonCharacter
 			{
 				// We use set default function of the item
 				item.setPosAndRotationToDefault ();
-				// Setting item Pos for all clients
-				item.setPosition (_origin.position);
 			}
 			else 
 			{
