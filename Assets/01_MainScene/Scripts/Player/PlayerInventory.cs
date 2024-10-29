@@ -260,7 +260,8 @@ namespace Starter.ThirdPersonCharacter
 			// Set _lastPickableObject to the object detected !
 			_lastPickableObject = detectedObj;
 		}
-        [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
 		private void RPC_setItem (NetworkObject obj)
 		{
 			// Setting origin to be parent's obj
