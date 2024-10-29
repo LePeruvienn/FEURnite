@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -32,15 +33,16 @@ namespace Starter.ThirdPersonCharacter
 	}
 
     // Classe abstaire Des items (Utilisable, armes, grenades)
-    public abstract class Item : MonoBehaviour
+    public abstract class Item : NetworkBehaviour
     {
 		[Header("Item config")]
         public string itemName; // Nom de l'item
         public int stackAmount; // Nombre d'objets qu'on peut stocker en meme temps dans l'inventaire
         public ItemRarity rarity; // Rareté de l'objet
         
-        // Privates
-        private ItemState _state; // Etat actuelle : onFloor (au sol), equiped (dans l'inventaire d'un joueur) , selected (Dans la main d'un joueur)
+		[Networked]
+		private ItemState _state { get; set; } // Item's current state (OnFloor, Equipped, Selected)
+
 		//Default Tranform saves
 		private Vector3 _defaultPosition;
 		private Vector3 _defaultScale;
@@ -75,10 +77,10 @@ namespace Starter.ThirdPersonCharacter
         // State getter and setter
         public void setState(ItemState state)
         {
-            // Setting state
-            _state = state;
-            // Update object
-            updateState();
+			// Setting state
+			_state = state;
+			// Update object
+			updateState();
         }
         public ItemState getState()
         {

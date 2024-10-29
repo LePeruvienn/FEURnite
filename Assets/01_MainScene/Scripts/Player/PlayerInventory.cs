@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
+using Fusion;
 
 namespace Starter.ThirdPersonCharacter
 {
-	public class PlayerInventory : MonoBehaviour
+	public sealed class PlayerInventory : NetworkBehaviour
 	{
 
         [Header("Iventory Config")]
@@ -22,8 +23,23 @@ namespace Starter.ThirdPersonCharacter
 		private Transform _dropItemOrigin;
 		private bool _canPickUp;
 		private GameObject _lastPickableObject;
+
+		[Networked]
+        private NetworkObject _currentItem { get; set; }
+
+		public override void Spawned ()
+		{
+			if (Runner == null)
+			{
+				Debug.LogError ("Runner is not available in PlayerInventory.");
+				return;
+			}
+
+			// Proceed with your existing spawning logic...
+			initializeInventory ();
+		}
 		
-		private void Awake ()
+		private void initializeInventory ()
 		{
 			// Set pickUp state
 			_canPickUp = false;
@@ -44,7 +60,8 @@ namespace Starter.ThirdPersonCharacter
 				if (i < starterItems.Length)
 				{
                     // We instantiate the object to create a copy
-                    GameObject itemInstance = Instantiate (starterItems[i]);
+                    NetworkObject itemInstance = Runner.Spawn (starterItems[i], Vector3.zero, Quaternion.identity);
+
 					// Getting item compenent
 					Item item = itemInstance.GetComponent<Item> ();
 					if (item != null)
@@ -56,13 +73,13 @@ namespace Starter.ThirdPersonCharacter
 					}
 					
 					// Setting starter item in inventory
-					_inventory[i] = itemInstance;
+					_inventory[i] = itemInstance.gameObject;
 					
 					// Set item pos
-					setItem (itemInstance);
+					setItem (itemInstance.gameObject);
 
 					// Hide item
-					itemInstance.SetActive (false);
+					itemInstance.gameObject.SetActive (false);
 				}
 			}
 			
@@ -272,9 +289,14 @@ namespace Starter.ThirdPersonCharacter
 			
 			// Get currentSelection
 			GameObject selection = getCurrentSelection ();
-			// If selection is not null
-			if (selection != null)
-				selection.SetActive (true); // Active current selected item
+			
+			// Return if selection is null
+			if (selection == null) return;
+
+			selection.SetActive (true); // Active current selected item
+
+			// Update the networked currentItem reference
+            _currentItem = selection.GetComponent<NetworkObject> ();
 		}
 
 		private void disableAllItems()
@@ -308,5 +330,9 @@ namespace Starter.ThirdPersonCharacter
 					renderer.enabled = false;
 			}
 		}
+
+		/*
+		 * PHOTON NETWORK FUNCTIONS
+		 */
 	}
 }
