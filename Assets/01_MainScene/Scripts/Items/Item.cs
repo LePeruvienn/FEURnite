@@ -53,6 +53,16 @@ namespace Starter.ThirdPersonCharacter
         public abstract void use(); // Utiliser l'item
 
 
+		public void setPosition (Vector3 newPosition)
+		{
+			// Update position only if the local player has authority
+			if (Object.HasInputAuthority)
+			{
+				// Call the RPC to synchronize position across the network
+				RPC_SetPosition (newPosition);
+			}
+		}
+
 		public void saveDefaultPosAndRotation () 
 		{
 			// Save current position scale and rotation in the default data
@@ -123,5 +133,15 @@ namespace Starter.ThirdPersonCharacter
                 col.enabled = _bool; // Disable the collider
             }
         }
+
+		/*
+		 *	RPCs FUNCTIONS
+		 */
+
+		[Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+		private void RPC_SetPosition (Vector3 newPosition)
+		{
+			transform.position = newPosition; // Update the position locally
+		}
     }
 }

@@ -272,6 +272,8 @@ namespace Starter.ThirdPersonCharacter
 			{
 				// We use set default function of the item
 				item.setPosAndRotationToDefault ();
+				// Setting item Pos for all clients
+				item.setPosition (_origin.position);
 			}
 			else 
 			{
