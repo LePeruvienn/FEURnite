@@ -337,7 +337,7 @@ namespace Starter.ThirdPersonCharacter
 		/*
 		 * PHOTON NETWORK FUNCTIONS
 		 */
-		[Rpc(RpcSources.Any, RpcTargets.All)]
+		[Rpc(RpcSources.All, RpcTargets.All)]
 		private void RPC_setItem (NetworkObject obj)
 		{
 			// Setting origin to be parent's obj
