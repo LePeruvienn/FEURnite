@@ -35,6 +35,9 @@ namespace Starter.ThirdPersonCharacter
 				return;
 			}
 
+			// Spawn the object
+			base.Spawned();
+
 			// Proceed with your existing spawning logic...
 			initializeInventory ();
 		}
@@ -54,6 +57,7 @@ namespace Starter.ThirdPersonCharacter
 			_inventory = new GameObject[size];
 			// If there is starters items:
 			// We put all the starters items in the inventory
+
 			for (int i = 0; i < size; i++)
 			{
 				// If we can put a start item
@@ -114,11 +118,8 @@ namespace Starter.ThirdPersonCharacter
 				
 				// Setting starter item in inventory
 				_inventory[_selectedIndex] = _lastPickableObject;
-				
-				// Getting networked object
-				NetworkObject networkedObj = _inventory[_selectedIndex].GetComponent<NetworkObject> ();
 				// Set item pos
-				RPC_setItem (networkedObj);
+				setItem (_inventory[_selectedIndex]);
 
 				_inventory[_selectedIndex].SetActive (true);
 			}
@@ -261,12 +262,8 @@ namespace Starter.ThirdPersonCharacter
 			_lastPickableObject = detectedObj;
 		}
 
-		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-		private void RPC_setItem (NetworkObject obj)
+		private void setItem (GameObject obj)
 		{
-			// Check if function is executed by the server
-			if (!Runner.IsServer) return;
-			
 			// Setting origin to be parent's obj
 			obj.transform.SetParent(_origin);
 
@@ -340,5 +337,28 @@ namespace Starter.ThirdPersonCharacter
 		/*
 		 * PHOTON NETWORK FUNCTIONS
 		 */
+		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		private void RPC_setItem (NetworkObject obj)
+		{
+			// Setting origin to be parent's obj
+			obj.transform.SetParent(_origin);
+
+			// Get Item
+			Item item = obj.GetComponent<Item> ();
+
+			// Setting obj's tranform to his game object param
+			if (item != null) 
+			{
+				// We use set default function of the item
+				item.setPosAndRotationToDefault ();
+			}
+			else 
+			{
+				// Set all to 0 except we keep his scale
+				obj.transform.localPosition = Vector3.zero;
+				obj.transform.localScale = obj.transform.lossyScale;
+				obj.transform.localRotation = Quaternion.identity;
+			}
+		}
 	}
 }
