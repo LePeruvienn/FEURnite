@@ -30,11 +30,9 @@ namespace Starter.ThirdPersonCharacter
 
 		public override void Spawned ()
 		{
-			if (Object.HasInputAuthority)
-			{
-				// InitializeIventory
-				init ();
-			}
+			Debug.LogWarning ("PLAYER INVENTORY SPAWN !!");
+			// InitializeIventory
+			init ();
 		}
 		
 		private void init ()
