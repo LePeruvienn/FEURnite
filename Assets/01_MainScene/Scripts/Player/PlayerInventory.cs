@@ -35,7 +35,7 @@ namespace Starter.ThirdPersonCharacter
 			RPC_init ();
 		}
 		
-		[Rpc (RpcSources.All, RpcTargets.All)]
+		[Rpc (RpcSources.InputAuthority, RpcTargets.All)]
 		private void RPC_init ()
 		{
 			// Set pickUp state
