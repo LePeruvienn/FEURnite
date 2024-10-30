@@ -21,6 +21,7 @@ namespace Starter.ThirdPersonCharacter
         public float explosionAudioVolume = 0.5f;
 
         // Private
+        // Private
         private Transform spawnGrenadePosition; // Where the bullet is gonna spawn
 		private PlayerInventory _playerInventory;
         private Animator _playerAnimator;

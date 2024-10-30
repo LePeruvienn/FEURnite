@@ -69,6 +69,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 5049115873610324733}
+  GlowParticule: {fileID: 5372834892720508139, guid: 8aaa1416164f9324b8da0cad32a9cb47,
+    type: 3}
 --- !u!95 &5049115873610324733
 Animator:
   serializedVersion: 5
@@ -152,6 +154,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ChestAnim
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681813571671695808, guid: d105bebb9aa6a4c4e84b05957670cedc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681813571671695808, guid: d105bebb9aa6a4c4e84b05957670cedc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00942
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681813571671695808, guid: d105bebb9aa6a4c4e84b05957670cedc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
