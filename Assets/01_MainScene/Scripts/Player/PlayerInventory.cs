@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using ExitGames.Client.Photon.StructWrapping;
 using Unity.VisualScripting;
 using UnityEngine;
 using Fusion;
@@ -24,8 +25,8 @@ namespace Starter.ThirdPersonCharacter
 		private bool _canPickUp;
 		private GameObject _lastPickableObject;
 
-		[Networked]
-		private NetworkObject _currentItem { get; set; }
+		[Networked] private NetworkObject _currentObject { get; set; }
+		[Networked] private Item _currentItem { get; set; }
 
 		public override void Spawned ()
 		{
@@ -288,11 +289,15 @@ namespace Starter.ThirdPersonCharacter
 			GameObject selection = getCurrentSelection ();
 
 			// If selection is not null
-			if (selection != null)
-				selection.SetActive (true); // Active current selected item
+			if (selection == null) return;
+			
+			selection.SetActive (true); // Active current selected item
 
-			_currentItem = Runner.Spawn (selection, selection.transform.position);
-			_currentItem.transform.SetParent (_origin);
+			_currentObject = Runner.Spawn (selection, selection.transform.position);
+			_currentObject.transform.SetParent (_origin);
+
+			_currentItem = _currentObject.GetComponent<Item>();
+			_currentItem.setState (ItemState.Equipped);
 		}
 
 		private void disableAllItems()
