@@ -11,8 +11,14 @@ namespace Starter.ThirdPersonCharacter
 		public NetworkObject PlayerPrefab;
 		public float SpawnRadius = 3f;
 
+		[Networked] private int _playerCount { get; set; } = 0;
+ 
 		public override void Spawned()
 		{
+			_playerCount++;
+			
+			Debug.Log ("Player count = " + _playerCount);
+			
 			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
 			var spawnPosition = transform.position + new Vector3(randomPositionOffset.x, transform.position.y, randomPositionOffset.y);
 
