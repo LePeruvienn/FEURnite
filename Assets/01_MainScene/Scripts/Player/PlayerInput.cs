@@ -9,17 +9,8 @@ namespace Starter.ThirdPersonCharacter
 	{
 		public Vector2 LookRotation;
 		public Vector2 MoveDirection;
-		// Movement keybindings
 		public bool Jump;
 		public bool Sprint;
-		public bool Aiming;
-		public bool Shoot;
-		public float Scroll;
-		// Item keybindings
-		public bool DropItem;
-		public bool Interact;
-		// Weapon keybindings
-		public bool RealoadWeapon;
 	}
 
 	/// <summary>
@@ -36,13 +27,7 @@ namespace Starter.ThirdPersonCharacter
 			_input.MoveDirection = default;
 			_input.Jump = false;
 			_input.Sprint = false;
-			_input.Aiming = false;
-            _input.Shoot = false;
-            _input.Scroll = 0f;
-			_input.DropItem = false;
-			_input.Interact = false;
-			_input.RealoadWeapon = false;
-        }
+		}
 
 		private void Update()
 		{
@@ -61,13 +46,7 @@ namespace Starter.ThirdPersonCharacter
 
 			_input.Jump |= Input.GetButtonDown("Jump");
 			_input.Sprint |= Input.GetButton("Sprint");
-			_input.Aiming |= Input.GetButton("Fire2");
-            _input.Shoot |= Input.GetButton("Fire1");
-            _input.Scroll = Input.GetAxis("Mouse ScrollWheel");
-			_input.DropItem |= Input.GetKeyDown("g");
-			_input.Interact |= Input.GetKeyDown("e");
-			_input.RealoadWeapon |= Input.GetKeyDown("r");
-        }
+		}
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)
 		{
