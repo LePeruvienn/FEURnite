@@ -29,17 +29,15 @@ namespace Starter.ThirdPersonCharacter
 
 		public override void Spawned ()
 		{
-			base.Spawned ();
-
-			// InitializeIventory
-			RPC_init ();
+			if (Object.HasInputAuthority)
+			{
+				// InitializeIventory
+				init ();
+			}
 		}
 		
-		[Rpc (RpcSources.All, RpcTargets.All)]
-		private void RPC_init ()
+		private void init ()
 		{
-			Debug.Log ("RPC INIT!! ");
-
 			// Set pickUp state
 			_canPickUp = false;
 
@@ -59,8 +57,7 @@ namespace Starter.ThirdPersonCharacter
 				if (i < starterItems.Length)
 				{
                     // We instantiate the object to create a copy
-                    NetworkObject itemNetwork = Runner.Spawn (starterItems[i]);
-                    GameObject itemInstance = itemNetwork.gameObject;
+                    GameObject itemInstance = Instantiate (starterItems[i]);
 
 					// Getting item compenent
 					Item item = itemInstance.GetComponent<Item> ();
@@ -77,7 +74,6 @@ namespace Starter.ThirdPersonCharacter
 					
 					// Set item pos
 					setItem (itemInstance);
-					itemNetwork.transform.SetParent (_origin);
 
 					// Hide item
 					itemInstance.SetActive (false);
@@ -294,6 +290,9 @@ namespace Starter.ThirdPersonCharacter
 			// If selection is not null
 			if (selection != null)
 				selection.SetActive (true); // Active current selected item
+
+			_currentItem = Runner.Spawn (selection, selection.transform.position);
+			_currentItem.transform.SetParent (_origin);
 		}
 
 		private void disableAllItems()
