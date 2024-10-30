@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -78,7 +79,6 @@ namespace Starter.ThirdPersonCharacter
 
         private void shoot ()
 		{
-
             // Check is _spawnBulletPosition is not null
             if (_spawnBulletPosition == null)
                 _spawnBulletPosition = transform.Find("spawnBulletPos").transform; // If he is null we set it

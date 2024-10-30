@@ -40,9 +40,8 @@ namespace Starter.ThirdPersonCharacter
         public int stackAmount; // Nombre d'objets qu'on peut stocker en meme temps dans l'inventaire
         public ItemRarity rarity; // Rareté de l'objet
         
-		[Networked]
-		private ItemState _state { get; set; } // Item's current state (OnFloor, Equipped, Selected)
-
+        // Privates
+        private ItemState _state; // Etat actuelle : onFloor (au sol), equiped (dans l'inventaire d'un joueur) , selected (Dans la main d'un joueur)
 		//Default Tranform saves
 		private Vector3 _defaultPosition;
 		private Vector3 _defaultScale;
@@ -52,17 +51,10 @@ namespace Starter.ThirdPersonCharacter
         public abstract ItemType getType(); // Retourne de type de l'objet
         public abstract void use(); // Utiliser l'item
 
-
-		public void setPosition (Vector3 newPosition)
-		{
-			// Update position only if the local player has authority
-			if (Object.HasInputAuthority)
-			{
-				// Call the RPC to synchronize position across the network
-				RPC_SetPosition (newPosition);
-			}
-		}
-
+        public ItemRarity GetRarity()
+        {
+            return rarity;
+        }
 		public void saveDefaultPosAndRotation () 
 		{
 			// Save current position scale and rotation in the default data
@@ -87,10 +79,10 @@ namespace Starter.ThirdPersonCharacter
         // State getter and setter
         public void setState(ItemState state)
         {
-			// Setting state
-			_state = state;
-			// Update object
-			updateState();
+            // Setting state
+            _state = state;
+            // Update object
+            updateState();
         }
         public ItemState getState()
         {
@@ -122,9 +114,7 @@ namespace Starter.ThirdPersonCharacter
             // Get the Rigidbody component and disable it (if it exists)
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null)
-            {
                 rb.isKinematic = !_bool; // Making it kinematic so it no longer interacts with physics
-            }
 
             // Get all the Collider components and disable them
             Collider[] colliders = GetComponents<Collider>();
@@ -133,15 +123,5 @@ namespace Starter.ThirdPersonCharacter
                 col.enabled = _bool; // Disable the collider
             }
         }
-
-		/*
-		 *	RPCs FUNCTIONS
-		 */
-
-		[Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-		private void RPC_SetPosition (Vector3 newPosition)
-		{
-			transform.position = newPosition; // Update the position locally
-		}
     }
 }

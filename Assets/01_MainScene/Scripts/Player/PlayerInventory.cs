@@ -8,7 +8,7 @@ using Fusion;
 
 namespace Starter.ThirdPersonCharacter
 {
-	public sealed class PlayerInventory : NetworkBehaviour
+	public class PlayerInventory : NetworkBehaviour
 	{
 
         [Header("Iventory Config")]
@@ -25,24 +25,18 @@ namespace Starter.ThirdPersonCharacter
 		private GameObject _lastPickableObject;
 
 		[Networked]
-        private NetworkObject _currentItem { get; set; }
+		private NetworkObject _currentItem { get; set; }
 
 		public override void Spawned ()
 		{
-			if (Runner == null)
-			{
-				Debug.LogError ("Runner is not available in PlayerInventory.");
-				return;
-			}
+			base.Spawned ();
 
-			// Spawn the object
-			base.Spawned();
-
-			// Proceed with your existing spawning logic...
-			initializeInventory ();
+			// InitializeIventory
+			RPC_init ();
 		}
 		
-		private void initializeInventory ()
+		[Rpc (RpcSources.All, RpcTargets.All)]
+		private void RPC_init ()
 		{
 			// Set pickUp state
 			_canPickUp = false;
@@ -57,15 +51,13 @@ namespace Starter.ThirdPersonCharacter
 			_inventory = new GameObject[size];
 			// If there is starters items:
 			// We put all the starters items in the inventory
-
 			for (int i = 0; i < size; i++)
 			{
 				// If we can put a start item
 				if (i < starterItems.Length)
 				{
                     // We instantiate the object to create a copy
-                    NetworkObject itemInstance = Runner.Spawn (starterItems[i], _origin.position, Quaternion.identity, Object.InputAuthority);
-
+                    GameObject itemInstance = Runner.Spawn (starterItems[i]).gameObject;
 					// Getting item compenent
 					Item item = itemInstance.GetComponent<Item> ();
 					if (item != null)
@@ -77,13 +69,13 @@ namespace Starter.ThirdPersonCharacter
 					}
 					
 					// Setting starter item in inventory
-					_inventory[i] = itemInstance.gameObject;
+					_inventory[i] = itemInstance;
 					
 					// Set item pos
-					//RPC_setItem (itemInstance);
+					setItem (itemInstance);
 
 					// Hide item
-					itemInstance.gameObject.SetActive (false);
+					itemInstance.SetActive (false);
 				}
 			}
 			
@@ -118,6 +110,7 @@ namespace Starter.ThirdPersonCharacter
 				
 				// Setting starter item in inventory
 				_inventory[_selectedIndex] = _lastPickableObject;
+				
 				// Set item pos
 				setItem (_inventory[_selectedIndex]);
 
@@ -262,7 +255,7 @@ namespace Starter.ThirdPersonCharacter
 			_lastPickableObject = detectedObj;
 		}
 
-		private void setItem (GameObject obj)
+		private void setItem(GameObject obj)
 		{
 			// Setting origin to be parent's obj
 			obj.transform.SetParent(_origin);
@@ -292,14 +285,10 @@ namespace Starter.ThirdPersonCharacter
 			
 			// Get currentSelection
 			GameObject selection = getCurrentSelection ();
-			
-			// Return if selection is null
-			if (selection == null) return;
 
-			selection.SetActive (true); // Active current selected item
-
-			// Update the networked currentItem reference
-            _currentItem = selection.GetComponent<NetworkObject> ();
+			// If selection is not null
+			if (selection != null)
+				selection.SetActive (true); // Active current selected item
 		}
 
 		private void disableAllItems()
@@ -331,33 +320,6 @@ namespace Starter.ThirdPersonCharacter
 				// Disable renderer if exist
 				if (renderer != null)
 					renderer.enabled = false;
-			}
-		}
-
-		/*
-		 * PHOTON NETWORK FUNCTIONS
-		 */
-		[Rpc(RpcSources.All, RpcTargets.All)]
-		private void RPC_setItem (NetworkObject obj)
-		{
-			// Setting origin to be parent's obj
-			obj.transform.SetParent(_origin);
-
-			// Get Item
-			Item item = obj.GetComponent<Item> ();
-
-			// Setting obj's tranform to his game object param
-			if (item != null) 
-			{
-				// We use set default function of the item
-				item.setPosAndRotationToDefault ();
-			}
-			else 
-			{
-				// Set all to 0 except we keep his scale
-				obj.transform.localPosition = Vector3.zero;
-				obj.transform.localScale = obj.transform.lossyScale;
-				obj.transform.localRotation = Quaternion.identity;
 			}
 		}
 	}
