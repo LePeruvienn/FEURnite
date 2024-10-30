@@ -57,7 +57,9 @@ namespace Starter.ThirdPersonCharacter
 				if (i < starterItems.Length)
 				{
                     // We instantiate the object to create a copy
-                    GameObject itemInstance = Runner.Spawn (starterItems[i]).gameObject;
+                    NetworkObject itemNetwork = Runner.Spawn (starterItems[i]);
+                    GameObject itemInstance = itemNetwork.gameObject;
+
 					// Getting item compenent
 					Item item = itemInstance.GetComponent<Item> ();
 					if (item != null)
@@ -73,6 +75,7 @@ namespace Starter.ThirdPersonCharacter
 					
 					// Set item pos
 					setItem (itemInstance);
+					itemNetwork.transform.SetParent (_origin);
 
 					// Hide item
 					itemInstance.SetActive (false);
