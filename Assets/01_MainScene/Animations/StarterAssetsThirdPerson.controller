@@ -670,6 +670,18 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
+    m_Name: idle
+    m_StateMachine: {fileID: 8871220353143909735}
+    m_Mask: {fileID: 31900000, guid: c58d1aec42d7bba4c802b343b1310a20, type: 2}
+    m_Motions: []
+    m_Behaviours: []
+    m_BlendingMode: 0
+    m_SyncedLayerIndex: -1
+    m_DefaultWeight: 1
+    m_IKPass: 0
+    m_SyncedLayerAffectsTiming: 0
+    m_Controller: {fileID: 9100000}
+  - serializedVersion: 5
     m_Name: Relaod
     m_StateMachine: {fileID: -7424863516358766146}
     m_Mask: {fileID: 31900000, guid: b39031c752d7cfa4fa71e4790d15c4d9, type: 2}
@@ -685,18 +697,6 @@ AnimatorController:
     m_Name: launch grenade
     m_StateMachine: {fileID: 7155335450781659366}
     m_Mask: {fileID: 31900000, guid: b39031c752d7cfa4fa71e4790d15c4d9, type: 2}
-    m_Motions: []
-    m_Behaviours: []
-    m_BlendingMode: 0
-    m_SyncedLayerIndex: -1
-    m_DefaultWeight: 1
-    m_IKPass: 0
-    m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
-  - serializedVersion: 5
-    m_Name: idle
-    m_StateMachine: {fileID: 8871220353143909735}
-    m_Mask: {fileID: 31900000, guid: c58d1aec42d7bba4c802b343b1310a20, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -1114,33 +1114,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1102 &3767497927902976398
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: idle
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: b9ac5ab3166863042b38eab782dfc509,
-    type: 3}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1101 &4498151515424601393
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1498,11 +1471,8 @@ AnimatorStateMachine:
   m_Name: idle
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 3767497927902976398}
-    m_Position: {x: 40, y: 430, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 7333958008465431883}
-    m_Position: {x: 30, y: 320, z: 0}
+    m_Position: {x: 30, y: 210, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

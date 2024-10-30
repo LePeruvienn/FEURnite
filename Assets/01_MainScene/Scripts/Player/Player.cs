@@ -196,11 +196,21 @@ namespace Starter.ThirdPersonCharacter
 
 			//create a Raycast to get the mouse position to use for the constaint
             Vector3 mouseWorldPosition = Vector3.zero;
-            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
-            if (Physics.Raycast(ray, out RaycastHit rayCastHit, 999f, aimColliderLayerMask))
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit[] hits = Physics.RaycastAll(ray, 999f, aimColliderLayerMask);
+
+            // Loop through all hits from the ray
+            foreach (RaycastHit hit in hits)
             {
-                mouseWorldPosition = rayCastHit.point;
+                // Check if the current hit is not the one with the "ItemRaycast" tag
+                if (hit.collider.tag == "WALL")
+                {
+                    // If it's not, set the position to this point
+                    mouseWorldPosition = hit.point;
+                    break; // Stop checking after the first valid hit
+                }
             }
+            
             // Get the forward direction of the player
             Vector3 playerForward = KCC.transform.forward;
             mouseWorldPosition.y = transform.position.y;
