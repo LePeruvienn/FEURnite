@@ -255,7 +255,7 @@ namespace Starter.ThirdPersonCharacter
 			_lastPickableObject = detectedObj;
 		}
 
-		private void setItem(GameObject obj)
+		private void setItem (GameObject obj)
 		{
 			// Setting origin to be parent's obj
 			obj.transform.SetParent(_origin);
