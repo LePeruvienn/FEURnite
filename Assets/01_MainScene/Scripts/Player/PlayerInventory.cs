@@ -1,333 +1,300 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using ExitGames.Client.Photon.StructWrapping;
 using Unity.VisualScripting;
 using UnityEngine;
 using Fusion;
-
+ 
 namespace Starter.ThirdPersonCharacter
 {
-	public class PlayerInventory : NetworkBehaviour
-	{
+    public class PlayerInventory : NetworkBehaviour
+    {
+        [Header("Inventory Config")]
+        public int size; // The maximum size of the inventory
+        public float pickUpRange; // Range within which items can be picked up
 
-        [Header("Iventory Config")]
-		public int size;
-		public GameObject[] starterItems;
-		public float pickUpRange;
+        // Inventory variables
+        private Transform _origin; // Transform where picked-up items will be placed
+        private NetworkObject[] _inventory; // Array to store items in the inventory
+        private int _selectedIndex = 0; // Index of the currently selected inventory slot
+        private Transform _dropItemOrigin; // Transform where items will be dropped
+        private bool _canPickUp; // Flag to indicate if the player can pick up an item
+        private NetworkObject _lastPickableObject; // Reference to the last detected pickable object
 
-		// Inventory varaible
-		private Transform _origin;
-		private GameObject[] _inventory;
-		private int _selectedIndex = 0;
-		private Transform _dropItemOrigin;
-		private bool _canPickUp;
-		private GameObject _lastPickableObject;
+        [Networked] private Item _currentItem { get; set; } // The currently held item, synchronized over the network
 
-		[Networked] private NetworkObject _currentObject { get; set; }
-		[Networked] private Item _currentItem { get; set; }
+        public override void Spawned()
+        {
+            Debug.LogWarning("PLAYER INVENTORY SPAWNED !!");
+            init(); // Initialize the inventory when spawned
+        }
 
-		public override void Spawned ()
-		{
-			Debug.LogWarning ("PLAYER INVENTORY SPAWN !!");
-			// InitializeIventory
-			init ();
-		}
-		
-		private void init ()
-		{
-			// Set pickUp state
-			_canPickUp = false;
+        private void init()
+        {
+            // Initialize the pickup state
+            _canPickUp = false;
 
-			// Setting item origin
-			_origin = GameObject.FindGameObjectWithTag("itemOrigin").transform;
-			
-			// Setting drop origin
-			_dropItemOrigin = GameObject.FindGameObjectWithTag("itemDropOrigin").transform;
-            
-			// Setting up the iventory empty
-			_inventory = new GameObject[size];
-			// If there is starters items:
-			// We put all the starters items in the inventory
-			for (int i = 0; i < size; i++)
-			{
-				// If we can put a start item
-				if (i < starterItems.Length)
-				{
-                    // We instantiate the object to create a copy
-                    GameObject itemInstance = Instantiate (starterItems[i]);
+            // Find and assign the item origin (location where items are held in inventory)
+            _origin = GameObject.FindWithTag("itemOrigin").transform;
 
-					// Getting item compenent
-					Item item = itemInstance.GetComponent<Item> ();
-					if (item != null)
-					{
-						// If Item script exist, set item state to equipped
-						item.setState (ItemState.Equipped);
-						// We save his current default position, scale and rotation config
-						item.saveDefaultPosAndRotation ();
-					}
-					
-					// Setting starter item in inventory
-					_inventory[i] = itemInstance;
-					
-					// Set item pos
-					setItem (itemInstance);
+            // Find and assign the drop origin (location where items are dropped)
+            _dropItemOrigin = GameObject.FindWithTag("itemDropOrigin").transform;
 
-					// Hide item
-					itemInstance.SetActive (false);
-				}
-			}
-			
-			// Update Current selection
-			updateSelection();
-		}
+            // Initialize an empty inventory array
+            _inventory = new NetworkObject[size];
 
-		public void Update ()
-		{
-			// Set pickUp to false to default
-			_canPickUp = false;
-			// Handle detection of pickable objects
-			handlePickup ();
-		}
+            // Update the current selection in the inventory
+            updateSelection();
+        }
 
-		public void pickUp ()
-		{
-			// If player can pickup an object
-			if (_canPickUp == true && _lastPickableObject != null) {
-				
-				// Get current selection
-				GameObject selection = getCurrentSelection ();
+        public void Update()
+        {
+            // Reset the pickup state each frame
+            _canPickUp = false;
 
-				// If current selection is not null, we drop the item selected
-				if (selection != null)
-					dropCurrentSelection ();
-
-				// Get Item compenent
-				Item item = _lastPickableObject.GetComponent<Item> ();
-				if (item != null) // If Item script exist, set item state to equipped
-					item.setState (ItemState.Equipped);
-				
-				// Setting starter item in inventory
-				_inventory[_selectedIndex] = _lastPickableObject;
-				
-				// Set item pos
-				setItem (_inventory[_selectedIndex]);
-
-				_inventory[_selectedIndex].SetActive (true);
-			}
-		}
-		
-		// Function that is use to switch from selected intems in inventory
-		public void switchSelection (float direciton)
-		{
-			if (direciton < 0f) // Scroll down
-			{
-				_selectedIndex--; // Tale the previous index
-				
-				if (_selectedIndex < 0) // If previous item dont exist, take the last item
-					_selectedIndex = _inventory.Length - 1;
-				
-				updateSelection(); // Update current selection
-				
-			} else if (direciton > 0f) // Scroll up
-			{
-				_selectedIndex++; // Take the next item
-				
-				if (_selectedIndex >= _inventory.Length) // If next item dont exist, take the first item
-					_selectedIndex = 0;
-				
-				updateSelection(); // Update current selection
-			}
-		}
-		
-		// Use current selection
-		public void useCurrentSelection()
-		{
-			// Getting current selection
-			GameObject obj = _inventory[_selectedIndex];
-			// If had selected an object
-			if (obj != null)
-			{
-				// Getting current item
-				Item item = obj.GetComponent<Item>();
-				// If object is a item use it
-				if (item != null)
-					item.use();
-			}
-		}
-
-		// Return the current selected object
-		public GameObject getCurrentSelection()
-		{
-			return _inventory[_selectedIndex];
-		}
-
-		// Drop the current selected item
-		public void dropCurrentSelection ()
-		{
-			// Get Selected item
-			GameObject obj = getCurrentSelection();
-			// If current selection is null we stop here
-			if (obj == null) return;
-			// We get his item component
-			Item item = obj.GetComponent<Item>();
-			// If item exist we drop it
-			if (item != null)
-				item.setState(ItemState.OnFloor);
-
-			// Removing obj parent's
-			obj.transform.SetParent(null);
-            // Adding the object to the scene
-            obj.transform.SetPositionAndRotation(_dropItemOrigin.position, Quaternion.identity);
-            
-            // Clearing the data
-			_inventory[_selectedIndex] = null;
-		}
-
-		// Desotry the current selected item
-		public void destoryCurrentSelection ()
-		{
-			// Get Selected item
-			GameObject obj = getCurrentSelection();
-
-			// If current selection is null we stop here
-			if (obj == null) return;
-
-			// Removing object
-            Destroy (obj);
-
-            // Clearing the data
-			_inventory[_selectedIndex] = null;
-		}
-
-		// Return true if player current selection is not attached to an item
-		public bool isSelectionEmpy ()
-		{
-			return _inventory[_selectedIndex] == null;
-		}
-
-		public bool canPickUp ()
-		{
-			return _canPickUp;
-		}
-
-		private GameObject pickupRayCast ()
-		{
-            // Setting up raycast variables
-            Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
-            
-            // Doing the raycast !
-            Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
-			
-            // Setting raycast output variable
-            RaycastHit hit;
-            
-			// Setting obj output variable
-			GameObject lastHit = null;
-
-            // If raycast hit
-            if (Physics.Raycast(ray, out hit, pickUpRange))
+            // Check if there are objects within pickup range
+            handlePickup();
+        }
+        public bool addItem(NetworkObject newItem)
+        {
+            if (newItem == null)
             {
-                lastHit = hit.transform.gameObject; // Set the target point to the point hit by the raycast
+                Debug.LogWarning("Attempted to add a null item to inventory.");
+                return false;
             }
 
-			return lastHit;
-		}
+            // Check if the item has a NetworkObject component
+            if (newItem.TryGetComponent<NetworkObject>(out NetworkObject networkObject))
+            {
+                // Optionally assign authority when the item is spawned.
+                // Ensure that authority is set correctly during the spawn process
+                // For example, when spawning the item, you would do something like this:
+                // NetworkObject spawnedItem = Runner.Spawn(itemPrefab, spawnPosition, Quaternion.identity, Object.InputAuthority);
 
-		private void handlePickup ()
-		{
-			// Detect Object that player is aiming
-			GameObject detectedObj = pickupRayCast ();
+                // Mark the item as equipped
+                Item itemComponent = newItem.GetComponent<Item>();
+                if (itemComponent != null)
+                {
+                    itemComponent.setState(ItemState.Equipped); // Mark item as equipped
+                }
 
-			// Return if we dont detect any object
-			if (detectedObj == null) return;
+                // Add the item to the inventory if there is space
+                for (int i = 0; i < _inventory.Length; i++)
+                {
+                    if (_inventory[i] == null)
+                    {
+                        _inventory[i] = newItem;
+                        setItem(_inventory[i]); // Optionally set the item's position/rotation
+                        _inventory[i].gameObject.SetActive(true); // Activate the item
+                        Debug.Log($"Item {newItem.name} added to inventory at index {i}.");
+                        return true;
+                    }
+                }
 
-			Item item = detectedObj.GetComponent<Item> ();
+                Debug.LogWarning("Inventory is full. Cannot add new item.");
+                return false;
+            }
+            else
+            {
+                Debug.LogWarning("The item does not have a NetworkObject component.");
+                return false;
+            }
+        }
 
-			// Return if the object detected is not an Item;
-			if (item == null) return;
 
-			// Set can pickup to true !
-			_canPickUp = true;
 
-			// Set _lastPickableObject to the object detected !
-			_lastPickableObject = detectedObj;
-		}
 
-		private void setItem (GameObject obj)
-		{
-			// Setting origin to be parent's obj
-			obj.transform.SetParent(_origin);
+        public void pickUp()
+        {
+            if (_canPickUp && _lastPickableObject != null)
+            {
+                NetworkObject selection = getCurrentSelection();
 
-			// Get Item
-			Item item = obj.GetComponent<Item> ();
+                // Drop the currently selected item if it exists
+                if (selection != null)
+                    dropCurrentSelection();
 
-			// Setting obj's tranform to his game object param
-			if (item != null) 
-			{
-				// We use set default function of the item
-				item.setPosAndRotationToDefault ();
-			}
-			else 
-			{
-				// Set all to 0 except we keep his scale
-				obj.transform.localPosition = Vector3.zero;
-				obj.transform.localScale = obj.transform.lossyScale;
-				obj.transform.localRotation = Quaternion.identity;
-			}
-		}
+                // Get the Item component of the pickable object
+                Item item = _lastPickableObject.GetComponent<Item>();
+                if (item != null)
+                    item.setState(ItemState.Equipped); // Mark item as equipped
 
-		private void updateSelection()
-		{
-			// Disable all items
-			disableAllItems ();
-			
-			// Get currentSelection
-			GameObject selection = getCurrentSelection ();
+                // Place the item in the inventory at the selected index
+                _inventory[_selectedIndex] = _lastPickableObject;
+                setItem(_inventory[_selectedIndex]); // Set item to inventory position
 
-			// If selection is not null
-			if (selection == null) return;
-			
-			selection.SetActive (true); // Active current selected item
+                _inventory[_selectedIndex].gameObject.SetActive(true); // Activate the object in the inventory
+            }
+        }
 
-			_currentObject = Runner.Spawn (selection, selection.transform.position);
-			_currentObject.transform.SetParent (_origin);
+        public void switchSelection(float direction)
+        {
+            if (direction < 0f) // Scroll down
+            {
+                _selectedIndex--;
+                if (_selectedIndex < 0)
+                    _selectedIndex = _inventory.Length - 1; // Wrap around to last index
+            }
+            else if (direction > 0f) // Scroll up
+            {
+                _selectedIndex++;
+                if (_selectedIndex >= _inventory.Length)
+                    _selectedIndex = 0; // Wrap around to first index
+            }
 
-			_currentItem = _currentObject.GetComponent<Item>();
-			_currentItem.setState (ItemState.Equipped);
-		}
+            updateSelection(); // Update the selection display
+        }
 
-		private void disableAllItems()
-		{
-			// Destroy each child of the gameObject origin
-			foreach (Transform child in _origin)
-			{
-				child.gameObject.SetActive(false); // Desactivate the object
-			}
-		}
+        public void useCurrentSelection()
+        {
+            NetworkObject obj = _inventory[_selectedIndex];
+            if (obj != null)
+            {
+                Item item = obj.GetComponent<Item>();
+                if (item != null)
+                    item.use(); // Use the current item
+            }
+        }
 
-		private void showItem (GameObject item, bool _bool)
-		{
+        public NetworkObject getCurrentSelection()
+        {
+            return _inventory[_selectedIndex]; // Return the current selected item
+        }
 
-			// Get render compenent
-			Renderer renderer = item.GetComponent<Renderer>(); // Desactivate the object
-			// Disable renderer if exist
-			if (renderer != null)
-				renderer.enabled = _bool;
-		}
+        public void dropCurrentSelection()
+        {
+            NetworkObject obj = getCurrentSelection();
+            if (obj == null) return;
 
-		private void hideAllItems ()
-		{
-			// Destroy each child of the gameObject origin
-			foreach (Transform child in _origin)
-			{
-				// Get render compenent
-				Renderer renderer = child.gameObject.GetComponent<Renderer>(); // Desactivate the object
-				// Disable renderer if exist
-				if (renderer != null)
-					renderer.enabled = false;
-			}
-		}
-	}
+            // Set the item state to "OnFloor" before dropping
+            Item item = obj.GetComponent<Item>();
+            if (item != null)
+                item.setState(ItemState.OnFloor);
+
+            // Detach from inventory and place at drop position
+            obj.transform.SetParent(null);
+            obj.transform.SetPositionAndRotation(_dropItemOrigin.position, Quaternion.identity);
+
+            // Remove the item from inventory slot
+            _inventory[_selectedIndex] = null;
+        }
+
+        public void destoryCurrentSelection()
+        {
+            // Get the selected item
+            NetworkObject obj = getCurrentSelection();
+
+            // Stop if no item is selected
+            if (obj == null) return;
+
+            // Remove the item from the scene
+            Destroy(obj.gameObject);
+
+            // Clear the inventory slot
+            _inventory[_selectedIndex] = null;
+        }
+
+        public bool isSelectionEmpty()
+        {
+            return _inventory[_selectedIndex] == null; // Check if current slot is empty
+        }
+
+        public bool canPickUp()
+        {
+            return _canPickUp; // Return whether player can pick up an item
+        }
+
+        private NetworkObject pickupRayCast()
+        {
+            Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // Center of the screen for ray origin
+            Ray ray = Camera.main.ViewportPointToRay(rayOrigin); // Cast a ray from the camera
+
+            RaycastHit hit;
+            NetworkObject lastHit = null;
+
+            // Check for objects within pickup range
+            if (Physics.Raycast(ray, out hit, pickUpRange))
+            {
+                lastHit = hit.transform.GetComponent<NetworkObject>(); // Get the hit object as a NetworkObject
+            }
+
+            return lastHit;
+        }
+
+        private void handlePickup()
+        {
+            NetworkObject detectedObj = pickupRayCast();
+
+            if (detectedObj == null) return;
+
+            Item item = detectedObj.GetComponent<Item>();
+
+            if (item == null) return;
+
+            _canPickUp = true; // Allow pickup if an item is detected
+            _lastPickableObject = detectedObj; // Set the last pickable item
+        }
+
+        private void setItem(NetworkObject obj)
+        {
+            obj.transform.SetParent(_origin); // Attach the item to inventory origin
+
+            Item item = obj.GetComponent<Item>();
+            if (item != null)
+            {
+                item.setPosAndRotationToDefault(); // Set item to default position/rotation if it's an Item
+                obj.transform.localScale = new Vector3(18f, 18f, 18f); // Définir l'échelle souhaitée
+                Debug.Log($"Reset scale for {obj.name} to {obj.transform.localScale}");
+
+            }
+            else
+            {
+                obj.transform.SetParent(_origin); // Attachez l'objet à l'origine de l'inventaire
+                obj.transform.localPosition = Vector3.zero; // Réinitialisez la position
+                obj.transform.localRotation = Quaternion.identity; // Réinitialisez la rotation
+                obj.transform.localScale = new Vector3(18f, 18f, 18f); // Définir l'échelle souhaitée
+                Debug.Log($"Reset scale for {obj.name} to {obj.transform.localScale}");
+
+                // Forcer l'échelle après un court délai
+                StartCoroutine(ResetScale(obj));
+            }
+
+            
+        }
+        private IEnumerator ResetScale(NetworkObject obj)
+        {
+            yield return null; // Attendre la prochaine frame
+            obj.transform.localScale = new Vector3(18f, 18f, 18f); // Réinitialiser l'échelle
+            Debug.Log($"Reset scale for {obj.name} to {obj.transform.localScale}");
+        }
+        private void updateSelection()
+        {
+            disableAllItems(); // Hide all items in inventory
+
+            NetworkObject selection = getCurrentSelection();
+            if (selection == null) return;
+
+            selection.gameObject.SetActive(true); // Display the selected item
+        }
+
+        private void disableAllItems()
+        {
+            foreach (Transform child in _origin)
+            {
+                NetworkObject networkObj = child.GetComponent<NetworkObject>();
+                if (networkObj != null)
+                    networkObj.gameObject.SetActive(false); // Disable each item in inventory origin
+            }
+        }
+
+        private void hideAllItems()
+        {
+            foreach (Transform child in _origin)
+            {
+                Renderer renderer = child.GetComponent<Renderer>();
+                if (renderer != null)
+                    renderer.enabled = false; // Hide all item renderers in inventory
+            }
+        }
+    }
 }

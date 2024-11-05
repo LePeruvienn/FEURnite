@@ -5637,9 +5637,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e45c75d36d430c9e61c48d32f909d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 6480637876645783826, guid: 7f392fd6d578d0b44beb7ed2046e1ae5,
+  PlayerPrefab: {fileID: 2869355146172800453, guid: 0cdb3a301a0c1104fb7bbcf166baf582,
     type: 3}
   SpawnRadius: 3
+  starterItems:
+  - {fileID: 7771164286872065142, guid: 1c7aa0add5112b7468e06ea3a7db0d42, type: 3}
+  - {fileID: -3935562743278183701, guid: e98ccf01b01431b44a7de3c68b66e7e1, type: 3}
+  test: {fileID: 7771164286872065142, guid: 1c7aa0add5112b7468e06ea3a7db0d42, type: 3}
 --- !u!1 &3528164456965068950
 GameObject:
   m_ObjectHideFlags: 0

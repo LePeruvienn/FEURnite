@@ -136,7 +136,7 @@ namespace Starter.ThirdPersonCharacter
 			}
 
 			// Check current weapon type selected
-			GameObject selectedObj = PlayerInventory.getCurrentSelection ();
+			NetworkObject selectedObj = PlayerInventory.getCurrentSelection ();
 			
 			// Setup selected item
 			Item selectedItem = null;
@@ -282,8 +282,8 @@ namespace Starter.ThirdPersonCharacter
 			// Check if Player is moving
 			_isMoving = _moveVelocity.magnitude > 0.1f;
 
-			// Get current selected object and type
-			GameObject currentSelection = PlayerInventory.getCurrentSelection ();
+            // Get current selected object and type
+            NetworkObject currentSelection = PlayerInventory.getCurrentSelection ();
 			
 			// Setting default itemType and currentItem to null 
 			ItemType itemType = ItemType.None;
