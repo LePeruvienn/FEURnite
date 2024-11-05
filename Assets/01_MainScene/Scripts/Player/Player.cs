@@ -103,9 +103,16 @@ namespace Starter.ThirdPersonCharacter
 		private void Awake()
 		{
 			AssignAnimationIDs();
-		}
 
-		private void LateUpdate()
+
+        }
+        public override void Spawned()
+        {
+            base.Spawned();
+			PlayerInventory.init();
+        }
+
+        private void LateUpdate()
 		{
 			// Only local player needs to update the camera
 			// Note: In shared mode the local player has always state authority over player's objects.

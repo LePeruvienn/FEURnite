@@ -23,8 +23,9 @@ namespace Starter.ThirdPersonCharacter
 
             NetworkObject playerNetworkObject = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
             PlayerInventory playerInventory = playerNetworkObject.GetComponent<PlayerInventory>();
-             spawnPosition = transform.position + new Vector3(randomPositionOffset.x, transform.position.y, randomPositionOffset.y);
-             Runner.Spawn(test, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+
+            spawnPosition = transform.position + new Vector3(randomPositionOffset.x, transform.position.y, randomPositionOffset.y);
+            Runner.Spawn(test, spawnPosition, Quaternion.identity, null);
             // Spawn and add starter items to the player's inventory
             if (playerInventory != null)
             {
@@ -52,7 +53,7 @@ namespace Starter.ThirdPersonCharacter
                 var itemSpawnPosition = transform.position + Random.insideUnitSphere * 1.0f;
 
                 // Spawner l'item dans le monde du jeu
-                NetworkObject itemInstance = Runner.Spawn(itemPrefab, itemSpawnPosition, Quaternion.identity, Runner.LocalPlayer);
+                NetworkObject itemInstance = Runner.Spawn(itemPrefab, itemSpawnPosition, Quaternion.identity, null);
 
                 // Ajouter l'item à l'inventaire du joueur
                 bool addedSuccessfully = playerInventory.addItem(itemInstance);

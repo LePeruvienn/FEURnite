@@ -10,8 +10,8 @@ namespace Starter.ThirdPersonCharacter
     public class PlayerInventory : NetworkBehaviour
     {
         [Header("Inventory Config")]
-        public int size; // The maximum size of the inventory
-        public float pickUpRange; // Range within which items can be picked up
+        public int size =4; // The maximum size of the inventory
+        public float pickUpRange=10; // Range within which items can be picked up
 
         // Inventory variables
         private Transform _origin; // Transform where picked-up items will be placed
@@ -23,14 +23,11 @@ namespace Starter.ThirdPersonCharacter
 
         [Networked] private Item _currentItem { get; set; } // The currently held item, synchronized over the network
 
-        public override void Spawned()
-        {
-            Debug.LogWarning("PLAYER INVENTORY SPAWNED !!");
-            init(); // Initialize the inventory when spawned
-        }
 
-        private void init()
+
+        public void init()
         {
+
             // Initialize the pickup state
             _canPickUp = false;
 
@@ -38,7 +35,7 @@ namespace Starter.ThirdPersonCharacter
             _origin = GameObject.FindWithTag("itemOrigin").transform;
 
             // Find and assign the drop origin (location where items are dropped)
-            _dropItemOrigin = GameObject.FindWithTag("itemDropOrigin").transform;
+            _dropItemOrigin = GameObject.Find("itemDropOrigin").transform;
 
             // Initialize an empty inventory array
             _inventory = new NetworkObject[size];
@@ -73,8 +70,9 @@ namespace Starter.ThirdPersonCharacter
 
                 // Mark the item as equipped
                 Item itemComponent = newItem.GetComponent<Item>();
-                if (itemComponent != null)
+                if (itemComponent != null )
                 {
+                    newItem.AssignInputAuthority(Runner.LocalPlayer);
                     itemComponent.setState(ItemState.Equipped); // Mark item as equipped
                 }
 
@@ -101,9 +99,6 @@ namespace Starter.ThirdPersonCharacter
             }
         }
 
-
-
-
         public void pickUp()
         {
             if (_canPickUp && _lastPickableObject != null)
@@ -112,13 +107,19 @@ namespace Starter.ThirdPersonCharacter
 
                 // Drop the currently selected item if it exists
                 if (selection != null)
+                {
+                    Debug.Log("Current selection exists, dropping it.");
                     dropCurrentSelection();
+                }
 
                 // Get the Item component of the pickable object
                 Item item = _lastPickableObject.GetComponent<Item>();
                 if (item != null)
+                {
+                    Debug.Log("Assigning authority and setting item state.");
+                    _lastPickableObject.AssignInputAuthority(Runner.LocalPlayer);
                     item.setState(ItemState.Equipped); // Mark item as equipped
-
+                }
                 // Place the item in the inventory at the selected index
                 _inventory[_selectedIndex] = _lastPickableObject;
                 setItem(_inventory[_selectedIndex]); // Set item to inventory position
@@ -169,6 +170,7 @@ namespace Starter.ThirdPersonCharacter
             // Set the item state to "OnFloor" before dropping
             Item item = obj.GetComponent<Item>();
             if (item != null)
+                obj.RemoveInputAuthority();
                 item.setState(ItemState.OnFloor);
 
             // Detach from inventory and place at drop position
