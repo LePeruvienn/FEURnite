@@ -108,6 +108,16 @@ namespace Starter.ThirdPersonCharacter
 			// If player can pickup an object
 			if (_canPickUp == true && _lastPickableObject != null) {
 				
+				// Handle Loot box
+				LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
+				if (lootBox != null) 
+				{
+					// Open LootBox
+					lootBox.Open();
+					// Stop function
+					return;
+				}
+				
 				// Get current selection
 				GameObject selection = getCurrentSelection ();
 
@@ -281,9 +291,11 @@ namespace Starter.ThirdPersonCharacter
 			if (detectedObj == null) return;
 
 			Item item = detectedObj.GetComponent<Item> ();
+			LootBox lootBox = detectedObj.GetComponent<LootBox> ();
+			
 
 			// Return if the object detected is not an Item;
-			if (item == null) return;
+			if (item == null && lootBox == null) return;
 
 			// Set can pickup to true !
 			_canPickUp = true;
