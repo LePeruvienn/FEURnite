@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 9094083489982261642}
   - component: {fileID: 5661615055316310313}
   - component: {fileID: 4218618883703250589}
-  - component: {fileID: -7355987953201997711}
   m_Layer: 0
   m_Name: RPJ
   m_TagString: Untagged
@@ -136,28 +135,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.8176813, y: 1.0358212, z: 0.62011683}
   m_Center: {x: 0.42796603, y: -0.07016861, z: 0.00047047756}
---- !u!64 &-7355987953201997711
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 171527776781687000}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &464400116022313441
 GameObject:
   m_ObjectHideFlags: 0

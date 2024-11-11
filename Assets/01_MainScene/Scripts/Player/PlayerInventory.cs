@@ -318,7 +318,7 @@ namespace Starter.ThirdPersonCharacter
 				// We use set default function of the item
 				item.setPosAndRotationToDefault ();
 			}
-			else 
+			else
 			{
 				// Set all to 0 except we keep his scale
 				obj.transform.localPosition = Vector3.zero;
@@ -330,7 +330,6 @@ namespace Starter.ThirdPersonCharacter
 		private void updateSelection()
 		{
 			// Disable all items
-			disableAllItems ();
 			
 			// Get currentSelection
 			GameObject selection = getCurrentSelection ();

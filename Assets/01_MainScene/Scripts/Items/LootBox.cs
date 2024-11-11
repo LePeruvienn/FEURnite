@@ -42,7 +42,7 @@ public class LootBox : MonoBehaviour
     private Transform _spawnItemPosition;
     public void Open()
     {
-        // Vérifie si le coffre est déjà ouvert
+        // Vï¿½rifie si le coffre est dï¿½jï¿½ ouvert
         if (status == Status.IsOpen)
             return; // Retourne si le coffre est ouvert
 
@@ -51,7 +51,7 @@ public class LootBox : MonoBehaviour
     }
 
 
-    private ItemRarity GetItemDrop() // Retourne la rareté d'un item en utilisant les probabilités
+    private ItemRarity GetItemDrop() // Retourne la raretï¿½ d'un item en utilisant les probabilitï¿½s
     {
         int randomValue = Random.Range(0, 100);
 
@@ -144,18 +144,18 @@ public class LootBox : MonoBehaviour
     }
     private void OpenWeaponBox()
     {
-        GameObject weapon = GetWeaponFromList(); // Récupère l'arme aléatoirement choisis 
+        GameObject weapon = GetWeaponFromList(); // Rï¿½cupï¿½re l'arme alï¿½atoirement choisis 
 
-        if (weapon != null) // Vérifie si weapon n'est pas null
+        if (weapon != null) // Vï¿½rifie si weapon n'est pas null
         {
-            Item item = weapon.GetComponent<Item>(); // Tente de récupérer le composant Item
+            Item item = weapon.GetComponent<Item>(); // Tente de rï¿½cupï¿½rer le composant Item
 
-            if (item != null) // Vérifie si le GameObject a bien un composant Item
+            if (item != null) // Vï¿½rifie si le GameObject a bien un composant Item
             {
-                // Utilisation de la méthode publique d'Item
-                print(item.GetRarity()); // Exemple de méthode dans la classe Item
+                // Utilisation de la mï¿½thode publique d'Item
+                print(item.GetRarity()); // Exemple de mï¿½thode dans la classe Item
 
-                // Assure que _spawnItemPosition est initialisé
+                // Assure que _spawnItemPosition est initialisï¿½
                 if (_spawnItemPosition == null)
                     _spawnItemPosition = transform.Find("spawnObjectPos").transform;
 
@@ -173,14 +173,23 @@ public class LootBox : MonoBehaviour
         }
         else
         {
-            Debug.LogError("GetItemFromList() a retourné null. ( weapon = null )");
+            Debug.LogError("GetItemFromList() a retournï¿½ null. ( weapon = null )");
         }
     }
 
     private IEnumerator SpawnWeapon(GameObject item, Vector3 spawnItemPosition, Quaternion identity)
     {
         yield return new WaitForSeconds(1);
-        Instantiate(item, spawnItemPosition, identity);
+        GameObject spanwedObj = Instantiate(item);
+        Item itemSpawn = spanwedObj.GetComponent<Item>();
+        if (itemSpawn != null)
+        {
+            itemSpawn.saveDefaultPosAndRotation();
+            itemSpawn.setState(ItemState.OnFloor);
+        }
+        
+        spanwedObj.transform.position = spawnItemPosition;
+        spanwedObj.transform.rotation = identity;
     }
 
     private void openChestAnimation()
