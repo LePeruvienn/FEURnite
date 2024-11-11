@@ -5,6 +5,7 @@ using Fusion.Addons.SimpleKCC;
 using Unity.VisualScripting;
 using Random = UnityEngine.Random;
 using UnityEngine.Animations.Rigging;
+using static UnityEditor.Progress;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -140,7 +141,7 @@ namespace Starter.ThirdPersonCharacter
 			
 			// Setup selected item
 			Item selectedItem = null;
-			ItemType selectedType = ItemType.None;
+            ItemType selectedType = ItemType.None;
 
 			if (selectedObj != null)
 				selectedItem = selectedObj.GetComponent<Item> ();
@@ -164,7 +165,7 @@ namespace Starter.ThirdPersonCharacter
 			if (_isAiming) // Si il vise
 			{
 				speed = AimSpeed;
-			}
+            }
 			else if (input.Sprint) // Si il est en train de courrir
 			{
 				speed = SprintSpeed;
@@ -195,11 +196,21 @@ namespace Starter.ThirdPersonCharacter
 
 			//create a Raycast to get the mouse position to use for the constaint
             Vector3 mouseWorldPosition = Vector3.zero;
-            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
-            if (Physics.Raycast(ray, out RaycastHit rayCastHit, 999f, aimColliderLayerMask))
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit[] hits = Physics.RaycastAll(ray, 999f, aimColliderLayerMask);
+
+            // Loop through all hits from the ray
+            foreach (RaycastHit hit in hits)
             {
-                mouseWorldPosition = rayCastHit.point;
+                // Check if the current hit is not the one with the "ItemRaycast" tag
+                if (hit.collider.tag == "WALL")
+                {
+                    // If it's not, set the position to this point
+                    mouseWorldPosition = hit.point;
+                    break; // Stop checking after the first valid hit
+                }
             }
+            
             // Get the forward direction of the player
             Vector3 playerForward = KCC.transform.forward;
             mouseWorldPosition.y = transform.position.y;
@@ -301,15 +312,17 @@ namespace Starter.ThirdPersonCharacter
             // If player press Fire1
             if (input.Shoot)
 			{
-				// We use current selected Item
-				PlayerInventory.useCurrentSelection();
-
-			// If player is not shooting and his item is a weapon we check if he wants to reaload
-			} 
+                if (_isAiming) // Si il vise
+                {
+                    PlayerInventory.useCurrentSelection();// We use current selected Item
+                }
+                
+           
+                // If player is not shooting and his item is a weapon we check if he wants to reaload
+            } 
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon) 
 			{
 
-                Animator.SetTrigger("ReloadTrigger");
                 Weapon weapon = (Weapon) currentItem;  // Set current Item as a weapon
 				weapon.reload(); // Relaod the weapon
 
