@@ -183,7 +183,7 @@ namespace Starter.ThirdPersonCharacter
 				// If object is a item use it
 				if (item != null)
 					item.use();
-			}
+            }
 		}
 
 		// Return the current selected object

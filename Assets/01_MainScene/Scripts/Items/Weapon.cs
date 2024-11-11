@@ -40,6 +40,7 @@ namespace Starter.ThirdPersonCharacter
         public ParticleSystem muzzleFalshParticles;
 
         // Privates
+        private Animator _playerAnimator;
         private WeaponState _currentWeaponState;
         private int _currentAmmoAmount;
         private Transform _spawnBulletPosition; // Where the bullet is gonna spawn
@@ -111,24 +112,29 @@ namespace Starter.ThirdPersonCharacter
 			// If item is already Reloading stop
 			if (_currentWeaponState == WeaponState.Reloading) return;
 
-   			// Check if we are alreadyFull ammo
-			if (_currentAmmoAmount >= chargerAmmoAmount) return;
-
 			// Set status to reloading
 			_currentWeaponState = WeaponState.Reloading;
 
+			// Check if we are alreadyFull ammo
+			if (_currentAmmoAmount >= chargerAmmoAmount) return;
+
+            // Getting PlayerAnimator
+            if (_playerAnimator == null)
+                _playerAnimator = GetComponentInParent<Animator>();
+
             // Start reload couroutine
-			StartCoroutine (reloadCouroutine ());
+            StartCoroutine (reloadCouroutine ());
 
         }
 
 		private IEnumerator reloadCouroutine () 
 		{
 
-			// TODO : Realod animation to add
+            //Realod animation
+            _playerAnimator.SetTrigger("ReloadTrigger");
 
-			// Wait for reload cooldown
-			yield return new WaitForSeconds(reloadCooldown);
+            // Wait for reload cooldown
+            yield return new WaitForSeconds(reloadCooldown);
 
 			// Set charger to to full
 			_currentAmmoAmount = chargerAmmoAmount;
