@@ -49,10 +49,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Foam:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -70,14 +66,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _WaterNormal:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -106,20 +94,14 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Distortion: 0.5
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FoamDepth: 0
-    - _FoamFalloff: 0
-    - _FoamSmoothness: 0
-    - _FoamSpecular: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
     - _Mode: 0
-    - _NormalScale: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
@@ -132,25 +114,16 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _UVSec: 0
-    - _WaterDepth: 0
-    - _WaterFalloff: 0
-    - _WaterSmoothness: 0
-    - _WaterSpecular: 0
-    - _WavesAmount: 8.87
-    - _WavesAmplitude: 0.01
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - __dirty: 1
     m_Colors:
-    - _BaseColor: {r: 0.6603774, g: 0.27100393, b: 0.27100393, a: 1}
-    - _Color: {r: 0.6603774, g: 0.2710039, b: 0.2710039, a: 1}
-    - _DeepColor: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _BaseColor: {r: 0.24313727, g: 0.2784314, b: 0.3647059, a: 1}
+    - _Color: {r: 0.24313724, g: 0.27843136, b: 0.36470586, a: 1}
+    - _EmissionColor: {r: 0.022173883, g: 0.028426038, b: 0.049706575, a: 1}
     - _RimColor: {r: 0.7941176, g: 0.8466531, b: 1, a: 1}
-    - _ShalowColor: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &1906046244077427219
+--- !u!114 &8824533852309113934
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,4 +135,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 7
+  version: -1
