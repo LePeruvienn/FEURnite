@@ -93,6 +93,22 @@ namespace Starter
 				return; // Panel cannot be hidden if the game is not running
 
 			PanelGroup.gameObject.SetActive(!PanelGroup.gameObject.activeSelf);
+
+			if (PanelGroup.gameObject.activeSelf)
+			{
+				StartGroup.SetActive(_runnerInstance == null);
+				DisconnectGroup.SetActive(_runnerInstance != null);
+				RoomText.interactable = _runnerInstance == null;
+				NicknameText.interactable = _runnerInstance == null;
+
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+			}
+			else
+			{
+				Cursor.lockState = CursorLockMode.Locked;
+				Cursor.visible = false;
+			}
 		}
 
 		private void OnEnable()
@@ -116,22 +132,6 @@ namespace Starter
 			if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Escape))
 			{
 				TogglePanelVisibility();
-			}
-
-			if (PanelGroup.gameObject.activeSelf)
-			{
-				StartGroup.SetActive(_runnerInstance == null);
-				DisconnectGroup.SetActive(_runnerInstance != null);
-				RoomText.interactable = _runnerInstance == null;
-				NicknameText.interactable = _runnerInstance == null;
-
-				Cursor.lockState = CursorLockMode.None;
-				Cursor.visible = true;
-			}
-			else
-			{
-				Cursor.lockState = CursorLockMode.Locked;
-				Cursor.visible = false;
 			}
 		}
 

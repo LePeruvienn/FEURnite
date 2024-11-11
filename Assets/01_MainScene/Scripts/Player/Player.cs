@@ -18,6 +18,7 @@ namespace Starter.ThirdPersonCharacter
 		public PlayerModel PlayerModel;
 		public PlayerInput PlayerInput;
 		public PlayerInventory PlayerInventory;
+		public InventoryDisplay InventoryDisplay;
 		public Animator Animator;
 		public Transform CameraPivot;
 		public Transform CameraHandle;
@@ -102,6 +103,11 @@ namespace Starter.ThirdPersonCharacter
 
 		private void Awake()
 		{
+
+			// Cacher le curseur et verrouiller comme avant
+			Cursor.lockState = CursorLockMode.Locked;  // Verrouiller le curseur au centre de l'écran
+			Cursor.visible = false;
+
 			AssignAnimationIDs();
 		}
 
@@ -185,6 +191,9 @@ namespace Starter.ThirdPersonCharacter
 			{
 				PlayerInventory.dropCurrentSelection();
 			}
+
+			if (input.ToggleInventory)
+				InventoryDisplay.toggleInventory ();
 			
 
 			var lookRotation = Quaternion.Euler(0f, input.LookRotation.y, 0f);
