@@ -53,7 +53,11 @@ namespace Starter.ThirdPersonCharacter
         public abstract void use(); // Utiliser l'item
 
 
-		public void saveDefaultPosAndRotation () 
+        public ItemRarity GetRarity()
+        {
+            return rarity;
+        }
+        public void saveDefaultPosAndRotation () 
 		{
 			// Save current position scale and rotation in the default data
 			_defaultPosition = transform.position;
