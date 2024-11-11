@@ -312,10 +312,8 @@ namespace Starter.ThirdPersonCharacter
             // If player press Fire1
             if (input.Shoot)
 			{
-                if (_isAiming) // Si il vise
-                {
-                    PlayerInventory.useCurrentSelection();// We use current selected Item
-                }
+                PlayerInventory.useCurrentSelection();// We use current selected Item
+                
                 
            
                 // If player is not shooting and his item is a weapon we check if he wants to reaload
