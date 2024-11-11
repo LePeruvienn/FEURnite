@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf57fef9b00771d41974f95e1ff5b784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 0}
   itemName: 
   stackAmount: 0
   rarity: 3
@@ -278,10 +279,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0012868713
-  m_Height: 0.04599794
+  m_Radius: 0.0375807
+  m_Height: 0.3818747
   m_Direction: 2
-  m_Center: {x: -0.00035743238, y: -0.010768968, z: 0.0032525698}
+  m_Center: {x: -0.0008832185, y: -0.12383657, z: 0.09043481}
 --- !u!65 &5852833926425955535
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -301,8 +302,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.003394625, y: 0.016010547, z: 0.047565322}
-  m_Center: {x: 0.00008009299, y: -0.0035997701, z: 0.0036319476}
+  m_Size: {x: 0.076990314, y: 0.26395735, z: 0.362093}
+  m_Center: {x: -0.0009440019, y: 0.0045786374, z: 0.09089855}
 --- !u!1 &4011834019176120723
 GameObject:
   m_ObjectHideFlags: 0

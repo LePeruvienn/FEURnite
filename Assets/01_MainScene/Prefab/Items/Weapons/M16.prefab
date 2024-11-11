@@ -1056,6 +1056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf57fef9b00771d41974f95e1ff5b784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 0}
   itemName: M16
   stackAmount: 0
   rarity: 3
@@ -1115,10 +1116,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0012868713
-  m_Height: 0.04599794
+  m_Radius: 0.32542378
+  m_Height: 5.092098
   m_Direction: 2
-  m_Center: {x: -0.00035743238, y: -0.010768968, z: 0.0032525698}
+  m_Center: {x: 0.029954836, y: -1.1707928, z: 0.3480369}
 --- !u!65 &-6902842857965965246
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1138,8 +1139,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.003394625, y: 0.016010547, z: 0.047565322}
-  m_Center: {x: 0.00008009299, y: -0.0035997701, z: 0.0036319476}
+  m_Size: {x: 0.718366, y: 1.7119311, z: 4.878626}
+  m_Center: {x: 0.026135668, y: -0.3448645, z: 0.3444031}
 --- !u!1 &9010753283490745547
 GameObject:
   m_ObjectHideFlags: 0

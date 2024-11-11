@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf57fef9b00771d41974f95e1ff5b784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 0}
   itemName: 
   stackAmount: 0
   rarity: 3
@@ -110,10 +111,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0012868713
-  m_Height: 0.04599794
-  m_Direction: 2
-  m_Center: {x: -0.00035743238, y: -0.010768968, z: 0.0032525698}
+  m_Radius: 0.30515763
+  m_Height: 6.423233
+  m_Direction: 0
+  m_Center: {x: 0.43047348, y: -0.5917021, z: 0.00042803586}
 --- !u!65 &4218618883703250589
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -133,8 +134,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.003394625, y: 0.016010547, z: 0.047565322}
-  m_Center: {x: 0.00008009299, y: -0.0035997701, z: 0.0036319476}
+  m_Size: {x: 5.8176813, y: 1.0358212, z: 0.62011683}
+  m_Center: {x: 0.42796603, y: -0.07016861, z: 0.00047047756}
 --- !u!64 &-7355987953201997711
 MeshCollider:
   m_ObjectHideFlags: 0
