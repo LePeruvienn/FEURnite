@@ -154,8 +154,8 @@ namespace Starter.ThirdPersonCharacter
 			{
 				_selectedIndex++; // Tale the previous index
 				
-				if (_selectedIndex < 0) // If previous item dont exist, take the last item
-					_selectedIndex = _inventory.Length - 1;
+				if (_selectedIndex >= _inventory.Length) // If next item dont exist, take the first item
+					_selectedIndex = 0;
 				
 				updateSelection(); // Update current selection
 				
@@ -163,8 +163,8 @@ namespace Starter.ThirdPersonCharacter
 			{
 				_selectedIndex--; // Take the next item
 				
-				if (_selectedIndex >= _inventory.Length) // If next item dont exist, take the first item
-					_selectedIndex = 0;
+				if (_selectedIndex < 0) // If previous item dont exist, take the last item
+					_selectedIndex = _inventory.Length - 1;
 				
 				updateSelection(); // Update current selection
 			}
