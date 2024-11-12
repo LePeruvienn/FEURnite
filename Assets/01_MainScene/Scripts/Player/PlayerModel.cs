@@ -90,7 +90,7 @@ namespace Starter.ThirdPersonCharacter
 			_health -= leftAmount;
 
 			// If player health is below 0 we kill him !
-			if (_health < 0)
+			if (_health <= 0)
 			{
 				// Make player die
 				die ();
