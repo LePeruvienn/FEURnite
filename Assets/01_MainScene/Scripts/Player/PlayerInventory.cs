@@ -330,7 +330,8 @@ namespace Starter.ThirdPersonCharacter
 		private void updateSelection()
 		{
 			// Disable all items
-			
+			disableAllItems();
+
 			// Get currentSelection
 			GameObject selection = getCurrentSelection ();
 			// If selection is not null
