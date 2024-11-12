@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -35,6 +36,7 @@ namespace Starter.ThirdPersonCharacter
     public abstract class Item : MonoBehaviour
     {
 		[Header("Item config")]
+		public Sprite icon;
         public string itemName; // Nom de l'item
         public int stackAmount; // Nombre d'objets qu'on peut stocker en meme temps dans l'inventaire
         public ItemRarity rarity; // Rareté de l'objet
@@ -51,7 +53,11 @@ namespace Starter.ThirdPersonCharacter
         public abstract void use(); // Utiliser l'item
 
 
-		public void saveDefaultPosAndRotation () 
+        public ItemRarity GetRarity()
+        {
+            return rarity;
+        }
+        public void saveDefaultPosAndRotation () 
 		{
 			// Save current position scale and rotation in the default data
 			_defaultPosition = transform.position;

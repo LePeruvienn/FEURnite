@@ -1,3 +1,4 @@
+using Starter.ThirdPersonCharacter;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,16 +23,14 @@ public class mousePosition3D : MonoBehaviour
 
         // Loop through all hits from the ray
         foreach (RaycastHit hit in hits)
-        {
+        {   
             // Check if the current hit is not the one with the "ItemRaycast" tag
-            if (hit.collider.tag != "ItemRaycast")
+            if (hit.collider.tag == "WALL")
             {
                 // If it's not, set the position to this point
                 transform.position = hit.point;
                 break; // Stop checking after the first valid hit
             }
-
-            Debug.Log("You hit an object with tag: " + hit.collider.tag);
         }
     }
 }

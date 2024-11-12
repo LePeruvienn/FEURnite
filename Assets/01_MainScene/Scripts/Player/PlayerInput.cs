@@ -20,6 +20,8 @@ namespace Starter.ThirdPersonCharacter
 		public bool Interact;
 		// Weapon keybindings
 		public bool RealoadWeapon;
+		// Inventory keybindings
+		public bool ToggleInventory;
 	}
 
 	/// <summary>
@@ -42,10 +44,14 @@ namespace Starter.ThirdPersonCharacter
 			_input.DropItem = false;
 			_input.Interact = false;
 			_input.RealoadWeapon = false;
+			_input.ToggleInventory = false;
         }
 
 		private void Update()
 		{
+
+			_input.ToggleInventory |= Input.GetKeyDown("e");
+
 			// Accumulate input only if the cursor is locked.
 			if (Cursor.lockState != CursorLockMode.Locked)
 				return;
@@ -65,7 +71,7 @@ namespace Starter.ThirdPersonCharacter
             _input.Shoot |= Input.GetButton("Fire1");
             _input.Scroll = Input.GetAxis("Mouse ScrollWheel");
 			_input.DropItem |= Input.GetKeyDown("g");
-			_input.Interact |= Input.GetKeyDown("e");
+			_input.Interact |= Input.GetKeyDown("f");
 			_input.RealoadWeapon |= Input.GetKeyDown("r");
         }
 

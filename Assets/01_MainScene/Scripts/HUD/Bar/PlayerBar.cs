@@ -10,23 +10,26 @@ public class PlayerBar : MonoBehaviour
     public Shield SuperShieldBar;
 
     // niveau actuelle de vie
-    float _healt;
+    public float _healt;
     //niveau maximun de vie
-    float _maxHealth = 100f;
+    public float _maxHealth = 100f;
     // niveau actuelle du bouclier 
-    float _shield;
+    public float _shield;
     // niveau maximun du bouclier 
-    float _maxShield = 100f;
+    public float _maxShield = 100f;
     // niveau actuelle du superbouclier 
-    float _superShield;
+    public float _superShield;
     // niveau maximun du superbouclier 
-    float _maxSuperShield = 50f;
+    public float _maxSuperShield = 50f;
     //nombre de second avant lesquelles la barre de vie ce regener
-    float wait=3.0f;
+    public float wait=3.0f;
     //nombre de pv gagner par seconde quand la barre de vie se regénère
-    float ShieldUp=5;
+    public float ShieldUp =5;
     //La derniere fois que le joueur a reçue un coup
-    float lastTimeHeat;
+    public float lastTimeHeat;
+    // coup donner par l'ennemi (en mode debug)
+    public float _heat;
+
 
 
     //pour prendre des dommage en mode debug
@@ -69,39 +72,47 @@ public class PlayerBar : MonoBehaviour
             lastTimeHeat = Time.time;
             //mode debug desactivé
             debugTakeDamage = false;
-            //generation du coup donner pour l'enemie (en mode debug)
-            float heat = Random.Range(5f, 10f);
 
 
-            if (_superShield-heat > 0f)//regarde si il possede un super bouclier
-            { 
-                _superShield -= heat;//simulation du coup sur le surbouclier
-            }
-            else
+             if(_healt == 0)
             {
-                heat -= _superShield;//enleve au coup de la puissance si il lui reste un peu de surbouclier
-                _superShield = 0;//  mets le surbouclier a 0
-
-                if (_shield-heat > 0f)//regarde si il a un bouclier
-                {  
-                    _shield -= heat; //simulation du coup sur le bouclier
+                //mort player (il n'a plus de vie /plus de bouclier/plus de surbouclier )
+                _healt = _maxHealth;
+                _shield = _maxShield;
+                _superShield = _maxSuperShield;
+            }
+             else
+            {
+                if (_superShield - _heat > 0f)//regarde si il possede un super bouclier
+                {
+                    _superShield -= _heat;//simulation du coup sur le surbouclier
                 }
                 else
                 {
-                    heat -= _shield;//enleve au coup de la puissance si il lui reste un peu de bouclier
-                    _shield = 0;//  mets le bouclier a 0
-                    if (_healt-heat > 0f)//regarde si il reste de la vie
-                    { 
-                        _healt -= heat; //simulation du coup sur la vie
+                    _heat -= _superShield;//enleve au coup de la puissance si il lui reste un peu de surbouclier
+                    _superShield = 0;//  mets le surbouclier a 0
+
+                    if (_shield - _heat > 0f)//regarde si il a un bouclier
+                    {
+                        _shield -= _heat; //simulation du coup sur le bouclier
                     }
                     else
                     {
-                        //mort player (il n'a plus de vie /plus de bouclier/plus de surbouclier )
-                        _healt = _maxHealth;
-                        _shield = _maxShield;
+                        _heat -= _shield;//enleve au coup de la puissance si il lui reste un peu de bouclier
+                        _shield = 0;//  mets le bouclier a 0
+                        if (_healt - _heat > 0f)//regarde si il reste de la vie
+                        {
+                            _healt -= _heat; //simulation du coup sur la vie
+                        }
+                        else
+                        {
+                            _heat -= _healt;
+                            _healt = 0;
+                        }
                     }
                 }
             }
+            
             HealthBar.SetBar(_healt, _maxHealth);//set la barre de vie en fonction du max de pv et de la vie actuelle
             ShieldBar.SetBar(_shield, _maxShield);//set la barre de bouclier en fonction du max de bouclier et du bouclier
             SuperShieldBar.SetSuperShield(_superShield, _maxSuperShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
