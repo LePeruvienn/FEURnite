@@ -2,8 +2,6 @@ using Starter.ThirdPersonCharacter;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using UnityEditor.Search;
-using UnityEditorInternal.VersionControl;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static LootBox;

@@ -5,7 +5,6 @@ using Fusion.Addons.SimpleKCC;
 using Unity.VisualScripting;
 using Random = UnityEngine.Random;
 using UnityEngine.Animations.Rigging;
-using static UnityEditor.Progress;
 
 namespace Starter.ThirdPersonCharacter
 {
