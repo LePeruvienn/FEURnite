@@ -43,7 +43,7 @@ namespace Starter.ThirdPersonCharacter
         private Animator _playerAnimator;
         private WeaponState _currentWeaponState;
         private int _currentAmmoAmount;
-        private Transform _spawnBulletPosition; // Where the bullet is gonna spawn
+        [SerializeField]  private Transform _spawnBulletPosition; // Where the bullet is gonna spawn
 		private float _nextFireTime = 0f;
 
 		// Run when program starts
@@ -79,10 +79,6 @@ namespace Starter.ThirdPersonCharacter
 
         private void shoot ()
 		{
-
-            // Check is _spawnBulletPosition is not null
-            if (_spawnBulletPosition == null)
-                _spawnBulletPosition = transform.Find("spawnBulletPos").transform; // If he is null we set it
             
             // Setting up raycast variables
             Vector3 mouseWorldPosition = Vector3.zero; // Default vector
@@ -103,7 +99,9 @@ namespace Starter.ThirdPersonCharacter
             
             // Shoot the bullet prefab
             Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
-            Instantiate(bulletPrefab,_spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            Debug.Log(bulletPrefab.name);
+            Runner.Spawn(bulletPrefab,_spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            Debug.Log("test");
             Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
         }
 

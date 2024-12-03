@@ -326,6 +326,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 2832144883721897763}
   - {fileID: 2550293436682645114}
+  - {fileID: -3433463954328827346}
 --- !u!114 &2832144883721897763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,6 +481,8 @@ MonoBehaviour:
   - {fileID: 1045324172950302930, guid: d72afa9795b8d114594220f9f2beba1c, type: 3}
   - {fileID: 6561465501170253921, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d, type: 3}
   pickUpRange: 10
+  _dropItemOrigin: {fileID: 0}
+  _origin: {fileID: 0}
 --- !u!54 &426045580450923874
 Rigidbody:
   m_ObjectHideFlags: 0

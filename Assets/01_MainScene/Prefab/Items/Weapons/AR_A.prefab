@@ -160,7 +160,8 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 3690424227665133904}
 --- !u!114 &3690424227665133904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +188,7 @@ MonoBehaviour:
   bulletType: 2
   muzzleFalshParticles: {fileID: 2292685289689191204, guid: 42c0e6229edc0354793b44e307a92a92,
     type: 3}
+  _spawnBulletPosition: {fileID: 0}
 --- !u!54 &2426705870940078735
 Rigidbody:
   m_ObjectHideFlags: 0

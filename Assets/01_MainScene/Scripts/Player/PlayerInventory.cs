@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using Fusion;
 namespace Starter.ThirdPersonCharacter
 {
 
@@ -15,8 +15,8 @@ namespace Starter.ThirdPersonCharacter
 		Items = 2,
 	}
 
-	public class PlayerInventory : MonoBehaviour
-	{
+	public class PlayerInventory : NetworkBehaviour
+    {
 		// Statics
 		public static int __HOTBAR_SIZE__ = 4;
 		public static int __WEAPONS_SIZE__ = 12;
