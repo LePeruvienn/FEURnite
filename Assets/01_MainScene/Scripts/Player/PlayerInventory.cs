@@ -45,12 +45,6 @@ namespace Starter.ThirdPersonCharacter
 		{
 			// Set pickUp state
 			_canPickUp = false;
-
-			// Setting item origin
-			//_origin = GameObject.FindGameObjectWithTag("itemOrigin").transform;
-			
-			// Setting drop origin
-			//_dropItemOrigin = GameObject.FindGameObjectWithTag("itemDropOrigin").transform;
             
 			// Setting up the iventory empty
 			_inventory = new GameObject[__HOTBAR_SIZE__];
