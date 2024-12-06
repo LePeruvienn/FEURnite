@@ -103,6 +103,7 @@ namespace Starter.ThirdPersonCharacter
 		{
 			// TODO
 			Debug.Log ("PLAYER IS DEAD !!");
+			Destroy(gameObject);
 		}
 
 		public void heal (int amount) 

@@ -18,8 +18,9 @@ namespace Starter.ThirdPersonCharacter
 		Sniper = 1,
 		Rifle = 2,
 		Pistol = 3,
-		Rocket = 4
-	}
+		Rocket = 4,
+        Knife = 5
+    }
 
 	[RequireComponent(typeof(Rigidbody))]
     public class Weapon : Item
@@ -35,6 +36,7 @@ namespace Starter.ThirdPersonCharacter
         public int startAmmoAmount; // Amount of bullet currenty in the charger
         public int chargerAmmoAmount; // Bullets per charger
         public BulletType bulletType; // Type of bullet the weapon use
+        public WeaponProperties weight; // Poids de l'arme
 
         [Header("Weapon style")]
         public ParticleSystem muzzleFalshParticles;
@@ -142,4 +144,11 @@ namespace Starter.ThirdPersonCharacter
 			Debug.Log ("Reload Complete !");
 		}
     }
+
+    [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpawnManagerScriptableObject", order = 1)]
+    public class WeaponProperties : ScriptableObject
+    {
+        public float _weight;
+    }
+
 }
