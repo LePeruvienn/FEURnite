@@ -5,6 +5,8 @@ using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 using Fusion;
+using UnityEditorInternal.Profiling.Memory.Experimental;
+using static UnityEditor.Progress;
 namespace Starter.ThirdPersonCharacter
 {
 
@@ -40,63 +42,57 @@ namespace Starter.ThirdPersonCharacter
 		private int _selectedIndex = 0;
 		private bool _canPickUp;
 		private GameObject _lastPickableObject;
-		
-		private void Awake ()
-		{
-			// Set pickUp state
-			_canPickUp = false;
-            
-			// Setting up the iventory empty
-			_inventory = new GameObject[__HOTBAR_SIZE__];
-			_weapons = new GameObject[__WEAPONS_SIZE__];
-			_items = new GameObject[__ITEMS_SIZE__];
+        private void Awake()
+        {
+            // Set pickUp state
+            _canPickUp = false;
 
-			// If there is starters items:
-			// We put all the starters items in the inventory
-			for (int i = 0; i < __HOTBAR_SIZE__; i++)
-			{
-				// If we can put a start item
-				if (i < starterItems.Length)
-				{
-                    // We instantiate the object to create a copy
-                    GameObject itemInstance = Instantiate (starterItems[i]);
-					// Getting item compenent
-					Item item = itemInstance.GetComponent<Item> ();
-					if (item != null)
-					{
-						// If Item script exist, set item state to equipped
-						item.setState (ItemState.Equipped);
-						// We save his current default position, scale and rotation config
-						item.saveDefaultPosAndRotation ();
-					}
+            // Setting up the inventory empty
+            _inventory = new GameObject[__HOTBAR_SIZE__];
+            _weapons = new GameObject[__WEAPONS_SIZE__];
+            _items = new GameObject[__ITEMS_SIZE__];
 
-					// Setting starter item in display
-					_inventory[i] = itemInstance;
-					
-					// Set item pos
-					setItem (itemInstance);
+            // If there are starter items:
+            // We put all the starter items in the inventory
+            for (int i = 0; i < __HOTBAR_SIZE__; i++)
+            {
+                // If we can put a starter item
+                if (i < starterItems.Length)
+                {
 
-					// Hide item
-					itemInstance.SetActive (false);
-				}
-			}
+                    // We instantiate the object as a network object (spawn it with Runner)
+                    NetworkObject itemInstance = Runner.Spawn(starterItems[i], _origin.position, Quaternion.identity, Runner.LocalPlayer);
+					GameObject itemGame = itemInstance.GameObject();
+                    // Add the item to the inventory if there is space
+                    // Getting item compenent
+                    Item item = itemInstance.GetComponent<Item>();
+                    if (item != null)
+                    {
+                        // If Item script exist, set item state to equipped
+                        item.setState(ItemState.Equipped);
+                        // We save his current default position, scale and rotation config
+                        item.saveDefaultPosAndRotation();
+                    }
 
+                    // Setting starter item in display
+                    _inventory[i] = itemGame;
 
-			// Getting InventoryDisplay
-			_inventoryDisplay = GetComponentInParent<InventoryDisplay> ();
-			// Initialize starterItems in display
-			_inventoryDisplay.init (starterItems);
-			
-			// Update Current selection
-			updateSelection();
-		}
+                    // Set item pos
+                    setItem(itemGame);
 
-		public void Update ()
+                    // Hide item
+                    itemGame.SetActive(false);
+                }
+            }
+        }
+		  
+
+        public void Update ()
 		{
 			// Set pickUp to false to default
 			_canPickUp = false;
 			// Handle detection of pickable objects
-			handlePickup ();
+			handlePickup (); 
 		}
 
 		public void pickUp ()
