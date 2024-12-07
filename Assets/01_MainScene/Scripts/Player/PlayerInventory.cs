@@ -326,6 +326,7 @@ namespace Starter.ThirdPersonCharacter
 
 		private void updateSelection()
 		{
+			Debug.Log ("ALLO JE LANCE LE RPC !!");
 			RPC_updateSelection ();
 
 			// Updating UI
@@ -335,6 +336,7 @@ namespace Starter.ThirdPersonCharacter
 		[Rpc(RpcSources.InputAuthority, RpcTargets.All)]
 		public void RPC_updateSelection()
 		{
+			Debug.Log ("HOE JE SUIS LE RPC !!");
 			// Disable all items
 			disableAllItems();
 
