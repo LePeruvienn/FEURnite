@@ -16,7 +16,7 @@ namespace Starter.ThirdPersonCharacter
 		Items = 2,
 	}
 
-	public class PlayerInventory : MonoBehaviour
+	public class PlayerInventory : NetworkBehaviour
 	{
 		// Statics
 		public static int __HOTBAR_SIZE__ = 4;
