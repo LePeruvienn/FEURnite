@@ -38,13 +38,15 @@ namespace Starter.ThirdPersonCharacter
 		private GameObject[] _inventory;
 		private GameObject[] _weapons;
 		private GameObject[] _items;
-		private int _selectedIndex = 0;
+		[Networked] private int _selectedIndex {get; set;}
 		private bool _canPickUp;
 		private GameObject _lastPickableObject;
 		
 		public override void Spawned()
 		{
 			base.Spawned();
+
+			_selectedIndex = 0;
 
 			// Set pickUp state
 			_canPickUp = false;
