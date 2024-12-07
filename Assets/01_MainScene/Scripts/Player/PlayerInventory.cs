@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
+using Fusion;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -325,6 +326,15 @@ namespace Starter.ThirdPersonCharacter
 
 		private void updateSelection()
 		{
+			RPC_updateSelection ();
+
+			// Updating UI
+			_inventoryDisplay.updateInGameHotbarSelection (_selectedIndex);
+		}
+
+		[Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+		public void RPC_updateSelection()
+		{
 			// Disable all items
 			disableAllItems();
 
@@ -333,9 +343,6 @@ namespace Starter.ThirdPersonCharacter
 			// If selection is not null
 			if (selection != null)
 				selection.SetActive (true); // Active current selected item
-
-			// Updating UI
-			_inventoryDisplay.updateInGameHotbarSelection (_selectedIndex);
 		}
 
 		private void disableAllItems()
