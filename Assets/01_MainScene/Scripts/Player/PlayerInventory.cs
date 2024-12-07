@@ -118,30 +118,45 @@ namespace Starter.ThirdPersonCharacter
 					// Stop function
 					return;
 				}
-				
-				// Get current selection
-				GameObject selection = getCurrentSelection ();
 
-				// If current selection is not null, we drop the item selected
-				if (selection != null)
-					dropCurrentSelection ();
+				// Handle ServerSide Sync Pickup
+				if (!Object.HasStateAuthority)
+				{
+					Debug.LogWarning("Only State Authority can call updateSelection().");
+					return;
+				}
 
-				// Get Item compenent
-				Item item = _lastPickableObject.GetComponent<Item> ();
-				if (item != null) // If Item script exist, set item state to equipped
-					item.setState (ItemState.Equipped);
-				
-				// Setting starter item in inventory
-				_inventory[_selectedIndex] = _lastPickableObject;
-				
-				// Set item pos
-				setItem (_inventory[_selectedIndex]);
-
-				_inventory[_selectedIndex].SetActive (true);
+				RPC_pickup ();
 
 				// Setting it on the display
+				Item item = _lastPickableObject.GetComponent<Item> ();
 				_inventoryDisplay.setItem (InventoryType.Hotbar, _selectedIndex, item);
 			}
+		}
+
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		public void RPC_pickup()
+		{
+			// Get current selection
+			GameObject selection = getCurrentSelection ();
+
+			// If current selection is not null, we drop the item selected
+			if (selection != null)
+				dropCurrentSelection ();
+
+			// Get Item compenent
+			Item item = _lastPickableObject.GetComponent<Item> ();
+			if (item != null) // If Item script exist, set item state to equipped
+				item.setState (ItemState.Equipped);
+			
+			// Setting starter item in inventory
+			_inventory[_selectedIndex] = _lastPickableObject;
+			
+			// Set item pos
+			setItem (_inventory[_selectedIndex]);
+
+			_inventory[_selectedIndex].SetActive (true);
 		}
 
 		public void moveItemIndex (InventoryType sourceType, InventoryType targetType, int index, int target)
