@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -59,6 +60,11 @@ namespace Starter.ThirdPersonCharacter
         public override ItemType getType()
         {
             return ItemType.Usable;
+        }
+
+        public override BulletType getBulletType()
+        {
+            return BulletType.Pistol;
         }
 
         public override void use()

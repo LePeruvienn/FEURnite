@@ -62,6 +62,11 @@ namespace Starter.ThirdPersonCharacter
             return ItemType.Weapon;
         }
 
+        public override BulletType getBulletType()
+        {
+            return bulletType;
+        }
+
         public override void use ()
         {
 
