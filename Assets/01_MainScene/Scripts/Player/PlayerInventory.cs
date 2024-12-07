@@ -42,48 +42,65 @@ namespace Starter.ThirdPersonCharacter
 		private int _selectedIndex = 0;
 		private bool _canPickUp;
 		private GameObject _lastPickableObject;
-        private void Awake()
-        {
-            // Set pickUp state
-            _canPickUp = false;
+		private void Awake()
+		{
+			// Set pickUp state
+			_canPickUp = false;
 
-            // Setting up the inventory empty
-            _inventory = new GameObject[__HOTBAR_SIZE__];
-            _weapons = new GameObject[__WEAPONS_SIZE__];
-            _items = new GameObject[__ITEMS_SIZE__];
+			// Setting up the inventory empty
+			_inventory = new GameObject[__HOTBAR_SIZE__];
+			_weapons = new GameObject[__WEAPONS_SIZE__];
+			_items = new GameObject[__ITEMS_SIZE__];
 
-            // If there are starter items:
-            // We put all the starter items in the inventory
-            for (int i = 0; i < __HOTBAR_SIZE__; i++)
-            {
-                // If we can put a starter item
-                if (i < starterItems.Length)
-                {
-
+			// If there are starter items:
+			// We put all the starter items in the inventory
+			for (int i = 0; i < __HOTBAR_SIZE__; i++)
+			{
+				// If we can put a starter item
+				if (i < starterItems.Length)
+				{
+					NetworkObject itemInstance;
+					if (Runner == null)
+					{
+						NetworkRunner _runner = FindObjectOfType<NetworkRunner>();
+						Debug.LogWarning(_runner);
+						itemInstance = _runner.Spawn(starterItems[i], _origin.position, Quaternion.identity, _runner.LocalPlayer);
+					}
+					else
+					{
+						itemInstance = Runner.Spawn(starterItems[i], _origin.position, Quaternion.identity, Runner.LocalPlayer);
+					}
                     // We instantiate the object as a network object (spawn it with Runner)
-                    NetworkObject itemInstance = Runner.Spawn(starterItems[i], _origin.position, Quaternion.identity, Runner.LocalPlayer);
-					GameObject itemGame = itemInstance.GameObject();
+                    GameObject itemIt = itemInstance.gameObject;
                     // Add the item to the inventory if there is space
                     // Getting item compenent
                     Item item = itemInstance.GetComponent<Item>();
-                    if (item != null)
-                    {
-                        // If Item script exist, set item state to equipped
-                        item.setState(ItemState.Equipped);
-                        // We save his current default position, scale and rotation config
-                        item.saveDefaultPosAndRotation();
-                    }
+					if (item != null)
+					{
+						// If Item script exist, set item state to equipped
+						item.setState(ItemState.Equipped);
+						// We save his current default position, scale and rotation config
+						item.saveDefaultPosAndRotation();
+					}
 
-                    // Setting starter item in display
-                    _inventory[i] = itemGame;
+					// Setting starter item in display
+					_inventory[i] = itemIt;
 
-                    // Set item pos
-                    setItem(itemGame);
+					// Set item pos
+					setItem(itemIt);
 
                     // Hide item
-                    itemGame.SetActive(false);
-                }
-            }
+                    itemIt.SetActive(false);
+				}
+				
+			}
+            // Getting InventoryDisplay
+            _inventoryDisplay = GetComponentInParent<InventoryDisplay>();
+            // Initialize starterItems in display
+            _inventoryDisplay.init(starterItems);
+
+            // Update Current selection
+            updateSelection();
         }
 		  
 
