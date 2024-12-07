@@ -333,7 +333,7 @@ namespace Starter.ThirdPersonCharacter
 			_inventoryDisplay.updateInGameHotbarSelection (_selectedIndex);
 		}
 
-		[Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+		[Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_updateSelection()
 		{
 			Debug.Log ("HOE JE SUIS LE RPC !!");
