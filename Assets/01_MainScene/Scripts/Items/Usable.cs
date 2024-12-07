@@ -5,11 +5,10 @@ using UnityEngine;
 
 namespace Starter.ThirdPersonCharacter
 {
+    ///// PARTIE DES EFFETS !!
 
-	///// PARTIE DES EFFETS !!
-
-	// Enum for effectStats
-	public enum EffectStat 
+    // Enum for effectStats
+    public enum EffectStat 
 	{
 		Heal = 1,
 		JumpPower = 2,
@@ -33,7 +32,7 @@ namespace Starter.ThirdPersonCharacter
 	{
 		Ready = 1,
 		Using = 2
-	}
+    }
 
     public class Usable : Item
     {
@@ -43,8 +42,10 @@ namespace Starter.ThirdPersonCharacter
 		[Header("Effect Config")]
         public List<Effect> effects = new List<Effect> ();
 
-		// Privates
-		private UsableState _currentUsableState;
+
+        // Privates
+        private Animator _playerAnimator;
+        private UsableState _currentUsableState;
 		private PlayerInventory _playerInverntory;
 		private PlayerModel _playerModel;
 
@@ -69,12 +70,19 @@ namespace Starter.ThirdPersonCharacter
 			// Set state to using
 			_currentUsableState = UsableState.Using;
 
-			// Start use couroutine
-			StartCoroutine (useCouroutine ());
+            // Getting PlayerAnimator
+            if (_playerAnimator == null)
+				_playerAnimator = GetComponentInParent<Animator>();
+
+            // Start use couroutine
+            StartCoroutine (useCouroutine ());
         }
 
 		private IEnumerator useCouroutine ()
-		{
+        {
+            //Realod animation
+            _playerAnimator.SetTrigger("EatTrigger");
+	
 			// Wait cooldown
 			yield return new WaitForSeconds(useCooldown);
 

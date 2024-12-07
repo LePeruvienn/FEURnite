@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace Starter.ThirdPersonCharacter
@@ -33,6 +34,7 @@ namespace Starter.ThirdPersonCharacter
         public int damage; // Damage applying for each bullet to the player
         public int reloadCooldown; // Reload time to get full ammo
         public int startAmmoAmount; // Amount of bullet currenty in the charger
+        public int bulletSize; // Amount of bullet currenty in the charger
         public int chargerAmmoAmount; // Bullets per charger
         public BulletType bulletType; // Type of bullet the weapon use
 
@@ -103,7 +105,7 @@ namespace Starter.ThirdPersonCharacter
             
             // Shoot the bullet prefab
             Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
-            Instantiate(bulletPrefab,_spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            GameObject bullet = Instantiate(bulletPrefab,_spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
             Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
         }
 

@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.76140165, y: -33.860043, z: -6.1621323}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5076042634553137941}
@@ -96,9 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf3c36a64a770945a28ce53d6395fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfxHitRed: {fileID: 8167189277672459635, guid: ae4e8b09e9eddc44c9c4349e517e7014,
+  vfxHitRed: {fileID: 6589521632547774029, guid: 76283da71dd4988409d23e6c252cb2f4,
     type: 3}
-  vfxHitBlack: {fileID: 8167189277672459635, guid: dbf4b0b8ae9003e438fac8e2f204551e,
+  vfxHitBlack: {fileID: 6589521632547774029, guid: 76283da71dd4988409d23e6c252cb2f4,
     type: 3}
 --- !u!96 &6382879003363125270
 TrailRenderer:
