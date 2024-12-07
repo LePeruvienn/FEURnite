@@ -125,7 +125,8 @@ namespace Starter.ThirdPersonCharacter
 					Debug.LogWarning("Only State Authority can call updateSelection().");
 					return;
 				}
-
+				
+				// Doing server-side function
 				RPC_pickup ();
 
 				// Setting it on the display
@@ -221,12 +222,14 @@ namespace Starter.ThirdPersonCharacter
 		// Drop the current selected item
 		public void dropCurrentSelection ()
 		{
+			// Check if player have authority
 			if (!Object.HasStateAuthority)
 			{
 				Debug.LogWarning("Only State Authority can call updateSelection().");
 				return;
 			}
 
+			// Doing server-side function
 			RPC_dropCurrentSelection();
 
 			// Deleting the item display
@@ -352,13 +355,14 @@ namespace Starter.ThirdPersonCharacter
 
 		private void updateSelection()
 		{
+			// Checking if player have authority on the object
 			if (!Object.HasStateAuthority)
 			{
 				Debug.LogWarning("Only State Authority can call updateSelection().");
 				return;
 			}
-
-			Debug.Log ("ALLO JE LANCE LE RPC !!");
+			
+			// Doing server-side function
 			RPC_updateSelection ();
 
 			// Updating UI
