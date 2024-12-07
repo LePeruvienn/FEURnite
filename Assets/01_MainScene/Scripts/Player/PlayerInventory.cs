@@ -42,8 +42,10 @@ namespace Starter.ThirdPersonCharacter
 		private bool _canPickUp;
 		private GameObject _lastPickableObject;
 		
-		private void Awake ()
+		public override void Spawned()
 		{
+			base.Spawned();
+
 			// Set pickUp state
 			_canPickUp = false;
             
@@ -326,6 +328,12 @@ namespace Starter.ThirdPersonCharacter
 
 		private void updateSelection()
 		{
+			if (!Object.HasStateAuthority)
+			{
+				Debug.LogWarning("Only State Authority can call updateSelection().");
+				return;
+			}
+
 			Debug.Log ("ALLO JE LANCE LE RPC !!");
 			RPC_updateSelection ();
 
@@ -333,7 +341,7 @@ namespace Starter.ThirdPersonCharacter
 			_inventoryDisplay.updateInGameHotbarSelection (_selectedIndex);
 		}
 
-        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
 		public void RPC_updateSelection()
 		{
 			Debug.Log ("HOE JE SUIS LE RPC !!");
