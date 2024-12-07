@@ -206,6 +206,22 @@ namespace Starter.ThirdPersonCharacter
 		// Drop the current selected item
 		public void dropCurrentSelection ()
 		{
+			if (!Object.HasStateAuthority)
+			{
+				Debug.LogWarning("Only State Authority can call updateSelection().");
+				return;
+			}
+
+			RPC_dropCurrentSelection();
+
+			// Deleting the item display
+			_inventoryDisplay.deleteItem (InventoryType.Hotbar, _selectedIndex);
+		}
+
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		public void RPC_dropCurrentSelection()
+		{
 			// Get Selected item
 			GameObject obj = getCurrentSelection();
 			// If current selection is null we stop here
@@ -215,7 +231,6 @@ namespace Starter.ThirdPersonCharacter
 			// If item exist we drop it
 			if (item != null)
 				item.setState(ItemState.OnFloor);
-
 			// Removing obj parent's
 			obj.transform.SetParent(null);
             // Adding the object to the scene
@@ -223,14 +238,6 @@ namespace Starter.ThirdPersonCharacter
             
             // Clearing the data
 			_inventory[_selectedIndex] = null;
-
-			// Deleting the item display
-			_inventoryDisplay.deleteItem (InventoryType.Hotbar, _selectedIndex);
-		}
-
-		public void dropIndex (InventoryType type, int index)
-		{
-
 		}
 
 		// Desotry the current selected item
