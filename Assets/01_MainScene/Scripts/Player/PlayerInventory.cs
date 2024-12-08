@@ -68,7 +68,7 @@ namespace Starter.ThirdPersonCharacter
 						// Use Runner.Spawn to create the object in the network
 						NetworkObject spawnedObject = Runner.Spawn(itemNetworkObject, 
 							position: transform.position, 
-							rotation: Quaternion.identity);
+							rotation: Quaternion.identity,Runner.LocalPlayer);
 
 						// Get the Item component
 						Item item = spawnedObject.GetComponent<Item>();
@@ -159,9 +159,9 @@ namespace Starter.ThirdPersonCharacter
 				}
 
 				Debug.Log("Object ID sent: " + netObj.Id);
-
-				// Doing server-side function
-				RPC_pickup(netObj.Id);
+				netObj.RequestStateAuthority();
+                // Doing server-side function
+                RPC_pickup(netObj.Id);
 
 				// Set item in the display
 				Item item = _lastPickableObject.GetComponent<Item>();
@@ -270,9 +270,11 @@ namespace Starter.ThirdPersonCharacter
 			// Doing server-side function
 			RPC_dropCurrentSelection();
 
-			// Deleting the item display
-			_inventoryDisplay.deleteItem (InventoryType.Hotbar, _selectedIndex);
-		}
+            
+            // Deleting the item display
+            _inventoryDisplay.deleteItem (InventoryType.Hotbar, _selectedIndex);
+            //obj.ReleaseStateAuthority();
+        }
 
 
         [Rpc(RpcSources.StateAuthority, RpcTargets.All)]

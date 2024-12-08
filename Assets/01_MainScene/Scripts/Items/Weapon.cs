@@ -48,13 +48,13 @@ namespace Starter.ThirdPersonCharacter
         [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
 
         // Run when program starts
-        public void Start()
+        public override void Spawned()
         {
             // Set current ammo to start Ammo amount
             _currentAmmoAmount = startAmmoAmount;
             // Set weapon state to ready
             _currentWeaponState = WeaponState.Ready;
-
+           Debug.LogWarning("ID received : " + Object.Id+" position arme :"+ Object.transform.position+" position spawn "+ _spawnBulletPosition.position);
             if (_runner == null)
             {
                 _runner = FindObjectOfType<NetworkRunner>();
@@ -84,9 +84,17 @@ namespace Starter.ThirdPersonCharacter
                 _nextFireTime = Time.time + shootDelay;
             }
         }
+        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+        public void RpcShoot(Vector3 spawnPos, Vector3 aimDir)
+        {
+            // Spawn bullet sur le serveur
+            _runner.Spawn(bulletPrefab, spawnPos, Quaternion.LookRotation(aimDir, Vector3.up),Runner.LocalPlayer);
+        }
+
 
         private void shoot()
         {
+            Debug.LogWarning("--Shoot ID received : " + Object.Id + " position arme :" + Object.transform.position + " position spawn " + _spawnBulletPosition.position);
             // Setting up raycast variables
             Vector3 mouseWorldPosition = Vector3.zero; // Default vector
             Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // Center of the screen
@@ -106,28 +114,12 @@ namespace Starter.ThirdPersonCharacter
 
             // Direction to shoot the bullet
             Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
-
-            // Ensure bulletPrefab is set
-            if (bulletPrefab == null)
-            {
-                Debug.LogError("bulletPrefab n'est pas défini !");
-                return;
-            }
-            if (_spawnBulletPosition == null)
-            {
-                Debug.LogError("_spawnBulletPosition n'est pas défini !");
-                return;
-            }
-            if (_runner == null)
-            {
-                Debug.LogError("NetworkRunner n'est pas initialisé !");
-                return;
-            }
-
             try
             {
+
+                Debug.LogWarning(_spawnBulletPosition);
                 // Spawn bullet on the network
-                _runner.Spawn(bulletPrefab, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                RpcShoot(_spawnBulletPosition.position, aimDir);
 
                 // Instantiate muzzle flash (local effect)
                 Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));

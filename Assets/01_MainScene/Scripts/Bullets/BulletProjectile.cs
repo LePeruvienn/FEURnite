@@ -7,26 +7,26 @@ public class BulletProjectile : NetworkBehaviour
     [SerializeField] private GameObject vfxHitRed;
     [SerializeField] private GameObject vfxHitBlack;
 
-    private void Awake()
+    public override void Spawned()
     {
+        Debug.LogWarning("--bullet ID received : " + Object.Id + " position arme :" + Object.transform.position );
+
         bulletRigidbody = GetComponent<Rigidbody>();
     }
 
     public override void FixedUpdateNetwork()
     {
-        if (HasStateAuthority) // S'assurer que seul l'autorité gère la logique de mouvement
-        {
-            float speed = 50f;
-            bulletRigidbody.velocity = transform.forward * speed;
-        }
+ 
+         float speed = 50f;
+         bulletRigidbody.velocity = transform.forward * speed;
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!HasStateAuthority) return; // Assurez-vous que seul l'autorité gère les collisions
-
         GameObject vfxToSpawn = null;
         Vector3 spawnPosition = transform.position; // Position par défaut (avant la correction)
+        Debug.LogWarning("--particule ID received : " + Object.Id + " position arme :" + Object.transform.position);
 
         if (other.GetComponent<BulletTarget>() != null)
         {
@@ -48,7 +48,7 @@ public class BulletProjectile : NetworkBehaviour
             }
 
             // Spawn particle effect using Runner.Spawn to sync it across all clients
-            Runner.Spawn(vfxToSpawn, spawnPosition, Quaternion.identity);
+            Instantiate(vfxToSpawn, spawnPosition, Quaternion.identity);
         }
 
         // Despawn bullet
