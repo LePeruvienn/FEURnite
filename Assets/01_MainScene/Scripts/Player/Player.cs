@@ -54,7 +54,9 @@ namespace Starter.ThirdPersonCharacter
 		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
 		private NetworkBool _isMoving { get; set; }
 		private NetworkBool _isShooting { get; set; }
-		private NetworkBool _isReloading { get; set;} // test
+        // ############################# teste dodo
+        private NetworkBool _isReloading { get; set;}
+        // ############################# teste dodo
         private Vector3 _moveVelocity;
 
         // Shoot mecanism
@@ -78,7 +80,17 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDMoving;
     private int _animIDReload;
 
-		public override void FixedUpdateNetwork()
+        // ############################# teste dodo
+		
+		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        private void RPC_Reload()
+        {
+            Animator.SetTrigger(_animIDReload);
+        }
+
+        // ############################# teste dodo
+
+        public override void FixedUpdateNetwork()
 		{
 			ProcessInput(PlayerInput.CurrentInput);
 
@@ -99,7 +111,7 @@ namespace Starter.ThirdPersonCharacter
 
 		public override void Render()
 		{
-      Animator.SetFloat(_animIDSpeed, KCC.RealSpeed, 0.15f, Time.deltaTime);
+			Animator.SetFloat(_animIDSpeed, KCC.RealSpeed, 0.15f, Time.deltaTime);
 			Animator.SetFloat(_animIDMotionSpeed, 1f);
 			Animator.SetBool(_animIDJump, _isJumping);
 			Animator.SetBool(_animIDGrounded, KCC.IsGrounded);
@@ -335,7 +347,10 @@ namespace Starter.ThirdPersonCharacter
             } 
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon) 
 			{
-				_isReloading = true;
+                // ############################# teste dodo
+                //_isReloading = true;
+                RPC_Reload();
+                // ############################# teste dodo
 
                 Weapon weapon = (Weapon) currentItem;  // Set current Item as a weapon
 				weapon.reload(); // Relaod the weapon
@@ -357,12 +372,13 @@ namespace Starter.ThirdPersonCharacter
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDAim = Animator.StringToHash("Aim");
 			_animIDMoving = Animator.StringToHash("Moving");
-      
-			_animIDReload = Animator.StringToHash("ReloadTrigger"); // test
-		}
+            // ############################# teste dodo
+            _animIDReload = Animator.StringToHash("ReloadTrigger");
+            // ############################# teste dodo
+        }
 
-		// Animation event
-		private void OnFootstep(AnimationEvent animationEvent)
+        // Animation event
+        private void OnFootstep(AnimationEvent animationEvent)
 		{
 			if (animationEvent.animatorClipInfo.weight < 0.5f)
 				return;
