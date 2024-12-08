@@ -56,6 +56,7 @@ namespace Starter.ThirdPersonCharacter
 		private NetworkBool _isShooting { get; set; }
         // ############################# teste dodo
         //private NetworkBool _isReloading { get; set;}
+        private NetworkBool _isIdle { get; set; }
         // ############################# teste dodo
         private Vector3 _moveVelocity;
 
@@ -79,10 +80,11 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDAim;
 		private int _animIDMoving;
 		private int _animIDReload;
+		private int _animIDIdle;
 
         // ############################# teste dodo
-		
-		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
         private void RPC_Reload()
         {
             Animator.SetTrigger(_animIDReload);
@@ -120,9 +122,12 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
 			Animator.SetBool(_animIDAim, _isAiming);
 			Animator.SetBool(_animIDMoving, _isMoving);
-		}
+            // ############################# teste dodo
+            Animator.SetBool(_animIDIdle, _isIdle);
+            // ############################# teste dodo
+        }
 
-		private void Awake()
+        private void Awake()
 		{
 
 			// Cacher le curseur et verrouiller comme avant
@@ -151,6 +156,13 @@ namespace Starter.ThirdPersonCharacter
 
 		private void ProcessInput(GameplayInput input)
 		{
+			// ############################# teste dodo
+			// Considérons "Idle" si la vitesse est inférieure à un seuil
+			if (_isIdle != KCC.RealSpeed < 0.1f)
+			{
+				_isIdle = true; // Cela synchronise l'état sur tous les clients
+			}
+			// ############################# teste dodo
 
             float jumpImpulse = 0f;
 
@@ -376,6 +388,7 @@ namespace Starter.ThirdPersonCharacter
 			_animIDMoving = Animator.StringToHash("Moving");
             // ############################# teste dodo
             _animIDReload = Animator.StringToHash("ReloadTrigger");
+            _animIDIdle = Animator.StringToHash("Idle");
             // ############################# teste dodo
         }
 
