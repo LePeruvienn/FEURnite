@@ -47,52 +47,58 @@ namespace Starter.ThirdPersonCharacter
 			base.Spawned();
 
 			_selectedIndex = 0;
-
-			// Set pickUp state
 			_canPickUp = false;
-            
-			// Setting up the iventory empty
+
+			// Initialize inventory arrays
 			_inventory = new GameObject[__HOTBAR_SIZE__];
 			_weapons = new GameObject[__WEAPONS_SIZE__];
 			_items = new GameObject[__ITEMS_SIZE__];
 
-			// If there is starters items:
-			// We put all the starters items in the inventory
+			// Spawn starter items into the inventory
 			for (int i = 0; i < __HOTBAR_SIZE__; i++)
 			{
-				// If we can put a start item
 				if (i < starterItems.Length)
 				{
-                    // We instantiate the object to create a copy
-                    GameObject itemInstance = Instantiate (starterItems[i]);
-					// Getting item compenent
-					Item item = itemInstance.GetComponent<Item> ();
-					if (item != null)
+					// Spawn the object instead of Instantiate
+					GameObject itemPrefab = starterItems[i];
+					NetworkObject itemNetworkObject = itemPrefab.GetComponent<NetworkObject>();
+
+					if (itemNetworkObject != null)
 					{
-						// If Item script exist, set item state to equipped
-						item.setState (ItemState.Equipped);
-						// We save his current default position, scale and rotation config
-						item.saveDefaultPosAndRotation ();
+						// Use Runner.Spawn to create the object in the network
+						NetworkObject spawnedObject = Runner.Spawn(itemNetworkObject, 
+							position: transform.position, 
+							rotation: Quaternion.identity);
+
+						// Get the Item component
+						Item item = spawnedObject.GetComponent<Item>();
+						if (item != null)
+						{
+							item.setState(ItemState.Equipped);
+							item.saveDefaultPosAndRotation();
+						}
+
+						// Assign it to the inventory
+						_inventory[i] = spawnedObject.gameObject;
+
+						// Position the item correctly
+						setItem(spawnedObject.gameObject);
+
+						// Hide the item
+						spawnedObject.gameObject.SetActive(false);
 					}
-
-					// Setting starter item in display
-					_inventory[i] = itemInstance;
-					
-					// Set item pos
-					setItem (itemInstance);
-
-					// Hide item
-					itemInstance.SetActive (false);
+					else
+					{
+						Debug.LogWarning("Starter item does not have a NetworkObject component!");
+					}
 				}
 			}
 
+			// Initialize the inventory display
+			_inventoryDisplay = GetComponentInParent<InventoryDisplay>();
+			_inventoryDisplay.init(starterItems);
 
-			// Getting InventoryDisplay
-			_inventoryDisplay = GetComponentInParent<InventoryDisplay> ();
-			// Initialize starterItems in display
-			_inventoryDisplay.init (starterItems);
-			
-			// Update Current selection
+			// Update current selection
 			updateSelection();
 		}
 
@@ -125,9 +131,26 @@ namespace Starter.ThirdPersonCharacter
 					Debug.LogWarning("Only State Authority can call updateSelection().");
 					return;
 				}
-				
+
+				// Get current selection
+				GameObject selection = getCurrentSelection ();
+
+				// If current selection is not null, we drop the item selected
+				if (selection != null)
+					dropCurrentSelection ();
+
+				NetworkObject netObj = _lastPickableObject.GetComponent<NetworkObject> ();
+
+				if (netObj == null) {
+
+					Debug.LogWarning ("_lastPickableObject dont have NetworkObject component !!");
+					return;
+				}
+
+				Debug.Log ("Object ID send : " + netObj.Id);
+
 				// Doing server-side function
-				RPC_pickup ();
+				RPC_pickup (netObj.Id);
 
 				// Setting it on the display
 				Item item = _lastPickableObject.GetComponent<Item> ();
@@ -137,22 +160,26 @@ namespace Starter.ThirdPersonCharacter
 
 
         [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-		public void RPC_pickup()
+		public void RPC_pickup(NetworkId objectId)
 		{
-			// Get current selection
-			GameObject selection = getCurrentSelection ();
+			Debug.Log ("ID received : " + objectId);
 
-			// If current selection is not null, we drop the item selected
-			if (selection != null)
-				dropCurrentSelection ();
+			NetworkObject networkObject = Runner.FindObject(objectId);
+			if (networkObject == null)
+			{
+				Debug.LogWarning("Failed to find the object to pick up.");
+				return;
+			}
+
+			GameObject pickedObject = networkObject.gameObject;
 
 			// Get Item compenent
-			Item item = _lastPickableObject.GetComponent<Item> ();
+			Item item = pickedObject.GetComponent<Item> ();
 			if (item != null) // If Item script exist, set item state to equipped
 				item.setState (ItemState.Equipped);
 			
 			// Setting starter item in inventory
-			_inventory[_selectedIndex] = _lastPickableObject;
+			_inventory[_selectedIndex] = pickedObject;
 			
 			// Set item pos
 			setItem (_inventory[_selectedIndex]);
@@ -337,6 +364,15 @@ namespace Starter.ThirdPersonCharacter
 
 			// Get Item
 			Item item = obj.GetComponent<Item> ();
+		
+			// ### ! THIS PART IS TEMPORARY CASUE item.setPosAndRotationToDefault() dont work well !!!
+
+			// Set all to 0 except we keep his scale
+			obj.transform.localPosition = Vector3.zero;
+			obj.transform.localScale = obj.transform.lossyScale;
+			obj.transform.localRotation = Quaternion.identity;
+
+			return;
 
 			// Setting obj's tranform to his game object param
 			if (item != null) 
