@@ -5,8 +5,7 @@ using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 using Fusion;
-using UnityEditorInternal.Profiling.Memory.Experimental;
-using static UnityEditor.Progress;
+
 namespace Starter.ThirdPersonCharacter
 {
 
@@ -18,7 +17,7 @@ namespace Starter.ThirdPersonCharacter
 	}
 
 	public class PlayerInventory : NetworkBehaviour
-    {
+	{
 		// Statics
 		public static int __HOTBAR_SIZE__ = 4;
 		public static int __WEAPONS_SIZE__ = 12;
@@ -39,117 +38,164 @@ namespace Starter.ThirdPersonCharacter
 		private GameObject[] _inventory;
 		private GameObject[] _weapons;
 		private GameObject[] _items;
-		private int _selectedIndex = 0;
+		[Networked] private int _selectedIndex {get; set;}
 		private bool _canPickUp;
 		private GameObject _lastPickableObject;
-		private void Awake()
+		
+		public override void Spawned()
 		{
-			// Set pickUp state
+			base.Spawned();
+
+			_selectedIndex = 0;
 			_canPickUp = false;
 
-			// Setting up the inventory empty
+			// Initialize inventory arrays
 			_inventory = new GameObject[__HOTBAR_SIZE__];
 			_weapons = new GameObject[__WEAPONS_SIZE__];
 			_items = new GameObject[__ITEMS_SIZE__];
 
-			// If there are starter items:
-			// We put all the starter items in the inventory
+			// Spawn starter items into the inventory
 			for (int i = 0; i < __HOTBAR_SIZE__; i++)
 			{
-				// If we can put a starter item
 				if (i < starterItems.Length)
 				{
-					NetworkObject itemInstance;
-					if (Runner == null)
+					// Spawn the object instead of Instantiate
+					GameObject itemPrefab = starterItems[i];
+					NetworkObject itemNetworkObject = itemPrefab.GetComponent<NetworkObject>();
+
+					if (itemNetworkObject != null)
 					{
-						NetworkRunner _runner = FindObjectOfType<NetworkRunner>();
-						Debug.LogWarning(_runner);
-						itemInstance = _runner.Spawn(starterItems[i], _origin.position, Quaternion.identity, _runner.LocalPlayer);
+						// Use Runner.Spawn to create the object in the network
+						NetworkObject spawnedObject = Runner.Spawn(itemNetworkObject, 
+							position: transform.position, 
+							rotation: Quaternion.identity);
+
+						// Get the Item component
+						Item item = spawnedObject.GetComponent<Item>();
+						if (item != null)
+						{
+							item.setState(ItemState.Equipped);
+							item.saveDefaultPosAndRotation();
+						}
+
+						// Assign it to the inventory
+						_inventory[i] = spawnedObject.gameObject;
+
+						// Position the item correctly
+						setItem(spawnedObject.gameObject);
+
+						// Hide the item
+						spawnedObject.gameObject.SetActive(false);
 					}
 					else
 					{
-						itemInstance = Runner.Spawn(starterItems[i], _origin.position, Quaternion.identity, Runner.LocalPlayer);
+						Debug.LogWarning("Starter item does not have a NetworkObject component!");
 					}
-                    // We instantiate the object as a network object (spawn it with Runner)
-                    GameObject itemIt = itemInstance.gameObject;
-                    // Add the item to the inventory if there is space
-                    // Getting item compenent
-                    Item item = itemInstance.GetComponent<Item>();
-					if (item != null)
-					{
-						// If Item script exist, set item state to equipped
-						item.setState(ItemState.Equipped);
-						// We save his current default position, scale and rotation config
-						item.saveDefaultPosAndRotation();
-					}
-
-					// Setting starter item in display
-					_inventory[i] = itemIt;
-
-					// Set item pos
-					setItem(itemIt);
-
-                    // Hide item
-                    itemIt.SetActive(false);
 				}
-				
 			}
-            // Getting InventoryDisplay
-            _inventoryDisplay = GetComponentInParent<InventoryDisplay>();
-            // Initialize starterItems in display
-            _inventoryDisplay.init(starterItems);
 
-            // Update Current selection
-            updateSelection();
-        }
-		  
+			// Initialize the inventory display
+			_inventoryDisplay = GetComponentInParent<InventoryDisplay>();
+			_inventoryDisplay.init(starterItems);
 
-        public void Update ()
+			// Update current selection
+			updateSelection();
+		}
+
+		public void Update ()
 		{
 			// Set pickUp to false to default
 			_canPickUp = false;
 			// Handle detection of pickable objects
-			handlePickup (); 
+			handlePickup ();
 		}
 
-		public void pickUp ()
+		public void pickUp()
 		{
-			// If player can pickup an object
-			if (_canPickUp == true && _lastPickableObject != null) {
-				
-				// Handle Loot box
-				LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
-				if (lootBox != null) 
+			// Si le joueur peut ramasser un objet
+			if (_canPickUp == true && _lastPickableObject != null)
+			{
+				// Vérifier que l'objet n'a pas déjà été ramassé
+				if (_lastPickableObject.activeSelf == false)
 				{
-					// Open LootBox
-					lootBox.Open();
-					// Stop function
+					Debug.LogWarning("Object already picked up or deactivated.");
 					return;
 				}
-				
+
+				// Handle Loot box
+				LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
+				if (lootBox != null)
+				{
+					lootBox.Open();
+					return;
+				}
+
+				// Handle Server-Side Sync Pickup
+				if (!Object.HasStateAuthority)
+				{
+					Debug.LogWarning("Only State Authority can call updateSelection().");
+					return;
+				}
+
 				// Get current selection
-				GameObject selection = getCurrentSelection ();
+				GameObject selection = getCurrentSelection();
 
-				// If current selection is not null, we drop the item selected
+				// If current selection is not null, drop the item
 				if (selection != null)
-					dropCurrentSelection ();
+					dropCurrentSelection();
 
-				// Get Item compenent
-				Item item = _lastPickableObject.GetComponent<Item> ();
-				if (item != null) // If Item script exist, set item state to equipped
-					item.setState (ItemState.Equipped);
-				
-				// Setting starter item in inventory
-				_inventory[_selectedIndex] = _lastPickableObject;
-				
-				// Set item pos
-				setItem (_inventory[_selectedIndex]);
+				NetworkObject netObj = _lastPickableObject.GetComponent<NetworkObject>();
 
-				_inventory[_selectedIndex].SetActive (true);
+				if (netObj == null)
+				{
+					Debug.LogWarning("_lastPickableObject don't have NetworkObject component !!");
+					return;
+				}
 
-				// Setting it on the display
-				_inventoryDisplay.setItem (InventoryType.Hotbar, _selectedIndex, item);
+				if (!Object.HasStateAuthority)
+				{
+					Debug.Log("Try to pickup without state authority!");
+					return;
+				}
+
+				Debug.Log("Object ID sent: " + netObj.Id);
+
+				// Doing server-side function
+				RPC_pickup(netObj.Id);
+
+				// Set item in the display
+				Item item = _lastPickableObject.GetComponent<Item>();
+				_inventoryDisplay.setItem(InventoryType.Hotbar, _selectedIndex, item);
 			}
+		}
+
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		public void RPC_pickup(NetworkId objectId)
+		{
+			Debug.Log ("ID received : " + objectId);
+
+			NetworkObject networkObject = Runner.FindObject(objectId);
+			if (networkObject == null)
+			{
+				Debug.LogWarning("Failed to find the object to pick up.");
+				return;
+			}
+
+			GameObject pickedObject = networkObject.gameObject;
+
+			// Get Item compenent
+			Item item = pickedObject.GetComponent<Item> ();
+			if (item != null) // If Item script exist, set item state to equipped
+				item.setState (ItemState.Equipped);
+			
+			// Setting starter item in inventory
+			_inventory[_selectedIndex] = pickedObject;
+			
+			// Set item pos
+			setItem (_inventory[_selectedIndex]);
+
+			_inventory[_selectedIndex].SetActive (true);
 		}
 
 		public void moveItemIndex (InventoryType sourceType, InventoryType targetType, int index, int target)
@@ -214,6 +260,24 @@ namespace Starter.ThirdPersonCharacter
 		// Drop the current selected item
 		public void dropCurrentSelection ()
 		{
+			// Check if player have authority
+			if (!Object.HasStateAuthority)
+			{
+				Debug.LogWarning("Only State Authority can call updateSelection().");
+				return;
+			}
+
+			// Doing server-side function
+			RPC_dropCurrentSelection();
+
+			// Deleting the item display
+			_inventoryDisplay.deleteItem (InventoryType.Hotbar, _selectedIndex);
+		}
+
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		public void RPC_dropCurrentSelection()
+		{
 			// Get Selected item
 			GameObject obj = getCurrentSelection();
 			// If current selection is null we stop here
@@ -223,7 +287,6 @@ namespace Starter.ThirdPersonCharacter
 			// If item exist we drop it
 			if (item != null)
 				item.setState(ItemState.OnFloor);
-
 			// Removing obj parent's
 			obj.transform.SetParent(null);
             // Adding the object to the scene
@@ -231,14 +294,6 @@ namespace Starter.ThirdPersonCharacter
             
             // Clearing the data
 			_inventory[_selectedIndex] = null;
-
-			// Deleting the item display
-			_inventoryDisplay.deleteItem (InventoryType.Hotbar, _selectedIndex);
-		}
-
-		public void dropIndex (InventoryType type, int index)
-		{
-
 		}
 
 		// Desotry the current selected item
@@ -320,6 +375,15 @@ namespace Starter.ThirdPersonCharacter
 
 			// Get Item
 			Item item = obj.GetComponent<Item> ();
+		
+			// ### ! THIS PART IS TEMPORARY CASUE item.setPosAndRotationToDefault() dont work well !!!
+
+			// Set all to 0 except we keep his scale
+			obj.transform.localPosition = Vector3.zero;
+			obj.transform.localScale = obj.transform.lossyScale;
+			obj.transform.localRotation = Quaternion.identity;
+
+			return;
 
 			// Setting obj's tranform to his game object param
 			if (item != null) 
@@ -338,6 +402,23 @@ namespace Starter.ThirdPersonCharacter
 
 		private void updateSelection()
 		{
+			// Checking if player have authority on the object
+			if (!Object.HasStateAuthority)
+			{
+				Debug.LogWarning("Only State Authority can call updateSelection().");
+				return;
+			}
+			
+			// Doing server-side function
+			RPC_updateSelection ();
+
+			// Updating UI
+			_inventoryDisplay.updateInGameHotbarSelection (_selectedIndex);
+		}
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		public void RPC_updateSelection()
+		{
 			// Disable all items
 			disableAllItems();
 
@@ -346,9 +427,6 @@ namespace Starter.ThirdPersonCharacter
 			// If selection is not null
 			if (selection != null)
 				selection.SetActive (true); // Active current selected item
-
-			// Updating UI
-			_inventoryDisplay.updateInGameHotbarSelection (_selectedIndex);
 		}
 
 		private void disableAllItems()
