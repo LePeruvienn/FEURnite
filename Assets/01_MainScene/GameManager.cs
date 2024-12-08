@@ -81,6 +81,7 @@ namespace Starter.ThirdPersonCharacter
         [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
         private void RPC_RequestSpawnCorpse(Vector3 deathPosition)
         {
+            Debug.Log("Death :" + deathPosition);
             Runner.Spawn(CorpsePrefab, deathPosition, Quaternion.identity, null);
         }
     }
