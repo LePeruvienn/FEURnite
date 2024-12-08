@@ -119,8 +119,8 @@ namespace Starter.ThirdPersonCharacter
 			if (_currentAmmoAmount >= chargerAmmoAmount) return;
 
             // Getting PlayerAnimator
-            if (_playerAnimator == null)
-                _playerAnimator = GetComponentInParent<Animator>();
+            // if (_playerAnimator == null)
+            //    _playerAnimator = GetComponentInParent<Animator>();
 
             // Start reload couroutine
             StartCoroutine (reloadCouroutine ());

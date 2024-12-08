@@ -53,8 +53,8 @@ namespace Starter.ThirdPersonCharacter
 		private NetworkBool _isJumping { get; set; }
 		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
 		private NetworkBool _isMoving { get; set; }
-    private NetworkBool _isShooting { get; set; }
-    private NetworkBool _isReloading { get; set;} // test
+		private NetworkBool _isShooting { get; set; }
+		private NetworkBool _isReloading { get; set;} // test
         private Vector3 _moveVelocity;
 
         // Shoot mecanism
@@ -88,11 +88,11 @@ namespace Starter.ThirdPersonCharacter
 				_isJumping = false;
 			}
 
-      if (_isReloading)
-      {
-        Animator.SetTrigger(_animIDReload);
-        _isReloading = false; 
-      }
+			if (_isReloading)
+			{
+				Animator.SetTrigger(_animIDReload);
+				_isReloading = false; 
+			}
 
 			PlayerInput.ResetInput();
 		}
@@ -335,7 +335,7 @@ namespace Starter.ThirdPersonCharacter
             } 
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon) 
 			{
-              _isReloading = true;
+				_isReloading = true;
 
                 Weapon weapon = (Weapon) currentItem;  // Set current Item as a weapon
 				weapon.reload(); // Relaod the weapon
@@ -358,7 +358,7 @@ namespace Starter.ThirdPersonCharacter
 			_animIDAim = Animator.StringToHash("Aim");
 			_animIDMoving = Animator.StringToHash("Moving");
       
-      _animIDReload = Animator.StringToHash("ReloadTrigger"); // test
+			_animIDReload = Animator.StringToHash("ReloadTrigger"); // test
 		}
 
 		// Animation event
