@@ -1,40 +1,39 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
 namespace Starter.ThirdPersonCharacter
 {
-	// Enum for weapon states
-	public enum WeaponState
-	{
-		Ready = 1,
-		Reloading = 2
-	}
+    // Enum for weapon states
+    public enum WeaponState
+    {
+        Ready = 1,
+        Reloading = 2
+    }
 
-	// Enum for bullet types
-	public enum BulletType
-	{
-		Sniper = 1,
-		Rifle = 2,
-		Pistol = 3,
-		Rocket = 4
-	}
+    // Enum for bullet types
+    public enum BulletType
+    {
+        Sniper = 1,
+        Rifle = 2,
+        Pistol = 3,
+        Rocket = 4
+    }
 
-	[RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody))]
     public class Weapon : Item
     {
-        
-		[Header("Weapon References")]
+        [Header("Weapon References")]
         public GameObject bulletPrefab; // The bullet to use when shooting
-        
-		[Header("Weapon Stats")]
-        public float shootDelay; // Time to wait between each bullets
+
+        [Header("Weapon Stats")]
+        public float shootDelay; // Time to wait between each bullet
         public int damage; // Damage applying for each bullet to the player
         public int reloadCooldown; // Reload time to get full ammo
-        public int startAmmoAmount; // Amount of bullet currenty in the charger
+        public int startAmmoAmount; // Amount of bullets currently in the charger
         public int chargerAmmoAmount; // Bullets per charger
-        public BulletType bulletType; // Type of bullet the weapon use
+        public BulletType bulletType; // Type of bullet the weapon uses
 
         [Header("Weapon style")]
         public ParticleSystem muzzleFalshParticles;
@@ -43,107 +42,137 @@ namespace Starter.ThirdPersonCharacter
         private Animator _playerAnimator;
         private WeaponState _currentWeaponState;
         private int _currentAmmoAmount;
-        private Transform _spawnBulletPosition; // Where the bullet is gonna spawn
-		private float _nextFireTime = 0f;
+        [SerializeField] private Transform _spawnBulletPosition; // Where the bullet is gonna spawn
+        private float _nextFireTime = 0f;
 
-		// Run when program starts
-		public void Start ()
-		{
-			// Set current amoo to start Ammo amount
-			_currentAmmoAmount = startAmmoAmount; 
-			// Set weapon state to ready
-			_currentWeaponState = WeaponState.Ready;
-		}
+        [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
 
-        public override ItemType getType ()
+        // Run when program starts
+        public void Start()
+        {
+            // Set current ammo to start Ammo amount
+            _currentAmmoAmount = startAmmoAmount;
+            // Set weapon state to ready
+            _currentWeaponState = WeaponState.Ready;
+
+            if (_runner == null)
+            {
+                _runner = FindObjectOfType<NetworkRunner>();
+                Debug.Log("NetworkRunner n'est pas trouvé dans la scène !");
+                
+            }
+        }
+
+        public override ItemType getType()
         {
             return ItemType.Weapon;
         }
 
-        public override void use ()
+        public override void use()
         {
+            // Return if weapon doesn't have ammo left!
+            if (_currentAmmoAmount <= 0 || _currentWeaponState == WeaponState.Reloading) return;
 
-			// Return if weapon dont have ammo left !
-			if (_currentAmmoAmount <= 0 || _currentWeaponState == WeaponState.Reloading) return;
-			// Check if player can fire
-			if (Time.time >= _nextFireTime) {
-				// Shoot a bullet
-				shoot();
-				// Remove bullet from current charger
-				_currentAmmoAmount--;
-				// Set the _nextFireTime
-				_nextFireTime = Time.time + shootDelay;
-			}
+            // Check if player can fire
+            if (Time.time >= _nextFireTime)
+            {
+                // Shoot a bullet
+                shoot();
+                // Remove bullet from current charger
+                _currentAmmoAmount--;
+                // Set the _nextFireTime
+                _nextFireTime = Time.time + shootDelay;
+            }
         }
-        
 
-        private void shoot ()
-		{
-
-            // Check is _spawnBulletPosition is not null
-            if (_spawnBulletPosition == null)
-                _spawnBulletPosition = transform.Find("spawnBulletPos").transform; // If he is null we set it
-            
+        private void shoot()
+        {
             // Setting up raycast variables
             Vector3 mouseWorldPosition = Vector3.zero; // Default vector
-            Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
+            Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // Center of the screen
             float rayLength = 500f; // Raycast length
-            
-            // Doing the raycast !
+
+            // Doing the raycast!
             Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
-            
+
             // Setting output variable
             RaycastHit hit;
-            
+
             // If raycast hit
             if (Physics.Raycast(ray, out hit, rayLength))
             {
                 mouseWorldPosition = hit.point; // Set the target point to the point hit by the raycast
-            } 
-            
-            // Shoot the bullet prefab
+            }
+
+            // Direction to shoot the bullet
             Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
-            Instantiate(bulletPrefab,_spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-            Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+
+            // Ensure bulletPrefab is set
+            if (bulletPrefab == null)
+            {
+                Debug.LogError("bulletPrefab n'est pas défini !");
+                return;
+            }
+            if (_spawnBulletPosition == null)
+            {
+                Debug.LogError("_spawnBulletPosition n'est pas défini !");
+                return;
+            }
+            if (_runner == null)
+            {
+                Debug.LogError("NetworkRunner n'est pas initialisé !");
+                return;
+            }
+
+            try
+            {
+                // Spawn bullet on the network
+                _runner.Spawn(bulletPrefab, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+
+                // Instantiate muzzle flash (local effect)
+                Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Erreur lors du spawn : {e.Message}");
+            }
         }
 
-        public void reload ()
+        public void reload()
         {
-			// If item is already Reloading stop
-			if (_currentWeaponState == WeaponState.Reloading) return;
+            // If item is already Reloading stop
+            if (_currentWeaponState == WeaponState.Reloading) return;
 
-			// Set status to reloading
-			_currentWeaponState = WeaponState.Reloading;
+            // Set status to reloading
+            _currentWeaponState = WeaponState.Reloading;
 
-			// Check if we are alreadyFull ammo
-			if (_currentAmmoAmount >= chargerAmmoAmount) return;
+            // Check if we are already full ammo
+            if (_currentAmmoAmount >= chargerAmmoAmount) return;
 
             // Getting PlayerAnimator
             if (_playerAnimator == null)
                 _playerAnimator = GetComponentInParent<Animator>();
 
-            // Start reload couroutine
-            StartCoroutine (reloadCouroutine ());
-
+            // Start reload coroutine
+            StartCoroutine(reloadCouroutine());
         }
 
-		private IEnumerator reloadCouroutine () 
-		{
-
-            //Realod animation
+        private IEnumerator reloadCouroutine()
+        {
+            // Reload animation
             _playerAnimator.SetTrigger("ReloadTrigger");
 
             // Wait for reload cooldown
             yield return new WaitForSeconds(reloadCooldown);
 
-			// Set charger to to full
-			_currentAmmoAmount = chargerAmmoAmount;
+            // Set charger to full
+            _currentAmmoAmount = chargerAmmoAmount;
 
-			// Set weapon state to ready
-			_currentWeaponState = WeaponState.Ready;
+            // Set weapon state to ready
+            _currentWeaponState = WeaponState.Ready;
 
-			// Debug messsage (delete it later)
-			Debug.Log ("Reload Complete !");
-		}
+            // Debug message (delete it later)
+            Debug.Log("Reload Complete !");
+        }
     }
 }

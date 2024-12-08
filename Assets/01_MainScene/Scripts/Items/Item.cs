@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Fusion;
 namespace Starter.ThirdPersonCharacter
 {
 
@@ -33,7 +33,7 @@ namespace Starter.ThirdPersonCharacter
 	}
 
     // Classe abstaire Des items (Utilisable, armes, grenades)
-    public abstract class Item : MonoBehaviour
+    public abstract class Item : NetworkBehaviour
     {
 		[Header("Item config")]
 		public Sprite icon;
