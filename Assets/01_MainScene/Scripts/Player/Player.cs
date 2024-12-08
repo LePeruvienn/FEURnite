@@ -414,7 +414,7 @@ namespace Starter.ThirdPersonCharacter
 				DebugIsDead = false;
 
 				// Envoie les coordonnées de mort au GameManager
-				gameManager.PlayerDeath(transform.position);
+				gameManager.PlayerDeath(transform.position, transform.rotation);
 			}
 		}
 
