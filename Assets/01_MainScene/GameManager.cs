@@ -71,16 +71,7 @@ namespace Starter.ThirdPersonCharacter
         {
             Debug.Log("Player died at " + deathPosition);
             //Runner.Spawn(CorpsePrefab, deathPosition, Quaternion.identity, null);
-
-            if (HasStateAuthority)
-            {
-                RPC_RequestSpawnCorpse(deathPosition);
-            }
-
-            else
-            {
-                Debug.Log("y'a pas l'autorité :(");
-            }
+            RPC_RequestSpawnCorpse(deathPosition);
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
