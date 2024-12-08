@@ -372,7 +372,6 @@ namespace Starter.ThirdPersonCharacter
         [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
 		public void RPC_updateSelection()
 		{
-			Debug.Log ("HOE JE SUIS LE RPC !!");
 			// Disable all items
 			disableAllItems();
 
