@@ -40,7 +40,7 @@ namespace Starter.ThirdPersonCharacter
 		private GameObject[] _items;
 		[Networked] private int _selectedIndex {get; set;}
 		private bool _canPickUp;
-		[Networked] private GameObject _lastPickableObject {get; set;}
+		private GameObject _lastPickableObject;
 		
 		public override void Spawned()
 		{
