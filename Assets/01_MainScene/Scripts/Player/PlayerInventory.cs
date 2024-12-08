@@ -147,6 +147,12 @@ namespace Starter.ThirdPersonCharacter
 					return;
 				}
 
+				if (!Object.HasStateAuthority) {
+
+					Debug.Log ("Try to pickup without state authority !");
+					return;
+				}
+
 				Debug.Log ("Object ID send : " + netObj.Id);
 
 				// Doing server-side function
