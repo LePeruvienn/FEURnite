@@ -19,7 +19,7 @@ public class mousePosition3D : NetworkBehaviour
     // Update is called once per frame
 	public override void FixedUpdateNetwork()
     {
-		if (!Object.HasInputAuthority) return;
+        //if (!Object.HasInputAuthority) return;  // ############################# teste dodo
 
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit[] hits = Physics.RaycastAll(ray, 999f, aimColliderLayerMask);

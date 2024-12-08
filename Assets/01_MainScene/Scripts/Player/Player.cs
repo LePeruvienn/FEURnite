@@ -50,7 +50,7 @@ namespace Starter.ThirdPersonCharacter
 		public float FootstepAudioVolume = 0.5f;
 
 		[Networked]
-		private NetworkBool _isJumping { get; set; }
+        private NetworkBool _isJumping { get; set; }
 		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
 		private NetworkBool _isMoving { get; set; }
 		private NetworkBool _isShooting { get; set; }

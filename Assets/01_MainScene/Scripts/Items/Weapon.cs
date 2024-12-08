@@ -118,12 +118,14 @@ namespace Starter.ThirdPersonCharacter
 			// Check if we are alreadyFull ammo
 			if (_currentAmmoAmount >= chargerAmmoAmount) return;
 
+            // ############################# teste dodo
             // Getting PlayerAnimator
             // if (_playerAnimator == null)
             //    _playerAnimator = GetComponentInParent<Animator>();
+            // ############################# teste dodo
 
             // Start reload couroutine
-            StartCoroutine (reloadCouroutine ());
+            StartCoroutine(reloadCouroutine ());
 
         }
 
