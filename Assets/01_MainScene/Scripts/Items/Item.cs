@@ -42,7 +42,7 @@ namespace Starter.ThirdPersonCharacter
         public ItemRarity rarity; // Rareté de l'objet
         
         // Privates
-        private ItemState _state; // Etat actuelle : onFloor (au sol), equiped (dans l'inventaire d'un joueur) , selected (Dans la main d'un joueur)
+        [Networked] private ItemState _state { get; set; } // Etat actuelle : onFloor (au sol), equiped (dans l'inventaire d'un joueur) , selected (Dans la main d'un joueur)
 		//Default Tranform saves
 		private Vector3 _defaultPosition;
 		private Vector3 _defaultScale;

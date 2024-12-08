@@ -35,33 +35,15 @@ namespace Starter.ThirdPersonCharacter
         public int chargerAmmoAmount; // Bullets per charger
         public BulletType bulletType; // Type of bullet the weapon uses
 
-        [Header("Weapon style")]
+        [Header("Weapon Style")]
         public ParticleSystem muzzleFalshParticles;
 
         // Privates
         private Animator _playerAnimator;
-        private WeaponState _currentWeaponState;
+        [Networked] private WeaponState _currentWeaponState { get; set; }
         private int _currentAmmoAmount;
-        [SerializeField] private Transform _spawnBulletPosition; // Where the bullet is gonna spawn
+        [SerializeField] private Transform _spawnBulletPosition; // Regular Transform for spawn position
         private float _nextFireTime = 0f;
-
-        [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
-
-        // Run when program starts
-        public void Start()
-        {
-            // Set current ammo to start Ammo amount
-            _currentAmmoAmount = startAmmoAmount;
-            // Set weapon state to ready
-            _currentWeaponState = WeaponState.Ready;
-
-            if (_runner == null)
-            {
-                _runner = FindObjectOfType<NetworkRunner>();
-                Debug.Log("NetworkRunner n'est pas trouvé dans la scène !");
-                
-            }
-        }
 
         public override ItemType getType()
         {
@@ -85,74 +67,52 @@ namespace Starter.ThirdPersonCharacter
             }
         }
 
-		private void shoot()
-		{
-			// Setting up raycast variables
-			Vector3 mouseWorldPosition = Vector3.zero; // Default vector
-			Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // Center of the screen
-			float rayLength = 500f; // Raycast length
+        private void shoot()
+        {
+            // Setting up raycast variables
+            Vector3 mouseWorldPosition = Vector3.zero; // Default vector
+            Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // Center of the screen
+            float rayLength = 500f; // Raycast length
 
-			// Doing the raycast!
-			Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
+            // Doing the raycast!
+            Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
 
-			// Setting output variable
-			RaycastHit hit;
+            // Setting output variable
+            RaycastHit hit;
 
-			// If raycast hit
-			if (Physics.Raycast(ray, out hit, rayLength))
+            // If raycast hit
+            if (Physics.Raycast(ray, out hit, rayLength))
+            {
+                mouseWorldPosition = hit.point; // Set the target point to the point hit by the raycast
+            }
+
+            // Direction to shoot the bullet
+            Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
+
+			// Log position for debugging
+			Debug.Log("Local Spawn Position: " + _spawnBulletPosition.position);
+
+			// Call RPC to spawn bullet at this position across all clients
+			if (HasStateAuthority)
 			{
-				mouseWorldPosition = hit.point; // Set the target point to the point hit by the raycast
+				RPC_shoot(_spawnBulletPosition.position, aimDir); // Pass the spawn position and aim direction
 			}
 
-			// Direction to shoot the bullet
-			Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
+			// Instantiate muzzle flash locally (only on the client who fired)
+			Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+        }
 
-			// Ensure bulletPrefab is set
-			if (bulletPrefab == null)
-			{
-				Debug.LogError("bulletPrefab n'est pas défini !");
-				return;
-			}
-			if (_spawnBulletPosition == null)
-			{
-				Debug.LogError("_spawnBulletPosition n'est pas défini !");
-				return;
-			}
-			if (_runner == null)
-			{
-				Debug.LogError("NetworkRunner n'est pas initialisé !");
-				return;
-			}
+        // RPC for spawning the bullet at the correct position on all clients
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        public void RPC_shoot(Vector3 spawnPosition, Vector3 aimDirection)
+        {
+            // Log received position for debugging
+            Debug.Log("RPC Spawn Bullet Position: " + spawnPosition);
 
-			try
-			{
-				// Log position for debugging
-				Debug.Log("Local Spawn Position: " + _spawnBulletPosition.position);
-
-				// Call RPC to spawn bullet at this position across all clients
-				if (HasStateAuthority)
-				{
-					RPC_shoot(_spawnBulletPosition.position, aimDir); // Pass the spawn position and aim direction
-				}
-
-				// Instantiate muzzle flash locally (only on the client who fired)
-				Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-			}
-			catch (Exception e)
-			{
-				Debug.LogError($"Erreur lors du spawn : {e.Message}");
-			}
-		}
-
-		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-		public void RPC_shoot(Vector3 spawnPosition, Vector3 aimDirection)
-		{
-			// Log received position for debugging
-			Debug.Log("RPC Spawn Bullet Position: " + spawnPosition);
-
-			// Spawn the bullet at the correct position for all clients
-			_runner.Spawn(bulletPrefab, spawnPosition, Quaternion.LookRotation(aimDirection, Vector3.up));
-		}
+            // Spawn the bullet at the correct position for all clients
+            // Ensure the bulletPrefab has a NetworkObject component
+            Runner.Spawn(bulletPrefab, spawnPosition, Quaternion.LookRotation(aimDirection, Vector3.up));
+        }
 
         public void reload()
         {
