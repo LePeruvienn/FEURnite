@@ -110,22 +110,27 @@ namespace Starter.ThirdPersonCharacter
 			handlePickup ();
 		}
 
-		public void pickUp ()
+		public void pickUp()
 		{
-			// If player can pickup an object
-			if (_canPickUp == true && _lastPickableObject != null) {
-				
-				// Handle Loot box
-				LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
-				if (lootBox != null) 
+			// Si le joueur peut ramasser un objet
+			if (_canPickUp == true && _lastPickableObject != null)
+			{
+				// Vérifier que l'objet n'a pas déjà été ramassé
+				if (_lastPickableObject.activeSelf == false)
 				{
-					// Open LootBox
-					lootBox.Open();
-					// Stop function
+					Debug.LogWarning("Object already picked up or deactivated.");
 					return;
 				}
 
-				// Handle ServerSide Sync Pickup
+				// Handle Loot box
+				LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
+				if (lootBox != null)
+				{
+					lootBox.Open();
+					return;
+				}
+
+				// Handle Server-Side Sync Pickup
 				if (!Object.HasStateAuthority)
 				{
 					Debug.LogWarning("Only State Authority can call updateSelection().");
@@ -133,34 +138,34 @@ namespace Starter.ThirdPersonCharacter
 				}
 
 				// Get current selection
-				GameObject selection = getCurrentSelection ();
+				GameObject selection = getCurrentSelection();
 
-				// If current selection is not null, we drop the item selected
+				// If current selection is not null, drop the item
 				if (selection != null)
-					dropCurrentSelection ();
+					dropCurrentSelection();
 
-				NetworkObject netObj = _lastPickableObject.GetComponent<NetworkObject> ();
+				NetworkObject netObj = _lastPickableObject.GetComponent<NetworkObject>();
 
-				if (netObj == null) {
-
-					Debug.LogWarning ("_lastPickableObject dont have NetworkObject component !!");
+				if (netObj == null)
+				{
+					Debug.LogWarning("_lastPickableObject don't have NetworkObject component !!");
 					return;
 				}
 
-				if (!Object.HasStateAuthority) {
-
-					Debug.Log ("Try to pickup without state authority !");
+				if (!Object.HasStateAuthority)
+				{
+					Debug.Log("Try to pickup without state authority!");
 					return;
 				}
 
-				Debug.Log ("Object ID send : " + netObj.Id);
+				Debug.Log("Object ID sent: " + netObj.Id);
 
 				// Doing server-side function
-				RPC_pickup (netObj.Id);
+				RPC_pickup(netObj.Id);
 
-				// Setting it on the display
-				Item item = _lastPickableObject.GetComponent<Item> ();
-				_inventoryDisplay.setItem (InventoryType.Hotbar, _selectedIndex, item);
+				// Set item in the display
+				Item item = _lastPickableObject.GetComponent<Item>();
+				_inventoryDisplay.setItem(InventoryType.Hotbar, _selectedIndex, item);
 			}
 		}
 
