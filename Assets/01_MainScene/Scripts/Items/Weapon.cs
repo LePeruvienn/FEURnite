@@ -126,6 +126,8 @@ namespace Starter.ThirdPersonCharacter
 
             try
             {
+				Debug.Log (_spawnBulletPosition.position);
+				Debug.Log (_spawnBulletPosition.localPosition);
                 // Spawn bullet on the network
                 _runner.Spawn(bulletPrefab, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
 
@@ -136,7 +138,19 @@ namespace Starter.ThirdPersonCharacter
             {
                 Debug.LogError($"Erreur lors du spawn : {e.Message}");
             }
+
+			if (HasStateAuthority) {
+				Debug.Log ("THROW !");
+				RPC_shoot ();
+			}
         }
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		public void RPC_shoot() {
+
+			Debug.Log ("RPC SPAWN BULLET SPAWN");
+			Debug.Log (_spawnBulletPosition.position);
+		}
 
         public void reload()
         {
