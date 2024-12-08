@@ -76,9 +76,14 @@ namespace Starter.ThirdPersonCharacter
             {
                 RPC_RequestSpawnCorpse(deathPosition);
             }
+
+            else
+            {
+                Debug.Log("y'a pas l'autorité :(");
+            }
         }
 
-        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        [Rpc(RpcSources.All, RpcTargets.All)]
         private void RPC_RequestSpawnCorpse(Vector3 deathPosition)
         {
             Debug.Log("Death :" + deathPosition);
