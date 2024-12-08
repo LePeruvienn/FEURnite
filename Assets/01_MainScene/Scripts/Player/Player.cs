@@ -55,7 +55,7 @@ namespace Starter.ThirdPersonCharacter
 		private NetworkBool _isMoving { get; set; }
 		private NetworkBool _isShooting { get; set; }
         // ############################# teste dodo
-        private NetworkBool _isReloading { get; set;}
+        //private NetworkBool _isReloading { get; set;}
         // ############################# teste dodo
         private Vector3 _moveVelocity;
 
@@ -71,14 +71,14 @@ namespace Starter.ThirdPersonCharacter
 
 
         // Animation IDs
-    private int _animIDSpeed;
+		private int _animIDSpeed;
 		private int _animIDGrounded;
 		private int _animIDJump;
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
 		private int _animIDAim;
 		private int _animIDMoving;
-    private int _animIDReload;
+		private int _animIDReload;
 
         // ############################# teste dodo
 		
@@ -100,13 +100,15 @@ namespace Starter.ThirdPersonCharacter
 				_isJumping = false;
 			}
 
-			if (_isReloading)
-			{
-				Animator.SetTrigger(_animIDReload);
-				_isReloading = false; 
-			}
+            // ############################# teste dodo
+            //if (_isReloading)
+			//{
+			//	Animator.SetTrigger(_animIDReload);
+			//	_isReloading = false; 
+			//}
+            // ############################# teste dodo
 
-			PlayerInput.ResetInput();
+            PlayerInput.ResetInput();
 		}
 
 		public override void Render()
