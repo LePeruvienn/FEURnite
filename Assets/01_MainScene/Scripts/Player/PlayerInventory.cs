@@ -29,13 +29,15 @@ namespace Starter.ThirdPersonCharacter
 		// Display
 		private InventoryDisplay _inventoryDisplay;
 
+		// Transform references
+		[SerializeField] private Transform _dropItemOrigin;
+		[SerializeField] private Transform _origin;
+
 		// Inventory varaible
-		private Transform _origin;
 		private GameObject[] _inventory;
 		private GameObject[] _weapons;
 		private GameObject[] _items;
 		private int _selectedIndex = 0;
-		private Transform _dropItemOrigin;
 		private bool _canPickUp;
 		private GameObject _lastPickableObject;
 		
@@ -43,12 +45,6 @@ namespace Starter.ThirdPersonCharacter
 		{
 			// Set pickUp state
 			_canPickUp = false;
-
-			// Setting item origin
-			_origin = GameObject.FindGameObjectWithTag("itemOrigin").transform;
-			
-			// Setting drop origin
-			_dropItemOrigin = GameObject.FindGameObjectWithTag("itemDropOrigin").transform;
             
 			// Setting up the iventory empty
 			_inventory = new GameObject[__HOTBAR_SIZE__];
