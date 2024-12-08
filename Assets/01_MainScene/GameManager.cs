@@ -70,7 +70,17 @@ namespace Starter.ThirdPersonCharacter
         public void PlayerDeath(Vector3 deathPosition)
         {
             Debug.Log("Player died at " + deathPosition);
-            Runner.Spawn(CorpsePrefab, deathPosition, Quaternion.identity, Object.InputAuthority);
+            Runner.Spawn(CorpsePrefab, deathPosition, Quaternion.identity, null);
+            //RPC_RequestSpawnCorpse(deathPosition);
+        }
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        private void RPC_RequestSpawnCorpse(Vector3 deathPosition)
+        {
+            if (Runner.IsServer)
+            {
+                PlayerDeath(deathPosition);
+            }
         }
     }
 }

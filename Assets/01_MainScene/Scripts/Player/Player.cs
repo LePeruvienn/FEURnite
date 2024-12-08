@@ -413,11 +413,8 @@ namespace Starter.ThirdPersonCharacter
 			{
 				DebugIsDead = false;
 
-				// Récupère la position de la mort
-				Vector3 deathPosition = transform.position;
-
-				// Envoie les coordonnées au GameManager
-				gameManager.PlayerDeath(deathPosition);
+				// Envoie les coordonnées de mort au GameManager
+				gameManager.PlayerDeath(transform.position);
 			}
 		}
 
