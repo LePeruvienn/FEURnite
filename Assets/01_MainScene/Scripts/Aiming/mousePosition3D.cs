@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.UI.Image;
+using Fusion;
 
-public class mousePosition3D : MonoBehaviour
+public class mousePosition3D : NetworkBehaviour
 {
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     //Serial
@@ -16,8 +17,10 @@ public class mousePosition3D : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+	public override void FixedUpdateNetwork()
     {
+		if (!Object.HasInputAuthority) return;
+
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit[] hits = Physics.RaycastAll(ray, 999f, aimColliderLayerMask);
 
