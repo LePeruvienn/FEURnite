@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Fusion;
 
+
 public class LootBoxMult : NetworkBehaviour
 {
     public enum BoxRarity
@@ -32,51 +33,49 @@ public class LootBoxMult : NetworkBehaviour
     public BoxType type;
     public Animator Animator;
 
-    public GameObject[] ListWeapon; // liste des armes Commun
-    public GameObject[] ListItem; // liste items hors armes
+    public GameObject[] ListWeapon; // Liste des armes
+    public GameObject[] ListItem;   // Liste des items
+    private NetworkObject spawnedWeapon; // Référence pour l'arme spawnée
 
     private Transform _spawnItemPosition;
+    [Networked] private bool isWeaponTaken { get; set; }  // Marque si l'arme a déjà été prise
 
     [Networked] private bool IsOpen { get; set; }
 
     public void Open()
     {
-        Debug.Log("Attempting to open loot box..."); // Diagnostic
+        Debug.Log("Attempting to open loot box...");
 
-        // Vérifie si le coffre est déjà ouvert
         if (status == Status.IsOpen)
         {
-            Debug.Log("Loot box is already open."); // Diagnostic
-            return; // Retourne si le coffre est ouvert
+            Debug.Log("Loot box is already open.");
+            return; // Si le coffre est déjà ouvert, on ne fait rien
         }
 
-        // L'autorité est partagée pour tous les clients
         if (Object.HasStateAuthority)
         {
             // Si ce client a l'autorité, ouvre le coffre
-            Debug.Log("StateAuthority confirmed. Opening the box..."); // Diagnostic
+            Debug.Log("StateAuthority confirmed. Opening the box...");
             RPC_SetStatus(Status.IsOpen);
         }
         else
         {
-            // Tous les clients peuvent exécuter ce RPC sans restriction
-            Debug.Log("Requesting to open loot box from any client."); // Diagnostic
+            // Tous les clients peuvent exécuter ce RPC
+            Debug.Log("Requesting to open loot box from any client.");
             RPC_SetStatus(Status.IsOpen);
         }
     }
 
-
     [Rpc(RpcSources.All, RpcTargets.All)]
     private void RPC_SetStatus(Status newStatus)
     {
-        Debug.Log($"Setting loot box status to {newStatus}..."); // Diagnostic
+        Debug.Log($"Setting loot box status to {newStatus}...");
         status = newStatus;
 
-        // Si le coffre est ouvert, lance l'animation
         if (newStatus == Status.IsOpen)
         {
             openChestAnimation();
-            ChoiceBoxType(); // Ouvre le bon type de coffre en fonction de sa configuration
+            ChoiceBoxType(); // Ouvre le bon type de coffre
         }
     }
 
@@ -127,7 +126,7 @@ public class LootBoxMult : NetworkBehaviour
 
         if (listObjectRecuperer.Count == 0)
         {
-            Debug.LogWarning("No weapons found for the specified rarity."); // Diagnostic
+            Debug.LogWarning("No weapons found for the specified rarity.");
             return null;
         }
 
@@ -151,7 +150,7 @@ public class LootBoxMult : NetworkBehaviour
 
         if (listObjectRecuperer.Count == 0)
         {
-            Debug.LogWarning("No items found for the specified rarity."); // Diagnostic
+            Debug.LogWarning("No items found for the specified rarity.");
             return null;
         }
 
@@ -161,7 +160,7 @@ public class LootBoxMult : NetworkBehaviour
 
     private void ChoiceBoxType()
     {
-        Debug.Log($"Box type: {type}"); // Diagnostic
+        Debug.Log($"Box type: {type}");
         if (type == BoxType.WeaponBox)
             OpenWeaponBox();
         else
@@ -170,24 +169,30 @@ public class LootBoxMult : NetworkBehaviour
 
     private void OpenItemBox()
     {
-        Debug.Log("Opening item box..."); // Diagnostic
+        Debug.Log("Opening item box...");
         GameObject item = GetItemFromList();
         if (item != null && HasStateAuthority)
         {
             if (_spawnItemPosition == null)
             {
                 _spawnItemPosition = transform.Find("spawnObjectPos").transform;
-
-                Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity);
             }
+
+            Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity);
         }
     }
 
-    // Définition du RPC
+    // Correction du RPC pour les armes
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     private void RPC_OpenWeaponBox()
     {
-        Debug.Log("Opening weapon box..."); // Diagnostic
+        if (isWeaponTaken)
+        {
+            Debug.Log("Weapon has already been taken. Skipping spawn...");
+            return;
+        }
+
+        Debug.Log("Opening weapon box...");
         GameObject weapon = GetWeaponFromList();
 
         if (weapon != null)
@@ -203,13 +208,33 @@ public class LootBoxMult : NetworkBehaviour
                 NetworkObject netObj = weapon.GetComponent<NetworkObject>();
                 if (netObj != null)
                 {
-                    // Spawn l'objet sur tous les clients
-                    Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, null);
-
-                    // Log pour vérifier que l'objet est spawné
+                    spawnedWeapon = Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, null);
                     Debug.Log("Weapon spawned successfully on all clients with no specific authority.");
                 }
             }
+        }
+    }
+
+    public void PickupWeapon()
+    {
+        if (isWeaponTaken)
+        {
+            Debug.Log("Weapon already taken. Cannot pick it up again.");
+            return;
+        }
+
+        // Marquer l'arme comme prise
+        isWeaponTaken = true;
+
+        // Despawn de l'arme pour tous les clients
+        if (spawnedWeapon != null)
+        {
+            Runner.Despawn(spawnedWeapon);
+            Debug.Log("Weapon has been picked up and despawned for all clients.");
+        }
+        else
+        {
+            Debug.LogWarning("No spawned weapon to despawn.");
         }
     }
 
@@ -226,16 +251,9 @@ public class LootBoxMult : NetworkBehaviour
         }
     }
 
-
-
-
-
-
-
-
     private void openChestAnimation()
     {
-        Debug.Log("Playing open chest animation..."); // Diagnostic
+        Debug.Log("Playing open chest animation...");
         if (Animator.GetBool("isOpen") == false)
         {
             Animator.SetBool("isOpen", true);
