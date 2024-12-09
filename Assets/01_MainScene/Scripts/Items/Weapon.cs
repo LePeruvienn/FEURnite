@@ -150,9 +150,6 @@ namespace Starter.ThirdPersonCharacter
 
         private IEnumerator reloadCouroutine()
         {
-            // Reload animation
-            _playerAnimator.SetTrigger("ReloadTrigger");
-
             // Wait for reload cooldown
             yield return new WaitForSeconds(reloadCooldown);
 
