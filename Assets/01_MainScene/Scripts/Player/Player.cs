@@ -57,11 +57,13 @@ namespace Starter.ThirdPersonCharacter
 
 		private Vector3 _moveVelocity;
 
+
 		public bool DebugIsDead = false;
 		private GameManager gameManager;
+        private CameraSwitcher cameraSwitcher;
 
-		// Shoot mecanism
-		[SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+        // Shoot mecanism
+        [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
 
 		// Animation input
 		[Header("Animation Constraint")]
@@ -405,9 +407,15 @@ namespace Starter.ThirdPersonCharacter
 		private void Start()
 		{
 			gameManager = FindObjectOfType<GameManager>();
-		}
+            cameraSwitcher = FindObjectOfType<CameraSwitcher>();
 
-		private void CheckIfDead()
+			if (cameraSwitcher == null)
+			{
+				Debug.LogError("CameraSwitcher not found in scene");
+            }
+        }
+
+        private void CheckIfDead()
 		{
 			if (DebugIsDead)
 			{
@@ -415,7 +423,10 @@ namespace Starter.ThirdPersonCharacter
 
 				// Envoie les coordonnées de mort au GameManager
 				gameManager.PlayerDeath(transform.position, transform.rotation);
-			}
+                cameraSwitcher.ToggleFreecam();
+                Destroy(gameObject);
+
+            }
 		}
 
         private void Update()
