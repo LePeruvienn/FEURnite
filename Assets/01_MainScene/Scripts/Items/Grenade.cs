@@ -32,7 +32,6 @@ namespace Starter.ThirdPersonCharacter
         private Animator _playerAnimator;
         private Rigidbody _rigidBody;
 
-		private Rigidbody _rigidBody;
 		private SphereCollider _sphereCollider;
         
         public override ItemType getType()

@@ -483,8 +483,8 @@ MonoBehaviour:
   - {fileID: 1045324172950302930, guid: d72afa9795b8d114594220f9f2beba1c, type: 3}
   - {fileID: 6561465501170253921, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d, type: 3}
   pickUpRange: 10
-  _dropItemOrigin: {fileID: 8956234772096960217}
-  _origin: {fileID: 6798932839712035594}
+  _dropItemOrigin: {fileID: 0}
+  _origin: {fileID: 0}
 --- !u!54 &426045580450923874
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -921,9 +921,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51b1b1cbf9995841a0bff562365dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimColliderLayerMask:
+  _aimColliderLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
 --- !u!114 &8611389549126090540
 MonoBehaviour:
   m_ObjectHideFlags: 0

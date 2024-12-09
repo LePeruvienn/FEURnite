@@ -917,9 +917,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51b1b1cbf9995841a0bff562365dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimColliderLayerMask:
+  _aimColliderLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
 --- !u!1 &8746885593111935576
 GameObject:
   m_ObjectHideFlags: 0
