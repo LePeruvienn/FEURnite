@@ -223,14 +223,14 @@ MonoBehaviour:
   itemName: Glock
   stackAmount: 0
   rarity: 3
-  bulletPrefab: {fileID: 9186155486514058272, guid: 16a67764509767b45960f963c3c6c7aa,
+  bulletPrefab: {fileID: 9186155486514058272, guid: 1fcaa2b737f23f14d982a75099502f9b,
     type: 3}
-  shootDelay: 0.1
+  shootDelay: 0.3
   damage: 10
   reloadCooldown: 1
   startAmmoAmount: 30
   chargerAmmoAmount: 30
-  bulletType: 2
+  bulletType: 3
   muzzleFalshParticles: {fileID: 5437841274968188629, guid: 7f094c6fe33d4e140bca0ee63dae72f2,
     type: 3}
 --- !u!54 &-6237050351909885654
