@@ -197,21 +197,20 @@ public class LootBoxMult : NetworkBehaviour
                 if (_spawnItemPosition == null)
                     _spawnItemPosition = transform.Find("spawnObjectPos").transform;
 
-                // Spawn l'objet sur tous les clients et assure-toi qu'il soit visible par tous
+                // Spawn l'objet sur tous les clients
                 NetworkObject netObj = weapon.GetComponent<NetworkObject>();
                 if (netObj != null)
                 {
-                    // Spawn l'objet sur tous les clients et prend la gestion du réseau
-                    Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, (runner, spawnedObject) =>
-                    {
-                        // Si l'objet a besoin de récupérer des informations supplémentaires
-                        // comme un propriétaire ou d'autres configurations, tu peux les ajouter ici.
-                        // Ceci garantira que l'arme est visible pour tous les clients.
-                    });
+                    // Si tu veux que l'arme soit visible pour tous les joueurs
+                    Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity);
+                    Debug.Log("Weapon spawned successfully on all clients.");
                 }
             }
         }
     }
+
+
+
 
 
     private void openChestAnimation()
