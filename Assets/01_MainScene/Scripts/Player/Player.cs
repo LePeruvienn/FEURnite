@@ -50,20 +50,20 @@ namespace Starter.ThirdPersonCharacter
 		public float FootstepAudioVolume = 0.5f;
 
 		[Networked]
-		private NetworkBool _isJumping { get; set; }
-		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
-		private NetworkBool _isMoving { get; set; }
-		private NetworkBool _isShooting { get; set; }
+    private NetworkBool _isJumping { get; set; }
+    [Networked]
+    private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
+    [Networked]
+    private NetworkBool _isMoving { get; set; }
+    private NetworkBool _isShooting { get; set; }
+    private Vector3 _moveVelocity;
 
-		private Vector3 _moveVelocity;
+    public bool DebugIsDead = false;
+    private GameManager gameManager;
+    private CameraSwitcher cameraSwitcher;
 
-
-		public bool DebugIsDead = false;
-		private GameManager gameManager;
-        private CameraSwitcher cameraSwitcher;
-
-        // Shoot mecanism
-        [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+    // Shoot mecanism
+    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
 
 		// Animation input
 		[Header("Animation Constraint")]
@@ -81,6 +81,23 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDMotionSpeed;
 		private int _animIDAim;
 		private int _animIDMoving;
+		private int _animIDReload;
+
+        // ############################# teste dodo
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        private void RPC_Reload()
+        {
+            Animator.SetTrigger(_animIDReload);
+        }
+
+		//[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		//private void RPC_UpdateAimState(bool isAiming)
+		//{
+		//	_isAiming = isAiming;
+		//}
+
+		// ############################# teste dodo
 
 		public override void FixedUpdateNetwork()
 		{
@@ -92,7 +109,7 @@ namespace Starter.ThirdPersonCharacter
 				_isJumping = false;
 			}
 
-			PlayerInput.ResetInput();
+            PlayerInput.ResetInput();
 		}
 
 		public override void Render()
@@ -104,9 +121,9 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
 			Animator.SetBool(_animIDAim, _isAiming);
 			Animator.SetBool(_animIDMoving, _isMoving);
-		}
+        }
 
-		private void Awake()
+        private void Awake()
 		{
 
 			// Cacher le curseur et verrouiller comme avant
@@ -178,11 +195,11 @@ namespace Starter.ThirdPersonCharacter
 			}
 			else if (input.Sprint) // Si il est en train de courrir
 			{
-				speed = SprintSpeed;
+                speed = SprintSpeed;
 			}
 			else // Si il fait aucun des deux, alors il marche
 			{
-				speed = WalkSpeed;
+                speed = WalkSpeed;
 			}
 
 			// Multiplie by playerSpeed
@@ -334,6 +351,9 @@ namespace Starter.ThirdPersonCharacter
 			}
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon)
 			{
+                // ############################# teste dodo
+                RPC_Reload();
+                // ############################# teste dodo
 
 				Weapon weapon = (Weapon)currentItem;  // Set current Item as a weapon
 				weapon.reload(); // Relaod the weapon
@@ -355,10 +375,13 @@ namespace Starter.ThirdPersonCharacter
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDAim = Animator.StringToHash("Aim");
 			_animIDMoving = Animator.StringToHash("Moving");
-		}
+            // ############################# teste dodo
+            _animIDReload = Animator.StringToHash("ReloadTrigger");
+            // ############################# teste dodo
+        }
 
-		// Animation event
-		private void OnFootstep(AnimationEvent animationEvent)
+        // Animation event
+        private void OnFootstep(AnimationEvent animationEvent)
 		{
 			if (animationEvent.animatorClipInfo.weight < 0.5f)
 				return;
