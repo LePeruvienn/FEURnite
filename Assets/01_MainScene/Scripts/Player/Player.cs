@@ -335,8 +335,9 @@ namespace Starter.ThirdPersonCharacter
 			} // If Player is interacting with a pickable object
 			else if (input.Interact && PlayerInventory.canPickUp ())
 			{
-				// PickUp Item
-				PlayerInventory.pickUp ();
+                // PickUp Item
+
+                PlayerInventory.pickUp ();
 			}
         }
 

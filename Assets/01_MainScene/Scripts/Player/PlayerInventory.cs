@@ -61,23 +61,30 @@ namespace Starter.ThirdPersonCharacter
 				{
 					// Spawn the object instead of Instantiate
 					GameObject itemPrefab = starterItems[i];
-					NetworkObject itemNetworkObject = itemPrefab.GetComponent<NetworkObject>();
+                    
+                    NetworkObject itemNetworkObject = itemPrefab.GetComponent<NetworkObject>();
+					
 
-					if (itemNetworkObject != null)
+                    if (itemNetworkObject != null)
 					{
 						// Use Runner.Spawn to create the object in the network
 						NetworkObject spawnedObject = Runner.Spawn(itemNetworkObject, 
 							position: transform.position, 
-							rotation: Quaternion.identity);
+							rotation: Quaternion.identity,
+							Runner.LocalPlayer);
+                        Debug.LogWarning(" ID player :" + Runner.LocalPlayer.PlayerId + " itemNetworkObject :" + spawnedObject.Id);
 
-						// Get the Item component
-						Item item = spawnedObject.GetComponent<Item>();
+                        // Get the Item component
+                        Item item = spawnedObject.GetComponent<Item>();
 						if (item != null)
 						{
 							item.setState(ItemState.Equipped);
 							item.saveDefaultPosAndRotation();
 						}
-
+						else
+						{
+                            Debug.LogWarning("---Item null ID player :" + Runner.LocalPlayer.PlayerId + " itemNetworkObject :" + spawnedObject.Id);
+                        }
 						// Assign it to the inventory
 						_inventory[i] = spawnedObject.gameObject;
 
@@ -112,15 +119,17 @@ namespace Starter.ThirdPersonCharacter
 
 		public void pickUp()
 		{
-			// Si le joueur peut ramasser un objet
-			if (_canPickUp == true && _lastPickableObject != null)
+            // Si le joueur peut ramasser un objet
+            if (_canPickUp == true && _lastPickableObject != null )
 			{
-				// Handle Loot box
-				LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
+                Debug.LogWarning("can pickup");
+                // Handle Loot box
+                LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
 				if (lootBox != null)
 				{
 					lootBox.Open();
-					return;
+                    Debug.LogWarning("lootBox");
+                    return;
 				}
 
 				// Handle Server-Side Sync Pickup
@@ -135,8 +144,10 @@ namespace Starter.ThirdPersonCharacter
 
 				// If current selection is not null, drop the item
 				if (selection != null)
+				{
+					Debug.LogWarning("probleme selection");
 					dropCurrentSelection();
-
+				}
 				NetworkObject netObj = _lastPickableObject.GetComponent<NetworkObject>();
 
 				if (netObj == null)
@@ -145,19 +156,19 @@ namespace Starter.ThirdPersonCharacter
 					return;
 				}
 
-				if (!Object.HasStateAuthority)
+				if (netObj.HasStateAuthority)
 				{
-					Debug.Log("Try to pickup without state authority!");
+					Debug.LogWarning("Try to pickup a object ou have al reday a authority state authority!");
 					return;
 				}
 
-				Debug.Log("Object ID sent: " + netObj.Id);
+				Debug.LogWarning("Object ID sent: " + netObj.Id);
 
 				// Doing server-side function
 				RPC_pickup(netObj.Id);
 
-				// Set item in the display
-				Item item = _lastPickableObject.GetComponent<Item>();
+                // Set item in the display
+                Item item = _lastPickableObject.GetComponent<Item>();
 				_inventoryDisplay.setItem(InventoryType.Hotbar, _selectedIndex, item);
 			}
 		}
@@ -176,9 +187,9 @@ namespace Starter.ThirdPersonCharacter
 			}
 
 			GameObject pickedObject = networkObject.gameObject;
-
-			// Get Item compenent
-			Item item = pickedObject.GetComponent<Item> ();
+            networkObject.RequestStateAuthority();
+            // Get Item compenent
+            Item item = pickedObject.GetComponent<Item> ();
 			if (item != null) // If Item script exist, set item state to equipped
 				item.setState (ItemState.Equipped);
 			
@@ -273,13 +284,16 @@ namespace Starter.ThirdPersonCharacter
 		{
 			// Get Selected item
 			GameObject obj = getCurrentSelection();
-			// If current selection is null we stop here
-			if (obj == null) return;
-			// We get his item component
-			Item item = obj.GetComponent<Item>();
+            
+            // If current selection is null we stop here
+            if (obj == null) return;
+            NetworkObject netObj = obj.GetComponent<NetworkObject>();
+            // We get his item component
+            Item item = obj.GetComponent<Item>();
 			// If item exist we drop it
 			if (item != null)
 				item.setState(ItemState.OnFloor);
+
 			// Removing obj parent's
 			obj.transform.SetParent(null);
             // Adding the object to the scene
@@ -287,7 +301,10 @@ namespace Starter.ThirdPersonCharacter
             
             // Clearing the data
 			_inventory[_selectedIndex] = null;
-		}
+			netObj.ReleaseStateAuthority();
+
+
+        }
 
 		// Desotry the current selected item
 		public void destoryCurrentSelection ()
@@ -356,7 +373,7 @@ namespace Starter.ThirdPersonCharacter
 
 			// Set can pickup to true !
 			_canPickUp = true;
-
+			
 			// Set _lastPickableObject to the object detected !
 			_lastPickableObject = detectedObj;
 		}
