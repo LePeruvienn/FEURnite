@@ -116,7 +116,7 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDGrounded, KCC.IsGrounded);
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
 			Animator.SetBool(_animIDAim, _isAiming);
-			//Animator.SetBool(_animIDMoving, _isMoving);
+			Animator.SetBool(_animIDMoving, _isMoving);
         }
 
         private void Awake()
@@ -187,29 +187,14 @@ namespace Starter.ThirdPersonCharacter
 			
 			if (_isAiming) // Si il vise
 			{
-                // ############################# teste dodo
-                //_isAiming = true;
-                //RPC_UpdateAimState(_isAiming);
-                // ############################# teste dodo
-
                 speed = AimSpeed;
             }
 			else if (input.Sprint) // Si il est en train de courrir
 			{
-                // ############################# teste dodo
-                //_isAiming = false;
-                //RPC_UpdateAimState(_isAiming);
-                // ############################# teste dodo
-
                 speed = SprintSpeed;
 			}
 			else // Si il fait aucun des deux, alors il marche
 			{
-                // ############################# teste dodo
-                //_isAiming = false;
-                //RPC_UpdateAimState(_isAiming);
-                // ############################# teste dodo
-
                 speed = WalkSpeed;
 			}
 
@@ -277,22 +262,12 @@ namespace Starter.ThirdPersonCharacter
 
                 if ((_isAiming || angleToTarget > 80f) && KCC.IsGrounded) // if is aiming or moving the camera we activate the Constrainte on the animation to make him aim properly
                 {
-                    // ############################# teste dodo
-                    //_isAiming = true;
-                    //RPC_UpdateAimState(_isAiming);
-                    // ############################# teste dodo
-
                     ActivateConstraintAim();
                     targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
                     multiplicator = 4;
                 }
                 else
                 {
-                    // ############################# teste dodo
-                    //_isAiming = false;
-                    //RPC_UpdateAimState(_isAiming);
-                    // ############################# teste dodo
-
                     DeactivateConstraintAim();
                 }
 				// we alwase need te constraint for movement si le joueur ne mouv pas
@@ -302,11 +277,6 @@ namespace Starter.ThirdPersonCharacter
             {
                 if (_isAiming && KCC.IsGrounded)// si le joueur mouv et qu'il vise on doit activer les constraint sur l'animation 
                 {
-                    // ############################# teste dodo
-                    //_isAiming = true;
-                    //RPC_UpdateAimState(_isAiming);
-                    // ############################# teste dodo
-
                     ActivateConstraintAim();
                     multiAimConstraintArm.weight = 1f;
                     targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
@@ -314,11 +284,6 @@ namespace Starter.ThirdPersonCharacter
                 }
                 else
                 {
-                    // ############################# teste dodo
-                    //_isAiming = false;
-                    //RPC_UpdateAimState(_isAiming);
-                    // ############################# teste dodo
-
                     DeactivateConstraintAim();
                     multiAimConstraintArm.weight = 0f;
                     targetRotation = Quaternion.LookRotation(moveDirection);
@@ -353,7 +318,6 @@ namespace Starter.ThirdPersonCharacter
 			
 			// Check if Player is moving
 			_isMoving = _moveVelocity.magnitude > 0.1f;
-            Debug.Log($"_isAiming: {_isAiming}, _isMoving: {_isMoving}");
 
             // Get current selected object and type
             GameObject currentSelection = PlayerInventory.getCurrentSelection ();
@@ -405,7 +369,7 @@ namespace Starter.ThirdPersonCharacter
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDAim = Animator.StringToHash("Aim");
-			//_animIDMoving = Animator.StringToHash("Moving");
+			_animIDMoving = Animator.StringToHash("Moving");
             // ############################# teste dodo
             _animIDReload = Animator.StringToHash("ReloadTrigger");
             // ############################# teste dodo
