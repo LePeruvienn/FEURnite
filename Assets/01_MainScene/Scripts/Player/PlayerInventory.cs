@@ -402,13 +402,6 @@ namespace Starter.ThirdPersonCharacter
 
 		private void updateSelection()
 		{
-			// Checking if player have authority on the object
-			if (!Object.HasStateAuthority)
-			{
-				Debug.LogWarning("Only State Authority can call updateSelection().");
-				return;
-			}
-			
 			// Doing server-side function
 			RPC_updateSelection ();
 
@@ -416,7 +409,7 @@ namespace Starter.ThirdPersonCharacter
 			_inventoryDisplay.updateInGameHotbarSelection (_selectedIndex);
 		}
 
-        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        [Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_updateSelection()
 		{
 			// Disable all items

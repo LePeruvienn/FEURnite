@@ -54,7 +54,7 @@ namespace Starter.ThirdPersonCharacter
             _currentAmmoAmount = startAmmoAmount;
             // Set weapon state to ready
             _currentWeaponState = WeaponState.Ready;
-           Debug.LogWarning("ID received : " + Object.Id+" position arme :"+ Object.transform.position+" position spawn "+ _spawnBulletPosition.position);
+
             if (_runner == null)
             {
                 _runner = FindObjectOfType<NetworkRunner>();
@@ -94,7 +94,6 @@ namespace Starter.ThirdPersonCharacter
 
         private void shoot()
         {
-            Debug.LogWarning("--Shoot ID received : " + Object.Id + " position arme :" + Object.transform.position + " position spawn " + _spawnBulletPosition.position);
             // Setting up raycast variables
             Vector3 mouseWorldPosition = Vector3.zero; // Default vector
             Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // Center of the screen
