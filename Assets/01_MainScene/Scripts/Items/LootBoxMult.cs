@@ -49,17 +49,11 @@ public class LootBoxMult : NetworkBehaviour
             Debug.Log("Loot box is already open."); // Diagnostic
             return; // Retourne si le coffre est ouvert
         }
-
-        if (HasStateAuthority)
-        {
-            Debug.Log("StateAuthority confirmed. Opening the box..."); // Diagnostic
-            ChoiceBoxType();
-            RPC_SetStatus(Status.IsOpen);
-        }
-        else
-        {
-            Debug.LogWarning("Attempted to open loot box without StateAuthority."); // Diagnostic
-        }
+           
+        ChoiceBoxType();
+        RPC_SetStatus(Status.IsOpen);
+        
+        
     }
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
