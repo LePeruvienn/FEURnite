@@ -459,6 +459,7 @@ namespace Starter.ThirdPersonCharacter
         {
             if (DebugIsDead)
             {
+				PlayerInventory.enabled = false;
 
                 DebugIsDead = false;
 
