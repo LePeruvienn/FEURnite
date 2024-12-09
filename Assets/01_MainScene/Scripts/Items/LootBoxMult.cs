@@ -182,35 +182,34 @@ public class LootBoxMult : NetworkBehaviour
             }
         }
     }
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RPC_SpawnWeaponOnAllClients(GameObject weaponPrefab, Vector3 spawnPosition)
-    {
-        if (weaponPrefab != null)
-        {
-            Runner.Spawn(weaponPrefab, spawnPosition, Quaternion.identity, null);
-            Debug.Log("Weapon spawned on all clients.");
-        }
-    }
 
     private void OpenWeaponBox()
+{
+    Debug.Log("Opening weapon box..."); // Diagnostic
+    GameObject weapon = GetWeaponFromList();
+
+    if (weapon != null && HasStateAuthority)
     {
-        Debug.Log("Opening weapon box..."); // Diagnostic
-        GameObject weapon = GetWeaponFromList();
+        Item item = weapon.GetComponent<Item>();
 
-        if (weapon != null && HasStateAuthority)
+        if (item != null)
         {
-            Item item = weapon.GetComponent<Item>();
+            if (_spawnItemPosition == null)
+                _spawnItemPosition = transform.Find("spawnObjectPos").transform;
 
-            if (item != null)
+            // Spawn l'objet sur tous les clients sans donner d'autorité spécifique
+            NetworkObject netObj = weapon.GetComponent<NetworkObject>();
+            if (netObj != null)
             {
-                if (_spawnItemPosition == null)
-                    _spawnItemPosition = transform.Find("spawnObjectPos").transform;
+                // Spawner l'objet sans attribuer l'autorité, ce qui permet à tous les clients de le voir
+                Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, null);
 
-                // Appeler le RPC pour spawn l'objet sur tous les clients
-                RPC_SpawnWeaponOnAllClients(weapon, _spawnItemPosition.position);
+                // L'objet sera visible par tous les clients et ne sera contrôlé par aucun joueur spécifique
+                Debug.Log("Weapon spawned successfully on all clients with no specific authority.");
             }
         }
     }
+}
 
 
 
