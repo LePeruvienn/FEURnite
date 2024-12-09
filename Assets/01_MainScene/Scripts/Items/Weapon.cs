@@ -116,8 +116,6 @@ namespace Starter.ThirdPersonCharacter
             Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
             try
             {
-
-                Debug.LogWarning(_spawnBulletPosition);
                 // Spawn bullet on the network
                 RpcShoot(_spawnBulletPosition.position, aimDir);
 
