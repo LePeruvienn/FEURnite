@@ -169,16 +169,43 @@ public class LootBoxMult : NetworkBehaviour
 
     private void OpenItemBox()
     {
+        if (HasStateAuthority)
+        {
+            // Appel du RPC pour ouvrir le coffre des items pour tous les clients
+            RPC_OpenItemBox();
+        }
+        else
+        {
+            Debug.LogWarning("Only the player with state authority can open the item box.");
+        }
+    }
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_OpenItemBox()
+    {
+        // Vérifier si l'item a déjà été pris
+        if (isWeaponTaken)  // Note : Si tu n'as pas de variable spécifique pour les items, tu peux réutiliser isWeaponTaken
+        {
+            Debug.Log("Item has already been taken. Skipping spawn...");
+            return;
+        }
+
         Debug.Log("Opening item box...");
         GameObject item = GetItemFromList();
-        if (item != null && HasStateAuthority)
+
+        if (item != null)
         {
             if (_spawnItemPosition == null)
             {
                 _spawnItemPosition = transform.Find("spawnObjectPos").transform;
             }
 
-            Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity);
+            // Spawn de l'item sur tous les clients sans autorité spécifique
+            NetworkObject netObj = item.GetComponent<NetworkObject>();
+            if (netObj != null)
+            {
+                Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity, null);
+                Debug.Log("Item spawned successfully on all clients with no specific authority.");
+            }
         }
     }
 
@@ -215,28 +242,15 @@ public class LootBoxMult : NetworkBehaviour
         }
     }
 
-    public void PickupWeapon()
+   
+
+    // RPC pour mettre à jour l'état de l'arme sur tous les clients
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_UpdateWeaponStatus(bool status)
     {
-        if (isWeaponTaken)
-        {
-            Debug.Log("Weapon already taken. Cannot pick it up again.");
-            return;
-        }
-
-        // Marquer l'arme comme prise
-        isWeaponTaken = true;
-
-        // Despawn de l'arme pour tous les clients
-        if (spawnedWeapon != null)
-        {
-            Runner.Despawn(spawnedWeapon);
-            Debug.Log("Weapon has been picked up and despawned for all clients.");
-        }
-        else
-        {
-            Debug.LogWarning("No spawned weapon to despawn.");
-        }
+        isWeaponTaken = status;
     }
+
 
     private void OpenWeaponBox()
     {

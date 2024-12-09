@@ -1,15 +1,13 @@
 using Starter.ThirdPersonCharacter;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static LootBox;
+using Fusion;
 
-public class LootBox : MonoBehaviour
+
+public class LootBox : NetworkBehaviour
 {
-
-    
     public enum BoxRarity
     {
         Common = 1,
@@ -17,39 +15,71 @@ public class LootBox : MonoBehaviour
         Epic = 3,
         Legendary = 4
     }
+
     public enum Status
     {
         IsOpen = 1,
         IsClose = 0
     }
+
     public enum BoxType
     {
         WeaponBox = 1,
         ItemBox = 2
     }
 
-
     public BoxRarity boxRarity;
     public Status status;
     public BoxType type;
     public Animator Animator;
 
-    public GameObject[] ListWeapon; // liste des armes Commun
-    public GameObject[] ListItem; // liste items hors armes
+    public static GameObject[] ListWeapon; // Liste des armes
+    public static GameObject[] ListItem;   // Liste des items
+    private NetworkObject spawnedWeapon; // Référence pour l'arme spawnée
 
     private Transform _spawnItemPosition;
+   
+
+    [Networked] private bool IsOpen { get; set; }
+
     public void Open()
     {
-        // V�rifie si le coffre est d�j� ouvert
+        Debug.Log("Attempting to open loot box...");
+
         if (status == Status.IsOpen)
-            return; // Retourne si le coffre est ouvert
+        {
+            Debug.Log("Loot box is already open.");
+            return; // Si le coffre est déjà ouvert, on ne fait rien
+        }
 
-        ChoiceBoxType();
-
+        if (Object.HasStateAuthority)
+        {
+            // Si ce client a l'autorité, ouvre le coffre
+            Debug.Log("StateAuthority confirmed. Opening the box...");
+            RPC_SetStatus(Status.IsOpen);
+        }
+        else
+        {
+            // Tous les clients peuvent exécuter ce RPC
+            Debug.Log("Requesting to open loot box from any client.");
+            RPC_SetStatus(Status.IsOpen);
+        }
     }
 
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    private void RPC_SetStatus(Status newStatus)
+    {
+        Debug.Log($"Setting loot box status to {newStatus}...");
+        status = newStatus;
 
-    private ItemRarity GetItemDrop() // Retourne la raret� d'un item en utilisant les probabilit�s
+        if (newStatus == Status.IsOpen)
+        {
+            openChestAnimation();
+            ChoiceBoxType(); // Ouvre le bon type de coffre
+        }
+    }
+
+    private ItemRarity GetItemDrop()
     {
         int randomValue = Random.Range(0, 100);
 
@@ -93,6 +123,13 @@ public class LootBox : MonoBehaviour
                 listObjectRecuperer.Add(wp);
             }
         }
+
+        if (listObjectRecuperer.Count == 0)
+        {
+            
+            return null;
+        }
+
         int randomIndex = Random.Range(0, listObjectRecuperer.Count);
         return listObjectRecuperer[randomIndex];
     }
@@ -110,108 +147,113 @@ public class LootBox : MonoBehaviour
                 listObjectRecuperer.Add(wp);
             }
         }
+
+        if (listObjectRecuperer.Count == 0)
+        {
+            
+            return null;
+        }
+
         int randomIndex = Random.Range(0, listObjectRecuperer.Count);
         return listObjectRecuperer[randomIndex];
     }
 
     private void ChoiceBoxType()
     {
+        Debug.Log($"Box type: {type}");
         if (type == BoxType.WeaponBox)
             OpenWeaponBox();
-        
         else
             OpenItemBox();
-        
     }
+
     private void OpenItemBox()
     {
+        if (HasStateAuthority)
+        {
+            // Appel du RPC pour ouvrir le coffre des items pour tous les clients
+            RPC_OpenItemBox();
+        }
+        
+    }
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_OpenItemBox()
+    {
+       
+
+        Debug.Log("Opening item box...");
         GameObject item = GetItemFromList();
+
         if (item != null)
         {
             if (_spawnItemPosition == null)
             {
                 _spawnItemPosition = transform.Find("spawnObjectPos").transform;
+            }
 
-                StartCoroutine(SpawnWeapon(item, _spawnItemPosition.position, Quaternion.identity));
-                openChestAnimation();
-                Debug.Log("Ouverture du coffre");
-
-                status = Status.IsOpen; // Change le statut du coffre
+            // Spawn de l'item sur tous les clients sans autorité spécifique
+            NetworkObject netObj = item.GetComponent<NetworkObject>();
+            if (netObj != null)
+            {
+                Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity, null);
+                Debug.Log("Item spawned successfully on all clients with no specific authority.");
             }
         }
     }
-    private void OpenWeaponBox()
+
+    // Correction du RPC pour les armes
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_OpenWeaponBox()
     {
-        GameObject weapon = GetWeaponFromList(); // R�cup�re l'arme al�atoirement choisis 
+       
 
-        if (weapon != null) // V�rifie si weapon n'est pas null
+        Debug.Log("Opening weapon box");
+        GameObject weapon = GetWeaponFromList();
+
+        if (weapon != null)
         {
-            Item item = weapon.GetComponent<Item>(); // Tente de r�cup�rer le composant Item
+            Item item = weapon.GetComponent<Item>();
 
-            if (item != null) // V�rifie si le GameObject a bien un composant Item
+            if (item != null)
             {
-                // Utilisation de la m�thode publique d'Item
-                print(item.GetRarity()); // Exemple de m�thode dans la classe Item
-
-                // Assure que _spawnItemPosition est initialis�
                 if (_spawnItemPosition == null)
                     _spawnItemPosition = transform.Find("spawnObjectPos").transform;
 
-                StartCoroutine(SpawnWeapon(weapon, _spawnItemPosition.position, Quaternion.identity));
-                openChestAnimation();
-                Debug.Log("Ouverture du coffre");
-
-                // Change le statut du coffre
-                status = Status.IsOpen;
+                // Spawn l'objet sur tous les clients sans donner d'autorité spécifique
+                NetworkObject netObj = weapon.GetComponent<NetworkObject>();
+                if (netObj != null)
+                {
+                    spawnedWeapon = Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, null);
+                    Debug.Log("Weapon spawned successfully on all clients with no specific authority.");
+                }
             }
-            else
-            {
-                Debug.LogError("weapon n'est pas une composante de item.");
-            }
-        }
-        else
-        {
-            Debug.LogError("GetItemFromList() a retourn� null. ( weapon = null )");
         }
     }
 
-    private IEnumerator SpawnWeapon(GameObject item, Vector3 spawnItemPosition, Quaternion identity)
+
+
+    
+
+
+    private void OpenWeaponBox()
     {
-        yield return new WaitForSeconds(1);
-        GameObject spanwedObj = Instantiate(item);
-        Item itemSpawn = spanwedObj.GetComponent<Item>();
-        if (itemSpawn != null)
+        if (HasStateAuthority)
         {
-            itemSpawn.saveDefaultPosAndRotation();
-            itemSpawn.setState(ItemState.OnFloor);
+            // Appel du RPC pour ouvrir le coffre pour tous les clients
+            RPC_OpenWeaponBox();
         }
-        
-        spanwedObj.transform.position = spawnItemPosition;
-        spanwedObj.transform.rotation = identity;
+        else
+        {
+            Debug.LogWarning("Only the player with state authority can open the weapon box.");
+        }
     }
 
     private void openChestAnimation()
     {
+        Debug.Log("Playing open chest animation...");
         if (Animator.GetBool("isOpen") == false)
         {
-            Animator.SetBool("isOpen", true); // ouvre le chest
-
-            /*if (GlowTransform == null)
-            {
-                GlowTransform = transform; // or assign another Transform here if needed
-            }
-
-            GlowParticule.transform.position = new Vector3(
-                0,
-                transform.position.y + 0.60f,
-                0
-            );
-            ParticleSystem Glow = Instantiate(GlowParticule, GlowTransform);*/
+            Animator.SetBool("isOpen", true);
         }
     }
-
-    
-
 }
-
-

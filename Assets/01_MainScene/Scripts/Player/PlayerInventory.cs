@@ -394,7 +394,7 @@ namespace Starter.ThirdPersonCharacter
 			return;
 
 			// Setting obj's tranform to his game object param
-			if (item != null) 
+			if (item != null)  
 			{
 				// We use set default function of the item
 				item.setPosAndRotationToDefault ();
