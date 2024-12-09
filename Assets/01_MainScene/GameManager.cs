@@ -15,11 +15,11 @@ namespace Starter.ThirdPersonCharacter
     public sealed class GameManager : NetworkBehaviour
     {
         public NetworkObject PlayerPrefab;
+        public NetworkObject CorpsePrefab;
         public float SpawnRadius = 3f;
         public List<Transform> SpawnPoints;
         public Transform SpawnBase;
         [Networked] private int _playerCount { get; set; } = 0;
-
         // Variable locale pour vérifier si le joueur est déjà spawné
        
         public override void Spawned()
@@ -65,6 +65,18 @@ namespace Starter.ThirdPersonCharacter
                     }
                 }
             }
+        }
+
+        public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
+        {
+            RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        private void RPC_RequestSpawnCorpse(Vector3 deathPosition, Quaternion deathOrientation)
+        {
+            Debug.Log("Death :" + deathPosition);
+            Runner.Spawn(CorpsePrefab, deathPosition, deathOrientation, null);
         }
     }
 }
