@@ -168,17 +168,29 @@ namespace Starter.ThirdPersonCharacter
 
 			// Setup selected item
 			Item selectedItem = null;
-			ItemType selectedType = ItemType.None;
+            ItemType selectedType = ItemType.None;
+            BulletType selectedBulletType = BulletType.Pistol;
 
-			if (selectedObj != null)
-				selectedItem = selectedObj.GetComponent<Item>();
-
+            if (selectedObj != null)
+				selectedItem = selectedObj.GetComponent<Item> ();
+	
 			if (selectedItem != null)
-				selectedType = selectedItem.getType();
+			{
+                selectedType = selectedItem.getType();
+                selectedBulletType = selectedItem.getBulletType();
+				if(selectedBulletType == BulletType.Sniper)
+				{
+					aimFOV = 2f;
+				}
+				else
+				{   
+					aimFOV = 20f;
+				}
+            }
 
-			// Set is Aiming to true if player is aiming and selected item is a weapon
-			_isAiming = (selectedType == ItemType.Weapon) ?
-				input.Aiming : false;
+            // Set is Aiming to true if player is aiming and selected item is a weapon
+            _isAiming = (selectedType == ItemType.Weapon) ?
+                input.Aiming : false;
 
 			// Set is Shooting to true if player Shoot
 			_isShooting = input.Shoot;

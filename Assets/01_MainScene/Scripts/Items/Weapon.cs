@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using Fusion;
 
@@ -26,12 +28,14 @@ namespace Starter.ThirdPersonCharacter
     {
         [Header("Weapon References")]
         public GameObject bulletPrefab; // The bullet to use when shooting
-
-        [Header("Weapon Stats")]
-        public float shootDelay; // Time to wait between each bullet
+        
+		[Header("Weapon Stats")]
+        public float shootDelay; // Time to wait between each bullets
+        public float stabDelay; // Time to wait between each stab
         public int damage; // Damage applying for each bullet to the player
         public int reloadCooldown; // Reload time to get full ammo
-        public int startAmmoAmount; // Amount of bullets currently in the charger
+        public int startAmmoAmount; // Amount of bullet currenty in the charger
+        public int bulletSize; // Amount of bullet currenty in the charger
         public int chargerAmmoAmount; // Bullets per charger
         public BulletType bulletType; // Type of bullet the weapon uses
 
@@ -68,20 +72,34 @@ namespace Starter.ThirdPersonCharacter
             return ItemType.Weapon;
         }
 
-        public override void use()
+        public override BulletType getBulletType()
+        {
+            return bulletType;
+        }
+
+        public override void use ()
         {
             // Return if weapon doesn't have ammo left!
             if (_currentAmmoAmount <= 0 || _currentWeaponState == WeaponState.Reloading) return;
-
             // Check if player can fire
             if (Time.time >= _nextFireTime)
             {
-                // Shoot a bullet
-                shoot();
-                // Remove bullet from current charger
-                _currentAmmoAmount--;
-                // Set the _nextFireTime
-                _nextFireTime = Time.time + shootDelay;
+                if (bulletPrefab != null)// is a weapon with bullet
+                {
+                    // Shoot a bullet
+                    shoot();
+                    // Remove bullet from current charger
+                    _currentAmmoAmount--;
+                    // Set the _nextFireTime
+                    _nextFireTime = Time.time + shootDelay;
+                }
+                else 
+                {
+                    // Start stab couroutine
+                    StartCoroutine(stabCouroutine());
+
+                    _nextFireTime = Time.time + stabDelay;
+                }
             }
         }
         [Rpc(RpcSources.All, RpcTargets.All)]
@@ -159,8 +177,25 @@ namespace Starter.ThirdPersonCharacter
             // Set weapon state to ready
             _currentWeaponState = WeaponState.Ready;
 
-            // Debug message (delete it later)
-            Debug.Log("Reload Complete !");
+          // Debug messsage (delete it later)
+          Debug.Log ("Reload Complete !");
+        }
+
+        private IEnumerator stabCouroutine()
+        {
+
+            // Getting PlayerAnimator
+            if (_playerAnimator == null)
+                _playerAnimator = GetComponentInParent<Animator>();
+
+            //stab animation
+            _playerAnimator.SetTrigger("StabTrigger");
+
+            // Wait for reload cooldown
+            yield return new WaitForSeconds(stabDelay);
+
+            // Debug messsage (delete it later)
+            Debug.Log("stab Complete !");
         }
     }
 }

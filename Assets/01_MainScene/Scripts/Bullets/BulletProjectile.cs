@@ -14,7 +14,7 @@ public class BulletProjectile : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (HasStateAuthority) // S'assurer que seul l'autorité gère la logique de mouvement
+        if (HasStateAuthority) // S'assurer que seul l'autoritÃ© gÃ¨re la logique de mouvement
         {
             float speed = 50f;
             bulletRigidbody.velocity = transform.forward * speed;
@@ -23,10 +23,10 @@ public class BulletProjectile : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!HasStateAuthority) return; // Assurez-vous que seul l'autorité gère les collisions
+        if (!HasStateAuthority) return; // Assurez-vous que seul l'autoritÃ© gÃ¨re les collisions
 
         GameObject vfxToSpawn = null;
-        Vector3 spawnPosition = transform.position; // Position par défaut (avant la correction)
+        Vector3 spawnPosition = transform.position; // Position par dÃ©faut (avant la correction)
 
         if (other.GetComponent<BulletTarget>() != null)
         {
@@ -44,7 +44,7 @@ public class BulletProjectile : NetworkBehaviour
             // Si une collision a eu lieu avec un objet, ajustez la position de spawn des particules
             if (other.TryGetComponent(out Collider colliderHit))
             {
-                spawnPosition = colliderHit.ClosestPointOnBounds(transform.position); // Utilisez la position d'impact réelle
+                spawnPosition = colliderHit.ClosestPointOnBounds(transform.position); // Utilisez la position d'impact rÃ©elle
             }
 
             // Spawn particle effect using Runner.Spawn to sync it across all clients
