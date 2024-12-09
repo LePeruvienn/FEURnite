@@ -10,6 +10,11 @@ public class mousePosition3D : NetworkBehaviour
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
     //Serial
 
+    // ############################# teste dodo
+    [Networked]
+    private Vector3 TargetPosition { get; set; }
+    // ############################# teste dodo
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,9 +36,18 @@ public class mousePosition3D : NetworkBehaviour
             if (hit.collider.tag == "WALL")
             {
                 // If it's not, set the position to this point
-                transform.position = hit.point;
+                //transform.position = hit.point;
+                // ############################# teste dodo
+                TargetPosition = hit.point;
+                // ############################# teste dodo
                 break; // Stop checking after the first valid hit
             }
         }
+    }
+
+    public override void Render()
+    {
+        // Synchronisez la position sur tous les clients
+        transform.position = TargetPosition;
     }
 }
