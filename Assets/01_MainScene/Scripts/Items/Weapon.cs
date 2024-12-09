@@ -31,6 +31,7 @@ namespace Starter.ThirdPersonCharacter
         
 		[Header("Weapon Stats")]
         public float shootDelay; // Time to wait between each bullets
+        public float stabDelay; // Time to wait between each stab
         public int damage; // Damage applying for each bullet to the player
         public int reloadCooldown; // Reload time to get full ammo
         public int startAmmoAmount; // Amount of bullet currenty in the charger
@@ -74,12 +75,22 @@ namespace Starter.ThirdPersonCharacter
 			if (_currentAmmoAmount <= 0 || _currentWeaponState == WeaponState.Reloading) return;
 			// Check if player can fire
 			if (Time.time >= _nextFireTime) {
-				// Shoot a bullet
-				shoot();
-				// Remove bullet from current charger
-				_currentAmmoAmount--;
-				// Set the _nextFireTime
-				_nextFireTime = Time.time + shootDelay;
+                if (bulletPrefab != null)// is a weapon with bullet
+                {
+                    // Shoot a bullet
+                    shoot();
+                    // Remove bullet from current charger
+                    _currentAmmoAmount--;
+                    // Set the _nextFireTime
+                    _nextFireTime = Time.time + shootDelay;
+                }
+                else 
+                {
+                    // Start stab couroutine
+                    StartCoroutine(stabCouroutine());
+
+                    _nextFireTime = Time.time + stabDelay;
+                }
 			}
         }
         
@@ -152,5 +163,23 @@ namespace Starter.ThirdPersonCharacter
 			// Debug messsage (delete it later)
 			Debug.Log ("Reload Complete !");
 		}
+
+        private IEnumerator stabCouroutine()
+        {
+
+            // Getting PlayerAnimator
+            if (_playerAnimator == null)
+                _playerAnimator = GetComponentInParent<Animator>();
+
+            //stab animation
+            Debug.Log("StabTrigger");
+            _playerAnimator.SetTrigger("StabTrigger");
+
+            // Wait for reload cooldown
+            yield return new WaitForSeconds(stabDelay);
+
+            // Debug messsage (delete it later)
+            Debug.Log("stab Complete !");
+        }
     }
 }

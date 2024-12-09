@@ -87,9 +87,11 @@ MonoBehaviour:
   rarity: 3
   bulletPrefab: {fileID: 0}
   shootDelay: 0.1
+  stabDelay: 0.5
   damage: 10
   reloadCooldown: 1
   startAmmoAmount: 30
+  bulletSize: 0
   chargerAmmoAmount: 30
   bulletType: 2
   muzzleFalshParticles: {fileID: 0}
