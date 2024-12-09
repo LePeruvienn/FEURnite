@@ -409,29 +409,34 @@ namespace Starter.ThirdPersonCharacter
 			gameManager = FindObjectOfType<GameManager>();
             cameraSwitcher = FindObjectOfType<CameraSwitcher>();
 
-			if (cameraSwitcher == null)
+            if (gameManager == null)
+			{
+				Debug.LogError("GameManager not found in scene");
+            }
+
+                if (cameraSwitcher == null)
 			{
 				Debug.LogError("CameraSwitcher not found in scene");
             }
         }
 
-        private void CheckIfDead()
-		{
-			if (DebugIsDead)
-			{
-				DebugIsDead = false;
+        private void Update()
+        {
+            if (DebugIsDead)
+            {
 
-				// Envoie les coordonnées de mort au GameManager
-				gameManager.PlayerDeath(transform.position, transform.rotation);
+                DebugIsDead = false;
+
+                // Envoie les coordonnées de mort au GameManager
+                gameManager.PlayerDeath(transform.position, transform.rotation);
+
+                // Passage du joueur en mode spectateur
                 cameraSwitcher.ToggleFreecam();
+
+                // Fait disparaître le corps du joueur
                 Destroy(gameObject);
 
             }
-		}
-
-        private void Update()
-        {
-            CheckIfDead();
         }
     }
 }

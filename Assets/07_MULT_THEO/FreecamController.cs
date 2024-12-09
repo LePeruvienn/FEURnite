@@ -11,8 +11,8 @@ public class FreecamController : MonoBehaviour
     void Update()
     {
         // Déplacement (WASD ou flèches directionnelles)
-        float moveX = Input.GetAxis("Horizontal"); // A/D ou flèches gauche/droite
-        float moveZ = Input.GetAxis("Vertical");   // W/S ou flèches haut/bas
+        float moveX = Input.GetAxis("Horizontal"); // Q/D ou flèches gauche/droite
+        float moveZ = Input.GetAxis("Vertical");   // Z/S ou flèches haut/bas
 
         Vector3 movement = transform.forward * moveZ + transform.right * moveX;
         transform.position += movement * speed * Time.deltaTime;
