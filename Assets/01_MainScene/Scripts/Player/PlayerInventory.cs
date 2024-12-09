@@ -45,7 +45,7 @@ namespace Starter.ThirdPersonCharacter
 		public override void Spawned()
 		{
 			base.Spawned();
-
+			if (!Object.HasStateAuthority) return;
 			_selectedIndex = 0;
 			_canPickUp = false;
 
@@ -69,9 +69,8 @@ namespace Starter.ThirdPersonCharacter
 						NetworkObject spawnedObject = Runner.Spawn(itemNetworkObject, 
 							position: transform.position, 
 							rotation: Quaternion.identity,Runner.LocalPlayer);
-
-						// Get the Item component
-						Item item = spawnedObject.GetComponent<Item>();
+                        // Get the Item component
+                        Item item = spawnedObject.GetComponent<Item>();
 						if (item != null)
 						{
 							item.setState(ItemState.Equipped);
