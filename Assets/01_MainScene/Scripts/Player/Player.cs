@@ -207,15 +207,31 @@ namespace Starter.ThirdPersonCharacter
 			}
 			else if (input.Sprint) // Si il est en train de courrir
 			{
-                speed = SprintSpeed;
-			}
-			else // Si il fait aucun des deux, alors il marche
+				speed = SprintSpeed;
+                if (selectedType == ItemType.Weapon)
+                {
+                    Weapon selectedWeapon = (Weapon)selectedItem;
+                    if (selectedWeapon.weight != null)
+                    {
+                        speed = SprintSpeed * selectedWeapon.weight._weight;
+                    }
+                }
+            }
+            else // Si il fait aucun des deux, alors il marche
 			{
-                speed = WalkSpeed;
-			}
+				speed = WalkSpeed;
+                if (selectedType == ItemType.Weapon)
+                {
+                    Weapon selectedWeapon = (Weapon)selectedItem;
+                    if (selectedWeapon.weight != null)
+                    {
+                        speed = WalkSpeed * selectedWeapon.weight._weight;
+                    }
+                }
+            }
 
-			// Multiplie by playerSpeed
-			speed *= PlayerModel.speed;
+            // Multiplie by playerSpeed
+            speed *= PlayerModel.speed;
 			//Debug.Log ("speed: ", speed);
 
 			// Inventory Update

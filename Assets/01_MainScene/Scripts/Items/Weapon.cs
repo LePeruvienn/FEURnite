@@ -14,13 +14,14 @@ namespace Starter.ThirdPersonCharacter
         Reloading = 2
     }
 
-    // Enum for bullet types
-    public enum BulletType
-    {
-        Sniper = 1,
-        Rifle = 2,
-        Pistol = 3,
-        Rocket = 4
+	// Enum for bullet types
+	public enum BulletType
+	{
+		Sniper = 1,
+		Rifle = 2,
+		Pistol = 3,
+		Rocket = 4,
+        Knife = 5
     }
 
     [RequireComponent(typeof(Rigidbody))]
@@ -37,7 +38,8 @@ namespace Starter.ThirdPersonCharacter
         public int startAmmoAmount; // Amount of bullet currenty in the charger
         public int bulletSize; // Amount of bullet currenty in the charger
         public int chargerAmmoAmount; // Bullets per charger
-        public BulletType bulletType; // Type of bullet the weapon uses
+        public BulletType bulletType; // Type of bullet the weapon use
+        public WeaponProperties weight; // Poids de l'arme
 
         [Header("Weapon style")]
         public ParticleSystem muzzleFalshParticles;
@@ -129,7 +131,9 @@ namespace Starter.ThirdPersonCharacter
                 mouseWorldPosition = hit.point; // Set the target point to the point hit by the raycast
             }
 
-            // Direction to shoot the bullet
+            bulletPrefab.GetComponent<BulletProjectile>().damage = damage;
+
+            // Shoot the bullet prefab
             Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
             try
             {
@@ -198,4 +202,11 @@ namespace Starter.ThirdPersonCharacter
             Debug.Log("stab Complete !");
         }
     }
+
+    [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpawnManagerScriptableObject", order = 1)]
+    public class WeaponProperties : ScriptableObject
+    {
+        public float _weight;
+    }
+
 }

@@ -7,6 +7,8 @@ public class BulletProjectile : NetworkBehaviour
     [SerializeField] private GameObject vfxHitRed;
     [SerializeField] private GameObject vfxHitBlack;
 
+    public int damage;
+
     private void Awake()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
@@ -14,7 +16,7 @@ public class BulletProjectile : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (HasStateAuthority) // S'assurer que seul l'autorité gère la logique de mouvement
+        if (HasStateAuthority) // S'assurer que seul l'autorit� g�re la logique de mouvement
         {
             float speed = 50f;
             bulletRigidbody.velocity = transform.forward * speed;
@@ -27,11 +29,18 @@ public class BulletProjectile : NetworkBehaviour
 
         GameObject vfxToSpawn = null;
         Vector3 spawnPosition = transform.position; // Position par défaut (avant la correction)
-
+        
         if (other.GetComponent<BulletTarget>() != null)
         {
-            // Hit target
-            vfxToSpawn = vfxHitRed;
+            // Hit targetPlayer
+            Model pModel = other.GetComponent<PlayerModel>();
+            if (pModel != null)
+            {
+                Debug.Log("PV AVANT: " + pModel.getCurrentTotalHealth());
+                pModel.takeDamage(damage);
+                vfxToSpawn = vfxHitRed;
+                Debug.Log("PV APRES: " + pModel.getCurrentTotalHealth());
+            }
         }
         else
         {

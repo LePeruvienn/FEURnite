@@ -7,7 +7,7 @@ using Fusion;
 
 public class mousePosition3D : NetworkBehaviour
 {
-    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
+    [SerializeField] private LayerMask _aimColliderLayerMask = new LayerMask();
     //Serial
 
     // ############################# teste dodo
@@ -27,7 +27,7 @@ public class mousePosition3D : NetworkBehaviour
         //if (!Object.HasInputAuthority) return;  // ############################# teste dodo
 
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit[] hits = Physics.RaycastAll(ray, 999f, aimColliderLayerMask);
+        RaycastHit[] hits = Physics.RaycastAll(ray, 999f, _aimColliderLayerMask);
 
         // Loop through all hits from the ray
         foreach (RaycastHit hit in hits)
