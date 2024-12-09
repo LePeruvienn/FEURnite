@@ -47,7 +47,6 @@ public class mousePosition3D : NetworkBehaviour
 
     public override void Render()
     {
-        // Synchronisez la position sur tous les clients
         transform.position = TargetPosition;
     }
 }
