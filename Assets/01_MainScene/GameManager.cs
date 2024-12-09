@@ -67,18 +67,16 @@ namespace Starter.ThirdPersonCharacter
             }
         }
 
-        public void PlayerDeath(Vector3 deathPosition)
+        public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
         {
-            Debug.Log("Player died at " + deathPosition);
-            //Runner.Spawn(CorpsePrefab, deathPosition, Quaternion.identity, null);
-            RPC_RequestSpawnCorpse(deathPosition);
+            RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-        private void RPC_RequestSpawnCorpse(Vector3 deathPosition)
+        private void RPC_RequestSpawnCorpse(Vector3 deathPosition, Quaternion deathOrientation)
         {
             Debug.Log("Death :" + deathPosition);
-            Runner.Spawn(CorpsePrefab, deathPosition, Quaternion.identity, null);
+            Runner.Spawn(CorpsePrefab, deathPosition, deathOrientation, null);
         }
     }
 }
