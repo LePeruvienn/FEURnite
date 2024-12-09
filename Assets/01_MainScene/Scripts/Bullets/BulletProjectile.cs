@@ -1,40 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
+using Fusion;
 using UnityEngine;
 
-public class BulletProjectile : MonoBehaviour
+public class BulletProjectile : NetworkBehaviour
 {
     private Rigidbody bulletRigidbody;
-    [SerializeField] private Transform vfxHitRed;
-    [SerializeField] private Transform vfxHitBlack;
+    [SerializeField] private GameObject vfxHitRed;
+    [SerializeField] private GameObject vfxHitBlack;
 
     private void Awake()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
     }
 
-
-    // Update is called once per frame
-    private void Update()
+    public override void FixedUpdateNetwork()
     {
-        float speed = 50f;
-        bulletRigidbody.velocity = transform.forward * speed;
+        if (HasStateAuthority) // S'assurer que seul l'autorité gère la logique de mouvement
+        {
+            float speed = 50f;
+            bulletRigidbody.velocity = transform.forward * speed;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
-    {   
+    {
+        if (!HasStateAuthority) return; // Assurez-vous que seul l'autorité gère les collisions
+
+        GameObject vfxToSpawn = null;
+        Vector3 spawnPosition = transform.position; // Position par défaut (avant la correction)
 
         if (other.GetComponent<BulletTarget>() != null)
         {
-            //hit target
-            Instantiate(vfxHitRed, transform.position, Quaternion.identity);
+            // Hit target
+            vfxToSpawn = vfxHitRed;
         }
         else
         {
-            //hit wall
-            Instantiate(vfxHitBlack, transform.position, Quaternion.identity);
+            // Hit wall
+            vfxToSpawn = vfxHitBlack;
         }
-        
-        Destroy(gameObject);
+
+        if (vfxToSpawn != null)
+        {
+            // Si une collision a eu lieu avec un objet, ajustez la position de spawn des particules
+            if (other.TryGetComponent(out Collider colliderHit))
+            {
+                spawnPosition = colliderHit.ClosestPointOnBounds(transform.position); // Utilisez la position d'impact réelle
+            }
+
+            // Spawn particle effect using Runner.Spawn to sync it across all clients
+            Runner.Spawn(vfxToSpawn, spawnPosition, Quaternion.identity);
+        }
+
+        // Despawn bullet
+        Runner.Despawn(Object); // Destroy the bullet NetworkObject via Fusion
     }
+
+
 }

@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 4177514750797067451}
   - component: {fileID: -3940226732697422021}
   m_Layer: 8
-  m_Name: Player
+  m_Name: Player_MULTI_dodo
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,15 +319,15 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 2583053006
+  SortKey: 3317675923
   ObjectInterest: 1
   Flags: 262145
-  NestedObjects: []
+  NestedObjects:
+  - {fileID: 8611389549126090540}
   NetworkedBehaviours:
   - {fileID: 2832144883721897763}
   - {fileID: 2550293436682645114}
   - {fileID: -3433463954328827346}
-  - {fileID: 1274606425490665607}
 --- !u!114 &2832144883721897763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,7 +522,7 @@ Animator:
   m_GameObject: {fileID: 5609267092368825421}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e0837bdd8b027c943b4766f8476c9a4a, type: 3}
-  m_Controller: {fileID: 9100000, guid: 40db3173a05ae3242b1c182a09b0a183, type: 2}
+  m_Controller: {fileID: 9100000, guid: d462669edace4e940be92906ee3b403d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -886,6 +886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3671057903900376073}
   - component: {fileID: 1274606425490665607}
+  - component: {fileID: 8611389549126090540}
   m_Layer: 0
   m_Name: Target
   m_TagString: ItemRaycast
@@ -923,6 +924,24 @@ MonoBehaviour:
   aimColliderLayerMask:
     serializedVersion: 2
     m_Bits: 1
+--- !u!114 &8611389549126090540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8410696799530987772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 4249987944
+  ObjectInterest: 1
+  Flags: 131073
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 1274606425490665607}
 --- !u!1 &8746885593111935576
 GameObject:
   m_ObjectHideFlags: 0
