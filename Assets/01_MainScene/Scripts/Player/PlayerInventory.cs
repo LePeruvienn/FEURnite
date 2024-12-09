@@ -122,16 +122,24 @@ namespace Starter.ThirdPersonCharacter
 					return;
 				}
 
-				// Handle Loot box
-				LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
-				if (lootBox != null)
-				{
-					lootBox.Open();
-					return;
-				}
+                // Handle Loot box
+                // Debug : Vérifier si l'objet a bien un composant LootBoxMult
+                LootBoxMult lootBox = _lastPickableObject.GetComponent<LootBoxMult>();
+                if (lootBox != null)
+                {
+                    Debug.Log("LootBox found! Calling Open...");
+                    lootBox.Open();
+                    return;
+                }
+                else
+                {
+                    Debug.Log("No LootBox component found on the object.");
+                }
 
-				// Handle Server-Side Sync Pickup
-				if (!Object.HasStateAuthority)
+
+
+                // Handle Server-Side Sync Pickup
+                if (!Object.HasStateAuthority)
 				{
 					Debug.LogWarning("Only State Authority can call updateSelection().");
 					return;
@@ -355,7 +363,7 @@ namespace Starter.ThirdPersonCharacter
 			if (detectedObj == null) return;
 
 			Item item = detectedObj.GetComponent<Item> ();
-			LootBox lootBox = detectedObj.GetComponent<LootBox> ();
+			LootBoxMult lootBox = detectedObj.GetComponent<LootBoxMult> ();
 			
 
 			// Return if the object detected is not an Item;

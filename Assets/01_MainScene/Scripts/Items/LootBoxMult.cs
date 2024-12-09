@@ -1,8 +1,8 @@
-
 using Starter.ThirdPersonCharacter;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Fusion;
 
 public class LootBoxMult : NetworkBehaviour
@@ -27,124 +27,50 @@ public class LootBoxMult : NetworkBehaviour
         ItemBox = 2
     }
 
-    [Header("LootBox Properties")]
     public BoxRarity boxRarity;
-
-    [Networked]
-    public Status status { get; set; }
-
-    private Status _previousStatus;
-
+    public Status status;
     public BoxType type;
-    public Animator animator;
-    public GameObject[] listWeapon;
-    public GameObject[] listItem;
+    public Animator Animator;
+
+    public GameObject[] ListWeapon; // liste des armes Commun
+    public GameObject[] ListItem; // liste items hors armes
 
     private Transform _spawnItemPosition;
 
-    public override void Spawned()
-    {
-        if (_spawnItemPosition == null)
-        {
-            _spawnItemPosition = transform.Find("spawnObjectPos").transform;
-        }
-    }
+    [Networked] private bool IsOpen { get; set; }
 
-    public void TryOpen()
+    public void Open()
     {
-        if (status == Status.IsOpen)
-            return;
+        Debug.Log("Attempting to open loot box..."); // Diagnostic
 
-        if (Object.HasStateAuthority)
-        {
-            status = Status.IsOpen;
-            HandleStatusChange();
-        }
-    }
-
-    public override void FixedUpdateNetwork()
-    {
-        if (_previousStatus != status)
-        {
-            _previousStatus = status;
-            HandleStatusChange();
-        }
-    }
-
-    private void HandleStatusChange()
-    {
+        // Vérifie si le coffre est déjà ouvert
         if (status == Status.IsOpen)
         {
-            PlayOpenAnimation();
+            Debug.Log("Loot box is already open."); // Diagnostic
+            return; // Retourne si le coffre est ouvert
+        }
+
+        if (HasStateAuthority)
+        {
+            Debug.Log("StateAuthority confirmed. Opening the box..."); // Diagnostic
             ChoiceBoxType();
+            RPC_SetStatus(Status.IsOpen);
         }
-    }
-
-    private void ChoiceBoxType()
-    {
-        if (type == BoxType.WeaponBox)
-            OpenWeaponBox();
         else
-            OpenItemBox();
-    }
-
-    private void OpenWeaponBox()
-    {
-        GameObject weapon = GetWeaponFromList();
-        if (weapon != null)
         {
-            SpawnItem(weapon);
+            Debug.LogWarning("Attempted to open loot box without StateAuthority."); // Diagnostic
         }
     }
 
-    private void OpenItemBox()
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_SetStatus(Status newStatus)
     {
-        GameObject item = GetItemFromList();
-        if (item != null)
+        Debug.Log($"Setting loot box status to {newStatus}..."); // Diagnostic
+        status = newStatus;
+        if (newStatus == Status.IsOpen)
         {
-            SpawnItem(item);
+            openChestAnimation();
         }
-    }
-
-    private void SpawnItem(GameObject item)
-    {
-        if (_spawnItemPosition != null && Object.HasStateAuthority)
-        {
-            Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity);
-        }
-    }
-
-    private GameObject GetWeaponFromList()
-    {
-        return GetItemFromListByRarity(listWeapon);
-    }
-
-    private GameObject GetItemFromList()
-    {
-        return GetItemFromListByRarity(listItem);
-    }
-
-    private GameObject GetItemFromListByRarity(GameObject[] list)
-    {
-        ItemRarity itemRarity = GetItemDrop();
-        List<GameObject> filteredItems = new List<GameObject>();
-
-        foreach (GameObject obj in list)
-        {
-            Item item = obj.GetComponent<Item>();
-            if (item != null && item.GetRarity() == itemRarity)
-            {
-                filteredItems.Add(obj);
-            }
-        }
-
-        if (filteredItems.Count > 0)
-        {
-            int randomIndex = Random.Range(0, filteredItems.Count);
-            return filteredItems[randomIndex];
-        }
-
-        return null;
     }
 
     private ItemRarity GetItemDrop()
@@ -178,11 +104,103 @@ public class LootBoxMult : NetworkBehaviour
             return ItemRarity.Legendary;
     }
 
-    private void PlayOpenAnimation()
+    private GameObject GetWeaponFromList()
     {
-        if (animator != null && !animator.GetBool("isOpen"))
+        ItemRarity itemRarity = GetItemDrop();
+        List<GameObject> listObjectRecuperer = new List<GameObject>();
+
+        foreach (GameObject wp in ListWeapon)
         {
-            animator.SetBool("isOpen", true);
+            Item weapon = wp.GetComponent<Item>();
+            if (weapon.GetRarity() == itemRarity)
+            {
+                listObjectRecuperer.Add(wp);
+            }
+        }
+
+        if (listObjectRecuperer.Count == 0)
+        {
+            Debug.LogWarning("No weapons found for the specified rarity."); // Diagnostic
+            return null;
+        }
+
+        int randomIndex = Random.Range(0, listObjectRecuperer.Count);
+        return listObjectRecuperer[randomIndex];
+    }
+
+    private GameObject GetItemFromList()
+    {
+        ItemRarity itemRarity = GetItemDrop();
+        List<GameObject> listObjectRecuperer = new List<GameObject>();
+
+        foreach (GameObject wp in ListItem)
+        {
+            Item item = wp.GetComponent<Item>();
+            if (item.GetRarity() == itemRarity)
+            {
+                listObjectRecuperer.Add(wp);
+            }
+        }
+
+        if (listObjectRecuperer.Count == 0)
+        {
+            Debug.LogWarning("No items found for the specified rarity."); // Diagnostic
+            return null;
+        }
+
+        int randomIndex = Random.Range(0, listObjectRecuperer.Count);
+        return listObjectRecuperer[randomIndex];
+    }
+
+    private void ChoiceBoxType()
+    {
+        Debug.Log($"Box type: {type}"); // Diagnostic
+        if (type == BoxType.WeaponBox)
+            OpenWeaponBox();
+        else
+            OpenItemBox();
+    }
+
+    private void OpenItemBox()
+    {
+        Debug.Log("Opening item box..."); // Diagnostic
+        GameObject item = GetItemFromList();
+        if (item != null && HasStateAuthority)
+        {
+            if (_spawnItemPosition == null)
+            {
+                _spawnItemPosition = transform.Find("spawnObjectPos").transform;
+
+                Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity);
+            }
+        }
+    }
+
+    private void OpenWeaponBox()
+    {
+        Debug.Log("Opening weapon box..."); // Diagnostic
+        GameObject weapon = GetWeaponFromList();
+
+        if (weapon != null && HasStateAuthority)
+        {
+            Item item = weapon.GetComponent<Item>();
+
+            if (item != null)
+            {
+                if (_spawnItemPosition == null)
+                    _spawnItemPosition = transform.Find("spawnObjectPos").transform;
+
+                Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity);
+            }
+        }
+    }
+
+    private void openChestAnimation()
+    {
+        Debug.Log("Playing open chest animation..."); // Diagnostic
+        if (Animator.GetBool("isOpen") == false)
+        {
+            Animator.SetBool("isOpen", true);
         }
     }
 }
