@@ -116,7 +116,7 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDGrounded, KCC.IsGrounded);
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
 			Animator.SetBool(_animIDAim, _isAiming);
-			Animator.SetBool(_animIDMoving, _isMoving);
+			//Animator.SetBool(_animIDMoving, _isMoving);
         }
 
         private void Awake()
@@ -405,7 +405,7 @@ namespace Starter.ThirdPersonCharacter
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDAim = Animator.StringToHash("Aim");
-			_animIDMoving = Animator.StringToHash("Moving");
+			//_animIDMoving = Animator.StringToHash("Moving");
             // ############################# teste dodo
             _animIDReload = Animator.StringToHash("ReloadTrigger");
             // ############################# teste dodo
