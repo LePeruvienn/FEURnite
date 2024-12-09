@@ -183,33 +183,49 @@ public class LootBoxMult : NetworkBehaviour
         }
     }
 
-    private void OpenWeaponBox()
-{
-    Debug.Log("Opening weapon box..."); // Diagnostic
-    GameObject weapon = GetWeaponFromList();
-
-    if (weapon != null && HasStateAuthority)
+    // Définition du RPC
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_OpenWeaponBox()
     {
-        Item item = weapon.GetComponent<Item>();
+        Debug.Log("Opening weapon box..."); // Diagnostic
+        GameObject weapon = GetWeaponFromList();
 
-        if (item != null)
+        if (weapon != null)
         {
-            if (_spawnItemPosition == null)
-                _spawnItemPosition = transform.Find("spawnObjectPos").transform;
+            Item item = weapon.GetComponent<Item>();
 
-            // Spawn l'objet sur tous les clients sans donner d'autorité spécifique
-            NetworkObject netObj = weapon.GetComponent<NetworkObject>();
-            if (netObj != null)
+            if (item != null)
             {
-                // Spawner l'objet sans attribuer l'autorité, ce qui permet à tous les clients de le voir
-                Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, null);
+                if (_spawnItemPosition == null)
+                    _spawnItemPosition = transform.Find("spawnObjectPos").transform;
 
-                // L'objet sera visible par tous les clients et ne sera contrôlé par aucun joueur spécifique
-                Debug.Log("Weapon spawned successfully on all clients with no specific authority.");
+                // Spawn l'objet sur tous les clients sans donner d'autorité spécifique
+                NetworkObject netObj = weapon.GetComponent<NetworkObject>();
+                if (netObj != null)
+                {
+                    // Spawn l'objet sur tous les clients
+                    Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, null);
+
+                    // Log pour vérifier que l'objet est spawné
+                    Debug.Log("Weapon spawned successfully on all clients with no specific authority.");
+                }
             }
         }
     }
-}
+
+    private void OpenWeaponBox()
+    {
+        if (HasStateAuthority)
+        {
+            // Appel du RPC pour ouvrir le coffre pour tous les clients
+            RPC_OpenWeaponBox();
+        }
+        else
+        {
+            Debug.LogWarning("Only the player with state authority can open the weapon box.");
+        }
+    }
+
 
 
 
