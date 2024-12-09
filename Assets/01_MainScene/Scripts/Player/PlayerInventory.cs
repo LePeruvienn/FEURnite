@@ -115,13 +115,6 @@ namespace Starter.ThirdPersonCharacter
 			// Si le joueur peut ramasser un objet
 			if (_canPickUp == true && _lastPickableObject != null)
 			{
-				// Vérifier que l'objet n'a pas déjà été ramassé
-				if (_lastPickableObject.activeSelf == false)
-				{
-					Debug.LogWarning("Object already picked up or deactivated.");
-					return;
-				}
-
 				// Handle Loot box
 				LootBox lootBox = _lastPickableObject.GetComponent<LootBox>();
 				if (lootBox != null)
