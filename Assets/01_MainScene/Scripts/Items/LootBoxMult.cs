@@ -182,6 +182,15 @@ public class LootBoxMult : NetworkBehaviour
             }
         }
     }
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_SpawnWeaponOnAllClients(GameObject weaponPrefab, Vector3 spawnPosition)
+    {
+        if (weaponPrefab != null)
+        {
+            Runner.Spawn(weaponPrefab, spawnPosition, Quaternion.identity, null);
+            Debug.Log("Weapon spawned on all clients.");
+        }
+    }
 
     private void OpenWeaponBox()
     {
@@ -197,17 +206,12 @@ public class LootBoxMult : NetworkBehaviour
                 if (_spawnItemPosition == null)
                     _spawnItemPosition = transform.Find("spawnObjectPos").transform;
 
-                // Spawn l'objet sur tous les clients sans autorité spécifique
-                NetworkObject netObj = weapon.GetComponent<NetworkObject>();
-                if (netObj != null)
-                {
-                    // Ici, l'objet est spawné sans autorité. Il sera visible pour tous les clients.
-                    Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, null);
-                    Debug.Log("Weapon spawned successfully on all clients with no specific authority.");
-                }
+                // Appeler le RPC pour spawn l'objet sur tous les clients
+                RPC_SpawnWeaponOnAllClients(weapon, _spawnItemPosition.position);
             }
         }
     }
+
 
 
 
