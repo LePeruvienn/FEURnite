@@ -46,8 +46,6 @@ namespace Starter.ThirdPersonCharacter
 		{
 			base.Spawned();
 
-			if (!Object.HasStateAuthority) return;
-
 			_selectedIndex = 0;
 			_canPickUp = false;
 
