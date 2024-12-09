@@ -51,13 +51,11 @@ namespace Starter.ThirdPersonCharacter
 
 		[Networked]
         private NetworkBool _isJumping { get; set; }
-		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de viser
-		private NetworkBool _isMoving { get; set; }
+        [Networked]
+        private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
+        [Networked]
+        private NetworkBool _isMoving { get; set; }
 		private NetworkBool _isShooting { get; set; }
-        // ############################# teste dodo
-        //private NetworkBool _isReloading { get; set;}
-        private NetworkBool _isIdle { get; set; }
-        // ############################# teste dodo
         private Vector3 _moveVelocity;
 
         // Shoot mecanism
@@ -80,7 +78,6 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDAim;
 		private int _animIDMoving;
 		private int _animIDReload;
-		private int _animIDIdle;
 
         // ############################# teste dodo
 
@@ -90,9 +87,15 @@ namespace Starter.ThirdPersonCharacter
             Animator.SetTrigger(_animIDReload);
         }
 
-        // ############################# teste dodo
+		//[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		//private void RPC_UpdateAimState(bool isAiming)
+		//{
+		//	_isAiming = isAiming;
+		//}
 
-        public override void FixedUpdateNetwork()
+		// ############################# teste dodo
+
+		public override void FixedUpdateNetwork()
 		{
 			ProcessInput(PlayerInput.CurrentInput);
 
@@ -101,14 +104,6 @@ namespace Starter.ThirdPersonCharacter
 				// Stop jumping
 				_isJumping = false;
 			}
-
-            // ############################# teste dodo
-            //if (_isReloading)
-			//{
-			//	Animator.SetTrigger(_animIDReload);
-			//	_isReloading = false; 
-			//}
-            // ############################# teste dodo
 
             PlayerInput.ResetInput();
 		}
@@ -122,9 +117,6 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
 			Animator.SetBool(_animIDAim, _isAiming);
 			Animator.SetBool(_animIDMoving, _isMoving);
-            // ############################# teste dodo
-            Animator.SetBool(_animIDIdle, _isIdle);
-            // ############################# teste dodo
         }
 
         private void Awake()
@@ -156,13 +148,6 @@ namespace Starter.ThirdPersonCharacter
 
 		private void ProcessInput(GameplayInput input)
 		{
-			// ############################# teste dodo
-			// Considérons "Idle" si la vitesse est inférieure à un seuil
-			if (_isIdle != KCC.RealSpeed < 0.1f)
-			{
-				_isIdle = true; // Cela synchronise l'état sur tous les clients
-			}
-			// ############################# teste dodo
 
             float jumpImpulse = 0f;
 
@@ -202,15 +187,30 @@ namespace Starter.ThirdPersonCharacter
 			
 			if (_isAiming) // Si il vise
 			{
-				speed = AimSpeed;
+                // ############################# teste dodo
+                //_isAiming = true;
+                //RPC_UpdateAimState(_isAiming);
+                // ############################# teste dodo
+
+                speed = AimSpeed;
             }
 			else if (input.Sprint) // Si il est en train de courrir
 			{
-				speed = SprintSpeed;
+                // ############################# teste dodo
+                //_isAiming = false;
+                //RPC_UpdateAimState(_isAiming);
+                // ############################# teste dodo
+
+                speed = SprintSpeed;
 			}
 			else // Si il fait aucun des deux, alors il marche
 			{
-				speed = WalkSpeed;
+                // ############################# teste dodo
+                //_isAiming = false;
+                //RPC_UpdateAimState(_isAiming);
+                // ############################# teste dodo
+
+                speed = WalkSpeed;
 			}
 
 			// Multiplie by playerSpeed
@@ -277,12 +277,22 @@ namespace Starter.ThirdPersonCharacter
 
                 if ((_isAiming || angleToTarget > 80f) && KCC.IsGrounded) // if is aiming or moving the camera we activate the Constrainte on the animation to make him aim properly
                 {
+                    // ############################# teste dodo
+                    //_isAiming = true;
+                    //RPC_UpdateAimState(_isAiming);
+                    // ############################# teste dodo
+
                     ActivateConstraintAim();
                     targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
                     multiplicator = 4;
                 }
                 else
                 {
+                    // ############################# teste dodo
+                    //_isAiming = false;
+                    //RPC_UpdateAimState(_isAiming);
+                    // ############################# teste dodo
+
                     DeactivateConstraintAim();
                 }
 				// we alwase need te constraint for movement si le joueur ne mouv pas
@@ -292,6 +302,11 @@ namespace Starter.ThirdPersonCharacter
             {
                 if (_isAiming && KCC.IsGrounded)// si le joueur mouv et qu'il vise on doit activer les constraint sur l'animation 
                 {
+                    // ############################# teste dodo
+                    //_isAiming = true;
+                    //RPC_UpdateAimState(_isAiming);
+                    // ############################# teste dodo
+
                     ActivateConstraintAim();
                     multiAimConstraintArm.weight = 1f;
                     targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
@@ -299,6 +314,11 @@ namespace Starter.ThirdPersonCharacter
                 }
                 else
                 {
+                    // ############################# teste dodo
+                    //_isAiming = false;
+                    //RPC_UpdateAimState(_isAiming);
+                    // ############################# teste dodo
+
                     DeactivateConstraintAim();
                     multiAimConstraintArm.weight = 0f;
                     targetRotation = Quaternion.LookRotation(moveDirection);
@@ -333,9 +353,10 @@ namespace Starter.ThirdPersonCharacter
 			
 			// Check if Player is moving
 			_isMoving = _moveVelocity.magnitude > 0.1f;
+            Debug.Log($"_isAiming: {_isAiming}, _isMoving: {_isMoving}");
 
-			// Get current selected object and type
-			GameObject currentSelection = PlayerInventory.getCurrentSelection ();
+            // Get current selected object and type
+            GameObject currentSelection = PlayerInventory.getCurrentSelection ();
 			
 			// Setting default itemType and currentItem to null 
 			ItemType itemType = ItemType.None;
@@ -362,7 +383,6 @@ namespace Starter.ThirdPersonCharacter
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon) 
 			{
                 // ############################# teste dodo
-                //_isReloading = true;
                 RPC_Reload();
                 // ############################# teste dodo
 
@@ -388,7 +408,6 @@ namespace Starter.ThirdPersonCharacter
 			_animIDMoving = Animator.StringToHash("Moving");
             // ############################# teste dodo
             _animIDReload = Animator.StringToHash("ReloadTrigger");
-            _animIDIdle = Animator.StringToHash("Idle");
             // ############################# teste dodo
         }
 
