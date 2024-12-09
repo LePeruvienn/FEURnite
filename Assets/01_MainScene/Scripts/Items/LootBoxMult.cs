@@ -49,21 +49,34 @@ public class LootBoxMult : NetworkBehaviour
             Debug.Log("Loot box is already open."); // Diagnostic
             return; // Retourne si le coffre est ouvert
         }
-           
-        ChoiceBoxType();
-        RPC_SetStatus(Status.IsOpen);
-        
-        
+
+        // L'autorité est partagée pour tous les clients
+        if (Object.HasStateAuthority)
+        {
+            // Si ce client a l'autorité, ouvre le coffre
+            Debug.Log("StateAuthority confirmed. Opening the box..."); // Diagnostic
+            RPC_SetStatus(Status.IsOpen);
+        }
+        else
+        {
+            // Tous les clients peuvent exécuter ce RPC sans restriction
+            Debug.Log("Requesting to open loot box from any client."); // Diagnostic
+            RPC_SetStatus(Status.IsOpen);
+        }
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
     private void RPC_SetStatus(Status newStatus)
     {
         Debug.Log($"Setting loot box status to {newStatus}..."); // Diagnostic
         status = newStatus;
+
+        // Si le coffre est ouvert, lance l'animation
         if (newStatus == Status.IsOpen)
         {
             openChestAnimation();
+            ChoiceBoxType(); // Ouvre le bon type de coffre en fonction de sa configuration
         }
     }
 
@@ -184,10 +197,22 @@ public class LootBoxMult : NetworkBehaviour
                 if (_spawnItemPosition == null)
                     _spawnItemPosition = transform.Find("spawnObjectPos").transform;
 
-                Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity);
+                // Spawn l'objet sur tous les clients et assure-toi qu'il soit visible par tous
+                NetworkObject netObj = weapon.GetComponent<NetworkObject>();
+                if (netObj != null)
+                {
+                    // Spawn l'objet sur tous les clients et prend la gestion du réseau
+                    Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, (runner, spawnedObject) =>
+                    {
+                        // Si l'objet a besoin de récupérer des informations supplémentaires
+                        // comme un propriétaire ou d'autres configurations, tu peux les ajouter ici.
+                        // Ceci garantira que l'arme est visible pour tous les clients.
+                    });
+                }
             }
         }
     }
+
 
     private void openChestAnimation()
     {
