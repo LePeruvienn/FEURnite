@@ -35,15 +35,33 @@ namespace Starter.ThirdPersonCharacter
         public int chargerAmmoAmount; // Bullets per charger
         public BulletType bulletType; // Type of bullet the weapon uses
 
-        [Header("Weapon Style")]
+        [Header("Weapon style")]
         public ParticleSystem muzzleFalshParticles;
 
         // Privates
         private Animator _playerAnimator;
-        [Networked] private WeaponState _currentWeaponState { get; set; }
+        private WeaponState _currentWeaponState;
         private int _currentAmmoAmount;
-        [SerializeField] private Transform _spawnBulletPosition; // Regular Transform for spawn position
+        [SerializeField] private Transform _spawnBulletPosition; // Where the bullet is gonna spawn
         private float _nextFireTime = 0f;
+
+        [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
+
+        // Run when program starts
+        public override void Spawned()
+        {
+            // Set current ammo to start Ammo amount
+            _currentAmmoAmount = startAmmoAmount;
+            // Set weapon state to ready
+            _currentWeaponState = WeaponState.Ready;
+           Debug.LogWarning("ID received : " + Object.Id+" position arme :"+ Object.transform.position+" position spawn "+ _spawnBulletPosition.position);
+            if (_runner == null)
+            {
+                _runner = FindObjectOfType<NetworkRunner>();
+                Debug.Log("NetworkRunner n'est pas trouv� dans la sc�ne !");
+                
+            }
+        }
 
         public override ItemType getType()
         {
@@ -66,9 +84,17 @@ namespace Starter.ThirdPersonCharacter
                 _nextFireTime = Time.time + shootDelay;
             }
         }
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public void RpcShoot(Vector3 spawnPos, Vector3 aimDir)
+        {
+            // Spawn bullet sur le serveur
+            _runner.Spawn(bulletPrefab, spawnPos, Quaternion.LookRotation(aimDir, Vector3.up),Runner.LocalPlayer);
+        }
+
 
         private void shoot()
         {
+            Debug.LogWarning("--Shoot ID received : " + Object.Id + " position arme :" + Object.transform.position + " position spawn " + _spawnBulletPosition.position);
             // Setting up raycast variables
             Vector3 mouseWorldPosition = Vector3.zero; // Default vector
             Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // Center of the screen
@@ -88,30 +114,20 @@ namespace Starter.ThirdPersonCharacter
 
             // Direction to shoot the bullet
             Vector3 aimDir = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
+            try
+            {
 
-			// Log position for debugging
-			Debug.Log("Local Spawn Position: " + _spawnBulletPosition.position);
+                Debug.LogWarning(_spawnBulletPosition);
+                // Spawn bullet on the network
+                RpcShoot(_spawnBulletPosition.position, aimDir);
 
-			// Call RPC to spawn bullet at this position across all clients
-			if (HasStateAuthority)
-			{
-				RPC_shoot(_spawnBulletPosition.position, aimDir); // Pass the spawn position and aim direction
-			}
-
-			// Instantiate muzzle flash locally (only on the client who fired)
-			Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-        }
-
-        // RPC for spawning the bullet at the correct position on all clients
-        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-        public void RPC_shoot(Vector3 spawnPosition, Vector3 aimDirection)
-        {
-            // Log received position for debugging
-            Debug.Log("RPC Spawn Bullet Position: " + spawnPosition);
-
-            // Spawn the bullet at the correct position for all clients
-            // Ensure the bulletPrefab has a NetworkObject component
-            Runner.Spawn(bulletPrefab, spawnPosition, Quaternion.LookRotation(aimDirection, Vector3.up));
+                // Instantiate muzzle flash (local effect)
+                Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Erreur lors du spawn : {e.Message}");
+            }
         }
 
         public void reload()
