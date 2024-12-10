@@ -222,17 +222,21 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: a596261d7208d0f4cb9edba4a81ebf00, type: 3}
   itemName: Glock
   stackAmount: 0
-  rarity: 3
+  rarity: 1
   bulletPrefab: {fileID: 9186155486514058272, guid: 1fcaa2b737f23f14d982a75099502f9b,
     type: 3}
   shootDelay: 0.3
+  stabDelay: 0
   damage: 10
   reloadCooldown: 1
   startAmmoAmount: 30
+  bulletSize: 0
   chargerAmmoAmount: 30
   bulletType: 3
+  weight: {fileID: 0}
   muzzleFalshParticles: {fileID: 5437841274968188629, guid: 7f094c6fe33d4e140bca0ee63dae72f2,
     type: 3}
+  _spawnBulletPosition: {fileID: 0}
 --- !u!54 &-6237050351909885654
 Rigidbody:
   m_ObjectHideFlags: 0

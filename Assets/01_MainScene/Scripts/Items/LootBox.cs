@@ -33,8 +33,8 @@ public class LootBox : NetworkBehaviour
     public BoxType type;
     public Animator Animator;
 
-    public static GameObject[] ListWeapon; // Liste des armes
-    public static GameObject[] ListItem;   // Liste des items
+    public GameObject[] ListWeapon; // Liste des armes
+    public GameObject[] ListItem;   // Liste des items
     private NetworkObject spawnedWeapon; // Référence pour l'arme spawnée
 
     private Transform _spawnItemPosition;
