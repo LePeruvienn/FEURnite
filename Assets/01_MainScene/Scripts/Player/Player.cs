@@ -58,7 +58,9 @@ namespace Starter.ThirdPersonCharacter
     private NetworkBool _isShooting { get; set; }
     private Vector3 _moveVelocity;
 
-    public bool DebugIsDead = false;
+	[Networked]
+    public bool DebugIsDead {get; set;}
+
     private GameManager gameManager;
     private CameraSwitcher cameraSwitcher;
 
@@ -98,6 +100,12 @@ namespace Starter.ThirdPersonCharacter
 		//}
 
 		// ############################# teste dodo
+
+		public override void Spawned() {
+
+			base.Spawned ();
+			DebugIsDead = false;
+		}
 
 		public override void FixedUpdateNetwork()
 		{
@@ -475,6 +483,10 @@ namespace Starter.ThirdPersonCharacter
         {
             if (DebugIsDead)
             {
+				Debug.Log ("DEBUG IS DEAD ");
+				if (!Object.HasStateAuthority) return;
+				Debug.Log ("PASSE !");
+
 				Debug.Log ("DIE PLAYER");
 				Debug.Log (PlayerModel.getCurrentTotalHealth());
 				Debug.Log (gameObject);
