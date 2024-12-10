@@ -39,7 +39,7 @@ namespace Starter.ThirdPersonCharacter
 				if (pModel != null)
 				{
 					// Take damage to player
-					pModel.RPC_takeDamage(damage);
+					pModel.takeDamage(damage);
 					vfxToSpawn = vfxHitRed;
 				}
 			}
