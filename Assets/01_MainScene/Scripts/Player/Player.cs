@@ -475,6 +475,9 @@ namespace Starter.ThirdPersonCharacter
         {
             if (DebugIsDead)
             {
+				Debug.Log ("DIE PLAYER");
+				Debug.Log (gameObject);
+
 				PlayerInventory.enabled = false;
 
                 DebugIsDead = false;
@@ -483,11 +486,10 @@ namespace Starter.ThirdPersonCharacter
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
                 // Passage du joueur en mode spectateur
-                cameraSwitcher.ToggleFreecam();
+                //cameraSwitcher.ToggleFreecam();
 
                 // Fait disparaître le corps du joueur
-                Destroy(gameObject);
-
+                //Destroy(gameObject);
             }
         }
     }
