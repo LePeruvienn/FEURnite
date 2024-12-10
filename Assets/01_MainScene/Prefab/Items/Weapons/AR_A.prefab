@@ -160,7 +160,8 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 3690424227665133904}
 --- !u!114 &3690424227665133904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,13 +181,17 @@ MonoBehaviour:
   bulletPrefab: {fileID: 9186155486514058272, guid: 16a67764509767b45960f963c3c6c7aa,
     type: 3}
   shootDelay: 0.1
+  stabDelay: 0
   damage: 10
   reloadCooldown: 1
   startAmmoAmount: 30
+  bulletSize: 0
   chargerAmmoAmount: 30
   bulletType: 2
+  weight: {fileID: 0}
   muzzleFalshParticles: {fileID: 2292685289689191204, guid: 42c0e6229edc0354793b44e307a92a92,
     type: 3}
+  _spawnBulletPosition: {fileID: 0}
 --- !u!54 &2426705870940078735
 Rigidbody:
   m_ObjectHideFlags: 0

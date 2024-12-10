@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4299596338041760186}
   - component: {fileID: 6382879003363125270}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: BulletAR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,10 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf3c36a64a770945a28ce53d6395fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfxHitRed: {fileID: 8167189277672459635, guid: ae4e8b09e9eddc44c9c4349e517e7014,
+  _vfxHitRed: {fileID: 8167189277672459635, guid: ae4e8b09e9eddc44c9c4349e517e7014,
     type: 3}
-  vfxHitBlack: {fileID: 8167189277672459635, guid: dbf4b0b8ae9003e438fac8e2f204551e,
+  _vfxHitBlack: {fileID: 8167189277672459635, guid: dbf4b0b8ae9003e438fac8e2f204551e,
     type: 3}
+  damage: 0
 --- !u!96 &6382879003363125270
 TrailRenderer:
   serializedVersion: 3

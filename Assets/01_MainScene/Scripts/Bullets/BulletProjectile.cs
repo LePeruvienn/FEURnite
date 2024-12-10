@@ -1,39 +1,68 @@
-using System.Collections;
-using System.Collections.Generic;
+using Fusion;
 using UnityEngine;
 
-public class BulletProjectile : MonoBehaviour
+namespace Starter.ThirdPersonCharacter
 {
-    private Rigidbody bulletRigidbody;
-    [SerializeField] private Transform vfxHitRed;
-    [SerializeField] private Transform vfxHitBlack;
+	public class BulletProjectile : NetworkBehaviour
+	{
+		private Rigidbody bulletRigidbody;
+		[SerializeField] private GameObject vfxHitRed;
+		[SerializeField] private GameObject vfxHitBlack;
 
-    private void Awake()
-    {
-        bulletRigidbody = GetComponent<Rigidbody>();
-    }
+		public int damage;
 
+		private void Awake()
+		{
+			bulletRigidbody = GetComponent<Rigidbody>();
+		}
 
-    // Update is called once per frame
-    private void Update()
-    {
-        float speed = 50f;
-        bulletRigidbody.velocity = transform.forward * speed;
-    }
+		public override void FixedUpdateNetwork()
+		{
+			if (HasStateAuthority) // S'assurer que seul l'autorit� g�re la logique de mouvement
+			{
+				float speed = 50f;
+				bulletRigidbody.velocity = transform.forward * speed;
+			}
+		}
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<BulletTarget>() != null) 
-        { 
-            //hit target
-            Instantiate(vfxHitRed, transform.position, Quaternion.identity);
-        }
-        else 
-        {
-            //hit wall
-            Instantiate(vfxHitBlack, transform.position, Quaternion.identity);
-        }
+		private void OnTriggerEnter(Collider other)
+		{
+			if (!HasStateAuthority) return; // Assurez-vous que seul l'autorité gère les collisions
 
-        Destroy(gameObject);
-    }
+			GameObject vfxToSpawn = null;
+			Vector3 spawnPosition = transform.position; // Position par défaut (avant la correction)
+			
+			if (other.GetComponentInParent<BulletTarget>() != null)
+			{
+				// Hit targetPlayer
+				PlayerModel pModel = other.GetComponentInParent<PlayerModel>();
+				if (pModel != null)
+				{
+					// Take damage to player
+					pModel.takeDamage(damage);
+					vfxToSpawn = vfxHitRed;
+				}
+			}
+			else
+			{
+				// Hit wall
+				vfxToSpawn = vfxHitBlack;
+			}
+
+			if (vfxToSpawn != null)
+			{
+				// Si une collision a eu lieu avec un objet, ajustez la position de spawn des particules
+				if (other.TryGetComponent(out Collider colliderHit))
+				{
+					spawnPosition = colliderHit.ClosestPointOnBounds(transform.position); // Utilisez la position d'impact réelle
+				}
+
+				// Spawn particle effect using Runner.Spawn to sync it across all clients
+				Runner.Spawn(vfxToSpawn, spawnPosition, Quaternion.identity);
+			}
+
+			// Despawn bullet
+			Runner.Despawn(Object); // Destroy the bullet NetworkObject via Fusion
+		}
+	}
 }

@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
 namespace Starter.ThirdPersonCharacter
 {
-	public class PlayerModel : MonoBehaviour
+	public class PlayerModel : NetworkBehaviour
 	{
+        [Header("Script bar")]
+        private Bar HealthBar;
+        private Bar ShieldBar;
+        private Shield SuperShieldBar;
 
         [Header("Player's Health")]
 		public int startHealth;
@@ -20,26 +25,38 @@ namespace Starter.ThirdPersonCharacter
 		public int maxSuperShield;
 		public int superShieldRegenCooldown;
 		public int superShieldRegenAmount;
-
+        public float lastTimeHeat;
 
         [Header("Others")]
 		public float speed;
 		public float jumpPower;
 
 		// privates
-		private int _health;
-		private int _shield;
-		private int _superShield;
+		[Networked] private int _health {get; set;}
+		[Networked] private int _shield {get; set;}
+		[Networked] private int _superShield {get; set;}
 
-		public void Start () 
+		public override void Spawned () 
 		{
-			// Setting start values
-			_health = startHealth;
+			base.Spawned ();
+            GameObject barHealt = GameObject.FindGameObjectWithTag("healBar");
+			HealthBar = barHealt.GetComponent<Bar>();
+
+            GameObject barShield = GameObject.FindGameObjectWithTag("ShieldBar");
+            ShieldBar = barShield.GetComponent<Bar>();
+
+            GameObject barSuperShield = GameObject.FindGameObjectWithTag("superShield");
+            SuperShieldBar = barSuperShield.GetComponent<Shield>();
+
+            // Setting start values
+            _health = startHealth;
 			_shield = startShield;
 			_superShield = startSuperShield;
-
-			// Check if speed and jump values are negative
-			if (speed < 0f)	speed = 1f;
+            lastTimeHeat = Time.time;
+            HealthBar.SetBar(_health, maxHealth);
+            ShieldBar.SetBar(_shield, maxShield);
+            // Check if speed and jump values are negative
+            if (speed < 0f)	speed = 1f;
 			if (jumpPower < 0f)	jumpPower = 1f;
 		}
 
@@ -50,6 +67,7 @@ namespace Starter.ThirdPersonCharacter
 
 		public void takeDamage (int amount) 
 		{
+			Debug.Log ("PLAYER TAKE DAMAGE : " + amount);
 			// Initialisez leftAmount
 			int leftAmount = amount;
 
@@ -60,12 +78,14 @@ namespace Starter.ThirdPersonCharacter
 				_superShield -= leftAmount;
 
 				// If supershield can all the damage we stop here
-				if (_superShield > 0)
+				if (_superShield > 0) { 
+                    SuperShieldBar.SetSuperShield(_superShield, maxShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
 					return;
+                }
 
-				// If supershield cant talke all the damage, 
-				// we reset damage left
-				leftAmount = _superShield  * -1;
+                // If supershield cant talke all the damage, 
+                // we reset damage left
+                leftAmount = _superShield  * -1;
 				// We set supershield to 0
 				_superShield = 0;
 			}
@@ -77,7 +97,10 @@ namespace Starter.ThirdPersonCharacter
 
 				// If shield can all the damage we stop here
 				if (_shield > 0)
+				{
+					ShieldBar.SetBar(_shield, maxShield);//set la barre de bouclier en fonction du max de bouclier et du bouclier
 					return;
+				}
 
 				// If shield cant talke all the damage, 
 				// we reset damage left
@@ -90,19 +113,25 @@ namespace Starter.ThirdPersonCharacter
 			_health -= leftAmount;
 
 			// If player health is below 0 we kill him !
-			if (_health < 0)
+			if (_health <= 0)
 			{
 				// Make player die
 				die ();
 				// Set health to 0
 				_health = 0;
 			}
-		}
+            HealthBar.SetBar(_health, maxHealth);//set la barre de vie en fonction du max de pv et de la vie actuelle
+            ShieldBar.SetBar(_shield, maxShield);//set la barre de bouclier en fonction du max de bouclier et du bouclier
+            SuperShieldBar.SetSuperShield(_superShield, maxSuperShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
 
-		public void die ()
+        }
+
+        public void die ()
 		{
-			// TODO
-			Debug.Log ("PLAYER IS DEAD !!");
+			Debug.LogWarning ("DIE !!!");
+			
+			Player player = GetComponent<Player> ();
+			player.DebugIsDead = true;
 		}
 
 		public void heal (int amount) 
@@ -134,7 +163,14 @@ namespace Starter.ThirdPersonCharacter
 
 		public void handleSuperShield ()
 		{
-			// TODO
-		}
-	}
+            //regarde si on peut regenere le surbouclier
+            if (_superShield < maxSuperShield && Time.time > lastTimeHeat + superShieldRegenCooldown)
+            {
+                _superShield += (int)(superShieldRegenAmount * Time.deltaTime);
+                SuperShieldBar.SetSuperShield(_superShield, maxSuperShield);
+            }
+
+        }
+
+    }
 }

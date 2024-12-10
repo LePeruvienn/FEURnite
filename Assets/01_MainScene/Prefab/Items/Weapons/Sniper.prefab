@@ -87,10 +87,11 @@ MonoBehaviour:
   rarity: 3
   bulletPrefab: {fileID: 9186155486514058272, guid: 16a67764509767b45960f963c3c6c7aa,
     type: 3}
-  shootDelay: 0.1
+  shootDelay: 3
   damage: 10
   reloadCooldown: 1
   startAmmoAmount: 30
+  bulletSize: 0
   chargerAmmoAmount: 30
   bulletType: 1
   muzzleFalshParticles: {fileID: 2292685289689191204, guid: 42c0e6229edc0354793b44e307a92a92,
