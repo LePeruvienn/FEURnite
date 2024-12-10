@@ -4,7 +4,7 @@ using UnityEngine;
 public class TrainMouvement : MonoBehaviour
 {
     public Transform isleCenter; // Assign the isle's center transform in the Inspector
-    public float rotationSpeed = 50f; // Speed of rotation
+    public float rotationSpeed = 10f; // Speed of rotation
 
     void Update()
     {
