@@ -325,7 +325,10 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 2832144883721897763}
+  - {fileID: 795679416851519094}
   - {fileID: 2550293436682645114}
+  - {fileID: -3433463954328827346}
+  - {fileID: 1274606425490665607}
 --- !u!114 &2832144883721897763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,6 +376,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   LandingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
   FootstepAudioVolume: 0.3
+  DebugIsDead: 0
   aimColliderLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -480,6 +484,8 @@ MonoBehaviour:
   - {fileID: 1045324172950302930, guid: d72afa9795b8d114594220f9f2beba1c, type: 3}
   - {fileID: 6561465501170253921, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d, type: 3}
   pickUpRange: 10
+  _dropItemOrigin: {fileID: 0}
+  _origin: {fileID: 0}
 --- !u!54 &426045580450923874
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -915,9 +921,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51b1b1cbf9995841a0bff562365dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimColliderLayerMask:
+  _aimColliderLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
 --- !u!1 &8746885593111935576
 GameObject:
   m_ObjectHideFlags: 0
