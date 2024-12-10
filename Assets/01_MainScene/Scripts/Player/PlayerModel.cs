@@ -105,8 +105,11 @@ namespace Starter.ThirdPersonCharacter
 
 		public void die ()
 		{
+			Debug.LogWarning ("DIE !!!");
+			/*
 			Player player = GetComponent<Player> ();
 			player.DebugIsDead = true;
+			*/
 		}
 
 		public void heal (int amount) 
