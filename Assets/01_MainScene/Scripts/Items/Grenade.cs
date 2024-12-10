@@ -121,9 +121,9 @@ namespace Starter.ThirdPersonCharacter
                     Debug.Log("DISTANCE: " + distance);
                     Debug.Log("PV AVANT: " + pModel.getCurrentTotalHealth());
                     if (distance <= maxDamageDistance)
-                        pModel.takeDamage(maxDamage);
+                        pModel.RPC_takeDamage(maxDamage);
                     else if (distance <= minDamageDistance)
-                        pModel.takeDamage(minDamage);
+                        pModel.RPC_takeDamage(minDamage);
                     Debug.Log("PV APRES: " + pModel.getCurrentTotalHealth());
                     Destroy(gameObject);
                 }
