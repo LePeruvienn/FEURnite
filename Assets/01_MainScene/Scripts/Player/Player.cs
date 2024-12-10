@@ -483,15 +483,7 @@ namespace Starter.ThirdPersonCharacter
         {
             if (DebugIsDead)
             {
-				Debug.Log ("DEBUG IS DEAD ");
-				if (!Object.HasStateAuthority) return;
-				Debug.Log ("PASSE !");
-
-				Debug.Log ("DIE PLAYER");
-				Debug.Log (PlayerModel.getCurrentTotalHealth());
-				Debug.Log (gameObject);
-
-				PlayerInventory.enabled = false;
+				// PlayerInventory.enabled = false;
 
                 DebugIsDead = false;
 
