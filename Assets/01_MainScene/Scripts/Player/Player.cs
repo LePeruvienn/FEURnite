@@ -476,6 +476,7 @@ namespace Starter.ThirdPersonCharacter
             if (DebugIsDead)
             {
 				Debug.Log ("DIE PLAYER");
+				Debug.Log (PlayerModel.getCurrentTotalHealth());
 				Debug.Log (gameObject);
 
 				PlayerInventory.enabled = false;
