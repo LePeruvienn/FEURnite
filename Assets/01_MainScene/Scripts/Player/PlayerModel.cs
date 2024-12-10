@@ -101,9 +101,8 @@ namespace Starter.ThirdPersonCharacter
 
 		public void die ()
 		{
-			// TODO
-			Debug.Log ("PLAYER IS DEAD !!");
-			Destroy(gameObject);
+			Player player = GetComponent<Player> ();
+			player.DebugIsDead = true;
 		}
 
 		public void heal (int amount) 
