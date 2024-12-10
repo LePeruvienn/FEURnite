@@ -32,13 +32,10 @@ namespace Starter.ThirdPersonCharacter
 			GameObject vfxToSpawn = null;
 			Vector3 spawnPosition = transform.position; // Position par défaut (avant la correction)
 			
-			if (other.GetComponent<BulletTarget>() != null)
+			if (other.GetComponentInParent<BulletTarget>() != null)
 			{
-				
-				Debug.LogWarning ("BULLET TARGET !!");
-
 				// Hit targetPlayer
-				PlayerModel pModel = other.GetComponent<PlayerModel>();
+				PlayerModel pModel = other.GetComponentInParent<PlayerModel>();
 				if (pModel != null)
 				{
 					Debug.Log("PV AVANT: " + pModel.getCurrentTotalHealth());
