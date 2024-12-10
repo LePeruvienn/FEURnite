@@ -109,6 +109,11 @@ PrefabInstance:
       propertyPath: NetworkedBehaviours.Array.data[3]
       value: 
       objectReference: {fileID: 8788485239519501799}
+    - target: {fileID: 4712090601783886248, guid: 25cd03444870aef23817c5591841fc4f,
+        type: 3}
+      propertyPath: _aimColliderLayerMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
