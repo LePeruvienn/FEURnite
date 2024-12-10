@@ -63,9 +63,7 @@ public class PlayerBar : MonoBehaviour
     {
         //regarde si on peut regenere le surbouclier
         if (_superShield< _maxSuperShield && Time.time > lastTimeHeat+wait)
-        {
             UpdateSuperShield();
-        }
         //Quand il recoit un coup
         if (debugTakeDamage)
         {

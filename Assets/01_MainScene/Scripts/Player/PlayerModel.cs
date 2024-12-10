@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
 namespace Starter.ThirdPersonCharacter
 {
-	public class PlayerModel : MonoBehaviour
+	public class PlayerModel : NetworkBehaviour
 	{
 
         [Header("Player's Health")]
@@ -27,12 +28,14 @@ namespace Starter.ThirdPersonCharacter
 		public float jumpPower;
 
 		// privates
-		private int _health;
-		private int _shield;
-		private int _superShield;
+		[Networked] private int _health {get; set;}
+		[Networked] private int _shield {get; set;}
+		[Networked] private int _superShield {get; set;}
 
-		public void Start () 
+		public override void Spawned () 
 		{
+			base.Spawned ();
+
 			// Setting start values
 			_health = startHealth;
 			_shield = startShield;
@@ -50,6 +53,7 @@ namespace Starter.ThirdPersonCharacter
 
 		public void takeDamage (int amount) 
 		{
+			Debug.Log ("PLAYER TAKE DAMAGE : " + amount);
 			// Initialisez leftAmount
 			int leftAmount = amount;
 
@@ -90,7 +94,7 @@ namespace Starter.ThirdPersonCharacter
 			_health -= leftAmount;
 
 			// If player health is below 0 we kill him !
-			if (_health < 0)
+			if (_health <= 0)
 			{
 				// Make player die
 				die ();
@@ -101,8 +105,10 @@ namespace Starter.ThirdPersonCharacter
 
 		public void die ()
 		{
-			// TODO
-			Debug.Log ("PLAYER IS DEAD !!");
+			Debug.LogWarning ("DIE !!!");
+			
+			Player player = GetComponent<Player> ();
+			player.DebugIsDead = true;
 		}
 
 		public void heal (int amount) 

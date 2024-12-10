@@ -43,10 +43,8 @@ public class Bar : MonoBehaviour
     {
         //Calculer le pourcentage de vie 
         float healthPercent = health / maxHealth;
-        if (health < 0) 
-        { 
+        if (health < 0)
             health = 0;
-        }
         //Modifier les valeur des chmp de texte
         txtBar.text = string.Format("{0:#0}", health);
         txtMaxBar.text = string.Format("/ {0:#0}", maxHealth);
@@ -54,9 +52,7 @@ public class Bar : MonoBehaviour
         _BarTransform.sizeDelta = new Vector2(healthPercent * _barWidthMax, _barHeightMax);
         //Demare la coroutine de offset si elle n'existe pas déja
         if (_coroutineBarSet != null)
-        {
             StopCoroutine(_coroutineBarSet);
-        }
         _coroutineBarSet = StartCoroutine(SetOffset(healthPercent));
     }
 

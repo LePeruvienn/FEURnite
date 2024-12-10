@@ -85,16 +85,16 @@ MonoBehaviour:
   itemName: Knife
   stackAmount: 0
   rarity: 3
-  bulletPrefab: {fileID: 9186155486514058272, guid: 16a67764509767b45960f963c3c6c7aa,
-    type: 3}
+  bulletPrefab: {fileID: 0}
   shootDelay: 0.1
+  stabDelay: 0.5
   damage: 10
   reloadCooldown: 1
   startAmmoAmount: 30
+  bulletSize: 0
   chargerAmmoAmount: 30
   bulletType: 2
-  muzzleFalshParticles: {fileID: 2292685289689191204, guid: 42c0e6229edc0354793b44e307a92a92,
-    type: 3}
+  muzzleFalshParticles: {fileID: 0}
 --- !u!54 &-988739267349499966
 Rigidbody:
   m_ObjectHideFlags: 0
