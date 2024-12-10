@@ -27,7 +27,7 @@ namespace Starter.ThirdPersonCharacter
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (HasStateAuthority) return; // Assurez-vous que seul l'autorité gère les collisions
+			if (!HasStateAuthority) return; // Assurez-vous que seul l'autorité gère les collisions
 
 			GameObject vfxToSpawn = null;
 			Vector3 spawnPosition = transform.position; // Position par défaut (avant la correction)
@@ -39,7 +39,7 @@ namespace Starter.ThirdPersonCharacter
 				if (pModel != null)
 				{
 					// Take damage to player
-					pModel.takeDamage(damage);
+					pModel.RPC_takeDamage(damage);
 					vfxToSpawn = vfxHitRed;
 				}
 			}

@@ -51,7 +51,8 @@ namespace Starter.ThirdPersonCharacter
 			return _health + _shield + _superShield;
 		}
 
-		public void takeDamage (int amount) 
+		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		public void RPC_takeDamage (int amount) 
 		{
 			Debug.Log ("PLAYER TAKE DAMAGE : " + amount);
 			// Initialisez leftAmount
@@ -105,8 +106,8 @@ namespace Starter.ThirdPersonCharacter
 
 		public void die ()
 		{
-			Debug.LogWarning ("DIE !!!");
-			
+			if (!Object.HasStateAuthority) return;
+
 			Player player = GetComponent<Player> ();
 			player.DebugIsDead = true;
 		}
