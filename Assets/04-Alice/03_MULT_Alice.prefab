@@ -97,18 +97,18 @@ PrefabInstance:
     - target: {fileID: 4242697713625226504, guid: 25cd03444870aef23817c5591841fc4f,
         type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4242697713625226504, guid: 25cd03444870aef23817c5591841fc4f,
         type: 3}
       propertyPath: NetworkedBehaviours.Array.data[2]
       value: 
-      objectReference: {fileID: 4044045208856340302}
+      objectReference: {fileID: 5414102282044523290}
     - target: {fileID: 4242697713625226504, guid: 25cd03444870aef23817c5591841fc4f,
         type: 3}
       propertyPath: NetworkedBehaviours.Array.data[3]
       value: 
-      objectReference: {fileID: 8788485239519501799}
+      objectReference: {fileID: 4044045208856340302}
     - target: {fileID: 4712090601783886248, guid: 25cd03444870aef23817c5591841fc4f,
         type: 3}
       propertyPath: _aimColliderLayerMask.m_Bits
@@ -157,6 +157,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c61ccabbf518f204aa118b23d8a6db7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5414102282044523290 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8336317923844857685, guid: 25cd03444870aef23817c5591841fc4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4076406017269423183}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1869825851, guid: 977dbcf975465374990f471e1497f563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8788485239519501799 stripped

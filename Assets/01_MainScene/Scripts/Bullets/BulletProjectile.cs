@@ -38,10 +38,9 @@ namespace Starter.ThirdPersonCharacter
 				PlayerModel pModel = other.GetComponentInParent<PlayerModel>();
 				if (pModel != null)
 				{
-					Debug.Log("PV AVANT: " + pModel.getCurrentTotalHealth());
+					// Take damage to player
 					pModel.takeDamage(damage);
 					vfxToSpawn = vfxHitRed;
-					Debug.Log("PV APRES: " + pModel.getCurrentTotalHealth());
 				}
 			}
 			else
