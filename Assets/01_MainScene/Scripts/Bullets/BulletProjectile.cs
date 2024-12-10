@@ -34,6 +34,9 @@ namespace Starter.ThirdPersonCharacter
 			
 			if (other.GetComponent<BulletTarget>() != null)
 			{
+				
+				Debug.LogWarning ("BULLET TARGET !!");
+
 				// Hit targetPlayer
 				PlayerModel pModel = other.GetComponent<PlayerModel>();
 				if (pModel != null)
