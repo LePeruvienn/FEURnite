@@ -11,7 +11,7 @@ public class Countdown : MonoBehaviour
 
     void Start()
     {
-        InitializeTimer(2f);
+        InitializeTimer(1800f);
     }
 
     void Update()
