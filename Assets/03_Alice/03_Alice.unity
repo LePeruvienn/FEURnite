@@ -5921,7 +5921,7 @@ GameObject:
   m_Layer: 5
   m_Name: CnvSuperShield
   m_TagString: superShield
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -20733,6 +20733,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1029178573890233617, guid: 8ef8c98852a6f494c97ab4073099c9a6,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9021
+      objectReference: {fileID: 0}
+    - target: {fileID: 1029178573890233617, guid: 8ef8c98852a6f494c97ab4073099c9a6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1029178573890233617, guid: 8ef8c98852a6f494c97ab4073099c9a6,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -25252,7 +25262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e45c75d36d430c9e61c48d32f909d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 176584572663071047, guid: bb1fde992e681c54b8f3c0383e39d27a,
+  PlayerPrefab: {fileID: 4558083280789407039, guid: 8fcb2c6325d4e2947b78a1707172f33a,
     type: 3}
   CorpsePrefab: {fileID: -8442461170091520878, guid: 76259039dd823d542b4df5209f3cc8f1,
     type: 3}

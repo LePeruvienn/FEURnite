@@ -12,6 +12,8 @@ namespace Starter.ThirdPersonCharacter
         private Bar ShieldBar;
         private Shield SuperShieldBar;
 
+
+
         [Header("Player's Health")]
 		public int startHealth;
 		public int maxHealth;
@@ -39,25 +41,29 @@ namespace Starter.ThirdPersonCharacter
 		public override void Spawned () 
 		{
 			base.Spawned ();
-            GameObject barHealt = GameObject.FindGameObjectWithTag("healBar");
-			HealthBar = barHealt.GetComponent<Bar>();
+            if (HasStateAuthority == true)
+            {
+                GameObject barHealt = GameObject.FindGameObjectWithTag("healBar");
+                GameObject barSuperShield = GameObject.FindGameObjectWithTag("superShield");
+                GameObject barShield = GameObject.FindGameObjectWithTag("ShieldBar");
+                HealthBar = barHealt.GetComponent<Bar>();
+                ShieldBar = barShield.GetComponent<Bar>();
+                SuperShieldBar = barSuperShield.GetComponent<Shield>();
 
-            GameObject barShield = GameObject.FindGameObjectWithTag("ShieldBar");
-            ShieldBar = barShield.GetComponent<Bar>();
+                // Setting start values
+                _health = startHealth;
+                _shield = startShield;
+                _superShield = startSuperShield;
+                lastTimeHeat = Time.time;
+                HealthBar.SetBar(_health, maxHealth);
+                ShieldBar.SetBar(_shield, maxShield);
+                // Check if speed and jump values are negative
+                if (speed < 0f) speed = 1f;
+                if (jumpPower < 0f) jumpPower = 1f;
+            }
+				
 
-            GameObject barSuperShield = GameObject.FindGameObjectWithTag("superShield");
-            SuperShieldBar = barSuperShield.GetComponent<Shield>();
-
-            // Setting start values
-            _health = startHealth;
-			_shield = startShield;
-			_superShield = startSuperShield;
-            lastTimeHeat = Time.time;
-            HealthBar.SetBar(_health, maxHealth);
-            ShieldBar.SetBar(_shield, maxShield);
-            // Check if speed and jump values are negative
-            if (speed < 0f)	speed = 1f;
-			if (jumpPower < 0f)	jumpPower = 1f;
+            
 		}
 
 		public int getCurrentTotalHealth () 
