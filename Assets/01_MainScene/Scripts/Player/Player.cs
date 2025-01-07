@@ -481,7 +481,7 @@ namespace Starter.ThirdPersonCharacter
 
         private void Update()
         {
-            if (DebugIsDead)
+            if (DebugIsDead || transform.position[1] <= -30)
             {
 				// PlayerInventory.enabled = false;
 
@@ -494,7 +494,7 @@ namespace Starter.ThirdPersonCharacter
                 //cameraSwitcher.ToggleFreecam();
 
                 // Fait disparaître le corps du joueur
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
         }
     }
