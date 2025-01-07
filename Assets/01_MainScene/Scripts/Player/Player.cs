@@ -491,10 +491,10 @@ namespace Starter.ThirdPersonCharacter
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
                 // Passage du joueur en mode spectateur
-                //cameraSwitcher.ToggleFreecam();
+                cameraSwitcher.ToggleFreecam();
 
                 // Fait disparaître le corps du joueur
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
         }
     }
