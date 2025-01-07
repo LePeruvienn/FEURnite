@@ -12,6 +12,8 @@ namespace Starter.ThirdPersonCharacter
         private Bar ShieldBar;
         private Shield SuperShieldBar;
 
+
+
         [Header("Player's Health")]
 		public int startHealth;
 		public int maxHealth;
@@ -38,26 +40,32 @@ namespace Starter.ThirdPersonCharacter
 
 		public override void Spawned () 
 		{
-			base.Spawned ();
-            GameObject barHealt = GameObject.FindGameObjectWithTag("healBar");
-			HealthBar = barHealt.GetComponent<Bar>();
+			
+            if (HasStateAuthority == true)
+            {
+                base.Spawned();
+                GameObject barHealt = GameObject.FindGameObjectWithTag("healBar");
+                GameObject barSuperShield = GameObject.FindGameObjectWithTag("superShield");
+                GameObject barShield = GameObject.FindGameObjectWithTag("ShieldBar");
+                HealthBar = barHealt.GetComponent<Bar>();
+                ShieldBar = barShield.GetComponent<Bar>();
+                SuperShieldBar = barSuperShield.GetComponent<Shield>();
 
-            GameObject barShield = GameObject.FindGameObjectWithTag("ShieldBar");
-            ShieldBar = barShield.GetComponent<Bar>();
+                // Setting start values
+                _health = startHealth;
+                _shield = startShield;
+                _superShield = startSuperShield;
+                lastTimeHeat = Time.time;
+                HealthBar.SetBar(_health, maxHealth);
+                ShieldBar.SetBar(_shield, maxShield);
+                // Check if speed and jump values are negative
+                if (speed < 0f) speed = 1f;
+                if (jumpPower < 0f) jumpPower = 1f;
+				
+            }
+				
 
-            GameObject barSuperShield = GameObject.FindGameObjectWithTag("superShield");
-            SuperShieldBar = barSuperShield.GetComponent<Shield>();
-
-            // Setting start values
-            _health = startHealth;
-			_shield = startShield;
-			_superShield = startSuperShield;
-            lastTimeHeat = Time.time;
-            HealthBar.SetBar(_health, maxHealth);
-            ShieldBar.SetBar(_shield, maxShield);
-            // Check if speed and jump values are negative
-            if (speed < 0f)	speed = 1f;
-			if (jumpPower < 0f)	jumpPower = 1f;
+            
 		}
 
 		public int getCurrentTotalHealth () 
@@ -78,8 +86,11 @@ namespace Starter.ThirdPersonCharacter
 				_superShield -= leftAmount;
 
 				// If supershield can all the damage we stop here
-				if (_superShield > 0) { 
-                    SuperShieldBar.SetSuperShield(_superShield, maxShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
+				if (_superShield > 0) {
+					if (HasStateAuthority == true)
+					{
+						SuperShieldBar.SetSuperShield(_superShield, maxShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
+					}
 					return;
                 }
 
@@ -98,7 +109,10 @@ namespace Starter.ThirdPersonCharacter
 				// If shield can all the damage we stop here
 				if (_shield > 0)
 				{
-					ShieldBar.SetBar(_shield, maxShield);//set la barre de bouclier en fonction du max de bouclier et du bouclier
+					if (HasStateAuthority == true)
+					{
+						ShieldBar.SetBar(_shield, maxShield);//set la barre de bouclier en fonction du max de bouclier et du bouclier
+					}
 					return;
 				}
 
@@ -120,9 +134,12 @@ namespace Starter.ThirdPersonCharacter
 				// Set health to 0
 				_health = 0;
 			}
-            HealthBar.SetBar(_health, maxHealth);//set la barre de vie en fonction du max de pv et de la vie actuelle
-            ShieldBar.SetBar(_shield, maxShield);//set la barre de bouclier en fonction du max de bouclier et du bouclier
-            SuperShieldBar.SetSuperShield(_superShield, maxSuperShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
+			if (HasStateAuthority == true)
+			{
+				HealthBar.SetBar(_health, maxHealth);//set la barre de vie en fonction du max de pv et de la vie actuelle
+				ShieldBar.SetBar(_shield, maxShield);//set la barre de bouclier en fonction du max de bouclier et du bouclier
+				SuperShieldBar.SetSuperShield(_superShield, maxSuperShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
+			}
 
         }
 
