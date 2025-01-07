@@ -1,8 +1,9 @@
+using Starter.ThirdPersonCharacter;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.UIElements;
+using Fusion;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -43,18 +44,33 @@ namespace Starter.ThirdPersonCharacter
 		[Header("Effect Config")]
         public List<Effect> effects = new List<Effect> ();
 
+		public AudioSource audioSource; 
+		public AudioClip actionSound;   
+
 
         // Privates
         private Animator _playerAnimator;
         private UsableState _currentUsableState;
 		private PlayerInventory _playerInverntory;
 		private PlayerModel _playerModel;
+	
+		[Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+		public void RPC_PlaySound()
+		{
+
+    		if (audioSource != null && actionSound != null)
+    		{
+        		audioSource.PlayOneShot(actionSound);
+    		}
+		}
+
 
 		// Run when program starts
 		public void Start ()
 		{
 			// Set state to ready
 			_currentUsableState = UsableState.Ready;
+			
 		}
 
         public override ItemType getType()
@@ -82,6 +98,8 @@ namespace Starter.ThirdPersonCharacter
 
             // Start use couroutine
             StartCoroutine (useCouroutine ());
+			RPC_PlaySound();
+			
         }
 
 		private IEnumerator useCouroutine ()
