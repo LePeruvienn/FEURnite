@@ -209,9 +209,22 @@ namespace Starter.ThirdPersonCharacter
 					pModel.takeDamage (damage);
 
 				// Enable tray
-                TrailRenderer trail = Instantiate (bulletTrail, _spawnBulletPosition.position, Quaternion.identity);
-                StartCoroutine (spawnTrail (trail, hit.point));
+				RPC_SpawnTrail(_spawnBulletPosition.position, hit.point);
             }
+		}
+
+		[Rpc(RpcSources.All, RpcTargets.All)]
+		public void RPC_SpawnTrail(Vector3 startPoint, Vector3 hitPoint)
+		{
+			// Spawn trail on the network
+			var trailObject = Runner.Spawn(bulletTrail.gameObject, startPoint, Quaternion.identity);
+			var trail = trailObject.GetComponent<TrailRenderer>();
+
+			if (trail != null)
+			{
+				// Start the trail movement coroutine
+				StartCoroutine(spawnTrail(trail, hitPoint));
+			}
 		}
 
 		// Use when bullet spread is activate to know where the bullet is going
