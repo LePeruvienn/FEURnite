@@ -44,8 +44,11 @@ namespace Starter.ThirdPersonCharacter
 		[Header("Effect Config")]
         public List<Effect> effects = new List<Effect> ();
 
-		public AudioSource audioSource; 
-		public AudioClip actionSound;   
+		public AudioSource audioSource;
+
+		public static AudioClip HealSound;   
+		public static AudioClip JumpSpeedSound;
+		public static AudioClip ShieldSound;
 
 
         // Privates
@@ -54,20 +57,46 @@ namespace Starter.ThirdPersonCharacter
 		private PlayerInventory _playerInverntory;
 		private PlayerModel _playerModel;
 	
-		[Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-		public void RPC_PlaySound()
-		{
+		
 
-    		if (audioSource != null && actionSound != null)
-    		{
-        		audioSource.PlayOneShot(actionSound);
-    		}
+	
+		[Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+		public void RPC_PlaySound(int soundId)
+		{
+			AudioClip soundToPlay = null;
+
+			// Associe l'ID du son au bon clip audio
+			switch (soundId)
+			{
+				case 1:
+					soundToPlay = HealSound;
+					break;
+				case 2:
+					soundToPlay = JumpSpeedSound;
+					break;
+				case 3:
+					soundToPlay = ShieldSound;
+					break;
+				default:
+					Debug.LogWarning("Unknown sound ID");
+					break;
+			}
+
+			if (audioSource != null && soundToPlay != null)
+			{
+				audioSource.PlayOneShot(soundToPlay);
+			}
 		}
+
 
 
 		// Run when program starts
 		public void Start ()
 		{
+			 HealSound = Resources.Load<AudioClip>("SoundEffects/HealSound");
+			 JumpSpeedSound = Resources.Load<AudioClip>("SoundEffects/JumpSpeedSound");
+			 ShieldSound = Resources.Load<AudioClip>("SoundEffects/ShieldSound");
+
 			// Set state to ready
 			_currentUsableState = UsableState.Ready;
 			
@@ -98,7 +127,34 @@ namespace Starter.ThirdPersonCharacter
 
             // Start use couroutine
             StartCoroutine (useCouroutine ());
-			RPC_PlaySound();
+			if (effects.Count > 0)
+			{
+				Effect firstEffect = effects[0];
+				int soundId = -1;
+
+				// Associate the sound ID with the effect
+				switch (firstEffect.stats)
+				{
+					case EffectStat.Heal:
+						soundId = 1;
+						break;
+					case EffectStat.JumpPower:
+						soundId = 2;
+						break;
+					case EffectStat.Shield:
+						soundId = 3;
+						break;
+					default:
+						break;
+				}
+
+				// Play the sound via RPC
+				if (soundId != -1)
+				{
+					RPC_PlaySound(soundId);
+				}
+			}
+			
 			
         }
 
