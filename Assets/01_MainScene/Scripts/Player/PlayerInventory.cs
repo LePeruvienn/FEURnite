@@ -45,8 +45,7 @@ namespace Starter.ThirdPersonCharacter
 		public override void Spawned()
 		{
 			base.Spawned();
-			if (HasStateAuthority == true)
-			{
+			
 				_selectedIndex = 0;
 				_canPickUp = false;
 
@@ -101,7 +100,7 @@ namespace Starter.ThirdPersonCharacter
 							Debug.LogWarning("Starter item does not have a NetworkObject component!");
 						}
 					}
-				}
+				
 
 				// Initialize the inventory display
 				_inventoryDisplay = GetComponentInParent<InventoryDisplay>();
