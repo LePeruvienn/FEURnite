@@ -60,9 +60,10 @@ namespace Starter.ThirdPersonCharacter
 
 	[Networked]
     public bool DebugIsDead {get; set;}
-    public bool DebugFreecam { get; set; }
+    [Networked]
+    public bool DebugFreecam {get; set;}
 
-        private GameManager gameManager;
+    private GameManager gameManager;
     private CameraSwitcher cameraSwitcher;
 
     // Shoot mecanism
