@@ -60,8 +60,9 @@ namespace Starter.ThirdPersonCharacter
 
 	[Networked]
     public bool DebugIsDead {get; set;}
+    public bool DebugFreecam { get; set; }
 
-    private GameManager gameManager;
+        private GameManager gameManager;
     private CameraSwitcher cameraSwitcher;
 
     // Shoot mecanism
@@ -105,7 +106,8 @@ namespace Starter.ThirdPersonCharacter
 
 			base.Spawned ();
 			DebugIsDead = false;
-		}
+            DebugFreecam = false;
+        }
 
 		public override void FixedUpdateNetwork()
 		{
@@ -491,10 +493,16 @@ namespace Starter.ThirdPersonCharacter
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
                 // Passage du joueur en mode spectateur
-                cameraSwitcher.ToggleFreecam();
+                //cameraSwitcher.ToggleFreecam();
 
                 // Fait disparaître le corps du joueur
-                Destroy(gameObject);
+                //Destroy(gameObject);
+            }
+
+			if (DebugFreecam)
+			{
+                DebugFreecam = false;
+                cameraSwitcher.ToggleFreecam();
             }
         }
     }
