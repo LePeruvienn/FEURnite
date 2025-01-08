@@ -5,6 +5,7 @@ using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 using Fusion;
+using System.Linq;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -24,7 +25,6 @@ namespace Starter.ThirdPersonCharacter
 		public static int __ITEMS_SIZE__ = 12;
 
         [Header("Iventory Config")]
-		public GameObject[] starterItems;
 		public float pickUpRange;
 
 		// Display
@@ -45,8 +45,7 @@ namespace Starter.ThirdPersonCharacter
 		public override void Spawned()
 		{
 			
-			if (HasStateAuthority == false )
-			{
+			
                 base.Spawned();
                 _selectedIndex = 0;
 				_canPickUp = false;
@@ -56,64 +55,64 @@ namespace Starter.ThirdPersonCharacter
 				_weapons = new GameObject[__WEAPONS_SIZE__];
 				_items = new GameObject[__ITEMS_SIZE__];
 
-				// Spawn starter items into the inventory
-				for (int i = 0; i < __HOTBAR_SIZE__; i++)
-				{
-					if (i < starterItems.Length)
-					{
-						// Spawn the object instead of Instantiate
-						GameObject itemPrefab = starterItems[i];
-
-						NetworkObject itemNetworkObject = itemPrefab.GetComponent<NetworkObject>();
-
-
-						if (itemNetworkObject != null)
-						{
-
-							// Use Runner.Spawn to create the object in the network
-							NetworkObject spawnedObject = Runner.Spawn(itemNetworkObject,
-								position: transform.position,
-								rotation: Quaternion.identity,
-								Runner.LocalPlayer);
-							Debug.LogWarning(" ID player :" + Runner.LocalPlayer.PlayerId + " itemNetworkObject :" + spawnedObject.Id);
-
-							// Get the Item component
-							Item item = spawnedObject.GetComponent<Item>();
-							if (item != null)
-							{
-								item.setState(ItemState.Equipped);
-								item.saveDefaultPosAndRotation();
-							}
-							else
-							{
-								Debug.LogWarning("---Item null ID player :" + Runner.LocalPlayer.PlayerId + " itemNetworkObject :" + spawnedObject.Id);
-							}
-							// Assign it to the inventory
-							_inventory[i] = spawnedObject.gameObject;
-
-							// Position the item correctly
-							setItem(spawnedObject.gameObject);
-
-							// Hide the item
-							spawnedObject.gameObject.SetActive(false);
-						}
-						else
-						{
-							Debug.LogWarning("Starter item does not have a NetworkObject component!");
-						}
-					}
-				}
-
-				// Initialize the inventory display
-				_inventoryDisplay = GetComponentInParent<InventoryDisplay>();
-				_inventoryDisplay.init(starterItems);
-
-				// Update current selection
-				updateSelection();
-			}
+				
 		}
+        public void AddItem(NetworkObject spawnedObject, int i)
+        {
+			// Spawn starter items into the inventory
+			if ( i < __HOTBAR_SIZE__)
+			{
+					
+					if (spawnedObject == null)
+					{
+						Debug.LogError("Impossible d'ajouter un item null.");
+						return;
+					}
 
-		public void Update ()
+					// Attribuer l'autorité d'entrée au joueur
+					/*   if (Runner.IsServer)
+					   {
+						   item.AssignInputAuthority(Object.InputAuthority);
+						   Debug.Log("Autorité d'entrée assignée à l'item.");
+					   }
+		   */
+					// Ajouter l'item à la liste d'inventaire
+
+					// Get the Item component
+					Item item = spawnedObject.GetComponent<Item>();
+					if (item != null)
+					{
+						item.setState(ItemState.Equipped);
+						item.saveDefaultPosAndRotation();
+					}
+					else
+					{
+						Debug.LogWarning("---Item null ID player :" + Runner.LocalPlayer.PlayerId + " itemNetworkObject :" + spawnedObject.Id);
+					}
+					// Assign it to the inventory
+					_inventory[i] = spawnedObject.gameObject;
+
+					// Position the item correctly
+					setItem(spawnedObject.gameObject);
+
+					// Hide the item
+					spawnedObject.gameObject.SetActive(false);
+
+				
+			}
+        }
+        public void initAdd(GameObject[] starterItems)
+        {
+            // Initialize the inventory display
+            _inventoryDisplay = GetComponentInParent<InventoryDisplay>();
+
+            // Initialize the inventory display with the GameObjects
+            _inventoryDisplay.init(starterItems);
+
+            // Update current selection
+            updateSelection();
+        }
+        public void Update ()
 		{
 			// Set pickUp to false to default
 			_canPickUp = false;
