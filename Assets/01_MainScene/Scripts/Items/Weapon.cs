@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 using Fusion;
 
@@ -12,6 +10,13 @@ namespace Starter.ThirdPersonCharacter
     {
         Ready = 1,
         Reloading = 2
+    }
+	
+    // Enum for weapon shoot type
+    public enum ShootType
+    {
+        HitScan = 1,
+        Bullet = 2
     }
 
 	// Enum for bullet types
@@ -29,16 +34,29 @@ namespace Starter.ThirdPersonCharacter
     {
         [Header("Weapon References")]
         public GameObject bulletPrefab; // The bullet to use when shooting
-        
-		[Header("Weapon Stats")]
+
+		[Header("Weapon Shoot Config")]
         public float shootDelay; // Time to wait between each bullets
         public float stabDelay; // Time to wait between each stab
+		public ShootType shootType;
+
+		[Header("Weapon Bullet Spread")]
+		public bool addBulletSpread = true;
+		public Vector3 bulletSpreadVariance = new Vector3 (0.1f, 0.1f, 0.1f);
+
+		[Header("Weapon Bullet Shoot config")]
+        public BulletType bulletType; // Type of bullet the weapon use (OLNY WORK IF WEAPON IS NOT ON HIT SCAN !)
+
+		[Header("Weapon Bullet HitScan Config")]
+        public TrailRenderer bulletTrail; // Type of bullet the weapon use (OLNY WORK IF WEAPON IS NOT ON HIT SCAN !)
+        public int trailSpeed; // Type of bullet the weapon use (OLNY WORK IF WEAPON IS NOT ON HIT SCAN !)
+        
+		[Header("Weapon Stats")]
         public int damage; // Damage applying for each bullet to the player
         public int reloadCooldown; // Reload time to get full ammo
         public int startAmmoAmount; // Amount of bullet currenty in the charger
         public int bulletSize; // Amount of bullet currenty in the charger
         public int chargerAmmoAmount; // Bullets per charger
-        public BulletType bulletType; // Type of bullet the weapon use
         public WeaponProperties weight; // Poids de l'arme
 
         [Header("Weapon style")]
@@ -88,8 +106,12 @@ namespace Starter.ThirdPersonCharacter
             {
                 if (bulletPrefab != null)// is a weapon with bullet
                 {
-                    // Shoot a bullet
-                    shoot();
+                    // Shoot deping on the shoot type
+					if (shootType == ShootType.HitScan)
+						shoot_hitScan ();
+					else
+						shoot_bullet ();
+
                     // Remove bullet from current charger
                     _currentAmmoAmount--;
                     // Set the _nextFireTime
@@ -104,15 +126,16 @@ namespace Starter.ThirdPersonCharacter
                 }
             }
         }
+
         [Rpc(RpcSources.All, RpcTargets.All)]
-        public void RpcShoot(Vector3 spawnPos, Vector3 aimDir)
+        public void RPC_SpawnBullet(Vector3 spawnPos, Vector3 aimDir)
         {
             // Spawn bullet sur le serveur
             _runner.Spawn(bulletPrefab, spawnPos, Quaternion.LookRotation(aimDir, Vector3.up),Runner.LocalPlayer);
         }
 
 
-        private void shoot()
+        private void shoot_bullet ()
         {
             // Setting up raycast variables
             Vector3 mouseWorldPosition = Vector3.zero; // Default vector
@@ -125,12 +148,17 @@ namespace Starter.ThirdPersonCharacter
             // Setting output variable
             RaycastHit hit;
 
+			// Add Bullet spread if it's true
+			Vector3 shootDirection = addBulletSpread ? applyBulletSpread(ray.direction) : ray.direction;
+
             // If raycast hit
-            if (Physics.Raycast(ray, out hit, rayLength))
+            if (Physics.Raycast(ray.origin, shootDirection, out hit, rayLength))
             {
+				// Get hit position
                 mouseWorldPosition = hit.point; // Set the target point to the point hit by the raycast
             }
 
+			// Link damage to the bullet
             bulletPrefab.GetComponent<BulletProjectile>().damage = damage;
 
             // Shoot the bullet prefab
@@ -138,7 +166,7 @@ namespace Starter.ThirdPersonCharacter
             try
             {
                 // Spawn bullet on the network
-                RpcShoot(_spawnBulletPosition.position, aimDir);
+                RPC_SpawnBullet (_spawnBulletPosition.position, aimDir);
 
                 // Instantiate muzzle flash (local effect)
                 Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
@@ -149,6 +177,80 @@ namespace Starter.ThirdPersonCharacter
             }
         }
 
+		public void shoot_hitScan () {
+
+            // Setting up raycast variables
+            Vector3 mouseWorldPosition = Vector3.zero; // Default vector
+            Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // Center of the screen
+            float rayLength = 500f; // Raycast length
+
+            // Doing the raycast!
+            Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
+
+            // Setting output variable
+            RaycastHit hit;
+
+			// Add Bullet spread if it's true
+			Vector3 shootDirection = addBulletSpread ? applyBulletSpread(ray.direction) : ray.direction;
+
+            // If raycast hit
+            if (Physics.Raycast(ray.origin, shootDirection, out hit, rayLength))
+            {
+				// Get hit position
+                mouseWorldPosition = hit.point; // Set the target point to the point hit by the raycast
+
+				// Getting player Model
+				PlayerModel playerModel = hit.collider != null ?
+					hit.collider.GetComponentInParent<PlayerModel> () :
+					null;
+
+				// If ELement hit has a player Model we apply the damages
+				if (playerModel != null)
+					RPC_takeDamage (playerModel, damage);
+
+				// Enable tray
+				RPC_SpawnTrail(_spawnBulletPosition.position, hit.point);
+            }
+		}
+
+		[Rpc(RpcSources.All, RpcTargets.All)]
+		public void RPC_takeDamage (PlayerModel playerModel, int damage) {
+
+			playerModel.takeDamage (damage);
+		} 
+
+		[Rpc(RpcSources.All, RpcTargets.All)]
+		public void RPC_SpawnTrail(Vector3 startPoint, Vector3 hitPoint)
+		{
+			// Spawn trail on the network
+			var trailObject = Runner.Spawn(bulletTrail.gameObject, startPoint, Quaternion.identity);
+			var trail = trailObject.GetComponent<TrailRenderer>();
+
+			if (trail != null)
+			{
+				// Start the trail movement coroutine
+				StartCoroutine(spawnTrail(trail, hitPoint));
+			}
+		}
+
+		// Use when bullet spread is activate to know where the bullet is going
+		private Vector3 applyBulletSpread (Vector3 direction) {
+
+			if (addBulletSpread)
+			{
+				direction += new Vector3(
+					UnityEngine.Random.Range(-bulletSpreadVariance.x, bulletSpreadVariance.x) * 0.1f,
+					UnityEngine.Random.Range(-bulletSpreadVariance.y, bulletSpreadVariance.y) * 0.1f,
+					UnityEngine.Random.Range(-bulletSpreadVariance.z, bulletSpreadVariance.z) * 0.1f
+				);
+
+				direction.Normalize();
+			}
+
+			return direction;
+		}
+
+		// Reload the current weapon
         public void reload()
         {
             // If item is already Reloading stop
@@ -201,6 +303,27 @@ namespace Starter.ThirdPersonCharacter
             // Debug messsage (delete it later)
             Debug.Log("stab Complete !");
         }
+
+		// Span bullet trail on hitscan
+		private IEnumerator spawnTrail (TrailRenderer trail, Vector3 hitPoint)
+		{
+			Vector3 startPosition = trail.transform.position;
+			float distance = Vector3.Distance (trail.transform.position, hitPoint);
+			float remainingDistance = distance;
+
+			while (remainingDistance > 0)
+			{
+				trail.transform.position = Vector3.Lerp (startPosition, hitPoint, 1 - (remainingDistance / distance));
+
+				remainingDistance -= trailSpeed * Time.deltaTime;
+
+				yield return null;
+			}
+
+			trail.transform.position = hitPoint;
+
+			Destroy (trail.gameObject, trail.time);
+		}
     }
 
     [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpawnManagerScriptableObject", order = 1)]
