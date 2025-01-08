@@ -68,6 +68,42 @@ PrefabInstance:
       propertyPath: SortKey
       value: 2637239135
       objectReference: {fileID: 0}
+    - target: {fileID: 8808361741294920139, guid: da2d0ed9d59ba8841a6c2a5f5a2b5ad0,
+        type: 3}
+      propertyPath: shootType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808361741294920139, guid: da2d0ed9d59ba8841a6c2a5f5a2b5ad0,
+        type: 3}
+      propertyPath: trailSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808361741294920139, guid: da2d0ed9d59ba8841a6c2a5f5a2b5ad0,
+        type: 3}
+      propertyPath: bulletTrail
+      value: 
+      objectReference: {fileID: 79410620700406195, guid: 866dd108e3e67091e9591b90e310dc8c,
+        type: 3}
+    - target: {fileID: 8808361741294920139, guid: da2d0ed9d59ba8841a6c2a5f5a2b5ad0,
+        type: 3}
+      propertyPath: addBulletSpread
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808361741294920139, guid: da2d0ed9d59ba8841a6c2a5f5a2b5ad0,
+        type: 3}
+      propertyPath: bulletSpreadVariance.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808361741294920139, guid: da2d0ed9d59ba8841a6c2a5f5a2b5ad0,
+        type: 3}
+      propertyPath: bulletSpreadVariance.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808361741294920139, guid: da2d0ed9d59ba8841a6c2a5f5a2b5ad0,
+        type: 3}
+      propertyPath: bulletSpreadVariance.z
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
