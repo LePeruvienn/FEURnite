@@ -70,8 +70,8 @@ namespace Starter.ThirdPersonCharacter
 		public void setPosAndRotationToDefault () 
 		{
 			// Set current position scale and rotation to default
-			transform.localPosition = _defaultPosition != null ? 
-				_defaultPosition : Vector3.zero;
+			/*transform.localPosition = _defaultPosition != null ? 
+				_defaultPosition : Vector3.zero;*/
 
 			transform.localScale = _defaultScale != null ?
 				_defaultScale : transform.lossyScale;

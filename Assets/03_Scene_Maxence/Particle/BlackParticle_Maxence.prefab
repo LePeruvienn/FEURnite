@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 3088791673214702328, guid: dbf4b0b8ae9003e438fac8e2f204551e,
         type: 3}
       propertyPath: m_Name
-      value: BlackParticle Variant
+      value: BlackParticle_Maxence
       objectReference: {fileID: 0}
     - target: {fileID: 8167189277672459635, guid: dbf4b0b8ae9003e438fac8e2f204551e,
         type: 3}
@@ -69,7 +69,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3088791673214702328, guid: dbf4b0b8ae9003e438fac8e2f204551e,
         type: 3}
-      insertIndex: 1
+      insertIndex: 2
       addedObject: {fileID: 2683020703629333335}
   m_SourcePrefab: {fileID: 100100000, guid: dbf4b0b8ae9003e438fac8e2f204551e, type: 3}
 --- !u!1 &432863500206418830 stripped
@@ -92,6 +92,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 1036848620
   ObjectInterest: 1
-  Flags: 262145
+  Flags: 524289
   NestedObjects: []
   NetworkedBehaviours: []
