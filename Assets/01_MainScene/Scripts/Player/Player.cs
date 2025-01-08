@@ -497,7 +497,7 @@ namespace Starter.ThirdPersonCharacter
                 cameraSwitcher.ToggleFreecam();
 
                 // Fait disparaître le corps du joueur
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
 
 			if (DebugFreecam)
