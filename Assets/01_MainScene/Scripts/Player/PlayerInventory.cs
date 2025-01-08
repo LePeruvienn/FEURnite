@@ -41,72 +41,75 @@ namespace Starter.ThirdPersonCharacter
 		[Networked] private int _selectedIndex {get; set;}
 		private bool _canPickUp;
 		private GameObject _lastPickableObject;
-		
+
 		public override void Spawned()
 		{
 			base.Spawned();
-
-			_selectedIndex = 0;
-			_canPickUp = false;
-
-			// Initialize inventory arrays
-			_inventory = new GameObject[__HOTBAR_SIZE__];
-			_weapons = new GameObject[__WEAPONS_SIZE__];
-			_items = new GameObject[__ITEMS_SIZE__];
-
-			// Spawn starter items into the inventory
-			for (int i = 0; i < __HOTBAR_SIZE__; i++)
+			if (HasStateAuthority == true)
 			{
-				if (i < starterItems.Length)
+				_selectedIndex = 0;
+				_canPickUp = false;
+
+				// Initialize inventory arrays
+				_inventory = new GameObject[__HOTBAR_SIZE__];
+				_weapons = new GameObject[__WEAPONS_SIZE__];
+				_items = new GameObject[__ITEMS_SIZE__];
+
+				// Spawn starter items into the inventory
+				for (int i = 0; i < __HOTBAR_SIZE__; i++)
 				{
-					// Spawn the object instead of Instantiate
-					GameObject itemPrefab = starterItems[i];
-                    
-                    NetworkObject itemNetworkObject = itemPrefab.GetComponent<NetworkObject>();
-					
-
-                    if (itemNetworkObject != null)
+					if (i < starterItems.Length)
 					{
-						// Use Runner.Spawn to create the object in the network
-						NetworkObject spawnedObject = Runner.Spawn(itemNetworkObject, 
-							position: transform.position, 
-							rotation: Quaternion.identity,
-							Runner.LocalPlayer);
-                        Debug.LogWarning(" ID player :" + Runner.LocalPlayer.PlayerId + " itemNetworkObject :" + spawnedObject.Id);
+						// Spawn the object instead of Instantiate
+						GameObject itemPrefab = starterItems[i];
 
-                        // Get the Item component
-                        Item item = spawnedObject.GetComponent<Item>();
-						if (item != null)
+						NetworkObject itemNetworkObject = itemPrefab.GetComponent<NetworkObject>();
+
+
+						if (itemNetworkObject != null)
 						{
-							item.setState(ItemState.Equipped);
-							item.saveDefaultPosAndRotation();
+
+							// Use Runner.Spawn to create the object in the network
+							NetworkObject spawnedObject = Runner.Spawn(itemNetworkObject,
+								position: transform.position,
+								rotation: Quaternion.identity,
+								Runner.LocalPlayer);
+							Debug.LogWarning(" ID player :" + Runner.LocalPlayer.PlayerId + " itemNetworkObject :" + spawnedObject.Id);
+
+							// Get the Item component
+							Item item = spawnedObject.GetComponent<Item>();
+							if (item != null)
+							{
+								item.setState(ItemState.Equipped);
+								item.saveDefaultPosAndRotation();
+							}
+							else
+							{
+								Debug.LogWarning("---Item null ID player :" + Runner.LocalPlayer.PlayerId + " itemNetworkObject :" + spawnedObject.Id);
+							}
+							// Assign it to the inventory
+							_inventory[i] = spawnedObject.gameObject;
+
+							// Position the item correctly
+							setItem(spawnedObject.gameObject);
+
+							// Hide the item
+							spawnedObject.gameObject.SetActive(false);
 						}
 						else
 						{
-                            Debug.LogWarning("---Item null ID player :" + Runner.LocalPlayer.PlayerId + " itemNetworkObject :" + spawnedObject.Id);
-                        }
-						// Assign it to the inventory
-						_inventory[i] = spawnedObject.gameObject;
-
-						// Position the item correctly
-						setItem(spawnedObject.gameObject);
-
-						// Hide the item
-						spawnedObject.gameObject.SetActive(false);
-					}
-					else
-					{
-						Debug.LogWarning("Starter item does not have a NetworkObject component!");
+							Debug.LogWarning("Starter item does not have a NetworkObject component!");
+						}
 					}
 				}
+
+				// Initialize the inventory display
+				_inventoryDisplay = GetComponentInParent<InventoryDisplay>();
+				_inventoryDisplay.init(starterItems);
+
+				// Update current selection
+				updateSelection();
 			}
-
-			// Initialize the inventory display
-			_inventoryDisplay = GetComponentInParent<InventoryDisplay>();
-			_inventoryDisplay.init(starterItems);
-
-			// Update current selection
-			updateSelection();
 		}
 
 		public void Update ()
@@ -155,12 +158,12 @@ namespace Starter.ThirdPersonCharacter
 					Debug.LogWarning("_lastPickableObject don't have NetworkObject component !!");
 					return;
 				}
-
-				if (netObj.HasStateAuthority)
+               
+                /*if (netObj.HasInputAuthority)
 				{
-					Debug.LogWarning("Try to pickup a object ou have al reday a authority state authority!");
+					Debug.LogWarning("Try to pickup a object ou have al reday a authority state authority!"+ netObj.HasInputAuthority);
 					return;
-				}
+				}*/
 
 				Debug.LogWarning("Object ID sent: " + netObj.Id);
 
@@ -187,7 +190,9 @@ namespace Starter.ThirdPersonCharacter
 			}
 
 			GameObject pickedObject = networkObject.gameObject;
+            Debug.LogWarning("pick  authority!" + networkObject.InputAuthority);
             networkObject.RequestStateAuthority();
+            Debug.LogWarning("pick  authority!" + networkObject.InputAuthority);
             // Get Item compenent
             Item item = pickedObject.GetComponent<Item> ();
 			if (item != null) // If Item script exist, set item state to equipped
@@ -301,7 +306,9 @@ namespace Starter.ThirdPersonCharacter
             
             // Clearing the data
 			_inventory[_selectedIndex] = null;
-			netObj.ReleaseStateAuthority();
+            Debug.LogWarning("dropstate authority avant!" + netObj.InputAuthority);
+            netObj.ReleaseStateAuthority();
+            Debug.LogWarning("dropstate authority!" + netObj.InputAuthority);
 
 
         }

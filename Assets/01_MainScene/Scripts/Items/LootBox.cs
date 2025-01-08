@@ -195,7 +195,11 @@ public class LootBox : NetworkBehaviour
             NetworkObject netObj = item.GetComponent<NetworkObject>();
             if (netObj != null)
             {
-                Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity, null);
+                
+                NetworkObject netObjcreate = Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity, Runner.LocalPlayer);
+                Debug.LogWarning("create  authority!" + netObjcreate.InputAuthority);
+                netObjcreate.ReleaseStateAuthority();
+                Debug.LogWarning("create after  authority!" + netObjcreate.InputAuthority);
                 Debug.Log("Item spawned successfully on all clients with no specific authority.");
             }
         }
@@ -224,6 +228,16 @@ public class LootBox : NetworkBehaviour
                 if (netObj != null)
                 {
                     spawnedWeapon = Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, null);
+                    Debug.LogWarning("create  authority!" + spawnedWeapon.InputAuthority);
+                    Debug.LogWarning("create  authority!" + spawnedWeapon.HasStateAuthority);
+                    //
+                    spawnedWeapon.RequestStateAuthority();
+                    spawnedWeapon.AssignInputAuthority(Runner.LocalPlayer);
+                    Debug.LogWarning("create after  authority!" + spawnedWeapon.InputAuthority);
+                    Debug.LogWarning("create  authority!" + spawnedWeapon.HasStateAuthority);
+                    //spawnedWeapon.AssignInputAuthority(PlayerRef.None);
+                    spawnedWeapon.ReleaseStateAuthority();
+                    Debug.LogWarning("create after  authority!" + spawnedWeapon.InputAuthority);
                     Debug.Log("Weapon spawned successfully on all clients with no specific authority.");
                 }
             }
