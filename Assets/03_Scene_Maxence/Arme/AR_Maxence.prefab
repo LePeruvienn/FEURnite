@@ -15,6 +15,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
+      propertyPath: shootType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
+      propertyPath: trailSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
+      propertyPath: bulletTrail
+      value: 
+      objectReference: {fileID: 79410620700406195, guid: 866dd108e3e67091e9591b90e310dc8c,
+        type: 3}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 7549827596955233422, guid: 5eebb7abea0adeb43810c66b1873da5a,
