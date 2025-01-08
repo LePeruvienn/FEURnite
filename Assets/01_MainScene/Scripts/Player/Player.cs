@@ -129,7 +129,7 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
 			Animator.SetBool(_animIDAim, _isAiming);
 			Animator.SetBool(_animIDMoving, _isMoving);
-        }
+		}
 
         private void Awake()
 		{

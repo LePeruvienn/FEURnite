@@ -10,7 +10,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 39714481229232897, guid: 25cd03444870aef23817c5591841fc4f,
         type: 3}
+      propertyPath: starterItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 39714481229232897, guid: 25cd03444870aef23817c5591841fc4f,
+        type: 3}
       propertyPath: starterItems.Array.data[0]
+      value: 
+      objectReference: {fileID: 663417213146147357, guid: da2d0ed9d59ba8841a6c2a5f5a2b5ad0,
+        type: 3}
+    - target: {fileID: 39714481229232897, guid: 25cd03444870aef23817c5591841fc4f,
+        type: 3}
+      propertyPath: starterItems.Array.data[1]
       value: 
       objectReference: {fileID: 663417213146147357, guid: da2d0ed9d59ba8841a6c2a5f5a2b5ad0,
         type: 3}
@@ -19,6 +30,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 03_cacaDodo
       objectReference: {fileID: 0}
+    - target: {fileID: 2901989777159478386, guid: 25cd03444870aef23817c5591841fc4f,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 05ab920b2bc0f7c4e826a990fb5c3c12, type: 3}
     - target: {fileID: 2901989777159478386, guid: 25cd03444870aef23817c5591841fc4f,
         type: 3}
       propertyPath: m_Controller
