@@ -200,18 +200,24 @@ namespace Starter.ThirdPersonCharacter
                 mouseWorldPosition = hit.point; // Set the target point to the point hit by the raycast
 
 				// Getting player Model
-				PlayerModel pModel = hit.collider != null ?
+				PlayerModel playerModel = hit.collider != null ?
 					hit.collider.GetComponentInParent<PlayerModel> () :
 					null;
 
 				// If ELement hit has a player Model we apply the damages
-				if (pModel != null)
-					pModel.takeDamage (damage);
+				if (playerModel != null)
+					RPC_takeDamage (playerModel, damage);
 
 				// Enable tray
 				RPC_SpawnTrail(_spawnBulletPosition.position, hit.point);
             }
 		}
+
+		[Rpc(RpcSources.All, RpcTargets.All)]
+		public void RPC_takeDamage (PlayerModel playerModel, int damage) {
+
+			playerModel.takeDamage (damage);
+		} 
 
 		[Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_SpawnTrail(Vector3 startPoint, Vector3 hitPoint)
