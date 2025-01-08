@@ -234,12 +234,18 @@ MonoBehaviour:
     type: 3}
   shootDelay: 2
   stabDelay: 0
+  shootType: 1
+  addBulletSpread: 1
+  bulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
+  bulletType: 3
+  bulletTrail: {fileID: 79410620700406195, guid: 866dd108e3e67091e9591b90e310dc8c,
+    type: 3}
+  trailSpeed: 200
   damage: 10
   reloadCooldown: 1
   startAmmoAmount: 30
   bulletSize: 0
   chargerAmmoAmount: 30
-  bulletType: 3
   weight: {fileID: 0}
   muzzleFalshParticles: {fileID: 5437841274968188629, guid: 6baaeb11741c07e449d0fc3c287e127b,
     type: 3}
