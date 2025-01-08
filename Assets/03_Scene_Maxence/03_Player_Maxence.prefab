@@ -11,19 +11,31 @@ PrefabInstance:
     - target: {fileID: 39714481229232897, guid: 25cd03444870aef23817c5591841fc4f,
         type: 3}
       propertyPath: starterItems.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 39714481229232897, guid: 25cd03444870aef23817c5591841fc4f,
         type: 3}
       propertyPath: starterItems.Array.data[0]
       value: 
-      objectReference: {fileID: 663417213146147357, guid: 1bfb9e6945b432943a97c54e113c9f7c,
+      objectReference: {fileID: 1045324172950302930, guid: b9aa01325c2e82b4fa370c5eace7c411,
         type: 3}
     - target: {fileID: 39714481229232897, guid: 25cd03444870aef23817c5591841fc4f,
         type: 3}
       propertyPath: starterItems.Array.data[1]
       value: 
-      objectReference: {fileID: 171527776781687000, guid: b30fef2a64065f047a4100d12aaa184b,
+      objectReference: {fileID: 8533168008714166604, guid: dbaf1d009b6b1c24fb0e4105675d8b6f,
+        type: 3}
+    - target: {fileID: 39714481229232897, guid: 25cd03444870aef23817c5591841fc4f,
+        type: 3}
+      propertyPath: starterItems.Array.data[2]
+      value: 
+      objectReference: {fileID: 4001013144905581867, guid: 58367b36a6f6e3940a1faf73c7d36e21,
+        type: 3}
+    - target: {fileID: 39714481229232897, guid: 25cd03444870aef23817c5591841fc4f,
+        type: 3}
+      propertyPath: starterItems.Array.data[3]
+      value: 
+      objectReference: {fileID: 8105093614528831879, guid: 549796638650bd642b93d2fab1f40fea,
         type: 3}
     - target: {fileID: 2093298710999641442, guid: 25cd03444870aef23817c5591841fc4f,
         type: 3}
@@ -89,6 +101,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4242697713625226504, guid: 25cd03444870aef23817c5591841fc4f,
+        type: 3}
+      propertyPath: Flags
+      value: 131073
       objectReference: {fileID: 0}
     - target: {fileID: 4242697713625226504, guid: 25cd03444870aef23817c5591841fc4f,
         type: 3}
