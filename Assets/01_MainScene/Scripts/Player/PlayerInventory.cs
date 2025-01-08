@@ -45,7 +45,7 @@ namespace Starter.ThirdPersonCharacter
 		public override void Spawned()
 		{
 			
-			if (HasStateAuthority == true)
+			if (HasStateAuthority == false )
 			{
                 base.Spawned();
                 _selectedIndex = 0;
