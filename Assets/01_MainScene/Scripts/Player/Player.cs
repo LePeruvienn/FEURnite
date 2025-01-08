@@ -113,15 +113,15 @@ namespace Starter.ThirdPersonCharacter
             Animator.SetTrigger(_animIDReload);
         }
 
-		//[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-		//private void RPC_UpdateAimState(bool isAiming)
-		//{
-		//	_isAiming = isAiming;
-		//}
+        //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        //private void RPC_UpdateAimState(bool isAiming)
+        //{
+        //	_isAiming = isAiming;
+        //}
 
-		// ############################# teste dodo
+        // ############################# teste dodo
 
-		public override void Spawned() {
+        public override void Spawned() {
 
 			base.Spawned ();
 
@@ -146,7 +146,6 @@ namespace Starter.ThirdPersonCharacter
             PlayerInput.ResetInput();
 
             multiAimConstraintArm.weight = ArmWeight;
-			Debug.Log(ArmWeight);
             multiAimConstraintWeapon.weight = WeaponWeight;
             multiAimConstraintBody.weight = BodyWeight;
             multiAimConstraintHead.weight = HeadWeight;
@@ -334,38 +333,38 @@ namespace Starter.ThirdPersonCharacter
 
 				if ((_isAiming || angleToTarget > 80f) && KCC.IsGrounded) // if is aiming or moving the camera we activate the Constrainte on the animation to make him aim properly
 				{
-					ActivateConstraintAim();
+                    RPC_ActivateConstraintAim();
                     targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
 					multiplicator = 4;
 				}
 				else
 				{
-					DeactivateConstraintAim();
+                    RPC_DeactivateConstraintAim();
                 }
-				// we alwase need te constraint for movement si le joueur ne mouv pas
-				ActivateConstraintMovement();
+                // we alwase need te constraint for movement si le joueur ne mouv pas
+                RPC_ActivateConstraintMovement();
             }
 			else
 			{
 				if (_isAiming && KCC.IsGrounded)// si le joueur mouv et qu'il vise on doit activer les constraint sur l'animation 
 				{
-                    ActivateConstraintAim();
+                    RPC_ActivateConstraintAim();
                     targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
 					multiplicator = 3;
 				}
 				else
 				{
-                    DeactivateConstraintAim();
+                    RPC_DeactivateConstraintAim();
                     targetRotation = Quaternion.LookRotation(moveDirection);
 					multiplicator = 1;
 				}
 				if (angleToTarget > 130f) // si le joueur regarde deriére lui pour évité des bug on désactive la constraint
 				{
-					DeactivateConstraintMovement();
+                    RPC_DeactivateConstraintMovement();
 				}
 				else
 				{
-					ActivateConstraintMovement();
+                    RPC_ActivateConstraintMovement();
 				}
 			}
 
@@ -465,35 +464,39 @@ namespace Starter.ThirdPersonCharacter
 			AudioSource.PlayClipAtPoint(LandingAudioClip, KCC.Position, FootstepAudioVolume);
 		}
 
-		// Activate Constraint on the mouvement. for the head and body.
-		private void ActivateConstraintMovement()
-		{
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        // Activate Constraint on the mouvement. for the head and body.
+        private void RPC_ActivateConstraintMovement()
+        {
             BodyWeight = 1f;
             HeadWeight = 1f;
         }
 
-		// Deactivate Constraint on the mouvement. for the head and body.
-		private void DeactivateConstraintMovement()
-		{
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        // Deactivate Constraint on the mouvement. for the head and body.
+        private void RPC_DeactivateConstraintMovement()
+        {
             BodyWeight = 0f;
             HeadWeight = 0f;
         }
 
-		// Activate Constraint when aiming. for the arm and the weapon.
-		private void ActivateConstraintAim()
-		{
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        // Activate Constraint when aiming. for the arm and the weapon.
+        private void RPC_ActivateConstraintAim()
+        {
             ArmWeight = 1f;
             WeaponWeight = 1f;
         }
 
-		// Deactivate Constraint when not aiming. for the arm and the weapon.
-		private void DeactivateConstraintAim()
-		{
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        // Deactivate Constraint when not aiming. for the arm and the weapon.
+        private void RPC_DeactivateConstraintAim()
+        {
             ArmWeight = 0f;
             WeaponWeight = 0f;
         }
 
-		private void Start()
+        private void Start()
 		{
 			gameManager = FindObjectOfType<GameManager>();
             cameraSwitcher = FindObjectOfType<CameraSwitcher>();
