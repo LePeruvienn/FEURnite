@@ -1,14 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
+using Fusion;
 using UnityEngine;
-public class TrainMouvement : MonoBehaviour
+
+public class TrainMouvement : NetworkBehaviour
 {
     public Transform isleCenter; // Assign the isle's center transform in the Inspector
-    public float rotationSpeed = 10f; // Speed of rotation
+    public GameObject trainObject;
 
-    void Update()
+    [Networked]
+    private Vector3 isleCenterPosition { get; set; }
+    [Networked]
+    private float rotationSpeed { get; set; } // Speed of rotation
+    [Networked]
+    private NetworkObject theTrain { get; set; }
+
+    public override void Spawned()
+    {
+
+        base.Spawned();
+
+        theTrain = trainObject.gameObject.GetComponent<NetworkObject>();
+        rotationSpeed = 10f;
+        isleCenterPosition = isleCenter.position;
+    }
+
+    public override void FixedUpdateNetwork()
+    {
+    }
+
+    public override void Render()
     {
         // Rotate around the isle's center
-        transform.RotateAround(isleCenter.position, Vector3.up, rotationSpeed * Time.deltaTime);
+        //transform.RotateAround(isleCenter.position, Vector3.up, rotationSpeed * Time.deltaTime);
+        transform.RotateAround(isleCenterPosition, Vector3.up, rotationSpeed * Time.deltaTime);
     }
 }
