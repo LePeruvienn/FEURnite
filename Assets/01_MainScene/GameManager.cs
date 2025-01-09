@@ -101,9 +101,9 @@ namespace Starter.ThirdPersonCharacter
 		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-		public void RPC_movePlayersToSpawnPoint (int index)
+		public void RPC_movePlayersToSpawnPoint (int index, PlayerRef playerRef)
 		{
-			NetworkObject playerObject = _players[Runner.LocalPlayer];
+			NetworkObject playerObject = _players[playerRef];
 
 			// Despawn the player object
 			Runner.Despawn(playerObject);
@@ -112,8 +112,8 @@ namespace Starter.ThirdPersonCharacter
 			var spawnPosition = SpawnPoints[index].position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
 			// Spawn the player at the new position
-			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
-			_players[Runner.LocalPlayer] = playerInstance;  // Store the player instance
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, playerRef);
+			_players[playerRef] = playerInstance;  // Store the player instance
 		}
 
 		public void startGame () {
@@ -123,7 +123,7 @@ namespace Starter.ThirdPersonCharacter
 			_gameState = GameState.InGame;
 			// Move players to spawn point
 			int randomIndex = Random.Range(0, SpawnPoints.Count);
-			RPC_movePlayersToSpawnPoint (randomIndex);
+			RPC_movePlayersToSpawnPoint (randomIndex, Runner.LocalPlayer);
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
