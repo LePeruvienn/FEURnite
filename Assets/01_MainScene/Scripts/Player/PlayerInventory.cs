@@ -96,14 +96,9 @@ namespace Starter.ThirdPersonCharacter
 					// Position the item correctly
 					setItem(spawnedObject.gameObject);
 
-				// Hide the item
-				spawnedObject.gameObject.SetActive(false);
-
-
+					// Hide the item
+					spawnedObject.gameObject.SetActive(false);
 					RPC_pickup(spawnedObject.Id);
-				
-
-
             }
         }
         public void initAdd(GameObject[] starterItems)
@@ -182,7 +177,7 @@ namespace Starter.ThirdPersonCharacter
 		}
 
 
-        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        [Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_pickup(NetworkId objectId)
 		{
 			Debug.Log ("ID received : " + objectId);

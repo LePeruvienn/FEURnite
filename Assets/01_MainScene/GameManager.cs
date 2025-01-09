@@ -65,7 +65,7 @@ namespace Starter.ThirdPersonCharacter
             foreach (var itemPrefab in itemPrefabs)
             {
                 // Créer l'item
-                NetworkObject item = Runner.Spawn(itemPrefab, Vector3.zero, Quaternion.identity);
+                NetworkObject item = Runner.Spawn(itemPrefab, Vector3.zero, Quaternion.identity,null);
                 createdItems[i] = item.gameObject;
                 // Ajouter l'item à l'inventaire du joueur
                 inventory.AddItem(item,i);
