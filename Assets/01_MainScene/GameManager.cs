@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Fusion;
+using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
@@ -30,6 +31,13 @@ namespace Starter.ThirdPersonCharacter
         public Transform SpawnBase;
         public Transform SpawnSpectator;
 
+        [Header("In Game HUD")]
+		public Countdown timer;
+
+        [Header("Falling Inslad Cycle Config")]
+		public int spawnFallingsTime;
+		public int interFallingTime;
+
 
         [Header("DEBUG TOOLS")]
         public bool startGameManually = false; // Use private field for backing
@@ -39,8 +47,14 @@ namespace Starter.ThirdPersonCharacter
         [Networked] private int _readyPlayerCount { get; set; } = 0; // Players ready
         [Networked] private GameState _gameState { get; set; } = GameState.WaitingForPlayers;
 
+		// Save local player Instance
 		private NetworkObject _localPlayerInstance;
 
+		// Falling Insland Couroutine
+		private Coroutine _inslandFallingCoroutine;
+		
+
+		// Only Used for debug startGame
         private void Update()
         {
             if (startGameManually)
@@ -141,6 +155,39 @@ namespace Starter.ThirdPersonCharacter
 
 			// Spawn players to spawn points
 			respawnPlayers ();
+
+			// Start Timer and Falling insland cycle
+			_inslandFallingCoroutine = StartCoroutine (startFallingIslandCycle ());
+		}
+
+		private IEnumerator startFallingIslandCycle ()
+		{
+			// On fait tomber 2 fois des iles
+			int maxRepeats = 2;
+			// On initialise le nombre de répétition à zéro
+			int repeatCount = 0;
+
+			while (repeatCount < maxRepeats)
+			{
+				// taking the right waitimg time
+				int timeToWait = repeatCount == 0 ?
+					spawnFallingsTime : interFallingTime;
+
+				// StartTimer
+				timer.InitializeTimer (timeToWait);
+				timer.ResumeTimer ();
+
+				// Wait
+				yield return new WaitForSeconds(timeToWait); // Wait for 5 minutes
+
+				// Execute the adequate function
+				Debug.Log($"Executing function at interval {repeatCount + 1}");
+
+				// Increment reapeat count
+				repeatCount++;
+			}
+
+			Debug.Log(">>> GAME STATUS MESSAGE : ALL ISLANDS ARE GONE !!");
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
