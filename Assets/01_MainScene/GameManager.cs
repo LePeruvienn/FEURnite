@@ -54,8 +54,28 @@ namespace Starter.ThirdPersonCharacter
             if (Runner.IsServer)
                 _gameState = GameState.WaitingForPlayers;
 
-			Debug.Log (">>> GAME STATE");
-			Debug.Log (_gameState);
+			switch (_gameState)
+			{
+				case GameState.InGame:
+					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
+					Debug.Log ("GAME STATE : InGame");
+					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
+					break;
+
+				case GameState.WaitingForPlayers:
+					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
+					Debug.Log ("GAME STATE : WaitingForPlayers");
+					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
+					break;
+
+				case GameState.GameEnd:
+					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
+					Debug.Log ("GAME STATE : GameEnd");
+					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
+					break;
+			    
+			}
+
 			// Handle On join
 			playerJoin ();
         }
