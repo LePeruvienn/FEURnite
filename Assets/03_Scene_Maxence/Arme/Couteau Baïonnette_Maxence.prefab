@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5607413673388187912}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.007, y: 0.224, z: -0.086}
   m_LocalScale: {x: 12.9381, y: 12.9381, z: 12.9381}
   m_ConstrainProportionsScale: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   shootDelay: 2
   stabDelay: 0.5
   shootType: 1
-  addBulletSpread: 1
+  addBulletSpread: 0
   bulletSpreadVariance: {x: 0, y: 0, z: 0}
   bulletType: 5
   hasATrail: 1
@@ -187,7 +187,7 @@ MonoBehaviour:
   chargerAmmoAmount: 1
   weight: {fileID: 0}
   bulletCount: 1
-  bulletRange: 1
+  bulletRange: 20
   muzzleFalshParticles: {fileID: 5437841274968188629, guid: 7f094c6fe33d4e140bca0ee63dae72f2,
     type: 3}
   _spawnBulletPosition: {fileID: 1180702615085077076}
