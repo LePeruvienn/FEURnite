@@ -47,6 +47,7 @@ namespace Starter.ThirdPersonCharacter
         [Header("Weapon Sound")]
         public AudioSource audioSource;
         public static AudioClip audioClip;
+        public static AudioClip ReloadAudioClip;
 
         // Privates
         private Animator _playerAnimator;
@@ -72,15 +73,10 @@ namespace Starter.ThirdPersonCharacter
                 Debug.LogWarning("audio source trouvé");
             }
 
+            //chargé les clip audio
             audioClip = Resources.Load<AudioClip>("Pistol Sound Effect");
-            if (audioClip == null)
-            {
-                Debug.LogWarning("pas trouvé");
-            }
-            else
-            {
-                Debug.LogWarning("trouvé");
-            }
+            ReloadAudioClip = Resources.Load<AudioClip>("ReloadAudio");
+
             // Set current ammo to start Ammo amount
             _currentAmmoAmount = startAmmoAmount;
             // Set weapon state to ready
@@ -218,6 +214,14 @@ namespace Starter.ThirdPersonCharacter
 
             // Start reload coroutine
             StartCoroutine(reloadCouroutine());
+            if(ReloadAudioClip != null)
+            {
+                audioSource.PlayOneShot(ReloadAudioClip);
+            }
+            else
+            {
+                Debug.Log("audio de rechargement non trouvé");
+            }
         }
 
         private IEnumerator reloadCouroutine()
