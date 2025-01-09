@@ -12,6 +12,8 @@ public class TrainMouvement : NetworkBehaviour
     private float rotationSpeed { get; set; } // Speed of rotation
     [Networked]
     private NetworkObject theTrain { get; set; }
+    [Networked]
+    private NetworkTransform theTrainTransform { get; set; }
 
     public override void Spawned()
     {
@@ -21,6 +23,7 @@ public class TrainMouvement : NetworkBehaviour
         theTrain = trainObject.gameObject.GetComponent<NetworkObject>();
         rotationSpeed = 10f;
         isleCenterPosition = isleCenter.position;
+        theTrainTransform = trainObject.gameObject.GetComponent<NetworkTransform>();
     }
 
     public override void FixedUpdateNetwork()
