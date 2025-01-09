@@ -50,25 +50,29 @@ namespace Starter.ThirdPersonCharacter
 		public float FootstepAudioVolume = 0.5f;
 
 		[Networked]
-    private NetworkBool _isJumping { get; set; }
-    [Networked]
-    private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
-    [Networked]
-    private NetworkBool _isMoving { get; set; }
-    private NetworkBool _isShooting { get; set; }
-    private Vector3 _moveVelocity;
+		private NetworkBool _isJumping { get; set; }
+		[Networked]
+		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
+		[Networked]
+		private NetworkBool _isMoving { get; set; }
+		private NetworkBool _isShooting { get; set; }
+		private Vector3 _moveVelocity;
 
-	[Networked]
-    public bool DebugIsDead {get; set;}
-    [Networked]
-    public bool DebugFreecam {get; set;}
-	private bool isFreecamActive = false;
+		[Networked]
+		public bool DebugIsDead {get; set;}
+		[Networked]
+		public bool DebugFreecam {get; set;}
+		private bool isFreecamActive = false;
 
-    private GameManager gameManager;
-    private CameraSwitcher cameraSwitcher;
+		private GameManager gameManager;
+		private CameraSwitcher cameraSwitcher;
 
-    // Shoot mecanism
-    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+		[Networked]
+		public bool debugVisible {get; set;}
+		public Renderer playerRenderer;
+
+		// Shoot mecanism
+		[SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
 
 		// Animation input
 		[Header("Animation Constraint")]
@@ -109,6 +113,10 @@ namespace Starter.ThirdPersonCharacter
 			base.Spawned ();
 			DebugIsDead = false;
             DebugFreecam = false;
+            debugVisible = true;
+
+			playerRenderer = GetComponentInChildren<Renderer>();
+			UpdateVisibility();
         }
 
 		public override void FixedUpdateNetwork()
@@ -504,7 +512,7 @@ namespace Starter.ThirdPersonCharacter
                 cameraSwitcher.ToggleFreecam(isFreecamActive);
 
                 // Fait disparaître le corps du joueur
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
 
 			if (DebugFreecam)
@@ -513,6 +521,12 @@ namespace Starter.ThirdPersonCharacter
                 isFreecamActive = !isFreecamActive;
                 cameraSwitcher.ToggleFreecam(isFreecamActive);
             }
+
+			foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+			{
+				renderer.enabled = debugVisible;
+			}
+			
         }
 
 		private void UpdateFreecamState(bool isFreecamActive)
@@ -528,5 +542,37 @@ namespace Starter.ThirdPersonCharacter
                 Animator.enabled = true;
             }
 		}
+
+		private void UpdateVisibility()
+		{
+			if (debugVisible)
+			{
+				if (playerRenderer != null)
+				{
+					playerRenderer.enabled = true;
+				}
+			}
+			else
+			{
+				if (playerRenderer != null)
+				{
+					playerRenderer.enabled = false;
+				}
+			}
+		}
+
+		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		private void RPC_SetInvisible(bool visible)
+		{
+            debugVisible = visible;
+			UpdateVisibility();
+        }
+
+		public void ToggleInvisibility()
+		{
+            debugVisible = !debugVisible;
+			UpdateVisibility();
+			RPC_SetInvisible(debugVisible);
+        }
     }
 }
