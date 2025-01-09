@@ -170,24 +170,24 @@ MonoBehaviour:
   rarity: 3
   bulletPrefab: {fileID: 0}
   shootDelay: 2
-  stabDelay: 0.5
+  stabDelayDamage: 0.8
   shootType: 1
-  addBulletSpread: 0
-  bulletSpreadVariance: {x: 0, y: 0, z: 0}
+  addBulletSpread: 1
+  bulletSpreadVariance: {x: 0.5, y: 0.5, z: 0.5}
   bulletType: 5
-  hasATrail: 1
+  hasATrail: 0
   bulletTrail: {fileID: 79410620700406195, guid: 866dd108e3e67091e9591b90e310dc8c,
     type: 3}
   trailSpeed: 200
-  damage: 100
+  damage: 25
   hasAmmo: 0
   reloadCooldown: 0
   startAmmoAmount: 1
   bulletSize: 0
   chargerAmmoAmount: 1
   weight: {fileID: 0}
-  bulletCount: 1
-  bulletRange: 5
+  bulletCount: 5
+  bulletRange: 6
   muzzleFalshParticles: {fileID: 5437841274968188629, guid: 7f094c6fe33d4e140bca0ee63dae72f2,
     type: 3}
   _spawnBulletPosition: {fileID: 1180702615085077076}

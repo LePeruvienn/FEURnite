@@ -39,7 +39,7 @@ namespace Starter.ThirdPersonCharacter
 
 		[Header("Weapon Shoot Config")]
         public float shootDelay; // Time to wait between each bullets
-        public float stabDelay; // Time to wait between each stab
+        public float stabDelayDamage; // Time to wait between each stab
 		public ShootType shootType;
 
 		[Header("Weapon Bullet Spread")]
@@ -113,16 +113,18 @@ namespace Starter.ThirdPersonCharacter
                 // Shoot deping on the shoot type
                 if (shootType == ShootType.HitScan)
                 {
-                    Debug.Log("FEUUR");
-                    for (int i = 0; i < bulletCount; i++)
-                    {
-                        shoot_hitScan();
-                    }
                     if(bulletType == BulletType.Knife)
                     {
                         // Start stab couroutine
+                        StartCoroutine(stabDamage());
                         StartCoroutine(stabCouroutine());
-
+                    }
+                    else
+                    {
+                        for (int i = 0; i < bulletCount; i++)
+                        {
+                            shoot_hitScan();
+                        }
                     }
 
                 }
@@ -335,7 +337,7 @@ namespace Starter.ThirdPersonCharacter
             _playerAnimator.SetTrigger("StabTrigger");
 
             // Wait for reload cooldown
-            yield return new WaitForSeconds(stabDelay);
+            yield return new WaitForSeconds(shootDelay);
 
             // Debug messsage (delete it later)
             Debug.Log("stab Complete !");
@@ -361,6 +363,17 @@ namespace Starter.ThirdPersonCharacter
 
 			Destroy (trail.gameObject, trail.time);
 		}
+
+        private IEnumerator stabDamage()
+        {
+            // Wait for reload cooldown
+            yield return new WaitForSeconds(stabDelayDamage);
+
+            for (int i = 0; i < bulletCount; i++)
+            {
+                shoot_hitScan();
+            }
+        }
     }
 
     [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpawnManagerScriptableObject", order = 1)]
