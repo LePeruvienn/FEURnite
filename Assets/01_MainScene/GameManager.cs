@@ -82,17 +82,19 @@ namespace Starter.ThirdPersonCharacter
 		public void PlayerJoined(PlayerRef player)
 		{
 			Debug.Log(">> PLAYER JOINED");
-			Debug.Log (Object.HasStateAuthority);
-			Debug.Log (Object.InputAuthority);
-			if (player == Runner.LocalPlayer) {
 
-				// Calcul de la position avec un décalage aléatoire
+			// Ensure that the local player spawns its own player object
+			if (player == Runner.LocalPlayer)
+			{
+				// Calculating spawn position with a random offset
 				var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
 				var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
-				// Spawn du joueur à la position calculée
-				NetworkObject playerInstance = Runner.Spawn (PlayerPrefab, spawnPosition, Quaternion.identity, player);
-				_players[player] = playerInstance;  // Store the player instance
+				// Spawn the player at the calculated position
+				NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, player);
+
+				// Store the player instance for future reference (e.g., for moving, despawning, etc.)
+				_players[player] = playerInstance;
 			}
 		}
 
