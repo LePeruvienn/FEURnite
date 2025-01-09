@@ -26,10 +26,6 @@ public class TrainMouvement : NetworkBehaviour
         theTrainTransform = trainObject.gameObject.GetComponent<NetworkTransform>();
     }
 
-    public override void FixedUpdateNetwork()
-    {
-    }
-
     public override void Render()
     {
         // Rotate around the isle's center
