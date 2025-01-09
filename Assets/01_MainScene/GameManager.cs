@@ -81,13 +81,16 @@ namespace Starter.ThirdPersonCharacter
 
 		public void PlayerJoined(PlayerRef player)
 		{
-			// Calcul de la position avec un décalage aléatoire
-			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
-			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+			if (player == Runner.LocalPlayer) {
 
-			// Spawn du joueur à la position calculée
-			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, player);
-			_players[player] = playerInstance;  // Store the player instance
+				// Calcul de la position avec un décalage aléatoire
+				var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+				var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+
+				// Spawn du joueur à la position calculée
+				NetworkObject playerInstance = Runner.Spawn (PlayerPrefab, spawnPosition, Quaternion.identity, player);
+				_players[player] = playerInstance;  // Store the player instance
+			}
 		}
 
 		public void movePlayersToSpawnPoint () {
