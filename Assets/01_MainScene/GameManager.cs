@@ -83,9 +83,6 @@ namespace Starter.ThirdPersonCharacter
 
 		public void playerJoin()
 		{
-			if (!Object.HasStateAuthority)
-                return;
-
 			// Calculating spawn position with a random offset
 			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
 			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
