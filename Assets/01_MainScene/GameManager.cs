@@ -37,10 +37,9 @@ namespace Starter.ThirdPersonCharacter
         [Networked] private int _readyPlayerCount { get; set; } = 0; // Players ready
         [Networked] private int _playerCount { get; set; } = 0; // Players ready
         [Networked] private GameState _gameState { get; set; } = GameState.WaitingForPlayers;
+		[Networked] private int _lastPointAvaible { get; set; }
 
 		private Dictionary<PlayerRef, NetworkObject> _players = new Dictionary<PlayerRef, NetworkObject>();
-
-		private int _playerID;
 
         private void Update()
         {
@@ -53,6 +52,8 @@ namespace Starter.ThirdPersonCharacter
         public override void Spawned()
         {
 			base.Spawned();
+
+			_lastPointAvaible = SpawnPoints.Count - 1;
 
 			// If Runner is the server we set GameStatus to Waiting for players
             if (Runner.IsServer)
@@ -87,8 +88,6 @@ namespace Starter.ThirdPersonCharacter
 		{
 			// Increment player amount
 			_playerCount++;
-			// Set player ID
-			_playerID = _playerCount;
 
 			// Calculating spawn position with a random offset
 			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
@@ -132,8 +131,8 @@ namespace Starter.ThirdPersonCharacter
 			_gameState = GameState.InGame;
 
 			// Move players to spawn point
-			int index = 0;
-			RPC_movePlayersToSpawnPoint (_playerID);
+			RPC_movePlayersToSpawnPoint (_lastPointAvaible);
+			_lastPointAvaible--;
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
