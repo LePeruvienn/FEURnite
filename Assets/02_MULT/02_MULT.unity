@@ -25574,8 +25574,9 @@ MonoBehaviour:
   SpawnBase: {fileID: 425847439}
   SpawnSpectator: {fileID: 405717237}
   timer: {fileID: 18599404}
-  spawnFallingsTime: 5
+  spawnFallingsTime: 10
   interFallingTime: 10
+  timeBeforeReset: 10
   startGameManually: 0
 --- !u!1 &3528164456965068950
 GameObject:
