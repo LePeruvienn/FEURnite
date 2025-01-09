@@ -34,11 +34,13 @@ namespace Starter.ThirdPersonCharacter
         public bool startGameManually = false; // Use private field for backing
 		
 		// GAME STATUS
-		[Networked] private int _playerCount { get; set; } = 0;
         [Networked] private int _readyPlayerCount { get; set; } = 0; // Players ready
+        [Networked] private int _playerCount { get; set; } = 0; // Players ready
         [Networked] private GameState _gameState { get; set; } = GameState.WaitingForPlayers;
 
 		private Dictionary<PlayerRef, NetworkObject> _players = new Dictionary<PlayerRef, NetworkObject>();
+
+		private int _playerID;
 
         private void Update()
         {
@@ -83,6 +85,11 @@ namespace Starter.ThirdPersonCharacter
 
 		public void playerJoin()
 		{
+			// Increment player amount
+			_playerCount++;
+			// Set player ID
+			_playerID = _playerCount;
+
 			// Calculating spawn position with a random offset
 			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
 			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
@@ -95,7 +102,7 @@ namespace Starter.ThirdPersonCharacter
 		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-		public void RPC_movePlayersToSpawnPoint () {
+		public void RPC_movePlayersToSpawnPoint (int index) {
 
 			// Loop through all players and move them to new positions
 			foreach (var player in Runner.ActivePlayers)
@@ -108,15 +115,8 @@ namespace Starter.ThirdPersonCharacter
 					// Despawn the player object
 					Runner.Despawn(playerObject);
 
-					// Respawn the player at a new position
-					var spawnIndex = _playerCount % SpawnPoints.Count;
-					Transform selectedSpawnPoint = SpawnPoints[spawnIndex];
-
-					// Increment player count for next spawn
-					_playerCount++;
-
 					var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
-					var spawnPosition = selectedSpawnPoint.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+					var spawnPosition = SpawnPoints[index].position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
 					// Spawn the player at the new position
 					NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, player);
@@ -131,8 +131,9 @@ namespace Starter.ThirdPersonCharacter
 
 			_gameState = GameState.InGame;
 
-			//
-			RPC_movePlayersToSpawnPoint ();
+			// Move players to spawn point
+			int index = 0;
+			RPC_movePlayersToSpawnPoint (_playerID);
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
