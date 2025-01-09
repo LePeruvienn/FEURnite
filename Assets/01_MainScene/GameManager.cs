@@ -94,7 +94,8 @@ namespace Starter.ThirdPersonCharacter
 			_players[Runner.LocalPlayer] = playerInstance;
 		}
 
-		public void movePlayersToSpawnPoint () {
+        [Rpc(RpcSources.All, RpcTargets.All)]
+		public void RPC_movePlayersToSpawnPoint () {
 
 			// Loop through all players and move them to new positions
 			foreach (var player in Runner.ActivePlayers)
@@ -131,7 +132,7 @@ namespace Starter.ThirdPersonCharacter
 			_gameState = GameState.InGame;
 
 			//
-			movePlayersToSpawnPoint ();
+			RPC_movePlayersToSpawnPoint ();
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
