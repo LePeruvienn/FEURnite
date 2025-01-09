@@ -1838,7 +1838,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
   trainObject: {fileID: 168536712}
-  _rotationSpeed: 0
 --- !u!114 &168536716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1853,7 +1852,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
   trainObject: {fileID: 168536713}
-  _rotationSpeed: 0
 --- !u!114 &168536717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1868,7 +1866,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
   trainObject: {fileID: 168536714}
-  _rotationSpeed: 0
 --- !u!114 &168536720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3182,7 +3179,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
   trainObject: {fileID: 1414504201}
-  _rotationSpeed: 0
 --- !u!64 &341350722
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10436,7 +10432,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
   trainObject: {fileID: 1414504203}
-  _rotationSpeed: 0
 --- !u!64 &998563959
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15000,7 +14995,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
   trainObject: {fileID: 1414504197}
-  _rotationSpeed: 0
 --- !u!64 &1391269282
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16383,10 +16377,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1502281475}
-    - targetCorrespondingSourceObject: {fileID: 4355381405825110192, guid: 6e09060b3809f7d429c57f9ec2b87641,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1780686482}
     - targetCorrespondingSourceObject: {fileID: 2351342458945734021, guid: 6e09060b3809f7d429c57f9ec2b87641,
         type: 3}
       insertIndex: -1
@@ -20498,7 +20488,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
   trainObject: {fileID: 1414504199}
-  _rotationSpeed: 0
 --- !u!114 &1758881948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21121,36 +21110,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6610655617829577016, guid: 19ce7ae364ae0564fbb2938ea82887f2, type: 3}
---- !u!1 &1780686480 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4355381405825110192, guid: 6e09060b3809f7d429c57f9ec2b87641,
-    type: 3}
-  m_PrefabInstance: {fileID: 1414504195}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1780686482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1780686480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortKey: 3945991419
-  ObjectInterest: 1
-  Flags: 131073
-  NestedObjects:
-  - {fileID: 2049502994}
-  - {fileID: 168536724}
-  - {fileID: 2112225065}
-  - {fileID: 168536722}
-  - {fileID: 1758881948}
-  - {fileID: 168536720}
-  - {fileID: 1408370863}
-  NetworkedBehaviours: []
 --- !u!1 &1787078683
 GameObject:
   m_ObjectHideFlags: 0
