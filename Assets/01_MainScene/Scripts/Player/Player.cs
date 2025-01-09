@@ -568,6 +568,12 @@ namespace Starter.ThirdPersonCharacter
 			UpdateVisibility();
         }
 
+		[Rpc(RpcSources.StateAuthority, RpcTargets.StateAuthority)]
+		private void RPC_SetVisibleLocally()
+		{
+			playerRenderer.enabled = true;
+		}
+
 		public void ToggleInvisibility()
 		{
             debugVisible = !debugVisible;
