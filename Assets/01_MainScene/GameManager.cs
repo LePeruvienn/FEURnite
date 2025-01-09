@@ -220,7 +220,8 @@ namespace Starter.ThirdPersonCharacter
 				// Set that we is the winner
 				lastPlayerAlive.isWinner = true;
 
-				endGame ();
+				// Start endGame couroutine
+				StartCoroutine (endGame ());
 			}
 		}
 
