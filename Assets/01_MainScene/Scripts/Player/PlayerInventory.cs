@@ -57,6 +57,7 @@ namespace Starter.ThirdPersonCharacter
 
 				
 		}
+
         public void AddItem(NetworkObject spawnedObject, int i)
         {
 			// Spawn starter items into the inventory
@@ -95,11 +96,15 @@ namespace Starter.ThirdPersonCharacter
 					// Position the item correctly
 					setItem(spawnedObject.gameObject);
 
-					// Hide the item
-					spawnedObject.gameObject.SetActive(false);
+				// Hide the item
+				spawnedObject.gameObject.SetActive(false);
 
+
+					RPC_pickup(spawnedObject.Id);
 				
-			}
+
+
+            }
         }
         public void initAdd(GameObject[] starterItems)
         {
