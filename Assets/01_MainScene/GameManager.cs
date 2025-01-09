@@ -211,8 +211,12 @@ namespace Starter.ThirdPersonCharacter
 				}
 			}
 
+			Debug.Log ("numberPlayerAlive = " + numberPlayerAlive);
+
 			if (numberPlayerAlive == 1 && lastPlayerAlive != null) {
 				
+				Debug.Log ("THERE IS A WINNER");
+
 				// Set that we is the winner
 				lastPlayerAlive.isWinner = true;
 
