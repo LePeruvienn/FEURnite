@@ -38,6 +38,7 @@ namespace Starter.ThirdPersonCharacter
         [Header("Falling Inslad Cycle Config")]
 		public int spawnFallingsTime;
 		public int interFallingTime;
+		public int timeBeforeReset;
 
 
         [Header("DEBUG TOOLS")]
@@ -149,8 +150,13 @@ namespace Starter.ThirdPersonCharacter
 
 			// Spawn players to spawn points
 			respawnPlayers ();
+			
+			RPC_startFallingIslandCoroutine ();
+		}
 
-			// Start Timer and Falling insland cycle
+        [Rpc(RpcSources.All, RpcTargets.All)]
+		public void RPC_startFallingIslandCoroutine () {
+
 			_inslandFallingCoroutine = StartCoroutine (startFallingIslandCycle ());
 		}
 
@@ -188,6 +194,7 @@ namespace Starter.ThirdPersonCharacter
 		{
 			// Init number of players alive
 			int numberPlayerAlive = 0;
+			Player lastPlayerAlive = null;
 
 			// Get All players game Object
 			GameObject[] playersObjs = GameObject.FindGameObjectsWithTag ("Player");
@@ -197,12 +204,78 @@ namespace Starter.ThirdPersonCharacter
 				
 				Player player = playerObj.GetComponent<Player> ();
 
-				if (player != null && player.isAlive)
+				if (player != null && player.isAlive) {
+
 					numberPlayerAlive++;
+					lastPlayerAlive = player;
+				}
 			}
 
-			Debug.Log (">>>> NUMBER OF PLAYER ALIVE :::");
-			Debug.Log (numberPlayerAlive);
+			if (numberPlayerAlive == 1 && lastPlayerAlive != null) {
+				
+				// Set that we is the winner
+				lastPlayerAlive.isWinner = true;
+
+				endGame ();
+			}
+		}
+
+		private IEnumerator endGame () {
+			
+			_gameState = GameState.GameEnd;
+
+			// Celebrate his win !
+			RPC_celebrateWinner();
+
+			yield return new WaitForSeconds(timeBeforeReset); // Wait for 5 minutes
+
+			resetGame();
+		}
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+		private void RPC_celebrateWinner () {
+			
+			// GET LOCAL PLAYER
+			Player player = _localPlayerInstance.GetComponent<Player> ();
+			
+			// TODO !!! MUST MAKE A BETTER CELEBRATION
+			if (player.isWinner) {
+
+				Debug.Log ("             ");
+				Debug.Log (">>>>>>>>>>>>>");
+				Debug.Log ("             ");
+				Debug.Log (" YOU WIN GG !");
+				Debug.Log ("             ");
+				Debug.Log (">>>>>>>>>>>>>");
+				Debug.Log ("             ");
+
+			} else {
+
+				Debug.Log (" YOU LOSE :'(");
+			}
+				
+		}
+
+		private void resetGame ()
+		{
+			RPC_respawnPlayerToBase ();
+
+			// Set status = WaitingForPlayers
+			_gameState = GameState.WaitingForPlayers;
+		}
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+		private void RPC_respawnPlayerToBase () {
+			
+			// Despawn the player object
+			Runner.Despawn(_localPlayerInstance);
+
+			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+
+			// Spawn the player at the new position
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+			_localPlayerInstance = playerInstance;  // Store the player instance
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)

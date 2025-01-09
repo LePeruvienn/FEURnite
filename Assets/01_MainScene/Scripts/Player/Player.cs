@@ -64,6 +64,9 @@ namespace Starter.ThirdPersonCharacter
 		[Networked]
 		public bool isAlive {get; set;} = true;
 
+		[Networked]
+		public bool isWinner {get; set;} = false;
+
 		private GameManager gameManager;
 		private CameraSwitcher cameraSwitcher;
 
