@@ -15,9 +15,7 @@ namespace Starter.ThirdPersonCharacter
     public enum GameState
     {
         WaitingForPlayers = 1,
-        ReadyToLaunch = 2,
-        InGame = 3,
-        GameEnd = 4
+        InGame = 2,
     }
 
     public sealed class GameManager : NetworkBehaviour
@@ -25,10 +23,13 @@ namespace Starter.ThirdPersonCharacter
         [Header("Game Manager Config")]
         public NetworkObject PlayerPrefab;
         public NetworkObject CorpsePrefab;
+		
+        [Header("Game Manager Config")]
         public float SpawnRadius = 3f;
         public List<Transform> SpawnPoints;
         public Transform SpawnBase;
-        // Variable locale pour vérifier si le joueur est déjà spawné
+        public Transform SpawnSpectator;
+
 
         [Header("DEBUG TOOLS")]
         public bool startGameManually = false; // Use private field for backing
@@ -69,12 +70,6 @@ namespace Starter.ThirdPersonCharacter
 					Debug.Log ("GAME STATE : WaitingForPlayers");
 					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
 					break;
-
-				case GameState.GameEnd:
-					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
-					Debug.Log ("GAME STATE : GameEnd");
-					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
-					break;
 			}
 
 			// On join spawn Player
@@ -83,9 +78,13 @@ namespace Starter.ThirdPersonCharacter
 
 		public void playerJoin()
 		{
+			// Set Spawn Point depending of the game State
+			Transform spawnPoint = _gameState == GameState.WaitingForPlayers ?
+				SpawnBase : SpawnSpectator;
+			
 			// Calculating spawn position with a random offset
-			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
-			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+			Vector3 randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+			Vector3 spawnPosition = spawnPoint.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
 			// Spawn the player at the calculated position
 			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
