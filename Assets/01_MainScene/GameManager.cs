@@ -86,7 +86,7 @@ namespace Starter.ThirdPersonCharacter
 			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
 			// Spawn du joueur à la position calculée
-			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Object.InputAuthority);
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, player);
 			_players[player] = playerInstance;  // Store the player instance
 		}
 
