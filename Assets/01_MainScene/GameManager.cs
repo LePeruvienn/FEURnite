@@ -38,7 +38,7 @@ namespace Starter.ThirdPersonCharacter
         [Networked] private int _readyPlayerCount { get; set; } = 0; // Players ready
         [Networked] private GameState _gameState { get; set; } = GameState.WaitingForPlayers;
 
-		private Dictionary<PlayerRef, NetworkObject> _players = new Dictionary<PlayerRef, NetworkObject>();
+		private NetworkObject _localPlayerInstance;
 
         private void Update()
         {
@@ -83,6 +83,9 @@ namespace Starter.ThirdPersonCharacter
 
 		public void playerJoin()
 		{
+			if (!Object.HasStateAuthority)
+                return;
+
 			// Calculating spawn position with a random offset
 			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
 			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
@@ -91,44 +94,57 @@ namespace Starter.ThirdPersonCharacter
 			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
 
 			// Store the player instance for future reference (e.g., for moving, despawning, etc.)
-			_players[Runner.LocalPlayer] = playerInstance;
+			_localPlayerInstance = playerInstance;
 		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-		public void RPC_movePlayersToSpawnPoint (int index, PlayerRef player) {
+		private void RPC_movePlayerToSpawnPoint (int index, PlayerRef playerRef) {
 
-			NetworkObject playerObject = _players[player];
+			// If current client is not the player targeted we return
+			if (Runner.LocalPlayer != playerRef)
+				return;
 
 			// Despawn the player object
-			Runner.Despawn(playerObject);
+			Runner.Despawn(_localPlayerInstance);
 
 			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
 			var spawnPosition = SpawnPoints[index].position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+			index--;
 
 			// Spawn the player at the new position
-			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, player);
-			_players[player] = playerInstance;  // Store the player instance
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+			_localPlayerInstance = playerInstance;  // Store the player instance
+		}
+
+		public void respawnPlayers () {
+			// Init lastIndex avaible
+			int lastIndex = SpawnPoints.Count - 1;
+
+			// For all players avaibles
+			foreach (PlayerRef playerRef in Runner.ActivePlayers) {
+				
+				// if index is out of array's bound we return an error
+				if (lastIndex < 0) {
+					
+					Debug.LogError ("GAME MANAGER : Too much players for spawn points. CANNOT SPAWN ALL PLAYER !!");
+					return;
+				}
+				// Move player to spawnPoint
+				RPC_movePlayerToSpawnPoint (lastIndex, playerRef);
+				// Update last index
+				lastIndex--;
+			}
 		}
 
 		public void startGame () {
 			
 			Debug.Log (">>> START GAME");
 
+			// Update game State
 			_gameState = GameState.InGame;
 
-			// Move Players to spawn points
-
-			int lastPoint = SpawnPoints.Count - 1;
-
-			foreach (var player in Runner.ActivePlayers)
-			{
-				// Check if the player is already spawned
-				if (_players.ContainsKey(player))
-				{
-					RPC_movePlayersToSpawnPoint (lastPoint, player);
-					lastPoint--;
-				}
-			}
+			// Spawn players to spawn points
+			respawnPlayers ();
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
