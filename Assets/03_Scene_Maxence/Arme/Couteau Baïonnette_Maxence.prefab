@@ -179,7 +179,7 @@ MonoBehaviour:
   bulletTrail: {fileID: 79410620700406195, guid: 866dd108e3e67091e9591b90e310dc8c,
     type: 3}
   trailSpeed: 200
-  damage: 10
+  damage: 100
   hasAmmo: 0
   reloadCooldown: 0
   startAmmoAmount: 1
@@ -187,7 +187,7 @@ MonoBehaviour:
   chargerAmmoAmount: 1
   weight: {fileID: 0}
   bulletCount: 1
-  bulletRange: 20
+  bulletRange: 5
   muzzleFalshParticles: {fileID: 5437841274968188629, guid: 7f094c6fe33d4e140bca0ee63dae72f2,
     type: 3}
   _spawnBulletPosition: {fileID: 1180702615085077076}
