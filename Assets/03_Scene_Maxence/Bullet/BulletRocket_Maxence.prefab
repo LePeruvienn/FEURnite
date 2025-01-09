@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 4032331010402334622}
   - component: {fileID: -4299596338041760186}
   - component: {fileID: 6382879003363125270}
+  - component: {fileID: 7063314107545174743}
   m_Layer: 0
-  m_Name: BulletRocket
+  m_Name: BulletRocket_Maxence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,9 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf3c36a64a770945a28ce53d6395fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfxHitRed: {fileID: 6057883953926896120, guid: 76283da71dd4988409d23e6c252cb2f4,
+  vfxHitRed: {fileID: 6057883953926896120, guid: 268ab36d68e467c49bf3af57116aa12f,
     type: 3}
-  vfxHitBlack: {fileID: 6057883953926896120, guid: 76283da71dd4988409d23e6c252cb2f4,
+  vfxHitBlack: {fileID: 6057883953926896120, guid: 268ab36d68e467c49bf3af57116aa12f,
     type: 3}
   damage: 10
 --- !u!96 &6382879003363125270
@@ -205,6 +206,24 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &7063314107545174743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9186155486514058272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 4250482283
+  ObjectInterest: 1
+  Flags: 524289
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: -4299596338041760186}
 --- !u!1001 &6735290448982224789
 PrefabInstance:
   m_ObjectHideFlags: 0

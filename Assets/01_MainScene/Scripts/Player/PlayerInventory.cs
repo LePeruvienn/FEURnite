@@ -393,8 +393,6 @@ namespace Starter.ThirdPersonCharacter
 			obj.transform.localScale = obj.transform.lossyScale;
 			obj.transform.localRotation = Quaternion.identity;
 
-			return;
-
 			// Setting obj's tranform to his game object param
 			if (item != null) 
 			{

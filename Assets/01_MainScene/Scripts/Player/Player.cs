@@ -67,16 +67,36 @@ namespace Starter.ThirdPersonCharacter
     // Shoot mecanism
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
 
-		// Animation input
-		[Header("Animation Constraint")]
-		public MultiAimConstraint multiAimConstraintBody; // Reference to the MultiAimConstraint component
-		public MultiAimConstraint multiAimConstraintHead; // Reference to the MultiAimConstraint component
-		public MultiAimConstraint multiAimConstraintWeapon; // Reference to the TwoBoneIKConstraint component
-		public TwoBoneIKConstraint multiAimConstraintArm; // Reference to the TwoBoneIKConstraint component
+        // Animation input
+        public MultiAimConstraint multiAimConstraintBody;
+        public MultiAimConstraint multiAimConstraintHead;
+        public MultiAimConstraint multiAimConstraintWeapon;
+        public TwoBoneIKConstraint multiAimConstraintArm;
+
+        [Networked]
+        private NetworkObject multiAimConstraintBodyObject { get; set; } // Référence au NetworkObject
+
+        [Networked]
+        private NetworkObject multiAimConstraintHeadObject { get; set; } // Référence au NetworkObject
+
+        [Networked]
+        private NetworkObject multiAimConstraintWeaponObject { get; set; } // Référence au NetworkObject
+
+        [Networked]
+        private NetworkObject multiAimConstraintArmObject { get; set; } // Référence au NetworkObject
+       
+		[Networked]
+		private float BodyWeight { get; set; }
+        [Networked]
+        private float HeadWeight { get; set; }
+        [Networked]
+        private float WeaponWeight { get; set; }
+        [Networked]
+        private float ArmWeight { get; set; }
 
 
-		// Animation IDs
-		private int _animIDSpeed;
+        // Animation IDs
+        private int _animIDSpeed;
 		private int _animIDGrounded;
 		private int _animIDJump;
 		private int _animIDFreeFall;
@@ -93,18 +113,24 @@ namespace Starter.ThirdPersonCharacter
             Animator.SetTrigger(_animIDReload);
         }
 
-		//[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-		//private void RPC_UpdateAimState(bool isAiming)
-		//{
-		//	_isAiming = isAiming;
-		//}
+        //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        //private void RPC_UpdateAimState(bool isAiming)
+        //{
+        //	_isAiming = isAiming;
+        //}
 
-		// ############################# teste dodo
+        // ############################# teste dodo
 
-		public override void Spawned() {
+        public override void Spawned() {
 
 			base.Spawned ();
-			DebugIsDead = false;
+
+            multiAimConstraintBodyObject = multiAimConstraintBody.gameObject.GetComponent<NetworkObject>();
+            multiAimConstraintHeadObject = multiAimConstraintHead.gameObject.GetComponent<NetworkObject>();
+            multiAimConstraintWeaponObject = multiAimConstraintWeapon.gameObject.GetComponent<NetworkObject>();
+            multiAimConstraintArmObject = multiAimConstraintArm.gameObject.GetComponent<NetworkObject>();
+
+            DebugIsDead = false;
 		}
 
 		public override void FixedUpdateNetwork()
@@ -118,7 +144,7 @@ namespace Starter.ThirdPersonCharacter
 			}
 
             PlayerInput.ResetInput();
-		}
+        }
 
 		public override void Render()
 		{
@@ -129,6 +155,11 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
 			Animator.SetBool(_animIDAim, _isAiming);
 			Animator.SetBool(_animIDMoving, _isMoving);
+
+            multiAimConstraintArm.weight = ArmWeight;
+            multiAimConstraintWeapon.weight = WeaponWeight;
+            multiAimConstraintBody.weight = BodyWeight;
+            multiAimConstraintHead.weight = HeadWeight;
         }
 
         private void Awake()
@@ -302,40 +333,38 @@ namespace Starter.ThirdPersonCharacter
 
 				if ((_isAiming || angleToTarget > 80f) && KCC.IsGrounded) // if is aiming or moving the camera we activate the Constrainte on the animation to make him aim properly
 				{
-					ActivateConstraintAim();
-					targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
+                    ActivateConstraintAim();
+                    targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
 					multiplicator = 4;
 				}
 				else
 				{
-					DeactivateConstraintAim();
-				}
-				// we alwase need te constraint for movement si le joueur ne mouv pas
-				ActivateConstraintMovement();
-			}
+                    DeactivateConstraintAim();
+                }
+                // we alwase need te constraint for movement si le joueur ne mouv pas
+                ActivateConstraintMovement();
+            }
 			else
 			{
 				if (_isAiming && KCC.IsGrounded)// si le joueur mouv et qu'il vise on doit activer les constraint sur l'animation 
 				{
-					ActivateConstraintAim();
-					multiAimConstraintArm.weight = 1f;
-					targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
+                    ActivateConstraintAim();
+                    targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
 					multiplicator = 3;
 				}
 				else
 				{
-					DeactivateConstraintAim();
-					multiAimConstraintArm.weight = 0f;
-					targetRotation = Quaternion.LookRotation(moveDirection);
+                    DeactivateConstraintAim();
+                    targetRotation = Quaternion.LookRotation(moveDirection);
 					multiplicator = 1;
 				}
 				if (angleToTarget > 130f) // si le joueur regarde deriére lui pour évité des bug on désactive la constraint
 				{
-					DeactivateConstraintMovement();
+                    DeactivateConstraintMovement();
 				}
 				else
 				{
-					ActivateConstraintMovement();
+                    ActivateConstraintMovement();
 				}
 			}
 
@@ -435,35 +464,35 @@ namespace Starter.ThirdPersonCharacter
 			AudioSource.PlayClipAtPoint(LandingAudioClip, KCC.Position, FootstepAudioVolume);
 		}
 
-		// Activate Constraint on the mouvement. for the head and body.
-		private void ActivateConstraintMovement()
-		{
-			multiAimConstraintBody.weight = 1f;
-			multiAimConstraintHead.weight = 1f;
-		}
+        // Activate Constraint on the mouvement. for the head and body.
+        private void ActivateConstraintMovement()
+        {
+            BodyWeight = 1f;
+            HeadWeight = 1f;
+        }
 
-		// Deactivate Constraint on the mouvement. for the head and body.
-		private void DeactivateConstraintMovement()
-		{
-			multiAimConstraintBody.weight = 0f;
-			multiAimConstraintHead.weight = 0f;
-		}
+        // Deactivate Constraint on the mouvement. for the head and body.
+        private void DeactivateConstraintMovement()
+        {
+            BodyWeight = 0f;
+            HeadWeight = 0f;
+        }
 
-		// Activate Constraint when aiming. for the arm and the weapon.
-		private void ActivateConstraintAim()
-		{
-			multiAimConstraintArm.weight = 1f;
-			multiAimConstraintWeapon.weight = 1f;
-		}
+        // Activate Constraint when aiming. for the arm and the weapon.
+        private void ActivateConstraintAim()
+        {
+            ArmWeight = 1f;
+            WeaponWeight = 1f;
+        }
 
-		// Deactivate Constraint when not aiming. for the arm and the weapon.
-		private void DeactivateConstraintAim()
-		{
-			multiAimConstraintArm.weight = 0f;
-			multiAimConstraintWeapon.weight = 0f;
-		}
+        // Deactivate Constraint when not aiming. for the arm and the weapon.
+        private void DeactivateConstraintAim()
+        {
+            ArmWeight = 0f;
+            WeaponWeight = 0f;
+        }
 
-		private void Start()
+        private void Start()
 		{
 			gameManager = FindObjectOfType<GameManager>();
             cameraSwitcher = FindObjectOfType<CameraSwitcher>();
