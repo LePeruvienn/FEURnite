@@ -62,6 +62,7 @@ namespace Starter.ThirdPersonCharacter
     public bool DebugIsDead {get; set;}
     [Networked]
     public bool DebugFreecam {get; set;}
+	private bool isFreecamActive = false;
 
     private GameManager gameManager;
     private CameraSwitcher cameraSwitcher;
@@ -112,6 +113,11 @@ namespace Starter.ThirdPersonCharacter
 
 		public override void FixedUpdateNetwork()
 		{
+			if (HasStateAuthority)
+			{
+				UpdateFreecamState(DebugFreecam);
+			}
+
 			ProcessInput(PlayerInput.CurrentInput);
 
 			if (KCC.IsGrounded)
@@ -494,7 +500,8 @@ namespace Starter.ThirdPersonCharacter
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
                 // Passage du joueur en mode spectateur
-                cameraSwitcher.ToggleFreecam();
+                isFreecamActive = !isFreecamActive;
+                cameraSwitcher.ToggleFreecam(isFreecamActive);
 
                 // Fait disparaître le corps du joueur
                 //Destroy(gameObject);
@@ -503,8 +510,23 @@ namespace Starter.ThirdPersonCharacter
 			if (DebugFreecam)
 			{
                 DebugFreecam = false;
-                cameraSwitcher.ToggleFreecam();
+                isFreecamActive = !isFreecamActive;
+                cameraSwitcher.ToggleFreecam(isFreecamActive);
             }
         }
+
+		private void UpdateFreecamState(bool isFreecamActive)
+		{
+			if (isFreecamActive)
+			{
+				KCC.enabled = false;
+				Animator.enabled = false;
+			}
+			else
+			{
+				KCC.enabled = true;
+                Animator.enabled = true;
+            }
+		}
     }
 }
