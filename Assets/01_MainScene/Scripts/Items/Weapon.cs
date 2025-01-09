@@ -57,18 +57,12 @@ namespace Starter.ThirdPersonCharacter
 
         [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
 
+
         // Run when program starts
         public override void Spawned()
         {
-            audioClip = Resources.Load<AudioClip>("Pistol Sound Effect");
-            if (audioClip == null )
-            {
-                Debug.LogWarning("pas trouvé");
-            }
-            else
-            {
-                Debug.LogWarning("trouvé");
-            }
+            audioSource = GetComponent<AudioSource>();
+            
             if(audioSource == null)
             {
                 Debug.LogWarning("audio source pas trouvé");
@@ -76,6 +70,16 @@ namespace Starter.ThirdPersonCharacter
             else
             {
                 Debug.LogWarning("audio source trouvé");
+            }
+
+            audioClip = Resources.Load<AudioClip>("Pistol Sound Effect");
+            if (audioClip == null)
+            {
+                Debug.LogWarning("pas trouvé");
+            }
+            else
+            {
+                Debug.LogWarning("trouvé");
             }
             // Set current ammo to start Ammo amount
             _currentAmmoAmount = startAmmoAmount;
@@ -89,6 +93,7 @@ namespace Starter.ThirdPersonCharacter
                 
             }
 
+            
             
 
         }
@@ -114,7 +119,8 @@ namespace Starter.ThirdPersonCharacter
                 {
                     // Shoot a bullet
                     shoot();
-                    // Shoot Audio
+                   
+                    RPCFireSound();
                     
 
                     // Remove bullet from current charger
@@ -132,10 +138,9 @@ namespace Starter.ThirdPersonCharacter
             }
         }
         [Rpc(RpcSources.All, RpcTargets.All)]
-        public void RpcShoot(Vector3 spawnPos, Vector3 aimDir)
+        public void RPCFireSound()
         {
-            // Spawn bullet sur le serveur
-            _runner.Spawn(bulletPrefab, spawnPos, Quaternion.LookRotation(aimDir, Vector3.up),Runner.LocalPlayer);
+            
             if (audioSource != null)
             {
                 audioSource.PlayOneShot(audioClip);
@@ -144,6 +149,14 @@ namespace Starter.ThirdPersonCharacter
             {
                 Debug.LogWarning("Audio pas trouvé");
             }
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public void RpcShoot(Vector3 spawnPos, Vector3 aimDir)
+        {
+            // Spawn bullet sur le serveur
+            _runner.Spawn(bulletPrefab, spawnPos, Quaternion.LookRotation(aimDir, Vector3.up),Runner.LocalPlayer);
+            
 
         }
 
