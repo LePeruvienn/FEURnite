@@ -44,6 +44,10 @@ namespace Starter.ThirdPersonCharacter
         [Header("Weapon style")]
         public ParticleSystem muzzleFalshParticles;
 
+        [Header("Weapon Sound")]
+        public AudioSource audioSource;
+        public static AudioClip audioClip;
+
         // Privates
         private Animator _playerAnimator;
         private WeaponState _currentWeaponState;
@@ -56,6 +60,23 @@ namespace Starter.ThirdPersonCharacter
         // Run when program starts
         public override void Spawned()
         {
+            audioClip = Resources.Load<AudioClip>("Pistol Sound Effect");
+            if (audioClip == null )
+            {
+                Debug.LogWarning("pas trouvé");
+            }
+            else
+            {
+                Debug.LogWarning("trouvé");
+            }
+            if(audioSource == null)
+            {
+                Debug.LogWarning("audio source pas trouvé");
+            }
+            else
+            {
+                Debug.LogWarning("audio source trouvé");
+            }
             // Set current ammo to start Ammo amount
             _currentAmmoAmount = startAmmoAmount;
             // Set weapon state to ready
@@ -67,6 +88,9 @@ namespace Starter.ThirdPersonCharacter
                 Debug.Log("NetworkRunner n'est pas trouv� dans la sc�ne !");
                 
             }
+
+            
+
         }
 
         public override ItemType getType()
@@ -90,6 +114,9 @@ namespace Starter.ThirdPersonCharacter
                 {
                     // Shoot a bullet
                     shoot();
+                    // Shoot Audio
+                    
+
                     // Remove bullet from current charger
                     _currentAmmoAmount--;
                     // Set the _nextFireTime
@@ -109,6 +136,15 @@ namespace Starter.ThirdPersonCharacter
         {
             // Spawn bullet sur le serveur
             _runner.Spawn(bulletPrefab, spawnPos, Quaternion.LookRotation(aimDir, Vector3.up),Runner.LocalPlayer);
+            if (audioSource != null)
+            {
+                audioSource.PlayOneShot(audioClip);
+            }
+            else
+            {
+                Debug.LogWarning("Audio pas trouvé");
+            }
+
         }
 
 
@@ -139,6 +175,7 @@ namespace Starter.ThirdPersonCharacter
             {
                 // Spawn bullet on the network
                 RpcShoot(_spawnBulletPosition.position, aimDir);
+
 
                 // Instantiate muzzle flash (local effect)
                 Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
