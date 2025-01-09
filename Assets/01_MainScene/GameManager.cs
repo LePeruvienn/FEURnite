@@ -10,22 +10,57 @@ namespace Starter.ThirdPersonCharacter
     /// <summary>
     /// Handles player connections (spawning of Player instances).
     /// </summary>
-    /// 
+	
+    // Game Status
+    public enum GameState
+    {
+        WaitingForPlayers = 1,
+        ReadyToLaunch = 2,
+        InGame = 3,
+        GameEnd = 4
+    }
 
     public sealed class GameManager : NetworkBehaviour
     {
+        [Header("Game Manager Config")]
         public NetworkObject PlayerPrefab;
         public NetworkObject CorpsePrefab;
         public float SpawnRadius = 3f;
         public List<Transform> SpawnPoints;
         public Transform SpawnBase;
-        [Networked] private int _playerCount { get; set; } = 0;
         // Variable locale pour vérifier si le joueur est déjà spawné
-       
+
+        [Header("DEBUG TOOLS")]
+        public bool startGameManually = false; // Use private field for backing
+		
+		// GAME STATUS
+		[Networked] private int _playerCount { get; set; } = 0;
+        [Networked] private int _readyPlayerCount { get; set; } = 0; // Players ready
+        [Networked] private GameState _gameState { get; set; } = GameState.WaitingForPlayers;
+		
+        private void Update()
+        {
+            if (startGameManually)
+                startGame ();
+			
+			startGameManually = false;
+        }
+
         public override void Spawned()
         {
-            
-            
+			base.Spawned();
+
+			// If Runner is the server we set GameStatus to Waiting for players
+            if (Runner.IsServer)
+                _gameState = GameState.WaitingForPlayers;
+
+			Debug.Log (">>> GAME STATE");
+			Debug.Log (_gameState);
+			// Handle On join
+			playerJoin ();
+        }
+
+		public void playerJoin () {
 
             Transform selectedSpawnPoint;
 
@@ -50,22 +85,18 @@ namespace Starter.ThirdPersonCharacter
 
             // Spawn du joueur à la position calculée
             Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Object.InputAuthority);
-        }
+		}
 
-        private void OnDrawGizmosSelected()
-        {
-            if (SpawnPoints != null)
-            {
-                foreach (var spawnPoint in SpawnPoints)
-                {
-                    if (spawnPoint != null)
-                    {
-                        Gizmos.color = Color.green;
-                        Gizmos.DrawWireSphere(spawnPoint.position, SpawnRadius);
-                    }
-                }
-            }
-        }
+		public void startGame () {
+			
+			Debug.Log (">>> START GAME");
+
+			_gameState = GameState.InGame;
+		}
+
+		private void spawnPlayers () {
+
+		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
         {
