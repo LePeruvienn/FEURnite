@@ -50,22 +50,25 @@ namespace Starter.ThirdPersonCharacter
 		public float FootstepAudioVolume = 0.5f;
 
 		[Networked]
-    private NetworkBool _isJumping { get; set; }
-    [Networked]
-    private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
-    [Networked]
-    private NetworkBool _isMoving { get; set; }
-    private NetworkBool _isShooting { get; set; }
-    private Vector3 _moveVelocity;
+		private NetworkBool _isJumping { get; set; }
+		[Networked]
+		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
+		[Networked]
+		private NetworkBool _isMoving { get; set; }
+		private NetworkBool _isShooting { get; set; }
+		private Vector3 _moveVelocity;
 
-	[Networked]
-    public bool DebugIsDead {get; set;}
+		[Networked]
+		public bool DebugIsDead {get; set;}
 
-    private GameManager gameManager;
-    private CameraSwitcher cameraSwitcher;
+		[Networked]
+		public bool isAlive {get; set;} = true;
 
-    // Shoot mecanism
-    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+		private GameManager gameManager;
+		private CameraSwitcher cameraSwitcher;
+
+		// Shoot mecanism
+		[SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
 
         // Animation input
         public MultiAimConstraint multiAimConstraintBody;
@@ -131,6 +134,7 @@ namespace Starter.ThirdPersonCharacter
             multiAimConstraintArmObject = multiAimConstraintArm.gameObject.GetComponent<NetworkObject>();
 
             DebugIsDead = false;
+            isAlive = true;
 		}
 
 		public override void FixedUpdateNetwork()

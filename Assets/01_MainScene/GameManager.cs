@@ -17,6 +17,7 @@ namespace Starter.ThirdPersonCharacter
     {
         WaitingForPlayers = 1,
         InGame = 2,
+        GameEnd = 2,
     }
 
     public sealed class GameManager : NetworkBehaviour
@@ -71,26 +72,11 @@ namespace Starter.ThirdPersonCharacter
             if (Runner.IsServer)
                 _gameState = GameState.WaitingForPlayers;
 
-			switch (_gameState)
-			{
-				case GameState.InGame:
-					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
-					Debug.Log ("GAME STATE : InGame");
-					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
-					break;
-
-				case GameState.WaitingForPlayers:
-					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
-					Debug.Log ("GAME STATE : WaitingForPlayers");
-					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
-					break;
-			}
-
 			// On join spawn Player
 			playerJoin ();
         }
 
-		public void playerJoin()
+		public void playerJoin ()
 		{
 			// Set Spawn Point depending of the game State
 			Transform spawnPoint = _gameState == GameState.WaitingForPlayers ?
@@ -105,6 +91,14 @@ namespace Starter.ThirdPersonCharacter
 
 			// Store the player instance for future reference (e.g., for moving, despawning, etc.)
 			_localPlayerInstance = playerInstance;
+
+			// Si le joueur rejoint une partie en cours
+			if (_gameState != GameState.WaitingForPlayers) {
+
+				// ...
+				// Appliquer des changement pour mettre le joueur en spectateur
+				// ...
+			}
 		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
@@ -190,8 +184,32 @@ namespace Starter.ThirdPersonCharacter
 			Debug.Log(">>> GAME STATUS MESSAGE : ALL ISLANDS ARE GONE !!");
 		}
 
+		private void checkForWinner ()
+		{
+			// Init number of players alive
+			int numberPlayerAlive = 0;
+
+			// Get All players game Object
+			GameObject[] playersObjs = GameObject.FindGameObjectsWithTag ("Player");
+
+			// For all players check if there are alivek:
+			foreach (GameObject playerObj in playersObjs) {
+				
+				Player player = playerObj.GetComponent<Player> ();
+
+				if (player != null && player.isAlive)
+					numberPlayerAlive++;
+			}
+
+			Debug.Log (">>>> NUMBER OF PLAYER ALIVE :::");
+			Debug.Log (numberPlayerAlive);
+		}
+
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
         {
+			// Check if a player win the game
+			checkForWinner ();
+			// Spawn corpse
             RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
         }
 
