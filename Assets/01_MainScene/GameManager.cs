@@ -103,25 +103,17 @@ namespace Starter.ThirdPersonCharacter
         [Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_movePlayersToSpawnPoint (int index)
 		{
-			// Loop through all players and move them to new positions
-			foreach (var player in Runner.ActivePlayers)
-			{
-				// Check if the player is already spawned
-				if (_players.ContainsKey(player))
-				{
-					NetworkObject playerObject = _players[player];
+			NetworkObject playerObject = _players[Runner.LocalPlayer];
 
-					// Despawn the player object
-					Runner.Despawn(playerObject);
+			// Despawn the player object
+			Runner.Despawn(playerObject);
 
-					var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
-					var spawnPosition = SpawnPoints[index].position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+			var spawnPosition = SpawnPoints[index].position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
-					// Spawn the player at the new position
-					NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, player);
-					_players[player] = playerInstance;  // Store the player instance
-				}
-			}
+			// Spawn the player at the new position
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+			_players[Runner.LocalPlayer] = playerInstance;  // Store the player instance
 		}
 
 		public void startGame () {
