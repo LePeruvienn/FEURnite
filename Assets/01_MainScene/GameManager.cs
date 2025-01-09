@@ -20,7 +20,7 @@ namespace Starter.ThirdPersonCharacter
         GameEnd = 4
     }
 
-    public sealed class GameManager : NetworkBehaviour, IPlayerJoined
+    public sealed class GameManager : NetworkBehaviour
     {
         [Header("Game Manager Config")]
         public NetworkObject PlayerPrefab;
@@ -75,27 +75,23 @@ namespace Starter.ThirdPersonCharacter
 					Debug.Log ("GAME STATE : GameEnd");
 					Debug.Log (">>>>>>>>>>>>>>>>>>>>");
 					break;
-			    
 			}
+
+			// On join spawn Player
+			playerJoin ();
         }
 
-		public void PlayerJoined(PlayerRef player)
+		public void playerJoin()
 		{
-			Debug.Log(">> PLAYER JOINED");
+			// Calculating spawn position with a random offset
+			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
-			// Ensure that the local player spawns its own player object
-			if (player == Runner.LocalPlayer)
-			{
-				// Calculating spawn position with a random offset
-				var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
-				var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+			// Spawn the player at the calculated position
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
 
-				// Spawn the player at the calculated position
-				NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, player);
-
-				// Store the player instance for future reference (e.g., for moving, despawning, etc.)
-				_players[player] = playerInstance;
-			}
+			// Store the player instance for future reference (e.g., for moving, despawning, etc.)
+			_players[Runner.LocalPlayer] = playerInstance;
 		}
 
 		public void movePlayersToSpawnPoint () {
