@@ -95,34 +95,19 @@ namespace Starter.ThirdPersonCharacter
 		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-		public void RPC_movePlayersToSpawnPoint () {
+		public void RPC_movePlayersToSpawnPoint (int index, PlayerRef player) {
 
-			// Loop through all players and move them to new positions
-			foreach (var player in Runner.ActivePlayers)
-			{
-				// Check if the player is already spawned
-				if (_players.ContainsKey(player))
-				{
-					NetworkObject playerObject = _players[player];
+			NetworkObject playerObject = _players[player];
 
-					// Despawn the player object
-					Runner.Despawn(playerObject);
+			// Despawn the player object
+			Runner.Despawn(playerObject);
 
-					// Respawn the player at a new position
-					int spawnIndex = Random.Range(0, SpawnPoints.Count);
-					Transform selectedSpawnPoint = SpawnPoints[spawnIndex];
+			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+			var spawnPosition = SpawnPoints[index].position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
-					// Increment player count for next spawn
-					_playerCount++;
-
-					var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
-					var spawnPosition = selectedSpawnPoint.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
-
-					// Spawn the player at the new position
-					NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, player);
-					_players[player] = playerInstance;  // Store the player instance
-				}
-			}
+			// Spawn the player at the new position
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, player);
+			_players[player] = playerInstance;  // Store the player instance
 		}
 
 		public void startGame () {
@@ -131,8 +116,19 @@ namespace Starter.ThirdPersonCharacter
 
 			_gameState = GameState.InGame;
 
-			//
-			RPC_movePlayersToSpawnPoint ();
+			// Move Players to spawn points
+
+			int lastPoint = SpawnPoints.Count - 1;
+
+			foreach (var player in Runner.ActivePlayers)
+			{
+				// Check if the player is already spawned
+				if (_players.ContainsKey(player))
+				{
+					RPC_movePlayersToSpawnPoint (lastPoint, player);
+					lastPoint--;
+				}
+			}
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
