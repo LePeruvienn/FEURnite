@@ -101,8 +101,8 @@ namespace Starter.ThirdPersonCharacter
 		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-		public void RPC_movePlayersToSpawnPoint (int index) {
-
+		public void RPC_movePlayersToSpawnPoint (int index)
+		{
 			// Loop through all players and move them to new positions
 			foreach (var player in Runner.ActivePlayers)
 			{
@@ -129,10 +129,9 @@ namespace Starter.ThirdPersonCharacter
 			Debug.Log (">>> START GAME");
 
 			_gameState = GameState.InGame;
-
 			// Move players to spawn point
-			RPC_movePlayersToSpawnPoint (_lastPointAvaible);
-			_lastPointAvaible--;
+			int randomIndex = Random.Range(0, SpawnPoints.Count);
+			RPC_movePlayersToSpawnPoint (randomIndex);
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
