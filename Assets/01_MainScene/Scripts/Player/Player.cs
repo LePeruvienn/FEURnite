@@ -545,40 +545,10 @@ namespace Starter.ThirdPersonCharacter
 
 		private void UpdateVisibility()
 		{
-			if (debugVisible)
+			if (playerRenderer != null)
 			{
-				if (playerRenderer != null)
-				{
-					playerRenderer.enabled = true;
-				}
-			}
-			else
-			{
-				if (playerRenderer != null)
-				{
-					playerRenderer.enabled = false;
-				}
-			}
+				playerRenderer.enabled = debugVisible;
+            }
 		}
-
-		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-		private void RPC_SetInvisible(bool visible)
-		{
-            debugVisible = visible;
-			UpdateVisibility();
-        }
-
-		[Rpc(RpcSources.StateAuthority, RpcTargets.StateAuthority)]
-		private void RPC_SetVisibleLocally()
-		{
-			playerRenderer.enabled = true;
-		}
-
-		public void ToggleInvisibility()
-		{
-            debugVisible = !debugVisible;
-			UpdateVisibility();
-			RPC_SetInvisible(debugVisible);
-        }
     }
 }
