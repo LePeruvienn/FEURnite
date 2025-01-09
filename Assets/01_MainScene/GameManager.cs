@@ -20,7 +20,7 @@ namespace Starter.ThirdPersonCharacter
         GameEnd = 4
     }
 
-    public sealed class GameManager : NetworkBehaviour
+    public sealed class GameManager : NetworkBehaviour, IPlayerJoined
     {
         [Header("Game Manager Config")]
         public NetworkObject PlayerPrefab;
@@ -37,7 +37,9 @@ namespace Starter.ThirdPersonCharacter
 		[Networked] private int _playerCount { get; set; } = 0;
         [Networked] private int _readyPlayerCount { get; set; } = 0; // Players ready
         [Networked] private GameState _gameState { get; set; } = GameState.WaitingForPlayers;
-		
+
+		private Dictionary<PlayerRef, NetworkObject> _players = new Dictionary<PlayerRef, NetworkObject>();
+
         private void Update()
         {
             if (startGameManually)
@@ -75,36 +77,50 @@ namespace Starter.ThirdPersonCharacter
 					break;
 			    
 			}
-
-			// Handle On join
-			playerJoin ();
         }
 
-		public void playerJoin () {
+		public void PlayerJoined(PlayerRef player)
+		{
+			if (player == Runner.LocalPlayer)
+			{
+				// Calcul de la position avec un décalage aléatoire
+				var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+				var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
-            Transform selectedSpawnPoint;
+				// Spawn du joueur à la position calculée
+				NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Object.InputAuthority);
+				_players[player] = playerInstance;  // Store the player instance
+			}
+		}
 
-            if (SpawnPoints == null || SpawnPoints.Count == 0)
-            {
-                selectedSpawnPoint = SpawnBase;
-            }
-            else
-            {
-                // Sélectionne le point de spawn basé sur _playerCount pour éviter les doublons
-                var spawnIndex = _playerCount % SpawnPoints.Count;
-                selectedSpawnPoint = SpawnPoints[spawnIndex];
+		public void movePlayersToSpawnPoint () {
 
-                // Incrémente le compteur pour le prochain joueur
-              
-            }
-            _playerCount++;
+			// Loop through all players and move them to new positions
+			foreach (var player in Runner.ActivePlayers)
+			{
+				// Check if the player is already spawned
+				if (_players.ContainsKey(player))
+				{
+					NetworkObject playerObject = _players[player];
 
-            // Calcul de la position avec un décalage aléatoire
-            var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
-            var spawnPosition = selectedSpawnPoint.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+					// Despawn the player object
+					Runner.Despawn(playerObject);
 
-            // Spawn du joueur à la position calculée
-            Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Object.InputAuthority);
+					// Respawn the player at a new position
+					var spawnIndex = _playerCount % SpawnPoints.Count;
+					Transform selectedSpawnPoint = SpawnPoints[spawnIndex];
+
+					// Increment player count for next spawn
+					_playerCount++;
+
+					var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+					var spawnPosition = selectedSpawnPoint.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+
+					// Spawn the player at the new position
+					NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, player);
+					_players[player] = playerInstance;  // Store the player instance
+				}
+			}
 		}
 
 		public void startGame () {
@@ -112,10 +128,9 @@ namespace Starter.ThirdPersonCharacter
 			Debug.Log (">>> START GAME");
 
 			_gameState = GameState.InGame;
-		}
 
-		private void spawnPlayers () {
-
+			//
+			movePlayersToSpawnPoint ();
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
