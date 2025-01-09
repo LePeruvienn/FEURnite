@@ -81,6 +81,9 @@ namespace Starter.ThirdPersonCharacter
 
 		public void PlayerJoined(PlayerRef player)
 		{
+			Debug.Log(">> PLAYER JOINED");
+			Debug.Log (Object.HasStateAuthority);
+			Debug.Log (Object.InputAuthority);
 			if (player == Runner.LocalPlayer) {
 
 				// Calcul de la position avec un décalage aléatoire
