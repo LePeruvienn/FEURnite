@@ -292,6 +292,13 @@ namespace Starter.ThirdPersonCharacter
             {
                 PlayerInventory.switchToSelection(3);
             }
+
+            // Emote
+            if (input.Emote)
+            {
+				Animator.SetTrigger("EmoteTrigger");
+            }
+
             // Drop item
             if (input.DropItem)
 			{

@@ -1837,7 +1837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!114 &168536716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1851,7 +1851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!114 &168536717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1865,7 +1865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!64 &180437253
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2440,25 +2440,47 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
       propertyPath: boxRarity
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
-      propertyPath: ListWeapon.Array.size
+      propertyPath: ListItem.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
+      propertyPath: ListWeapon.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListItem.Array.data[0]
+      value: 
+      objectReference: {fileID: 5446245216496017052, guid: a32bab2debdc65b4e81d1764472ac9c8,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListItem.Array.data[1]
+      value: 
+      objectReference: {fileID: 1698056052845220, guid: 24ac990e943ad6447afc9324f948b1a8,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
       propertyPath: ListWeapon.Array.data[0]
       value: 
-      objectReference: {fileID: 663417213146147357, guid: da2d0ed9d59ba8841a6c2a5f5a2b5ad0,
+      objectReference: {fileID: 1698056052845220, guid: 24ac990e943ad6447afc9324f948b1a8,
         type: 3}
     - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
       propertyPath: ListWeapon.Array.data[1]
       value: 
-      objectReference: {fileID: 663417213146147357, guid: ce8754a455dd27c6b9a8c0ee601f49e4,
+      objectReference: {fileID: 5446245216496017052, guid: a32bab2debdc65b4e81d1764472ac9c8,
         type: 3}
     - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
@@ -3124,7 +3146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!64 &341350722
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10377,7 +10399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!64 &998563959
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14940,7 +14962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!64 &1391269282
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20387,7 +20409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!1 &1762052341
 GameObject:
   m_ObjectHideFlags: 0
