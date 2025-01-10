@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Starter.ThirdPersonCharacter
@@ -6,6 +7,13 @@ namespace Starter.ThirdPersonCharacter
 
     public class IlesQuiTombent : MonoBehaviour
     {
+        [Header("Inslands Lists")]
+		public List<GameObject> spawnIslands;
+		public List<GameObject> spawnPlatformes;
+		public List<GameObject> interInslands;
+		public List<GameObject> interPlateformes;
+
+        [Header("Insland Falling Timers")]
         public float delaiAvantChute = 5f; // Temps avant que l'île tombe
         public float delaiAvantDisparition = 10f; // Temps avant que l'île disparaisse complètement
         public float dureeTremblement = 5f; // Durée du tremblement
@@ -15,13 +23,36 @@ namespace Starter.ThirdPersonCharacter
         private Collider colliderDeLIle; // Collider de l'île
         private Vector3 positionInitiale; // Position initiale de l'île
 
+		// Here we init all the inslands and plateformes
         void Start()
         {
+			// Init spawns islands
+			foreach (GameObject insland in spawnIslands)
+				initObject (insland);
+			
+			// Init spawns plateformes
+			foreach (GameObject plateforme in spawnPlatformes)
+				initObject (plateforme);
+
+			// Init inter islands
+			foreach (GameObject insland in interInslands)
+				initObject (insland);
+			
+			// Init inter plateformes
+			foreach (GameObject plateforme in interPlateformes)
+				initObject (plateforme);
+
+            // Lance la coroutine pour faire trembler puis tomber l'île
+            // StartCoroutine(TremblementEtChute());
+        }
+
+		private void initObject (GameObject obj) {
+
             // Récupère la position initiale
-            positionInitiale = transform.position;
+            positionInitiale = obj.transform.position;
 
             // Récupère le Rigidbody de l'île
-            rb = GetComponent<Rigidbody>();
+            rb = obj.GetComponent<Rigidbody>();
             if (rb == null)
             {
                 Debug.LogError("Composant Rigidbody manquant ! Veuillez ajouter un Rigidbody à l'île.");
@@ -30,23 +61,7 @@ namespace Starter.ThirdPersonCharacter
 
             // Configure le Rigidbody
             rb.isKinematic = true; // L'île reste en place jusqu'à ce qu'elle tombe
-
-            // Récupère le Collider de l'île
-            colliderDeLIle = GetComponent<Collider>();
-            if (colliderDeLIle != null && colliderSousLIle != null)
-            {
-                // Ignore les collisions entre l'île et le Collider en dessous
-                Physics.IgnoreCollision(colliderDeLIle, colliderSousLIle);
-                Debug.Log("Collision ignorée entre l'île et le Collider en dessous !");
-            }
-            else
-            {
-                Debug.LogError("Colliders non définis correctement !");
-            }
-
-            // Lance la coroutine pour faire trembler puis tomber l'île
-            StartCoroutine(TremblementEtChute());
-        }
+		}
 
         IEnumerator TremblementEtChute()
         {
@@ -77,23 +92,7 @@ namespace Starter.ThirdPersonCharacter
             Debug.Log("L'île commence à tomber après le tremblement !");
             rb.isKinematic = false; // Permet au Rigidbody de tomber naturellement
 
-            PlateformesMouvantes[] plateformesMouvantes = GetComponentsInChildren<PlateformesMouvantes> ();
-
-            if (plateformesMouvantes != null) {
-                foreach (PlateformesMouvantes platforme in plateformesMouvantes)
-                    platforme.enabled = false;
-            }
-
-        }
-
-        void OnCollisionEnter(Collision collision)
-        {
-            // Début de la disparition si l'île touche le sol
-            if (!rb.isKinematic)
-            {
-                Debug.Log("Collision détectée. Début de la disparition !");
-                StartCoroutine(DisparaitreApresDelai());
-            }
+			StartCoroutine(DisparaitreApresDelai());
         }
 
         IEnumerator DisparaitreApresDelai()
