@@ -9,9 +9,8 @@ namespace Starter.ThirdPersonCharacter
     {
         [Header("Inslands Lists")]
 		public List<GameObject> spawnIslands;
-		public List<GameObject> spawnPlatformes;
 		public List<GameObject> interInslands;
-		public List<GameObject> interPlateformes;
+		public List<GameObject> platformes;
 
         [Header("Insland Falling Timers")]
         public float delaiAvantChute = 5f; // Temps avant que l'île tombe
@@ -21,7 +20,6 @@ namespace Starter.ThirdPersonCharacter
         public Collider colliderSousLIle; // Collider à ignorer (celui sous l'île)
         private Rigidbody rb; // Composant Rigidbody de l'île
         private Collider colliderDeLIle; // Collider de l'île
-        private Vector3 positionInitiale; // Position initiale de l'île
 
 		// Here we init all the inslands and plateformes
         void Start()
@@ -29,17 +27,13 @@ namespace Starter.ThirdPersonCharacter
 			// Init spawns islands
 			foreach (GameObject insland in spawnIslands)
 				initObject (insland);
-			
-			// Init spawns plateformes
-			foreach (GameObject plateforme in spawnPlatformes)
-				initObject (plateforme);
 
 			// Init inter islands
 			foreach (GameObject insland in interInslands)
 				initObject (insland);
 			
-			// Init inter plateformes
-			foreach (GameObject plateforme in interPlateformes)
+			// Init plateformes
+			foreach (GameObject plateforme in platformes)
 				initObject (plateforme);
 
             // Lance la coroutine pour faire trembler puis tomber l'île
@@ -47,9 +41,6 @@ namespace Starter.ThirdPersonCharacter
         }
 
 		private void initObject (GameObject obj) {
-
-            // Récupère la position initiale
-            positionInitiale = obj.transform.position;
 
             // Récupère le Rigidbody de l'île
             rb = obj.GetComponent<Rigidbody>();
@@ -63,10 +54,9 @@ namespace Starter.ThirdPersonCharacter
             rb.isKinematic = true; // L'île reste en place jusqu'à ce qu'elle tombe
 		}
 
-        IEnumerator TremblementEtChute()
+        IEnumerator TremblementEtChute (GameObject obj)
         {
-            Debug.Log("Tremblement pendant " + dureeTremblement + " secondes");
-
+			Vector3 positionInitiale = obj.transform.position;
             float elapsedTime = 0f;
 
             // Tremblement
@@ -79,14 +69,14 @@ namespace Starter.ThirdPersonCharacter
                     Random.Range(-intensiteTremblement, intensiteTremblement)
                 );
 
-                transform.position = positionInitiale + tremblement;
+                obj.transform.position = positionInitiale + tremblement;
 
                 elapsedTime += Time.deltaTime;
                 yield return null; // Attend la prochaine frame
             }
 
             // Remet l'île à sa position initiale
-            transform.position = positionInitiale;
+            obj.transform.position = positionInitiale;
 
             // Lance la chute
             Debug.Log("L'île commence à tomber après le tremblement !");

@@ -27792,10 +27792,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13919e4b2c987d644870c115e1ef0acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnIslands: []
-  spawnPlatformes: []
-  interInslands: []
-  interPlateformes: []
+  spawnIslands:
+  - {fileID: 1265682386}
+  - {fileID: 244666317}
+  - {fileID: 1836864928}
+  - {fileID: 535976002}
+  - {fileID: 557302932}
+  - {fileID: 904395048}
+  - {fileID: 1033236537}
+  - {fileID: 1158232225}
+  interInslands:
+  - {fileID: 1337015246}
+  - {fileID: 335290701}
+  - {fileID: 1970286329}
+  - {fileID: 800770075}
+  platformes:
+  - {fileID: 1861333262}
+  - {fileID: 814671539}
+  - {fileID: 568221640}
+  - {fileID: 654721702}
   delaiAvantChute: 5
   delaiAvantDisparition: 10
   dureeTremblement: 5
