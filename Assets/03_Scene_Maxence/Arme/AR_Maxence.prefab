@@ -25,6 +25,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
+      propertyPath: bulletCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
+      propertyPath: bulletRange
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
       propertyPath: bulletTrail
       value: 
       objectReference: {fileID: 79410620700406195, guid: 866dd108e3e67091e9591b90e310dc8c,

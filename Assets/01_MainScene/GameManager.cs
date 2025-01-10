@@ -24,6 +24,7 @@ namespace Starter.ThirdPersonCharacter
     {
         [Header("Game Manager Config")]
         public NetworkObject PlayerPrefab;
+        [SerializeField] private List<NetworkPrefabRef> itemPrefabs;
         public NetworkObject CorpsePrefab;
 		
         [Header("Game Manager Config")]

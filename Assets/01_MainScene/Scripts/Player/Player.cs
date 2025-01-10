@@ -281,9 +281,26 @@ namespace Starter.ThirdPersonCharacter
 			//Debug.Log ("speed: ", speed);
 
 			// Inventory Update
-			PlayerInventory.switchSelection(input.Scroll);
-			// Drop item
-			if (input.DropItem)
+			PlayerInventory.switchSelection(input.Scroll); 
+			
+			if (input.FirstInvSlot)
+            {
+                PlayerInventory.switchToSelection(0);
+            }
+            if (input.SecondInvSlot)
+            {
+                PlayerInventory.switchToSelection(1);
+            }
+            if (input.ThirdInvSlot)
+            {
+                PlayerInventory.switchToSelection(2);
+            }
+            if (input.FourthInvSlot)
+            {
+                PlayerInventory.switchToSelection(3);
+            }
+            // Drop item
+            if (input.DropItem)
 			{
 				PlayerInventory.dropCurrentSelection();
 			}
