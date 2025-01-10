@@ -57,7 +57,6 @@ namespace Starter.ThirdPersonCharacter
 		private NetworkBool _isMoving { get; set; }
 		private NetworkBool _isShooting { get; set; }
 		private Vector3 _moveVelocity;
-
 		[Networked]
 		public bool DebugIsDead {get; set;}
 
@@ -110,6 +109,7 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDAim;
 		private int _animIDMoving;
 		private int _animIDReload;
+		private int _animIDCut;
 
         // ############################# teste dodo
 
@@ -434,10 +434,18 @@ namespace Starter.ThirdPersonCharacter
 			{
 				PlayerInventory.useCurrentSelection();// We use current selected Item
 
+                if (itemType == ItemType.Weapon)
+				{
+     //               Weapon weapon = (Weapon)currentItem;
+					//if (weapon.bulletType == BulletType.Knife) 
+					//{
+					//	RPC_Cuting();
+     //               }
+                }
 
 
-				// If player is not shooting and his item is a weapon we check if he wants to reaload
-			}
+                // If player is not shooting and his item is a weapon we check if he wants to reaload
+            }
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon)
 			{
                 // ############################# teste dodo
@@ -467,6 +475,7 @@ namespace Starter.ThirdPersonCharacter
             // ############################# teste dodo
             _animIDReload = Animator.StringToHash("ReloadTrigger");
             // ############################# teste dodo
+            _animIDCut = Animator.StringToHash("StabTrigger");
         }
 
         // Animation event
