@@ -22,7 +22,12 @@ namespace Starter.ThirdPersonCharacter
 		public bool RealoadWeapon;
 		// Inventory keybindings
 		public bool ToggleInventory;
-	}
+        public bool FirstInvSlot;
+        public bool SecondInvSlot;
+        public bool ThirdInvSlot;
+        public bool FourthInvSlot;
+        public bool FEUR; 
+    }
 
 	/// <summary>
 	/// PlayerInput handles accumulating player input from Unity.
@@ -45,6 +50,11 @@ namespace Starter.ThirdPersonCharacter
 			_input.Interact = false;
 			_input.RealoadWeapon = false;
 			_input.ToggleInventory = false;
+            _input.FirstInvSlot = false;
+            _input.SecondInvSlot = false;
+            _input.ThirdInvSlot = false;
+            _input.FourthInvSlot = false;
+            _input.FEUR = false;
         }
 
 		private void Update()
@@ -72,7 +82,11 @@ namespace Starter.ThirdPersonCharacter
             _input.Scroll = Input.GetAxis("Mouse ScrollWheel");
 			_input.DropItem |= Input.GetKeyDown("g");
 			_input.Interact |= Input.GetKeyDown("f");
-			_input.RealoadWeapon |= Input.GetKeyDown("r");
+			_input.RealoadWeapon |= Input.GetKeyDown("r"); 
+			_input.FirstInvSlot |= Input.GetKeyDown(KeyCode.Alpha1);
+            _input.SecondInvSlot |= Input.GetKeyDown(KeyCode.Alpha2);
+            _input.ThirdInvSlot |= Input.GetKeyDown(KeyCode.Alpha3);
+            _input.FourthInvSlot |= Input.GetKeyDown(KeyCode.Alpha4);
         }
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)
