@@ -511,7 +511,7 @@ MonoBehaviour:
   stabDelay: 0
   shootType: 1
   addBulletSpread: 1
-  bulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
+  bulletSpreadVariance: {x: 0.01, y: 0.01, z: 0.01}
   bulletType: 3
   bulletTrail: {fileID: 79410620700406195, guid: 866dd108e3e67091e9591b90e310dc8c,
     type: 3}
@@ -522,6 +522,8 @@ MonoBehaviour:
   bulletSize: 0
   chargerAmmoAmount: 30
   weight: {fileID: 0}
+  bulletCount: 1
+  bulletRange: 500
   muzzleFalshParticles: {fileID: 5437841274968188629, guid: 7f094c6fe33d4e140bca0ee63dae72f2,
     type: 3}
   _spawnBulletPosition: {fileID: 1220711317409880897}

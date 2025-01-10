@@ -230,7 +230,7 @@ MonoBehaviour:
   stabDelay: 0
   shootType: 1
   addBulletSpread: 1
-  bulletSpreadVariance: {x: 0.05, y: 0.05, z: 0.05}
+  bulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
   bulletType: 3
   bulletTrail: {fileID: 79410620700406195, guid: 866dd108e3e67091e9591b90e310dc8c,
     type: 3}
@@ -241,8 +241,6 @@ MonoBehaviour:
   bulletSize: 0
   chargerAmmoAmount: 30
   weight: {fileID: 0}
-  bulletCount: 1
-  bulletRange: 500
   muzzleFalshParticles: {fileID: 5437841274968188629, guid: 7f094c6fe33d4e140bca0ee63dae72f2,
     type: 3}
   _spawnBulletPosition: {fileID: 2671415853150535501}
@@ -329,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 486380676
+  SortKey: 124422551
   ObjectInterest: 1
   Flags: 524289
   NestedObjects: []

@@ -15,6 +15,7 @@ namespace Starter.ThirdPersonCharacter
     public sealed class GameManager : NetworkBehaviour
     {
         public NetworkObject PlayerPrefab;
+        [SerializeField] private List<NetworkPrefabRef> itemPrefabs;
         public NetworkObject CorpsePrefab;
         public float SpawnRadius = 3f;
         public List<Transform> SpawnPoints;
@@ -49,9 +50,29 @@ namespace Starter.ThirdPersonCharacter
             var spawnPosition = selectedSpawnPoint.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
             // Spawn du joueur à la position calculée
-            Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Object.InputAuthority);
+            NetworkObject player =Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Object.InputAuthority);
+            // Ajouter des items au joueur
+            PlayerInventory inventory = player.GetComponent<PlayerInventory>();
+            if (inventory != null)
+            {
+                AddItemsToPlayer(inventory);
+            }
         }
-
+        private void AddItemsToPlayer(PlayerInventory inventory)
+        {
+            GameObject[] createdItems = new GameObject[itemPrefabs.Count];
+            int i = 0;
+            foreach (var itemPrefab in itemPrefabs)
+            {
+                // Créer l'item
+                NetworkObject item = Runner.Spawn(itemPrefab, Vector3.zero, Quaternion.identity,null);
+                createdItems[i] = item.gameObject;
+                // Ajouter l'item à l'inventaire du joueur
+                inventory.AddItem(item,i);
+                i++;
+            }
+            inventory.initAdd(createdItems);
+        }
         private void OnDrawGizmosSelected()
         {
             if (SpawnPoints != null)
