@@ -13,7 +13,6 @@ namespace Starter.ThirdPersonCharacter
         private Shield SuperShieldBar;
 
 
-
         [Header("Player's Health")]
 		public int startHealth;
 		public int maxHealth;
@@ -37,6 +36,8 @@ namespace Starter.ThirdPersonCharacter
 		[Networked] private int _health {get; set;}
 		[Networked] private int _shield {get; set;}
 		[Networked] private int _superShield {get; set;}
+
+		[Networked] private bool _isAlive {get; set;} = true;
 
 		public override void Spawned () 
 		{
@@ -148,7 +149,11 @@ namespace Starter.ThirdPersonCharacter
 			Debug.LogWarning ("DIE !!!");
 			
 			Player player = GetComponent<Player> ();
+			// pour le debug ???
 			player.DebugIsDead = true;
+
+			// Vrai isAlive qui marche bien (celui qui permet de compter le nombre de joueur vivant restant)
+			player.isAlive = false;
 		}
 
 		public void heal (int amount) 
