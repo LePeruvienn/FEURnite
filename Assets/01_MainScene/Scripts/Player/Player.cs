@@ -17,8 +17,6 @@ namespace Starter.ThirdPersonCharacter
 		[Header("Debug")]
 		public bool DebugIsDead;
 		public bool DebugFreecam;
-		public bool debugVisible;
-        public Renderer playerRenderer;
 
         [Header("References")]
 		public SimpleKCC KCC;
@@ -112,10 +110,7 @@ namespace Starter.ThirdPersonCharacter
 			base.Spawned ();
 			DebugIsDead = false;
             DebugFreecam = false;
-            debugVisible = true;
 
-			playerRenderer = GetComponentInChildren<Renderer>();
-			UpdateVisibility();
         }
 
 		public override void FixedUpdateNetwork()
@@ -520,12 +515,6 @@ namespace Starter.ThirdPersonCharacter
 				isFreecamActive = !isFreecamActive;
 				cameraSwitcher.ToggleFreecam(isFreecamActive);
 			}
-
-			foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
-			{
-				renderer.enabled = debugVisible;
-			}
-
 		}
 
 		private void UpdateFreecamState(bool isFreecamActive)
@@ -539,14 +528,6 @@ namespace Starter.ThirdPersonCharacter
 			{
 				KCC.enabled = true;
                 Animator.enabled = true;
-            }
-		}
-
-		private void UpdateVisibility()
-		{
-			if (playerRenderer != null)
-			{
-				playerRenderer.enabled = debugVisible;
             }
 		}
     }
