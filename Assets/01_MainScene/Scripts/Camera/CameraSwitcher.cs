@@ -5,14 +5,16 @@ public sealed class CameraSwitcher : MonoBehaviour
 {
     public GameObject playerCamera; // Caméra liée au joueur
     public GameObject freecamCamera; // Caméra libre
-    private bool isFreecamActive = false;
+    //private bool isFreecamActive = false;
 
-    public void ToggleFreecam()
-    {
-        isFreecamActive = !isFreecamActive;
+    public void ToggleFreecam(bool isFreecamActive) { 
 
         // Activer/Désactiver les caméras
         playerCamera.SetActive(!isFreecamActive);
         freecamCamera.SetActive(isFreecamActive);
+
+        Debug.Log(isFreecamActive ? "Caméra libre activée" : "Caméra libre désactivée");
+
+
     }
 }

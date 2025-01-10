@@ -13,7 +13,12 @@ namespace Starter.ThirdPersonCharacter
 	/// </summary>
 	public sealed class Player : NetworkBehaviour
 	{
-		[Header("References")]
+
+		[Header("Debug")]
+		public bool DebugIsDead;
+		public bool DebugFreecam;
+
+        [Header("References")]
 		public SimpleKCC KCC;
 		public PlayerModel PlayerModel;
 		public PlayerInput PlayerInput;
@@ -57,6 +62,8 @@ namespace Starter.ThirdPersonCharacter
 		private NetworkBool _isMoving { get; set; }
 		private NetworkBool _isShooting { get; set; }
 		private Vector3 _moveVelocity;
+
+		private bool isFreecamActive = false;
 
 		[Networked]
 		public bool DebugIsDead {get; set;}
@@ -131,6 +138,8 @@ namespace Starter.ThirdPersonCharacter
 
 			base.Spawned ();
 
+
+
             multiAimConstraintBodyObject = multiAimConstraintBody.gameObject.GetComponent<NetworkObject>();
             multiAimConstraintHeadObject = multiAimConstraintHead.gameObject.GetComponent<NetworkObject>();
             multiAimConstraintWeaponObject = multiAimConstraintWeapon.gameObject.GetComponent<NetworkObject>();
@@ -138,10 +147,16 @@ namespace Starter.ThirdPersonCharacter
 
             DebugIsDead = false;
             isAlive = true;
+            DebugFreecam = false;
 		}
 
 		public override void FixedUpdateNetwork()
 		{
+			if (HasStateAuthority)
+			{
+				UpdateFreecamState(DebugFreecam);
+			}
+
 			ProcessInput(PlayerInput.CurrentInput);
 
 			if (KCC.IsGrounded)
@@ -534,7 +549,7 @@ namespace Starter.ThirdPersonCharacter
 
         private void Update()
         {
-            if (DebugIsDead)
+            if (DebugIsDead || transform.position[1] <= -30)
             {
 				// PlayerInventory.enabled = false;
 
@@ -543,12 +558,34 @@ namespace Starter.ThirdPersonCharacter
                 // Envoie les coordonnées de mort au GameManager
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
-                // Passage du joueur en mode spectateur
-                //cameraSwitcher.ToggleFreecam();
+				// Passage du joueur en mode spectateur
+				isFreecamActive = !isFreecamActive;
+				cameraSwitcher.ToggleFreecam(isFreecamActive);
 
-                // Fait disparaître le corps du joueur
-                //Destroy(gameObject);
+				// Fait disparaître le corps du joueur
+				Destroy(gameObject);
             }
-        }
+
+			if (DebugFreecam)
+			{
+				DebugFreecam = false;
+				isFreecamActive = !isFreecamActive;
+				cameraSwitcher.ToggleFreecam(isFreecamActive);
+			}
+		}
+
+		private void UpdateFreecamState(bool isFreecamActive)
+		{
+			if (isFreecamActive)
+			{
+				KCC.enabled = false;
+				Animator.enabled = false;
+			}
+			else
+			{
+				KCC.enabled = true;
+                Animator.enabled = true;
+            }
+		}
     }
 }
