@@ -195,7 +195,9 @@ public class LootBox : NetworkBehaviour
             NetworkObject netObj = item.GetComponent<NetworkObject>();
             if (netObj != null)
             {
-                Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity, null);
+                
+                NetworkObject netObjcreate = Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity, Runner.LocalPlayer);
+
                 Debug.Log("Item spawned successfully on all clients with no specific authority.");
             }
         }
@@ -224,6 +226,7 @@ public class LootBox : NetworkBehaviour
                 if (netObj != null)
                 {
                     spawnedWeapon = Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, null);
+                   
                     Debug.Log("Weapon spawned successfully on all clients with no specific authority.");
                 }
             }
