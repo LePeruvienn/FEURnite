@@ -143,6 +143,13 @@ namespace Starter.ThirdPersonCharacter
 			// Spawn the player at the new position
 			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
 			_localPlayerInstance = playerInstance;  // Store the player instance
+
+			// Ajouter des items au joueur
+            PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
+            if (inventory != null)
+            {
+                AddItemsToPlayer(inventory);
+            }
 		}
 
 		public void respawnPlayers () {
@@ -305,6 +312,13 @@ namespace Starter.ThirdPersonCharacter
 			// Spawn the player at the new position
 			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
 			_localPlayerInstance = playerInstance;  // Store the player instance
+
+			// Ajouter des items au joueur
+            PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
+            if (inventory != null)
+            {
+                AddItemsToPlayer(inventory);
+            }
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
