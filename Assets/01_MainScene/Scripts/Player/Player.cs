@@ -50,22 +50,22 @@ namespace Starter.ThirdPersonCharacter
 		public float FootstepAudioVolume = 0.5f;
 
 		[Networked]
-    private NetworkBool _isJumping { get; set; }
-    [Networked]
-    private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
-    [Networked]
-    private NetworkBool _isMoving { get; set; }
-    private NetworkBool _isShooting { get; set; }
-    private Vector3 _moveVelocity;
+		private NetworkBool _isJumping { get; set; }
+		[Networked]
+		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
+		[Networked]
+		private NetworkBool _isMoving { get; set; }
+		private NetworkBool _isShooting { get; set; }
+		private Vector3 _moveVelocity;
 
-	[Networked]
-    public bool DebugIsDead {get; set;}
+		[Networked]
+		public bool DebugIsDead {get; set;}
 
-    private GameManager gameManager;
-    private CameraSwitcher cameraSwitcher;
+		private GameManager gameManager;
+		private CameraSwitcher cameraSwitcher;
 
-    // Shoot mecanism
-    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+		// Shoot mecanism
+		[SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
 
         // Animation input
         public MultiAimConstraint multiAimConstraintBody;
@@ -274,9 +274,26 @@ namespace Starter.ThirdPersonCharacter
 			//Debug.Log ("speed: ", speed);
 
 			// Inventory Update
-			PlayerInventory.switchSelection(input.Scroll);
-			// Drop item
-			if (input.DropItem)
+			PlayerInventory.switchSelection(input.Scroll); 
+			
+			if (input.FirstInvSlot)
+            {
+                PlayerInventory.switchToSelection(0);
+            }
+            if (input.SecondInvSlot)
+            {
+                PlayerInventory.switchToSelection(1);
+            }
+            if (input.ThirdInvSlot)
+            {
+                PlayerInventory.switchToSelection(2);
+            }
+            if (input.FourthInvSlot)
+            {
+                PlayerInventory.switchToSelection(3);
+            }
+            // Drop item
+            if (input.DropItem)
 			{
 				PlayerInventory.dropCurrentSelection();
 			}
