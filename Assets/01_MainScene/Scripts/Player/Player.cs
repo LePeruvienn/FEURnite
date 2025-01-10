@@ -57,9 +57,14 @@ namespace Starter.ThirdPersonCharacter
 		private NetworkBool _isMoving { get; set; }
 		private NetworkBool _isShooting { get; set; }
 		private Vector3 _moveVelocity;
-
 		[Networked]
 		public bool DebugIsDead {get; set;}
+
+		[Networked]
+		public bool isAlive {get; set;} = true;
+
+		[Networked]
+		public bool isWinner {get; set;} = false;
 
 		private GameManager gameManager;
 		private CameraSwitcher cameraSwitcher;
@@ -104,7 +109,8 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDAim;
 		private int _animIDMoving;
 		private int _animIDReload;
-        private int _animIDEmote;
+    private int _animIDEmote;
+		private int _animIDCut;
 
         // ############################# teste dodo
 
@@ -138,6 +144,7 @@ namespace Starter.ThirdPersonCharacter
             multiAimConstraintArmObject = multiAimConstraintArm.gameObject.GetComponent<NetworkObject>();
 
             DebugIsDead = false;
+            isAlive = true;
 		}
 
 		public override void FixedUpdateNetwork()
@@ -440,8 +447,6 @@ namespace Starter.ThirdPersonCharacter
 			if (input.Shoot)
 			{
 				PlayerInventory.useCurrentSelection();// We use current selected Item
-
-				// If player is not shooting and his item is a weapon we check if he wants to reaload
 			}
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon)
 			{
@@ -469,8 +474,9 @@ namespace Starter.ThirdPersonCharacter
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDAim = Animator.StringToHash("Aim");
 			_animIDMoving = Animator.StringToHash("Moving");
-            _animIDReload = Animator.StringToHash("ReloadTrigger");
-            _animIDEmote = Animator.StringToHash("EmoteTrigger");
+      _animIDReload = Animator.StringToHash("ReloadTrigger");
+      _animIDEmote = Animator.StringToHash("EmoteTrigger");
+      _animIDCut = Animator.StringToHash("StabTrigger");
         }
 
         // Animation event

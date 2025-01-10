@@ -326,15 +326,21 @@ namespace Starter.ThirdPersonCharacter
           Debug.Log ("Reload Complete !");
         }
 
-        private IEnumerator stabCouroutine()
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        private void RPC_Cuting()
         {
-
             // Getting PlayerAnimator
             if (_playerAnimator == null)
                 _playerAnimator = GetComponentInParent<Animator>();
 
             //stab animation
             _playerAnimator.SetTrigger("StabTrigger");
+        }
+
+        private IEnumerator stabCouroutine()
+        {
+            // networked methode
+            RPC_Cuting();
 
             // Wait for reload cooldown
             yield return new WaitForSeconds(shootDelay);
