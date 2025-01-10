@@ -77,8 +77,6 @@ namespace Starter.ThirdPersonCharacter
 
         [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
 
-        private int _animIDCut;
-
         // Run when program starts
         public override void Spawned()
         {
@@ -86,8 +84,6 @@ namespace Starter.ThirdPersonCharacter
             _currentAmmoAmount = startAmmoAmount;
             // Set weapon state to ready
             _currentWeaponState = WeaponState.Ready;
-
-            _animIDCut = Animator.StringToHash("StabTrigger");
 
             if (_runner == null)
             {
@@ -330,13 +326,15 @@ namespace Starter.ThirdPersonCharacter
           Debug.Log ("Reload Complete !");
         }
 
-        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        [Rpc(RpcSources.All, RpcTargets.All)]
         private void RPC_Cuting()
         {
+            // Getting PlayerAnimator
             if (_playerAnimator == null)
                 _playerAnimator = GetComponentInParent<Animator>();
 
-            _playerAnimator.SetTrigger(_animIDCut);
+            //stab animation
+            _playerAnimator.SetTrigger("StabTrigger");
         }
 
         private IEnumerator stabCouroutine()
