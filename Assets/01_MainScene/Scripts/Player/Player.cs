@@ -13,7 +13,12 @@ namespace Starter.ThirdPersonCharacter
 	/// </summary>
 	public sealed class Player : NetworkBehaviour
 	{
-		[Header("References")]
+
+		[Header("Debug")]
+		public bool DebugIsDead;
+		public bool DebugFreecam;
+
+        [Header("References")]
 		public SimpleKCC KCC;
 		public PlayerModel PlayerModel;
 		public PlayerInput PlayerInput;
@@ -50,22 +55,21 @@ namespace Starter.ThirdPersonCharacter
 		public float FootstepAudioVolume = 0.5f;
 
 		[Networked]
-    private NetworkBool _isJumping { get; set; }
-    [Networked]
-    private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
-    [Networked]
-    private NetworkBool _isMoving { get; set; }
-    private NetworkBool _isShooting { get; set; }
-    private Vector3 _moveVelocity;
+		private NetworkBool _isJumping { get; set; }
+		[Networked]
+		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
+		[Networked]
+		private NetworkBool _isMoving { get; set; }
+		private NetworkBool _isShooting { get; set; }
+		private Vector3 _moveVelocity;
 
-	[Networked]
-    public bool DebugIsDead {get; set;}
+		private bool isFreecamActive = false;
 
-    private GameManager gameManager;
-    private CameraSwitcher cameraSwitcher;
+		private GameManager gameManager;
+		private CameraSwitcher cameraSwitcher;
 
-    // Shoot mecanism
-    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+		// Shoot mecanism
+		[SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
 
 		// Animation input
 		[Header("Animation Constraint")]
@@ -105,10 +109,17 @@ namespace Starter.ThirdPersonCharacter
 
 			base.Spawned ();
 			DebugIsDead = false;
-		}
+            DebugFreecam = false;
+
+        }
 
 		public override void FixedUpdateNetwork()
 		{
+			if (HasStateAuthority)
+			{
+				UpdateFreecamState(DebugFreecam);
+			}
+
 			ProcessInput(PlayerInput.CurrentInput);
 
 			if (KCC.IsGrounded)
@@ -490,12 +501,34 @@ namespace Starter.ThirdPersonCharacter
                 // Envoie les coordonnées de mort au GameManager
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
-                // Passage du joueur en mode spectateur
-                //cameraSwitcher.ToggleFreecam();
+				// Passage du joueur en mode spectateur
+				isFreecamActive = !isFreecamActive;
+				cameraSwitcher.ToggleFreecam(isFreecamActive);
 
-                // Fait disparaître le corps du joueur
-                Destroy(gameObject);
+				// Fait disparaître le corps du joueur
+				Destroy(gameObject);
             }
-        }
+
+			if (DebugFreecam)
+			{
+				DebugFreecam = false;
+				isFreecamActive = !isFreecamActive;
+				cameraSwitcher.ToggleFreecam(isFreecamActive);
+			}
+		}
+
+		private void UpdateFreecamState(bool isFreecamActive)
+		{
+			if (isFreecamActive)
+			{
+				KCC.enabled = false;
+				Animator.enabled = false;
+			}
+			else
+			{
+				KCC.enabled = true;
+                Animator.enabled = true;
+            }
+		}
     }
 }
