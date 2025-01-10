@@ -339,7 +339,7 @@ namespace Starter.ThirdPersonCharacter
 
         private IEnumerator stabCouroutine()
         {
-
+            // networked methode
             RPC_Cuting();
 
             // Wait for reload cooldown
