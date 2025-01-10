@@ -7101,9 +7101,73 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
+      propertyPath: boxRarity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
       propertyPath: ListWeapon.Array.data[0]
       value: 
-      objectReference: {fileID: 8105093614528831879, guid: 7386b3666311c12408cb42fad8eaebfc,
+      objectReference: {fileID: 4224034174343095651, guid: 52e615f7e32ad7e43bfd393b420c26ec,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.data[1]
+      value: 
+      objectReference: {fileID: 663417213146147357, guid: 1bfb9e6945b432943a97c54e113c9f7c,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.data[2]
+      value: 
+      objectReference: {fileID: 6440599648175510709, guid: c32ec262b6ed04c428218d41e759ec55,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.data[3]
+      value: 
+      objectReference: {fileID: 6561465501170253921, guid: 07bba0c2e5ae26a4ba2865fbd438d41e,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.data[4]
+      value: 
+      objectReference: {fileID: 5446245216496017052, guid: a32bab2debdc65b4e81d1764472ac9c8,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.data[5]
+      value: 
+      objectReference: {fileID: 8533168008714166604, guid: dbaf1d009b6b1c24fb0e4105675d8b6f,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.data[6]
+      value: 
+      objectReference: {fileID: 171527776781687000, guid: b30fef2a64065f047a4100d12aaa184b,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.data[7]
+      value: 
+      objectReference: {fileID: 8105093614528831879, guid: 549796638650bd642b93d2fab1f40fea,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.data[8]
+      value: 
+      objectReference: {fileID: 1045324172950302930, guid: b9aa01325c2e82b4fa370c5eace7c411,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.data[9]
+      value: 
+      objectReference: {fileID: 4001013144905581867, guid: 58367b36a6f6e3940a1faf73c7d36e21,
         type: 3}
     - target: {fileID: 7375807630656759308, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
@@ -23880,9 +23944,26 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
+      propertyPath: ListWeapon.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
       propertyPath: ListWeapon.Array.data[0]
       value: 
-      objectReference: {fileID: 171527776781687000, guid: 8326b4c301b1e2548976dff2b904294c,
+      objectReference: {fileID: 171527776781687000, guid: b30fef2a64065f047a4100d12aaa184b,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.data[1]
+      value: 
+      objectReference: {fileID: 8105093614528831879, guid: 549796638650bd642b93d2fab1f40fea,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListWeapon.Array.data[2]
+      value: 
+      objectReference: {fileID: 1045324172950302930, guid: b9aa01325c2e82b4fa370c5eace7c411,
         type: 3}
     - target: {fileID: 7375807630656759308, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
