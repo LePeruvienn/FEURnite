@@ -114,12 +114,6 @@ namespace Starter.ThirdPersonCharacter
             Animator.SetTrigger(_animIDReload);
         }
 
-        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-        private void RPC_Cuting()
-        {
-            Animator.SetTrigger(_animIDCut);
-        }
-
         //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
         //private void RPC_UpdateAimState(bool isAiming)
         //{
@@ -419,11 +413,11 @@ namespace Starter.ThirdPersonCharacter
 
                 if (itemType == ItemType.Weapon)
 				{
-                    Weapon weapon = (Weapon)currentItem;
-					if (weapon.bulletType == BulletType.Knife) 
-					{
-						RPC_Cuting();
-                    }
+     //               Weapon weapon = (Weapon)currentItem;
+					//if (weapon.bulletType == BulletType.Knife) 
+					//{
+					//	RPC_Cuting();
+     //               }
                 }
 
 
