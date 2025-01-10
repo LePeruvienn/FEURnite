@@ -492,7 +492,7 @@ namespace Starter.ThirdPersonCharacter
 
         private void Update()
         {
-            if (DebugIsDead)
+            if (DebugIsDead || transform.position[1] <= -30)
             {
 				// PlayerInventory.enabled = false;
 
