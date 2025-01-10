@@ -66,9 +66,6 @@ namespace Starter.ThirdPersonCharacter
 		private bool isFreecamActive = false;
 
 		[Networked]
-		public bool DebugIsDead {get; set;}
-
-		[Networked]
 		public bool isAlive {get; set;} = true;
 
 		[Networked]
