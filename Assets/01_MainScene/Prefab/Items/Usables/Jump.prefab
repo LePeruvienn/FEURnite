@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2651700936119964263}
   - component: {fileID: 4860249499524485463}
   m_Layer: 0
-  m_Name: Bandages
+  m_Name: Jump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   rarity: 1
   useCooldown: 3
   effects:
-  - stats: 1
+  - stats: 2
     amount: 5
     duration: 200
   audioSource: {fileID: 2651700936119964263}
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 1941102084
+  SortKey: 2861381913
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
