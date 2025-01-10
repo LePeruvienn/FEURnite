@@ -70,6 +70,7 @@ namespace Starter.ThirdPersonCharacter
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
         {
             RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
+            Runner.Spawn(PlayerPrefab, deathPosition, deathOrientation, Object.InputAuthority);
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]

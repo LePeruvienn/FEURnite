@@ -508,24 +508,24 @@ namespace Starter.ThirdPersonCharacter
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
                 // Passage du joueur en mode spectateur
-                isFreecamActive = !isFreecamActive;
-                cameraSwitcher.ToggleFreecam(isFreecamActive);
+                //isFreecamActive = !isFreecamActive;
+                //cameraSwitcher.ToggleFreecam(isFreecamActive);
 
                 // Fait disparaître le corps du joueur
                 Destroy(gameObject);
             }
 
-			if (DebugFreecam)
-			{
-                DebugFreecam = false;
-                isFreecamActive = !isFreecamActive;
-                cameraSwitcher.ToggleFreecam(isFreecamActive);
-            }
+			//if (DebugFreecam)
+			//{
+   //             DebugFreecam = false;
+   //             isFreecamActive = !isFreecamActive;
+   //             cameraSwitcher.ToggleFreecam(isFreecamActive);
+   //         }
 
-			foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
-			{
-				renderer.enabled = debugVisible;
-			}
+			//foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+			//{
+			//	renderer.enabled = debugVisible;
+			//}
 			
         }
 
