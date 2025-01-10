@@ -13,7 +13,14 @@ namespace Starter.ThirdPersonCharacter
 	/// </summary>
 	public sealed class Player : NetworkBehaviour
 	{
-		[Header("References")]
+
+		[Header("Debug")]
+		public bool DebugIsDead;
+		public bool DebugFreecam;
+		public bool debugVisible;
+        public Renderer playerRenderer;
+
+        [Header("References")]
 		public SimpleKCC KCC;
 		public PlayerModel PlayerModel;
 		public PlayerInput PlayerInput;
@@ -58,18 +65,10 @@ namespace Starter.ThirdPersonCharacter
 		private NetworkBool _isShooting { get; set; }
 		private Vector3 _moveVelocity;
 
-		[Networked]
-		public bool DebugIsDead {get; set;}
-		[Networked]
-		public bool DebugFreecam {get; set;}
 		private bool isFreecamActive = false;
 
 		private GameManager gameManager;
 		private CameraSwitcher cameraSwitcher;
-
-		[Networked]
-		public bool debugVisible {get; set;}
-		public Renderer playerRenderer;
 
 		// Shoot mecanism
 		[SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?

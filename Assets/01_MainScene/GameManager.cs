@@ -70,7 +70,7 @@ namespace Starter.ThirdPersonCharacter
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
         {
             RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
-            Runner.Spawn(PlayerPrefab, deathPosition, deathOrientation, Object.InputAuthority);
+            RPC_SpawnGhostPlayer(deathPosition, deathOrientation);
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
@@ -78,6 +78,12 @@ namespace Starter.ThirdPersonCharacter
         {
             Debug.Log("Death :" + deathPosition);
             Runner.Spawn(CorpsePrefab, deathPosition, deathOrientation, null);
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+        private void RPC_SpawnGhostPlayer(Vector3 position, Quaternion orientation)
+        {
+            Runner.Spawn(PlayerPrefab, position, orientation, Object.InputAuthority);
         }
     }
 }
