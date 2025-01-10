@@ -243,9 +243,15 @@ namespace Starter.ThirdPersonCharacter
 				updateSelection(); // Update current selection
 			}
 		}
-		
-		// Use current selection
-		public void useCurrentSelection()
+
+        public void switchToSelection(int number)
+        {
+            _selectedIndex = number;
+            updateSelection(); // Update current selection
+        }
+
+        // Use current selection
+        public void useCurrentSelection()
 		{
 			// Getting current selection
 			GameObject obj = _inventory[_selectedIndex];

@@ -57,9 +57,14 @@ namespace Starter.ThirdPersonCharacter
 		private NetworkBool _isMoving { get; set; }
 		private NetworkBool _isShooting { get; set; }
 		private Vector3 _moveVelocity;
-
 		[Networked]
 		public bool DebugIsDead {get; set;}
+
+		[Networked]
+		public bool isAlive {get; set;} = true;
+
+		[Networked]
+		public bool isWinner {get; set;} = false;
 
 		private GameManager gameManager;
 		private CameraSwitcher cameraSwitcher;
@@ -132,6 +137,7 @@ namespace Starter.ThirdPersonCharacter
             multiAimConstraintArmObject = multiAimConstraintArm.gameObject.GetComponent<NetworkObject>();
 
             DebugIsDead = false;
+            isAlive = true;
 		}
 
 		public override void FixedUpdateNetwork()
@@ -275,9 +281,26 @@ namespace Starter.ThirdPersonCharacter
 			//Debug.Log ("speed: ", speed);
 
 			// Inventory Update
-			PlayerInventory.switchSelection(input.Scroll);
-			// Drop item
-			if (input.DropItem)
+			PlayerInventory.switchSelection(input.Scroll); 
+			
+			if (input.FirstInvSlot)
+            {
+                PlayerInventory.switchToSelection(0);
+            }
+            if (input.SecondInvSlot)
+            {
+                PlayerInventory.switchToSelection(1);
+            }
+            if (input.ThirdInvSlot)
+            {
+                PlayerInventory.switchToSelection(2);
+            }
+            if (input.FourthInvSlot)
+            {
+                PlayerInventory.switchToSelection(3);
+            }
+            // Drop item
+            if (input.DropItem)
 			{
 				PlayerInventory.dropCurrentSelection();
 			}
