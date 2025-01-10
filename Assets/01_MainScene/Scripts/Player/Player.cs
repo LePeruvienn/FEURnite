@@ -50,22 +50,22 @@ namespace Starter.ThirdPersonCharacter
 		public float FootstepAudioVolume = 0.5f;
 
 		[Networked]
-    private NetworkBool _isJumping { get; set; }
-    [Networked]
-    private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
-    [Networked]
-    private NetworkBool _isMoving { get; set; }
-    private NetworkBool _isShooting { get; set; }
-    private Vector3 _moveVelocity;
+		private NetworkBool _isJumping { get; set; }
+		[Networked]
+		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
+		[Networked]
+		private NetworkBool _isMoving { get; set; }
+		private NetworkBool _isShooting { get; set; }
+		private Vector3 _moveVelocity;
 
-	[Networked]
-    public bool DebugIsDead {get; set;}
+		[Networked]
+		public bool DebugIsDead {get; set;}
 
-    private GameManager gameManager;
-    private CameraSwitcher cameraSwitcher;
+		private GameManager gameManager;
+		private CameraSwitcher cameraSwitcher;
 
-    // Shoot mecanism
-    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+		// Shoot mecanism
+		[SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
 
         // Animation input
         public MultiAimConstraint multiAimConstraintBody;
@@ -104,6 +104,7 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDAim;
 		private int _animIDMoving;
 		private int _animIDReload;
+		private int _animIDCut;
 
         // ############################# teste dodo
 
@@ -111,6 +112,12 @@ namespace Starter.ThirdPersonCharacter
         private void RPC_Reload()
         {
             Animator.SetTrigger(_animIDReload);
+        }
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        private void RPC_Cuting()
+        {
+            Animator.SetTrigger(_animIDCut);
         }
 
         //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
@@ -410,10 +417,18 @@ namespace Starter.ThirdPersonCharacter
 			{
 				PlayerInventory.useCurrentSelection();// We use current selected Item
 
+                if (itemType == ItemType.Weapon)
+				{
+                    Weapon weapon = (Weapon)currentItem;
+					if (weapon.bulletType == BulletType.Knife) 
+					{
+						RPC_Cuting();
+                    }
+                }
 
 
-				// If player is not shooting and his item is a weapon we check if he wants to reaload
-			}
+                // If player is not shooting and his item is a weapon we check if he wants to reaload
+            }
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon)
 			{
                 // ############################# teste dodo
@@ -443,6 +458,7 @@ namespace Starter.ThirdPersonCharacter
             // ############################# teste dodo
             _animIDReload = Animator.StringToHash("ReloadTrigger");
             // ############################# teste dodo
+            _animIDCut = Animator.StringToHash("StabTrigger");
         }
 
         // Animation event
