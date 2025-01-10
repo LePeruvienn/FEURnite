@@ -514,19 +514,19 @@ namespace Starter.ThirdPersonCharacter
                 Destroy(gameObject);
             }
 
-			//if (DebugFreecam)
-			//{
-   //             DebugFreecam = false;
-   //             isFreecamActive = !isFreecamActive;
-   //             cameraSwitcher.ToggleFreecam(isFreecamActive);
-   //         }
+			if (DebugFreecam)
+			{
+				DebugFreecam = false;
+				isFreecamActive = !isFreecamActive;
+				cameraSwitcher.ToggleFreecam(isFreecamActive);
+			}
 
-			//foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
-			//{
-			//	renderer.enabled = debugVisible;
-			//}
-			
-        }
+			foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+			{
+				renderer.enabled = debugVisible;
+			}
+
+		}
 
 		private void UpdateFreecamState(bool isFreecamActive)
 		{

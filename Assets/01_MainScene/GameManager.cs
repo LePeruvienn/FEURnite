@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Fusion;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// Handles player connections (spawning of Player instances) at designated spawn points.
@@ -70,7 +71,9 @@ namespace Starter.ThirdPersonCharacter
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
         {
             RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
-            RPC_SpawnGhostPlayer(deathPosition, deathOrientation);
+            //Runner.Spawn(PlayerPrefab, deathPosition, deathOrientation, Object.InputAuthority);
+            Instantiate(PlayerPrefab, deathPosition, deathOrientation);
+            //RPC_SpawnGhostPlayer(deathPosition, deathOrientation);
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
@@ -80,7 +83,7 @@ namespace Starter.ThirdPersonCharacter
             Runner.Spawn(CorpsePrefab, deathPosition, deathOrientation, null);
         }
 
-        [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+        [Rpc(RpcSources.All, RpcTargets.InputAuthority)]
         private void RPC_SpawnGhostPlayer(Vector3 position, Quaternion orientation)
         {
             Runner.Spawn(PlayerPrefab, position, orientation, Object.InputAuthority);
