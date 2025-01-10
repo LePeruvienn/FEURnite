@@ -1,13 +1,17 @@
 using UnityEngine;
 
-public class PlatformesRotations : MonoBehaviour
+namespace Starter.ThirdPersonCharacter
 {
-    public Vector3 rotationAxis = new Vector3(1, 0, 0); // Axe de rotation (X par défaut)
-    public float rotationSpeed = 30f; // Vitesse de rotation en degrés par seconde
 
-    void Update()
+    public class PlatformesRotations : MonoBehaviour
     {
-        // Appliquer la rotation autour de l'axe spécifié
-        transform.Rotate(rotationAxis * rotationSpeed * Time.deltaTime);
+        public Vector3 rotationAxis = new Vector3(1, 0, 0); // Axe de rotation (X par défaut)
+        public float rotationSpeed = 30f; // Vitesse de rotation en degrés par seconde
+
+        void Update()
+        {
+            // Appliquer la rotation autour de l'axe spécifié
+            transform.Rotate(rotationAxis * rotationSpeed * Time.deltaTime);
+        }
     }
 }
