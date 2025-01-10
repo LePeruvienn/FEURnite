@@ -154,11 +154,10 @@ MonoBehaviour:
   rarity: 1
   useCooldown: 3
   effects:
-  - stats: 2
+  - stats: 1
     amount: 5
     duration: 200
   audioSource: {fileID: 2651700936119964263}
-  actionSound: {fileID: 8300000, guid: 20fdde6cc6a6a620e9ceaeb6e09b0d66, type: 3}
 --- !u!82 &2651700936119964263
 AudioSource:
   m_ObjectHideFlags: 0
