@@ -2017,7 +2017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!114 &168536716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2031,7 +2031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!114 &168536717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2045,7 +2045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!64 &180437253
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3335,7 +3335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!64 &341350722
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10620,7 +10620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!64 &998563959
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15256,7 +15256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!64 &1391269282
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20734,7 +20734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isleCenter: {fileID: 168536711}
-  rotationSpeed: 10
+  trainObject: {fileID: 0}
 --- !u!1 &1762052341
 GameObject:
   m_ObjectHideFlags: 0
@@ -25559,6 +25559,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 176584572663071047, guid: 55385226113a82e4092a3683d5cb1784,
     type: 3}
+  itemPrefabs:
+  - RawGuidValue: 77b78cf3e98a9a840b6a7b7e31d950bf
   CorpsePrefab: {fileID: -8442461170091520878, guid: 76259039dd823d542b4df5209f3cc8f1,
     type: 3}
   SpawnRadius: 3

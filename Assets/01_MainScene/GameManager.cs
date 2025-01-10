@@ -91,7 +91,14 @@ namespace Starter.ThirdPersonCharacter
 			// Spawn the player at the calculated position
 			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
 
-			// Store the player instance for future reference (e.g., for moving, despawning, etc.)
+			// Ajouter des items au joueur
+            PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
+            if (inventory != null)
+            {
+                AddItemsToPlayer(inventory);
+            }
+
+			// Store the player instance for future references 
 			_localPlayerInstance = playerInstance;
 
 			// Si le joueur rejoint une partie en cours
@@ -102,6 +109,22 @@ namespace Starter.ThirdPersonCharacter
 				// ...
 			}
 		}
+
+        private void AddItemsToPlayer (PlayerInventory inventory)
+        {
+            GameObject[] createdItems = new GameObject[itemPrefabs.Count];
+            int i = 0;
+            foreach (var itemPrefab in itemPrefabs)
+            {
+                // Créer l'item
+                NetworkObject item = Runner.Spawn(itemPrefab, Vector3.zero, Quaternion.identity,null);
+                createdItems[i] = item.gameObject;
+                // Ajouter l'item à l'inventaire du joueur
+                inventory.AddItem(item,i);
+                i++;
+            }
+            inventory.initAdd(createdItems);
+        }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
 		private void RPC_movePlayerToSpawnPoint (int index, PlayerRef playerRef) {
