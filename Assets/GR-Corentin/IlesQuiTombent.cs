@@ -62,7 +62,7 @@ namespace Starter.ThirdPersonCharacter
             {
                 initObject(island);
                 _defaultInterPos.Add(island.transform.position);
-                _defaultSpawnRotation.Add(island.transform.rotation);
+                _defaultInterRotation.Add(island.transform.rotation);
             }
 
             // Initialize platform islands
@@ -70,7 +70,7 @@ namespace Starter.ThirdPersonCharacter
             {
                 initObject(island);
                 _defaultPlateformesPos.Add(island.transform.position);
-                _defaultSpawnRotation.Add(island.transform.rotation);
+                _defaultPlateformesRotation.Add(island.transform.rotation);
             }
         }
 
@@ -106,7 +106,7 @@ namespace Starter.ThirdPersonCharacter
             // Start falling process for each island
             foreach (var island in islands)
             {
-                StartCoroutine(TremblementEtChute(island));
+                _coroutines.Add (StartCoroutine(TremblementEtChute(island)));
             }
         }
 
@@ -160,7 +160,7 @@ namespace Starter.ThirdPersonCharacter
             rb.isKinematic = false; // Allow the Rigidbody to fall naturally
 
             // Start disappearance process
-            StartCoroutine(DisparaitreApresDelai(obj));
+            _coroutines.Add (StartCoroutine(DisparaitreApresDelai(obj)));
         }
 
         IEnumerator DisparaitreApresDelai(GameObject obj)
