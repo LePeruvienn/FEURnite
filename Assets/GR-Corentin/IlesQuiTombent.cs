@@ -28,10 +28,10 @@ namespace Starter.ThirdPersonCharacter
         private List<Quaternion> _defaultPlateformesRotation;
 
         [Header("Island Falling Timers")]
-        public float delaiAvantChute = 5f; // Time before the island falls
-        public float delaiAvantDisparition = 10f; // Time before the island completely disappears
-        public float dureeTremblement = 5f; // Duration of the shaking
-        public float intensiteTremblement = 0.1f; // Intensity of the shaking
+        public float delaiAvantChute; // Time before the island falls
+        public float delaiAvantDisparition; // Time before the island completely disappears
+        public float dureeTremblement; // Duration of the shaking
+        public float intensiteTremblement; // Intensity of the shaking
 
 		private List<Coroutine> _coroutines;
 
