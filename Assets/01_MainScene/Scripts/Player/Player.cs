@@ -546,7 +546,8 @@ namespace Starter.ThirdPersonCharacter
 
         private void Update()
         {
-            if (DebugIsDead || transform.position[1] <= -30)
+            // if (DebugIsDead || transform.position[1] <= -30)
+            if (DebugIsDead)
             {
 				Debug.Log (">> DEBUG IS DEAD");
 				
