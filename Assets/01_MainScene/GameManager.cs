@@ -303,9 +303,14 @@ namespace Starter.ThirdPersonCharacter
 
         [Rpc(RpcSources.All, RpcTargets.All)]
 		private void RPC_respawnPlayerToBase () {
-			
-			// Despawn the player object
-			Runner.Despawn(_localPlayerInstance);
+
+			// Despawn the player object if is set
+			if (_localPlayerInstance != null)
+				Runner.Despawn(_localPlayerInstance);
+
+			// Switch Camera
+            CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher>();
+			cameraSwitcher.ToggleFreecam (false);
 
 			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
 			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
@@ -316,16 +321,18 @@ namespace Starter.ThirdPersonCharacter
 
 			// Ajouter des items au joueur
             PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
+
+			// Add items to inventory
             if (inventory != null)
-            {
                 AddItemsToPlayer(inventory);
-            }
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
         {
 			// Check if a player win the game
-			checkForWinner ();
+			if (_gameState == GameState.InGame)
+				checkForWinner ();
+			
 			// Spawn corpse
             RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
         }
