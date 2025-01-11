@@ -553,6 +553,7 @@ namespace Starter.ThirdPersonCharacter
 				// PlayerInventory.enabled = false;
 
                 DebugIsDead = false;
+				isAlive = false;
 
                 // Envoie les coordonnées de mort au GameManager
                 gameManager.PlayerDeath(transform.position, transform.rotation);

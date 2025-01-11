@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Starter.ThirdPersonCharacter
 {
     // Enum for island type
-    public enum InslandType
+    public enum IslandType
     {
         Spawn = 1,
         Inter = 2,
@@ -23,24 +23,38 @@ namespace Starter.ThirdPersonCharacter
         private List<Vector3> _defaultInterPos;
         private List<Vector3> _defaultPlateformesPos;
 
+        private List<Quaternion> _defaultSpawnRotation;
+        private List<Quaternion> _defaultInterRotation;
+        private List<Quaternion> _defaultPlateformesRotation;
+
         [Header("Island Falling Timers")]
         public float delaiAvantChute = 5f; // Time before the island falls
         public float delaiAvantDisparition = 10f; // Time before the island completely disappears
         public float dureeTremblement = 5f; // Duration of the shaking
         public float intensiteTremblement = 0.1f; // Intensity of the shaking
 
+		private List<Coroutine> _coroutines;
+
         void Start()
         {
+			// Init coroutine list
+			_coroutines = new List<Coroutine> ();
+
             // Initialize the default position lists
             _defaultSpawnPos = new List<Vector3>();
             _defaultInterPos = new List<Vector3>();
             _defaultPlateformesPos = new List<Vector3>();
+
+            _defaultSpawnRotation = new List<Quaternion>();
+            _defaultInterRotation = new List<Quaternion>();
+            _defaultPlateformesRotation = new List<Quaternion>();
 
             // Initialize spawn islands
             foreach (var island in spawnIslands)
             {
                 initObject(island);
                 _defaultSpawnPos.Add(island.transform.position);
+                _defaultSpawnRotation.Add(island.transform.rotation);
             }
 
             // Initialize inter islands
@@ -48,6 +62,7 @@ namespace Starter.ThirdPersonCharacter
             {
                 initObject(island);
                 _defaultInterPos.Add(island.transform.position);
+                _defaultSpawnRotation.Add(island.transform.rotation);
             }
 
             // Initialize platform islands
@@ -55,27 +70,28 @@ namespace Starter.ThirdPersonCharacter
             {
                 initObject(island);
                 _defaultPlateformesPos.Add(island.transform.position);
+                _defaultSpawnRotation.Add(island.transform.rotation);
             }
         }
 
-        public void fallInslands(InslandType type)
+        public void fallIslands(IslandType type)
         {
             List<GameObject> islands = null;
 
             // Get the selected islands
             switch (type)
             {
-                case InslandType.Spawn:
+                case IslandType.Spawn:
                     Debug.Log("FALLING SPAWN");
                     islands = spawnIslands;
                     break;
 
-                case InslandType.Inter:
+                case IslandType.Inter:
                     Debug.Log("FALLING INTER");
                     islands = interIslands;
                     break;
 
-                case InslandType.Plateformes:
+                case IslandType.Plateformes:
                     Debug.Log("FALLING PLATEFORMES");
                     islands = plateformes;
                     break;
@@ -161,24 +177,26 @@ namespace Starter.ThirdPersonCharacter
             // Reset spawn islands
             for (int i = 0; i < spawnIslands.Count; i++)
             {
-                resetIsland(spawnIslands[i], _defaultSpawnPos[i]);
+                resetIsland(spawnIslands[i], _defaultSpawnPos[i], _defaultSpawnRotation[i]);
             }
 
             // Reset inter islands
             for (int i = 0; i < interIslands.Count; i++)
             {
-                resetIsland(interIslands[i], _defaultInterPos[i]);
+                resetIsland(interIslands[i], _defaultInterPos[i], _defaultInterRotation[i]);
             }
 
             // Reset platforms
             for (int i = 0; i < plateformes.Count; i++)
             {
-                resetIsland(plateformes[i], _defaultPlateformesPos[i]);
+                resetIsland(plateformes[i], _defaultPlateformesPos[i], _defaultPlateformesRotation[i]);
             }
         }
 
-        private void resetIsland(GameObject obj, Vector3 defaultPos)
+        private void resetIsland(GameObject obj, Vector3 defaultPos, Quaternion defaultRotation)
         {
+			stopAllCoroutine ();
+
             Rigidbody rb = obj.GetComponent<Rigidbody>();
             if (rb == null)
             {
@@ -189,11 +207,18 @@ namespace Starter.ThirdPersonCharacter
             // Configure the Rigidbody
             rb.isKinematic = true; // The island remains stationary until it falls
 
-            // Reset object position
+            // Reset object position & rotation
             obj.transform.position = defaultPos;
+			obj.transform.rotation = defaultRotation;
 
             // Reactivate the object
             obj.SetActive(true);
         }
+
+		private void stopAllCoroutine ()
+		{
+			foreach (Coroutine coroutine in _coroutines)
+				StopCoroutine (coroutine);
+		}
     }
 }

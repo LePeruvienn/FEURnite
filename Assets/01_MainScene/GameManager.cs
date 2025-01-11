@@ -215,12 +215,12 @@ namespace Starter.ThirdPersonCharacter
 
 				// First fall spawns
 				if (repeatCount == 0)
-					fallingInslandManager.fallInslands (InslandType.Spawn);
+					fallingInslandManager.fallIslands (IslandType.Spawn);
 				
 				// Fall inter and plateformes
-				if (repeatCount == 1){
-					fallingInslandManager.fallInslands (InslandType.Plateformes);
-					fallingInslandManager.fallInslands (InslandType.Inter);
+				if (repeatCount == 1) {
+					fallingInslandManager.fallIslands (IslandType.Plateformes);
+					fallingInslandManager.fallIslands (IslandType.Inter);
 				}
 
 				// Increment reapeat count
@@ -253,12 +253,13 @@ namespace Starter.ThirdPersonCharacter
 
 			Debug.Log ("numberPlayerAlive = " + numberPlayerAlive);
 
-			if (numberPlayerAlive == 1 && lastPlayerAlive != null) {
+			if (numberPlayerAlive <= 1) {
 				
 				Debug.Log ("THERE IS A WINNER");
 
 				// Set that we is the winner
-				lastPlayerAlive.isWinner = true;
+				if (lastPlayerAlive != null)
+					lastPlayerAlive.isWinner = true;
 
 				// Start endGame couroutine
 				StartCoroutine (endGame ());
