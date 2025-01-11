@@ -5704,7 +5704,7 @@ Transform:
   m_GameObject: {fileID: 477040589}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.632, y: 0, z: 23.19}
+  m_LocalPosition: {x: 0.689, y: 0, z: 23.19}
   m_LocalScale: {x: 50.39061, y: 2.5972, z: 0.017364347}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27801,21 +27801,12 @@ MonoBehaviour:
   - {fileID: 904395048}
   - {fileID: 1033236537}
   - {fileID: 1158232225}
-  interInslands:
-  - {fileID: 1337015246}
-  - {fileID: 335290701}
-  - {fileID: 1970286329}
-  - {fileID: 800770075}
-  platformes:
-  - {fileID: 1861333262}
-  - {fileID: 814671539}
-  - {fileID: 568221640}
-  - {fileID: 654721702}
+  interIslands: []
+  plateformes: []
   delaiAvantChute: 5
   delaiAvantDisparition: 10
   dureeTremblement: 5
   intensiteTremblement: 0.1
-  colliderSousLIle: {fileID: 0}
 --- !u!64 &1823039734
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -31306,6 +31297,7 @@ MonoBehaviour:
   SpawnBase: {fileID: 425847439}
   SpawnSpectator: {fileID: 405717237}
   timer: {fileID: 18599404}
+  fallingInslandManager: {fileID: 1818480140}
   spawnFallingsTime: 10
   interFallingTime: 10
   timeBeforeReset: 10

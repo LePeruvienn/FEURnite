@@ -38,6 +38,7 @@ namespace Starter.ThirdPersonCharacter
 		public Countdown timer;
 
         [Header("Falling Inslad Cycle Config")]
+		public IlesQuiTombent fallingInslandManager;
 		public int spawnFallingsTime;
 		public int interFallingTime;
 		public int timeBeforeReset;
@@ -212,8 +213,15 @@ namespace Starter.ThirdPersonCharacter
 				// Wait
 				yield return new WaitForSeconds(timeToWait); // Wait for 5 minutes
 
-				// Execute the adequate function
-				Debug.Log($"Executing function at interval {repeatCount + 1}");
+				// First fall spawns
+				if (repeatCount == 0)
+					fallingInslandManager.fallInslands (InslandType.Spawn);
+				
+				// Fall inter and plateformes
+				if (repeatCount == 1){
+					fallingInslandManager.fallInslands (InslandType.Plateformes);
+					fallingInslandManager.fallInslands (InslandType.Inter);
+				}
 
 				// Increment reapeat count
 				repeatCount++;
@@ -303,6 +311,9 @@ namespace Starter.ThirdPersonCharacter
 
         [Rpc(RpcSources.All, RpcTargets.All)]
 		private void RPC_respawnPlayerToBase () {
+
+			StopCoroutine (_inslandFallingCoroutine);
+			fallingInslandManager.resetAll ();
 
 			// Despawn the player object if is set
 			if (_localPlayerInstance != null)
