@@ -131,7 +131,10 @@ namespace Starter.ThirdPersonCharacter
 			if (_health <= 0)
 			{
 				// Make player die
-				die ();
+				if (HasStateAuthority == true)
+				{
+					die ();
+				}
 				// Set health to 0
 				_health = 0;
 			}
