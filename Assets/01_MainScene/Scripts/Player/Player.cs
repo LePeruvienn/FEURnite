@@ -557,9 +557,12 @@ namespace Starter.ThirdPersonCharacter
                 // Envoie les coordonnées de mort au GameManager
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
-				// Passage du joueur en mode spectateur
-				isFreecamActive = !isFreecamActive;
-				cameraSwitcher.ToggleFreecam(isFreecamActive);
+				if (Object.HasStateAuthority) {
+
+					// Passage du joueur en mode spectateur
+					isFreecamActive = !isFreecamActive;
+					cameraSwitcher.ToggleFreecam(isFreecamActive);
+				}
 
 				// Fait disparaître le corps du joueur
 				Destroy(gameObject);
