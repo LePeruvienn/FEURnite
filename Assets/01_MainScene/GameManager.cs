@@ -98,7 +98,10 @@ namespace Starter.ThirdPersonCharacter
             if (inventory != null)
             {
                 AddItemsToPlayer(inventory);
-            }
+
+            } else {
+				Debug.Log (">>> Player dont have inventory");
+			}
 
 			// Store the player instance for future references 
 			_localPlayerInstance = playerInstance;
