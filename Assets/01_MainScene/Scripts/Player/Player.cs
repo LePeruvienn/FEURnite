@@ -210,6 +210,7 @@ namespace Starter.ThirdPersonCharacter
 
 		private void ProcessInput(GameplayInput input)
 		{
+			if (!isAlive) return;
 
 			float jumpImpulse = 0f;
 
