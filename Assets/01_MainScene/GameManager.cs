@@ -111,27 +111,26 @@ namespace Starter.ThirdPersonCharacter
 			Vector3 randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
 			Vector3 spawnPosition = spawnPoint.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
-			// If we are waiting for players
-			if (_gameState == GameState.WaitingForPlayers) {
+			// Spawn the player at the calculated position
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
 
-				// Spawn the player at the calculated position
-				NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+			// Ajouter des items au joueur
+			PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
+			if (inventory != null)
+			{
+				AddItemsToPlayer(inventory);
 
-				// Ajouter des items au joueur
-				PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
-				if (inventory != null)
-				{
-					AddItemsToPlayer(inventory);
-
-				} else {
-					Debug.Log (">>> Player dont have inventory");
-				}
-
-				// Store the player instance for future references 
-				_localPlayerInstance = playerInstance;
-
-			// if player join a game that is already in game
 			} else {
+				Debug.Log (">>> Player dont have inventory");
+			}
+
+			// Store the player instance for future references 
+			_localPlayerInstance = playerInstance;
+
+			if (_gameState !== GameState.WaitingForPlayers) {
+
+				Runner.Despawn (_localPlayerInstance);
+
 				// Set Player to spectator mode
 				CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher> ();
 				cameraSwitcher.ToggleFreecam (true);
@@ -377,27 +376,6 @@ namespace Starter.ThirdPersonCharacter
 			// Spawn corpse
             RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
         }
-
-		private void respawnPlayer () {
-
-			// Switch Camera
-            CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher>();
-			cameraSwitcher.ToggleFreecam (false);
-
-			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
-			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
-
-			// Spawn the player at the new position
-			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
-			_localPlayerInstance = playerInstance;  // Store the player instance
-
-			// Ajouter des items au joueur
-            PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
-
-			// Add items to inventory
-            if (inventory != null)
-                AddItemsToPlayer(inventory);
-		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
         private void RPC_RequestSpawnCorpse(Vector3 deathPosition, Quaternion deathOrientation)
