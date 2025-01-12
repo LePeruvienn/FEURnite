@@ -335,10 +335,11 @@ namespace Starter.ThirdPersonCharacter
 
 		private void resetGame ()
 		{
-			RPC_respawnPlayerToBase ();
-
 			// Set status = WaitingForPlayers
 			_gameState = GameState.WaitingForPlayers;
+
+			// Respawn all players to base
+			RPC_respawnPlayerToBase ();
 		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
