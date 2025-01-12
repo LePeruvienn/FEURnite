@@ -135,7 +135,7 @@ namespace Starter.ThirdPersonCharacter
 
 			base.Spawned ();
 
-
+			
 
             multiAimConstraintBodyObject = multiAimConstraintBody.gameObject.GetComponent<NetworkObject>();
             multiAimConstraintHeadObject = multiAimConstraintHead.gameObject.GetComponent<NetworkObject>();
@@ -546,8 +546,8 @@ namespace Starter.ThirdPersonCharacter
 
         private void Update()
         {
-            // if (DebugIsDead || transform.position[1] <= -30)
-            if (DebugIsDead)
+            // if (DebugIsDead)
+            if (DebugIsDead || transform.position[1] <= -30)
             {
 				Debug.Log (">> DEBUG IS DEAD");
 				
