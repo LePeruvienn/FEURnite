@@ -341,6 +341,8 @@ namespace Starter.ThirdPersonCharacter
         [Rpc(RpcSources.All, RpcTargets.All)]
 		private void RPC_respawnPlayerToBase () {
 
+			Debug.Log (">>> RESPAWN PLAYER TO BASE");
+			
 			StopCoroutine (_inslandFallingCoroutine);
 			fallingInslandManager.resetAll ();
 
