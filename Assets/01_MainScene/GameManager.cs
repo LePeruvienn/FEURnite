@@ -97,7 +97,7 @@ namespace Starter.ThirdPersonCharacter
             PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
             if (inventory != null)
             {
-                RPC_AddItemsToPlayer(inventory);
+                AddItemsToPlayer(inventory);
             }
 
 			// Store the player instance for future references 
@@ -112,8 +112,7 @@ namespace Starter.ThirdPersonCharacter
 			}
 		}
 
-        [Rpc(RpcSources.All, RpcTargets.All)]
-        private void RPC_AddItemsToPlayer (PlayerInventory inventory)
+        private void AddItemsToPlayer (PlayerInventory inventory)
         {
             GameObject[] createdItems = new GameObject[itemPrefabs.Count];
             int i = 0;
@@ -126,6 +125,7 @@ namespace Starter.ThirdPersonCharacter
                 inventory.AddItem(item,i);
                 i++;
             }
+
             inventory.initAdd(createdItems);
         }
 
@@ -151,7 +151,7 @@ namespace Starter.ThirdPersonCharacter
             PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
             if (inventory != null)
             {
-                RPC_AddItemsToPlayer(inventory);
+                AddItemsToPlayer(inventory);
             }
 		}
 
@@ -337,7 +337,7 @@ namespace Starter.ThirdPersonCharacter
 
 			// Add items to inventory
             if (inventory != null)
-                RPC_AddItemsToPlayer(inventory);
+                AddItemsToPlayer(inventory);
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)

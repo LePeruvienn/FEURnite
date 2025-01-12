@@ -103,6 +103,8 @@ namespace Starter.ThirdPersonCharacter
         }
         public void initAdd(GameObject[] starterItems)
         {
+			_inventory = starterItems;
+
             // Initialize the inventory display
             _inventoryDisplay = GetComponentInParent<InventoryDisplay>();
 
