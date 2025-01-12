@@ -53,6 +53,7 @@ namespace Starter.ThirdPersonCharacter
         public bool startGameManually = false; // Use private field for backing
 		
 		// GAME STATUS
+		[Networked] private PlayerRef _winningPlayer { get; set; }
 		[Networked] private int _playerCount { get; set; } = 0;
         [Networked] private int _readyPlayerCount { get; set; } = 0; // Players ready
         [Networked] private GameState _gameState { get; set; } = GameState.WaitingForPlayers;
@@ -313,10 +314,7 @@ namespace Starter.ThirdPersonCharacter
 				_gameState = GameState.GameEnd;
 
 				// Set that we is the winner
-				if (lastPlayerAlive != null)
-					lastPlayerAlive.isWinner = true;
-				else
-					Debug.Log ("LAST PLAYER ALIVE NULL");
+				_winningPlayer = lastPlayerAlive.Object.InputAuthority; // Set the winning player
 
 				// Start endGame couroutine
 				StartCoroutine (endGame ());
@@ -338,11 +336,9 @@ namespace Starter.ThirdPersonCharacter
         [Rpc(RpcSources.All, RpcTargets.All)]
 		private async void RPC_celebrateWinner () {
 			
-			// GET LOCAL PLAYER
-			Player player = _localPlayerInstance.GetComponent<Player> ();
-			
 			// TODO !!! MUST MAKE A BETTER CELEBRATION
-			if (player.isWinner) {
+			if (_winningPlayer == Runner.LocalPlayer) {
+
                 _WinnerWindows.SetActive(true);
                 Debug.Log ("             ");
 				Debug.Log (">>>>>>>>>>>>>");
@@ -353,6 +349,7 @@ namespace Starter.ThirdPersonCharacter
 				Debug.Log ("             ");
 
 			} else {
+
                 _LooserWindows.SetActive(true);
             }
 		}
