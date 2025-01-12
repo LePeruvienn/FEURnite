@@ -48,10 +48,6 @@ namespace Starter.ThirdPersonCharacter
 		public int interFallingTime;
 		public int timeBeforeReset;
 
-
-        
-
-
 		
         [Header("DEBUG TOOLS")]
         public bool startGameManually = false; // Use private field for backing
@@ -114,7 +110,6 @@ namespace Starter.ThirdPersonCharacter
 
 		public void playerJoin ()
 		{
-			Debug.Log (">> PlayerJoin");
 			// Set Spawn Point depending of the game State
 			Transform spawnPoint = _gameState == GameState.WaitingForPlayers ?
 				SpawnBase : SpawnSpectator;
@@ -140,8 +135,6 @@ namespace Starter.ThirdPersonCharacter
 			_localPlayerInstance = playerInstance;
 
 			if (_gameState != GameState.WaitingForPlayers) {
-
-				Debug.Log ("SPAWN IN SPECTATOR");
 
 				Runner.Despawn (_localPlayerInstance);
 
@@ -215,8 +208,6 @@ namespace Starter.ThirdPersonCharacter
 
 		public void startGame () {
 			
-			Debug.Log (">>> START GAME");
-
 			// Update game State
 			_gameState = GameState.InGame;
 
@@ -265,8 +256,6 @@ namespace Starter.ThirdPersonCharacter
 				// Increment reapeat count
 				repeatCount++;
 			}
-
-			Debug.Log(">>> GAME STATUS MESSAGE : ALL ISLANDS ARE GONE !!");
 		}
 		private void nbPlayer()
 		{
@@ -289,7 +278,6 @@ namespace Starter.ThirdPersonCharacter
                 }
             }
 
-            Debug.Log("numberPlayerAlive = " + numberPlayerAlive);
             _playerInGame.text = string.Format("{0:#0}", numberPlayerAlive);
         }
 		private void checkForWinner ()
@@ -370,17 +358,18 @@ namespace Starter.ThirdPersonCharacter
 
 		private void resetGame ()
 		{
-			// Set status = WaitingForPlayers
-			_gameState = GameState.WaitingForPlayers;
-
 			// Respawn all players to base
 			RPC_respawnPlayerToBase ();
+			// Set status = WaitingForPlayers
+			_gameState = GameState.WaitingForPlayers;
 		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
 		private void RPC_respawnPlayerToBase () {
 
-			Debug.Log (">>> RESPAWN PLAYER TO BASE");
+			// Set Win window to false
+			_LooserWindows.SetActive(false);
+			_WinnerWindows.SetActive(false);
 			
 			StopCoroutine (_inslandFallingCoroutine);
 			fallingInslandManager.resetAll ();
