@@ -25,6 +25,7 @@ namespace Starter.ThirdPersonCharacter
 		public static int __ITEMS_SIZE__ = 12;
 
         [Header("Iventory Config")]
+		public Player player;
 		public float pickUpRange;
 
 		// Display
@@ -114,6 +115,8 @@ namespace Starter.ThirdPersonCharacter
         }
         public void Update ()
 		{
+			if (!player.isAlive) return;
+
 			// Set pickUp to false to default
 			_canPickUp = false;
 			// Handle detection of pickable objects
