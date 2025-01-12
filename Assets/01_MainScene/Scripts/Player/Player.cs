@@ -71,6 +71,9 @@ namespace Starter.ThirdPersonCharacter
 		[Networked]
 		public bool isWinner {get; set;} = false;
 
+		// Check if player has been spawned
+		[Networked] public bool isSpawned { get; set; } = false;
+
 		private GameManager gameManager;
 		private CameraSwitcher cameraSwitcher;
 
@@ -143,8 +146,6 @@ namespace Starter.ThirdPersonCharacter
 
 			base.Spawned ();
 
-			
-
             multiAimConstraintBodyObject = multiAimConstraintBody.gameObject.GetComponent<NetworkObject>();
             multiAimConstraintHeadObject = multiAimConstraintHead.gameObject.GetComponent<NetworkObject>();
             multiAimConstraintWeaponObject = multiAimConstraintWeapon.gameObject.GetComponent<NetworkObject>();
@@ -153,6 +154,7 @@ namespace Starter.ThirdPersonCharacter
             DebugIsDead = false;
             isAlive = true;
             DebugFreecam = false;
+			isSpawned = true;
 		}
 
 		public override void FixedUpdateNetwork()
