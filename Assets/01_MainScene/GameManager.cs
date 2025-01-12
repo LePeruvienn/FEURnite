@@ -90,8 +90,18 @@ namespace Starter.ThirdPersonCharacter
 			Vector3 randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
 			Vector3 spawnPosition = spawnPoint.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
-			// Spawn the player at the calculated position
-			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+			// If we are waiting for players
+			if (_gameState == GameState.WaitingForPlayers) {
+
+				// Spawn the player at the calculated position
+				NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+
+			// if player 
+			} else {
+				// Set Player to spectator mode
+				CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher> ();
+				cameraSwitcher.ToggleFreecam (true);
+			}
 
 			// Ajouter des items au joueur
             PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();

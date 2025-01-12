@@ -14,7 +14,5 @@ public sealed class CameraSwitcher : MonoBehaviour
         freecamCamera.SetActive(isFreecamActive);
 
         Debug.Log(isFreecamActive ? "Caméra libre activée" : "Caméra libre désactivée");
-
-
     }
 }
