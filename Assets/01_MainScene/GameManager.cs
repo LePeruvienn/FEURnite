@@ -2,10 +2,20 @@ using UnityEngine;
 using Fusion;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using TMPro;
+using UnityEngine.UIElements;
 
+/// <summary>
+/// Handles player connections (spawning of Player instances) at designated spawn points.
+/// </summary>
 namespace Starter.ThirdPersonCharacter
 {
+    /// <summary>
+    /// Handles player connections (spawning of Player instances).
+    /// </summary>
+	
+    // Game Status
     public enum GameState
     {
         WaitingForPlayers = 1,
@@ -17,192 +27,404 @@ namespace Starter.ThirdPersonCharacter
     {
         [Header("Game Manager Config")]
         public NetworkObject PlayerPrefab;
-        public NetworkObject CorpsePrefab;
         [SerializeField] private List<NetworkPrefabRef> itemPrefabs;
-
-        [Header("Spawn Config")]
+        public NetworkObject CorpsePrefab;
+		
+        [Header("Game Manager Config")]
         public float SpawnRadius = 3f;
         public List<Transform> SpawnPoints;
         public Transform SpawnBase;
         public Transform SpawnSpectator;
 
-        [Header("UI Elements")]
+        [Header("In Game HUD")]
+		public Countdown timer;
         public GameObject _WinnerWindows;
         public GameObject _LooserWindows;
         public TextMeshProUGUI _playerInGame;
 
-        [Header("Island Config")]
-        public IlesQuiTombent fallingIslandManager;
-        public Countdown timer;
-        public int spawnFallingsTime;
-        public int interFallingTime;
-        public int timeBeforeReset;
+        [Header("Falling Inslad Cycle Config")]
+		public IlesQuiTombent fallingInslandManager;
+		public int spawnFallingsTime;
+		public int interFallingTime;
+		public int timeBeforeReset;
 
-        [Header("Debug")]
-        public bool startGameManually = false;
-
-        [Networked(OnChanged = nameof(OnWinnerChanged))] private PlayerRef _winningPlayer { get; set; }
-        [Networked] private int _playerCount { get; set; } = 0;
+		
+        [Header("DEBUG TOOLS")]
+        public bool startGameManually = false; // Use private field for backing
+		
+		// GAME STATUS
+		[Networked] private PlayerRef _winningPlayer { get; set; }
+		[Networked] private int _playerCount { get; set; } = 0;
+        [Networked] private int _readyPlayerCount { get; set; } = 0; // Players ready
         [Networked] private GameState _gameState { get; set; } = GameState.WaitingForPlayers;
 
-        private NetworkObject _localPlayerInstance;
-        private Coroutine _islandFallingCoroutine;
-        private bool _spawned = false;
+		// Save local player Instance
+		private NetworkObject _localPlayerInstance;
 
-        private float _timeSinceLastCheck = 0f;
-        private const float _checkInterval = 5f;
+		// Falling Insland Couroutine
+		private Coroutine _inslandFallingCoroutine;
 
+		// True if the object is spawned()
+		private bool _spawned = false;
+		
+		// Check winner interval vars
+		private float _timeSinceLastCheck = 0f;
+		private const float _checkInterval = 5f; // Interval in seconds
+
+		// Only Used for debug startGame
         private void Update()
         {
             if (startGameManually)
-            {
-                startGame();
-                startGameManually = false;
-            }
+                startGame ();
+			
+			startGameManually = false;
 
-            if (_spawned && _gameState == GameState.InGame)
-            {
-                _timeSinceLastCheck += Time.deltaTime;
+			if (!_spawned) return;
 
-                if (_timeSinceLastCheck >= _checkInterval)
-                {
-                    checkForWinner();
-                    _timeSinceLastCheck = 0f;
-                }
-            }
+			// Get nb of player
+			nbPlayer();
+
+			// Check winner very 5 seconds
+			if (_gameState == GameState.InGame)
+			{
+				// Increment the time
+				_timeSinceLastCheck += Time.deltaTime;
+
+				// Check for winner every 5 seconds
+				if (_timeSinceLastCheck >= _checkInterval)
+				{
+					checkForWinner();
+					_timeSinceLastCheck = 0f; // Reset the timer
+				}
+			}
         }
 
         public override void Spawned()
         {
-            base.Spawned();
+			base.Spawned();
             _WinnerWindows.SetActive(false);
             _LooserWindows.SetActive(false);
-
+            // If Runner is the server we set GameStatus to Waiting for players
             if (Runner.IsServer)
                 _gameState = GameState.WaitingForPlayers;
 
-            playerJoin();
-            _spawned = true;
+			// On join spawn Player
+			playerJoin ();
+
+			_spawned = true;
         }
 
-        private void playerJoin()
-        {
-            Transform spawnPoint = _gameState == GameState.WaitingForPlayers ? SpawnBase : SpawnSpectator;
-            Vector3 randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
-            Vector3 spawnPosition = spawnPoint.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+		public void playerJoin ()
+		{
+			// Set Spawn Point depending of the game State
+			Transform spawnPoint = _gameState == GameState.WaitingForPlayers ?
+				SpawnBase : SpawnSpectator;
+			
+			// Calculating spawn position with a random offset
+			Vector3 randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+			Vector3 spawnPosition = spawnPoint.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
 
-            NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
-            _localPlayerInstance = playerInstance;
+			// Spawn the player at the calculated position
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
 
-            PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
-            if (inventory != null)
-            {
-                AddItemsToPlayer(inventory);
-            }
-        }
+			// Ajouter des items au joueur
+			PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
+			if (inventory != null)
+			{
+				AddItemsToPlayer(inventory);
+
+			} else {
+				Debug.Log (">>> Player dont have inventory");
+			}
+
+			// Store the player instance for future references 
+			_localPlayerInstance = playerInstance;
+
+			if (_gameState != GameState.WaitingForPlayers) {
+
+				Runner.Despawn (_localPlayerInstance);
+
+				// Set Player to spectator mode
+				CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher> ();
+				cameraSwitcher.ToggleFreecam (true);
+			}
+		}
 
         private void AddItemsToPlayer(PlayerInventory inventory)
         {
             GameObject[] createdItems = new GameObject[itemPrefabs.Count];
             int i = 0;
-
             foreach (var itemPrefab in itemPrefabs)
             {
-                NetworkObject item = Runner.Spawn(itemPrefab, Vector3.zero, Quaternion.identity, null);
+                // Créer l'item
+                NetworkObject item = Runner.Spawn(itemPrefab, Vector3.zero, Quaternion.identity,null);
                 createdItems[i] = item.gameObject;
-                inventory.AddItem(item, i);
+                // Ajouter l'item à l'inventaire du joueur
+                inventory.AddItem(item,i);
                 i++;
             }
-
             inventory.initAdd(createdItems);
         }
 
-        private void checkForWinner()
-        {
-            int numberPlayerAlive = 0;
-            Player lastPlayerAlive = null;
-
-            GameObject[] playersObjs = GameObject.FindGameObjectsWithTag("Player");
-
-            foreach (GameObject playerObj in playersObjs)
-            {
-                Player player = playerObj.GetComponent<Player>();
-                if (player != null && player.isAlive)
-                {
-                    numberPlayerAlive++;
-                    lastPlayerAlive = player;
-                }
-            }
-
-            Debug.Log("Number of players alive: " + numberPlayerAlive);
-            _playerInGame.text = numberPlayerAlive.ToString();
-
-            if (numberPlayerAlive <= 1 && _winningPlayer == default)
-            {
-                if (lastPlayerAlive != null)
-                {
-                    _winningPlayer = lastPlayerAlive.Object.InputAuthority;
-                }
-
-                StartCoroutine(endGame());
-            }
-        }
-
-        private IEnumerator endGame()
-        {
-            _gameState = GameState.GameEnd;
-            yield return new WaitForSeconds(timeBeforeReset);
-            resetGame();
-        }
-
-        private static void OnWinnerChanged(Changed<GameManager> changed)
-        {
-            changed.Behaviour.DisplayWinnerOrLoser();
-        }
-
-        private void DisplayWinnerOrLoser()
-        {
-            if (Runner.LocalPlayer == _winningPlayer)
-            {
-                _WinnerWindows.SetActive(true);
-                Debug.Log("YOU WIN!");
-            }
-            else
-            {
-                _LooserWindows.SetActive(true);
-                Debug.Log("YOU LOSE!");
-            }
-        }
-
-        private void resetGame()
-        {
-            RPC_respawnPlayersToBase();
-            _gameState = GameState.WaitingForPlayers;
-        }
-
         [Rpc(RpcSources.All, RpcTargets.All)]
-        private void RPC_respawnPlayersToBase()
-        {
-            _WinnerWindows.SetActive(false);
-            _LooserWindows.SetActive(false);
+		private void RPC_movePlayerToSpawnPoint (int index, PlayerRef playerRef) {
 
-            StopCoroutine(_islandFallingCoroutine);
-            fallingIslandManager.resetAll();
+			// If current client is not the player targeted we return
+			if (Runner.LocalPlayer != playerRef)
+				return;
 
-            if (_localPlayerInstance != null)
-                Runner.Despawn(_localPlayerInstance);
+			// Despawn the player object
+			Runner.Despawn(_localPlayerInstance);
 
-            Vector3 randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
-            Vector3 spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+			var spawnPosition = SpawnPoints[index].position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+			index--;
 
-            NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
-            _localPlayerInstance = playerInstance;
+			// Spawn the player at the new position
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+			_localPlayerInstance = playerInstance;  // Store the player instance
 
+			// Ajouter des items au joueur
             PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
             if (inventory != null)
             {
                 AddItemsToPlayer(inventory);
             }
+		}
+
+		public void respawnPlayers () {
+			// Init lastIndex avaible
+			int lastIndex = SpawnPoints.Count - 1;
+
+			// For all players avaibles
+			foreach (PlayerRef playerRef in Runner.ActivePlayers) {
+				
+				// if index is out of array's bound we return an error
+				if (lastIndex < 0) {
+					
+					Debug.LogError ("GAME MANAGER : Too much players for spawn points. CANNOT SPAWN ALL PLAYER !!");
+					return;
+				}
+				// Move player to spawnPoint
+				RPC_movePlayerToSpawnPoint (lastIndex, playerRef);
+				// Update last index
+				lastIndex--;
+			}
+		}
+
+		public void startGame () {
+			
+			// Update game State
+			_gameState = GameState.InGame;
+
+			// Spawn players to spawn points
+			respawnPlayers ();
+			
+			RPC_startFallingIslandCoroutine ();
+		}
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+		public void RPC_startFallingIslandCoroutine () {
+
+			_inslandFallingCoroutine = StartCoroutine (startFallingIslandCycle ());
+		}
+
+		private IEnumerator startFallingIslandCycle ()
+		{
+			// On fait tomber 2 fois des iles
+			int maxRepeats = 2;
+			// On initialise le nombre de répétition à zéro
+			int repeatCount = 0;
+
+			while (repeatCount < maxRepeats)
+			{
+				// taking the right waitimg time
+				int timeToWait = repeatCount == 0 ?
+					spawnFallingsTime : interFallingTime;
+
+				// StartTimer
+				timer.InitializeTimer (timeToWait);
+				timer.ResumeTimer ();
+
+				// Wait
+				yield return new WaitForSeconds(timeToWait); // Wait for 5 minutes
+
+				// First fall spawns
+				if (repeatCount == 0)
+					fallingInslandManager.fallIslands (IslandType.Spawn);
+				
+				// Fall inter and plateformes
+				if (repeatCount == 1) {
+					fallingInslandManager.fallIslands (IslandType.Plateformes);
+					fallingInslandManager.fallIslands (IslandType.Inter);
+				}
+
+				// Increment reapeat count
+				repeatCount++;
+			}
+		}
+		private void nbPlayer()
+		{
+            // Init number of players alive
+            int numberPlayerAlive = 0;
+
+            // Get All players game Object
+            GameObject[] playersObjs = GameObject.FindGameObjectsWithTag("Player");
+
+            // For all players check if there are alivek:
+            foreach (GameObject playerObj in playersObjs)
+            {
+
+                Player player = playerObj.GetComponent<Player>();
+
+                if (player != null && player.isAlive)
+                {
+
+                    numberPlayerAlive++;
+                }
+            }
+
+            _playerInGame.text = string.Format("{0:#0}", numberPlayerAlive);
         }
+		private void checkForWinner ()
+		{
+			// Init number of players alive
+			int numberPlayerAlive = 0;
+			Player lastPlayerAlive = null;
+
+			// Get All players game Object
+			GameObject[] playersObjs = GameObject.FindGameObjectsWithTag ("Player");
+
+			// For all players check if there are alivek:
+			foreach (GameObject playerObj in playersObjs) {
+				
+				Player player = playerObj.GetComponent<Player> ();
+
+				if (player != null && player.isAlive) {
+
+					numberPlayerAlive++;
+					lastPlayerAlive = player;
+				}
+			}
+
+			Debug.Log ("numberPlayerAlive = " + numberPlayerAlive);
+            _playerInGame.text = string.Format("{0:#0}", numberPlayerAlive);
+
+			if (numberPlayerAlive <= 1) {
+				
+				Debug.Log ("THERE IS A WINNER");
+				Debug.Log (numberPlayerAlive);
+
+				// Set game state to end
+				_gameState = GameState.GameEnd;
+
+				// Set that we is the winner
+				RPC_setWinningPlayer (lastPlayerAlive.Object.InputAuthority);
+
+				// Start endGame couroutine
+				StartCoroutine (endGame ());
+			}
+		}
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+		RPC_setWinningPlayer (PlayerRef playerRef) {
+			
+			_winningPlayer = playerRef;
+		}
+
+		private IEnumerator endGame () {
+			
+			_gameState = GameState.GameEnd;
+
+			// Celebrate his win !
+			RPC_celebrateWinner();
+
+			yield return new WaitForSeconds(timeBeforeReset); // Wait for 5 minutes
+
+			resetGame();
+		}
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+		private async void RPC_celebrateWinner () {
+			
+			// TODO !!! MUST MAKE A BETTER CELEBRATION
+			if (_winningPlayer == Runner.LocalPlayer) {
+
+                _WinnerWindows.SetActive(true);
+                Debug.Log ("             ");
+				Debug.Log (">>>>>>>>>>>>>");
+				Debug.Log ("             ");
+				Debug.Log (" YOU WIN GG !");
+				Debug.Log ("             ");
+				Debug.Log (">>>>>>>>>>>>>");
+				Debug.Log ("             ");
+
+			} else {
+
+                _LooserWindows.SetActive(true);
+            }
+		}
+
+		private void resetGame ()
+		{
+			// Respawn all players to base
+			RPC_respawnPlayerToBase ();
+			// Set status = WaitingForPlayers
+			_gameState = GameState.WaitingForPlayers;
+		}
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+		private void RPC_respawnPlayerToBase () {
+
+			// Set Win window to false
+			_LooserWindows.SetActive(false);
+			_WinnerWindows.SetActive(false);
+			
+			StopCoroutine (_inslandFallingCoroutine);
+			fallingInslandManager.resetAll ();
+
+			// Despawn the player object if is set
+			if (_localPlayerInstance != null)
+				Runner.Despawn(_localPlayerInstance);
+
+			// Switch Camera
+            CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher>();
+			cameraSwitcher.ToggleFreecam (false);
+
+			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+
+			// Spawn the player at the new position
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+			_localPlayerInstance = playerInstance;  // Store the player instance
+
+			// Ajouter des items au joueur
+            PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
+
+			// Add items to inventory
+            if (inventory != null)
+                AddItemsToPlayer(inventory);
+		}
+
+        public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
+        {
+			// Check if a player win the game
+			if (_gameState == GameState.InGame)
+				checkForWinner ();
+			
+			// Spawn corpse
+            RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        private void RPC_RequestSpawnCorpse(Vector3 deathPosition, Quaternion deathOrientation)
+        {
+            Debug.Log("Death :" + deathPosition);
+            Runner.Spawn(CorpsePrefab, deathPosition, deathOrientation, null);
+        }
+
+		public GameState getGameState () {
+			return _gameState;
+		}
     }
 }
