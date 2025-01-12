@@ -151,7 +151,7 @@ namespace Starter.ThirdPersonCharacter
             PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
             if (inventory != null)
             {
-                AddItemsToPlayer(inventory);
+                RPC_AddItemsToPlayer(inventory);
             }
 		}
 
@@ -337,7 +337,7 @@ namespace Starter.ThirdPersonCharacter
 
 			// Add items to inventory
             if (inventory != null)
-                AddItemsToPlayer(inventory);
+                RPC_AddItemsToPlayer(inventory);
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
