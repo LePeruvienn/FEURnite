@@ -115,7 +115,7 @@ namespace Starter.ThirdPersonCharacter
         }
         public void Update ()
 		{
-			if (!player.isAlive) return;
+			if (!player.isAlive || Object.HasStateAuthority) return;
 
 			// Set pickUp to false to default
 			_canPickUp = false;
@@ -351,6 +351,7 @@ namespace Starter.ThirdPersonCharacter
 
 		private GameObject pickupRayCast ()
 		{
+			if (!HasStateAuthority) return null;
             // Setting up raycast variables
             Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
             

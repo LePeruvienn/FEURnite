@@ -251,8 +251,9 @@ namespace Starter.ThirdPersonCharacter
 
 		[Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_takeDamage (PlayerModel playerModel, int damage) {
-
-			playerModel.takeDamage (damage);
+			
+			if (playerModel)
+				playerModel.takeDamage (damage);
 		} 
 
 		[Rpc(RpcSources.All, RpcTargets.All)]

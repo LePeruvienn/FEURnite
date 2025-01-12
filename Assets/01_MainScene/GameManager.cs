@@ -352,16 +352,28 @@ namespace Starter.ThirdPersonCharacter
 			
 			// Spawn corpse
             RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
-
-			// Respawn Player
-			if (_gameState == GameState.WaitingForPlayers) {
-				// Set Player to spectator mode
-				CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher> ();
-				cameraSwitcher.ToggleFreecam (false);
-
-				playerJoin ();
-			}
         }
+
+		private void respawnPlayer () {
+
+			// Switch Camera
+            CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher>();
+			cameraSwitcher.ToggleFreecam (false);
+
+			var randomPositionOffset = Random.insideUnitCircle * SpawnRadius;
+			var spawnPosition = SpawnBase.position + new Vector3(randomPositionOffset.x, 0f, randomPositionOffset.y);
+
+			// Spawn the player at the new position
+			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+			_localPlayerInstance = playerInstance;  // Store the player instance
+
+			// Ajouter des items au joueur
+            PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
+
+			// Add items to inventory
+            if (inventory != null)
+                AddItemsToPlayer(inventory);
+		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
         private void RPC_RequestSpawnCorpse(Vector3 deathPosition, Quaternion deathOrientation)
@@ -369,5 +381,9 @@ namespace Starter.ThirdPersonCharacter
             Debug.Log("Death :" + deathPosition);
             Runner.Spawn(CorpsePrefab, deathPosition, deathOrientation, null);
         }
+
+		public GameState getGameState () {
+			return _gameState;
+		}
     }
 }
