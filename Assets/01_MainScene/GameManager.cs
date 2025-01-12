@@ -352,6 +352,10 @@ namespace Starter.ThirdPersonCharacter
 			
 			// Spawn corpse
             RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
+
+			// Respawn Player
+			if (_gameState = GameState.WaitingForPlayers)
+				playerJoin ();
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
