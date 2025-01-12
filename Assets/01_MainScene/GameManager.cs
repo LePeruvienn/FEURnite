@@ -307,6 +307,7 @@ namespace Starter.ThirdPersonCharacter
 			if (numberPlayerAlive <= 1) {
 				
 				Debug.Log ("THERE IS A WINNER");
+				Debug.Log (numberPlayerAlive);
 
 				// Set game state to end
 				_gameState = GameState.GameEnd;
@@ -314,6 +315,8 @@ namespace Starter.ThirdPersonCharacter
 				// Set that we is the winner
 				if (lastPlayerAlive != null)
 					lastPlayerAlive.isWinner = true;
+				else
+					Debug.Log ("LAST PLAYER ALIVE NULL");
 
 				// Start endGame couroutine
 				StartCoroutine (endGame ());
@@ -351,9 +354,7 @@ namespace Starter.ThirdPersonCharacter
 
 			} else {
                 _LooserWindows.SetActive(true);
-                Debug.Log (" YOU LOSE :'(");
             }
-				
 		}
 
 		private void resetGame ()
