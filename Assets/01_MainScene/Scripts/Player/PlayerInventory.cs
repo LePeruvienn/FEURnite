@@ -97,7 +97,7 @@ namespace Starter.ThirdPersonCharacter
 					setItem(spawnedObject.gameObject);
 
 					// Hide the item
-					spawnedObject.gameObject.SetActive(false);
+					// spawnedObject.gameObject.SetActive(false);
 					RPC_pickup(spawnedObject.Id);
             }
         }
@@ -434,13 +434,16 @@ namespace Starter.ThirdPersonCharacter
 		public void RPC_updateSelection()
 		{
 			// Disable all items
-			disableAllItems();
+			disableAllItems ();
 
 			// Get currentSelection
 			GameObject selection = getCurrentSelection ();
 			// If selection is not null
 			if (selection != null)
 				selection.SetActive (true); // Active current selected item
+			else
+				Debug.Log ("SELECTION IS NULL FOR PLAYER !!"); 
+		
 		}
 
 		private void disableAllItems()
