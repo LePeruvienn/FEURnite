@@ -277,7 +277,7 @@ namespace Starter.ThirdPersonCharacter
 
                 Player player = playerObj.GetComponent<Player>();
 
-                if (player != null && player.isSpanwed && player.isAlive)
+                if (player != null && player.isSpawned && player.isAlive)
                 {
 
                     numberPlayerAlive++;
