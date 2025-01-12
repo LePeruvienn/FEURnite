@@ -18,7 +18,7 @@ namespace Starter.ThirdPersonCharacter
     {
         WaitingForPlayers = 1,
         InGame = 2,
-        GameEnd = 2,
+        GameEnd = 3,
     }
 
     public sealed class GameManager : NetworkBehaviour

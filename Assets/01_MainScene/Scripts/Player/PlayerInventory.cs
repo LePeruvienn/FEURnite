@@ -44,18 +44,14 @@ namespace Starter.ThirdPersonCharacter
 
 		public override void Spawned()
 		{
-			
-			
-                base.Spawned();
-                _selectedIndex = 0;
-				_canPickUp = false;
+			base.Spawned();
+			_selectedIndex = 0;
+			_canPickUp = false;
 
-				// Initialize inventory arrays
-				_inventory = new GameObject[__HOTBAR_SIZE__];
-				_weapons = new GameObject[__WEAPONS_SIZE__];
-				_items = new GameObject[__ITEMS_SIZE__];
-
-				
+			// Initialize inventory arrays
+			_inventory = new GameObject[__HOTBAR_SIZE__];
+			_weapons = new GameObject[__WEAPONS_SIZE__];
+			_items = new GameObject[__ITEMS_SIZE__];
 		}
 
         public void AddItem(NetworkObject spawnedObject, int i)
