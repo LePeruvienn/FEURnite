@@ -114,6 +114,8 @@ namespace Starter.ThirdPersonCharacter
 
         private void AddItemsToPlayer (PlayerInventory inventory)
         {
+			Debug.Log ("ADD ITEMS TO PLAYER");
+
             GameObject[] createdItems = new GameObject[itemPrefabs.Count];
             int i = 0;
             foreach (var itemPrefab in itemPrefabs)
