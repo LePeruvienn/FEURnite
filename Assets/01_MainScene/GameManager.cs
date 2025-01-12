@@ -57,7 +57,13 @@ namespace Starter.ThirdPersonCharacter
 
 		// Falling Insland Couroutine
 		private Coroutine _inslandFallingCoroutine;
+
+		// True if the object is spawned()
+		private bool _spawned = false;
 		
+		// Check winner interval vars
+		private float _timeSinceLastCheck = 0f;
+		private const float _checkInterval = 5f; // Interval in seconds
 
 		// Only Used for debug startGame
         private void Update()
@@ -66,6 +72,19 @@ namespace Starter.ThirdPersonCharacter
                 startGame ();
 			
 			startGameManually = false;
+
+			if (_spawned && _gameState == GameState.InGame)
+			{
+				// Increment the time
+				_timeSinceLastCheck += Time.deltaTime;
+
+				// Check for winner every 5 seconds
+				if (_timeSinceLastCheck >= _checkInterval)
+				{
+					checkForWinner();
+					_timeSinceLastCheck = 0f; // Reset the timer
+				}
+			}
         }
 
         public override void Spawned()
@@ -78,6 +97,8 @@ namespace Starter.ThirdPersonCharacter
 
 			// On join spawn Player
 			playerJoin ();
+
+			_spawned = true;
         }
 
 		public void playerJoin ()
@@ -261,6 +282,9 @@ namespace Starter.ThirdPersonCharacter
 			if (numberPlayerAlive <= 1) {
 				
 				Debug.Log ("THERE IS A WINNER");
+
+				// Set game state to end
+				_gameState = GameState.GameEnd;
 
 				// Set that we is the winner
 				if (lastPlayerAlive != null)
