@@ -87,7 +87,7 @@ namespace Starter.ThirdPersonCharacter
 						Debug.LogWarning("---Item null ID player :" + Runner.LocalPlayer.PlayerId + " itemNetworkObject :" + spawnedObject.Id);
 					}
 					// Assign it to the inventory
-					_inventory[i] = spawnedObject.gameObject;
+					RPC_SetInventoryItem (i, spawnedObject.Id);
 
 					// Position the item correctly
 					setItem(spawnedObject.gameObject);
@@ -97,6 +97,21 @@ namespace Starter.ThirdPersonCharacter
 					RPC_pickup(spawnedObject.Id);
             }
         }
+
+		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		public void RPC_SetInventoryItem(int index, NetworkId objectId)
+		{
+			NetworkObject networkObject = Runner.FindObject(objectId);
+			if (networkObject == null)
+			{
+				Debug.LogWarning($"Object with ID {objectId} not found for index {index}");
+				return;
+			}
+
+			_inventory[index] = networkObject.gameObject;
+		}
+
+
         public void initAdd(GameObject[] starterItems)
         {
 			_inventory = starterItems;
