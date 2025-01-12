@@ -436,6 +436,9 @@ namespace Starter.ThirdPersonCharacter
 			// Disable all items
 			disableAllItems ();
 
+			// See le inventory size
+			Debug.Log (_inventory.Length);
+
 			// Get currentSelection
 			GameObject selection = getCurrentSelection ();
 			// If selection is not null
