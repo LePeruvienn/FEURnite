@@ -97,7 +97,7 @@ namespace Starter.ThirdPersonCharacter
             PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
             if (inventory != null)
             {
-                AddItemsToPlayer(inventory);
+                RPC_AddItemsToPlayer(inventory);
             }
 
 			// Store the player instance for future references 
@@ -112,7 +112,8 @@ namespace Starter.ThirdPersonCharacter
 			}
 		}
 
-        private void AddItemsToPlayer (PlayerInventory inventory)
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        private void RPC_AddItemsToPlayer (PlayerInventory inventory)
         {
             GameObject[] createdItems = new GameObject[itemPrefabs.Count];
             int i = 0;
