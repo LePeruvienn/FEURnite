@@ -109,6 +109,10 @@ namespace Starter.ThirdPersonCharacter
 				// Store the player instance for future references 
 				_localPlayerInstance = playerInstance;
 
+				// Set Player to spectator mode
+				CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher> ();
+				cameraSwitcher.ToggleFreecam (false);
+
 			// if player join a game that is already in game
 			} else {
 				// Set Player to spectator mode
