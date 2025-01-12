@@ -7,6 +7,8 @@ namespace Starter.ThirdPersonCharacter
 {
 	public class PlayerModel : NetworkBehaviour
 	{
+		private GameManager _gameManager;
+
         [Header("Script bar")]
         private Bar HealthBar;
         private Bar ShieldBar;
@@ -41,6 +43,7 @@ namespace Starter.ThirdPersonCharacter
 
 		public override void Spawned () 
 		{
+			_gameManager = FindObjectOfType<GameManager>();
 			
             if (HasStateAuthority == true)
             {
@@ -131,7 +134,10 @@ namespace Starter.ThirdPersonCharacter
 			if (_health <= 0)
 			{
 				// Make player die
-				die ();
+				if (HasStateAuthority == true)
+				{
+					die ();
+				}
 				// Set health to 0
 				_health = 0;
 			}
@@ -146,7 +152,8 @@ namespace Starter.ThirdPersonCharacter
 
         public void die ()
 		{
-			Debug.LogWarning ("DIE !!!");
+			if (_gameManager.getGameState() == GameState.WaitingForPlayers)
+				return;
 			
 			Player player = GetComponent<Player> ();
 			// pour le debug ???

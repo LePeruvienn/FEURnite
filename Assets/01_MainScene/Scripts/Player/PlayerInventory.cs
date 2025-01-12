@@ -25,6 +25,7 @@ namespace Starter.ThirdPersonCharacter
 		public static int __ITEMS_SIZE__ = 12;
 
         [Header("Iventory Config")]
+		public Player player;
 		public float pickUpRange;
 
 		// Display
@@ -70,14 +71,14 @@ namespace Starter.ThirdPersonCharacter
 						return;
 					}
 
-					// Attribuer l'autorité d'entrée au joueur
+					// Attribuer l'autorit¿ d'entr¿e au joueur
 					/*   if (Runner.IsServer)
 					   {
 						   item.AssignInputAuthority(Object.InputAuthority);
-						   Debug.Log("Autorité d'entrée assignée à l'item.");
+						   Debug.Log("Autorit¿ d'entr¿e assign¿e ¿ l'item.");
 					   }
 		   */
-					// Ajouter l'item à la liste d'inventaire
+					// Ajouter l'item ¿ la liste d'inventaire
 
 					// Get the Item component
 					Item item = spawnedObject.GetComponent<Item>();
@@ -114,6 +115,8 @@ namespace Starter.ThirdPersonCharacter
         }
         public void Update ()
 		{
+			if (!player.isAlive || Object.HasStateAuthority) return;
+
 			// Set pickUp to false to default
 			_canPickUp = false;
 			// Handle detection of pickable objects
@@ -220,6 +223,12 @@ namespace Starter.ThirdPersonCharacter
 
 			updateSelection(); // Update current selection
 		}
+
+        public void switchToSelection(int number)
+        {
+            _selectedIndex = number;
+            updateSelection(); // Update current selection
+        }
 		
 		// Function that is use to switch from selected intems in inventory
 		public void switchSelection (float direciton)
@@ -243,15 +252,9 @@ namespace Starter.ThirdPersonCharacter
 				updateSelection(); // Update current selection
 			}
 		}
-
-        public void switchToSelection(int number)
-        {
-            _selectedIndex = number;
-            updateSelection(); // Update current selection
-        }
-
-        // Use current selection
-        public void useCurrentSelection()
+		
+		// Use current selection
+		public void useCurrentSelection()
 		{
 			// Getting current selection
 			GameObject obj = _inventory[_selectedIndex];
@@ -348,6 +351,7 @@ namespace Starter.ThirdPersonCharacter
 
 		private GameObject pickupRayCast ()
 		{
+			if (!HasStateAuthority) return null;
             // Setting up raycast variables
             Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
             
@@ -405,6 +409,8 @@ namespace Starter.ThirdPersonCharacter
 			obj.transform.localPosition = Vector3.zero;
 			obj.transform.localScale = obj.transform.lossyScale;
 			obj.transform.localRotation = Quaternion.identity;
+
+			return;
 
 			// Setting obj's tranform to his game object param
 			if (item != null) 

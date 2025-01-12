@@ -13,7 +13,12 @@ namespace Starter.ThirdPersonCharacter
 	/// </summary>
 	public sealed class Player : NetworkBehaviour
 	{
-		[Header("References")]
+
+		[Header("Debug")]
+		public bool DebugIsDead;
+		public bool DebugFreecam;
+
+        [Header("References")]
 		public SimpleKCC KCC;
 		public PlayerModel PlayerModel;
 		public PlayerInput PlayerInput;
@@ -57,8 +62,8 @@ namespace Starter.ThirdPersonCharacter
 		private NetworkBool _isMoving { get; set; }
 		private NetworkBool _isShooting { get; set; }
 		private Vector3 _moveVelocity;
-		[Networked]
-		public bool DebugIsDead {get; set;}
+
+		private bool isFreecamActive = false;
 
 		[Networked]
 		public bool isAlive {get; set;} = true;
@@ -138,6 +143,8 @@ namespace Starter.ThirdPersonCharacter
 
 			base.Spawned ();
 
+			
+
             multiAimConstraintBodyObject = multiAimConstraintBody.gameObject.GetComponent<NetworkObject>();
             multiAimConstraintHeadObject = multiAimConstraintHead.gameObject.GetComponent<NetworkObject>();
             multiAimConstraintWeaponObject = multiAimConstraintWeapon.gameObject.GetComponent<NetworkObject>();
@@ -145,10 +152,16 @@ namespace Starter.ThirdPersonCharacter
 
             DebugIsDead = false;
             isAlive = true;
+            DebugFreecam = false;
 		}
 
 		public override void FixedUpdateNetwork()
 		{
+			if (HasStateAuthority)
+			{
+				UpdateFreecamState(DebugFreecam);
+			}
+
 			ProcessInput(PlayerInput.CurrentInput);
 
 			if (KCC.IsGrounded)
@@ -196,15 +209,18 @@ namespace Starter.ThirdPersonCharacter
 			// Update camera pivot and transfer properties from camera handle to Main Camera.
 			CameraPivot.rotation = Quaternion.Euler(PlayerInput.CurrentInput.LookRotation);
 
-			Camera.main.transform.SetPositionAndRotation(CameraHandle.position, CameraHandle.rotation);
+			if (Camera.main) {
 
-			// Handle camera zooming based on whether the player is aiming
-			float targetFOV = _isAiming ? aimFOV : normalFOV; // Set target FOV
-			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
+				Camera.main.transform.SetPositionAndRotation(CameraHandle.position, CameraHandle.rotation);
+				// Handle camera zooming based on whether the player is aiming
+				float targetFOV = _isAiming ? aimFOV : normalFOV; // Set target FOV
+				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
+			}
 		}
 
 		private void ProcessInput(GameplayInput input)
 		{
+			if (!isAlive) return;
 
 			float jumpImpulse = 0f;
 
@@ -544,21 +560,52 @@ namespace Starter.ThirdPersonCharacter
 
         private void Update()
         {
-            if (DebugIsDead)
+            // if (DebugIsDead)
+            if (DebugIsDead || transform.position[1] <= -30)
             {
+				Debug.Log (">> DEBUG IS DEAD");
+				
 				// PlayerInventory.enabled = false;
 
                 DebugIsDead = false;
+				isAlive = false;
 
                 // Envoie les coordonnées de mort au GameManager
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
-                // Passage du joueur en mode spectateur
-                //cameraSwitcher.ToggleFreecam();
+				if (Object.HasStateAuthority) {
 
-                // Fait disparaître le corps du joueur
-                //Destroy(gameObject);
+					// Passage du joueur en mode spectateur
+					isFreecamActive = !isFreecamActive;
+					cameraSwitcher.ToggleFreecam(isFreecamActive);
+				}
+
+				// Fait disparaître le corps du joueur
+				Destroy(gameObject);
             }
-        }
+
+			if (DebugFreecam)
+			{
+				Debug.Log (">> DEBUG FREE CAM");
+
+				DebugFreecam = false;
+				isFreecamActive = !isFreecamActive;
+				cameraSwitcher.ToggleFreecam(isFreecamActive);
+			}
+		}
+
+		private void UpdateFreecamState(bool isFreecamActive)
+		{
+			if (isFreecamActive)
+			{
+				KCC.enabled = false;
+				Animator.enabled = false;
+			}
+			else
+			{
+				KCC.enabled = true;
+                Animator.enabled = true;
+            }
+		}
     }
 }
