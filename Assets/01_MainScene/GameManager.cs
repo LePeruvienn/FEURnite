@@ -103,6 +103,7 @@ namespace Starter.ThirdPersonCharacter
 
 		public void playerJoin ()
 		{
+			Debug.Log (">> PlayerJoin");
 			// Set Spawn Point depending of the game State
 			Transform spawnPoint = _gameState == GameState.WaitingForPlayers ?
 				SpawnBase : SpawnSpectator;
@@ -128,6 +129,8 @@ namespace Starter.ThirdPersonCharacter
 			_localPlayerInstance = playerInstance;
 
 			if (_gameState != GameState.WaitingForPlayers) {
+
+				Debug.Log ("SPAWN IN SPECTATOR");
 
 				Runner.Despawn (_localPlayerInstance);
 
