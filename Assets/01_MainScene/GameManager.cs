@@ -327,7 +327,7 @@ namespace Starter.ThirdPersonCharacter
 		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-		RPC_setWinningPlayer (PlayerRef playerRef) {
+		public void RPC_setWinningPlayer (PlayerRef playerRef) {
 			
 			_winningPlayer = playerRef;
 		}
