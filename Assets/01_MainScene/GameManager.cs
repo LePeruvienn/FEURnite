@@ -96,32 +96,24 @@ namespace Starter.ThirdPersonCharacter
 				// Spawn the player at the calculated position
 				NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
 
-			// if player 
+				// Ajouter des items au joueur
+				PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
+				if (inventory != null)
+				{
+					AddItemsToPlayer(inventory);
+
+				} else {
+					Debug.Log (">>> Player dont have inventory");
+				}
+
+				// Store the player instance for future references 
+				_localPlayerInstance = playerInstance;
+
+			// if player join a game that is already in game
 			} else {
 				// Set Player to spectator mode
 				CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher> ();
 				cameraSwitcher.ToggleFreecam (true);
-			}
-
-			// Ajouter des items au joueur
-            PlayerInventory inventory = playerInstance.GetComponent<PlayerInventory>();
-            if (inventory != null)
-            {
-                AddItemsToPlayer(inventory);
-
-            } else {
-				Debug.Log (">>> Player dont have inventory");
-			}
-
-			// Store the player instance for future references 
-			_localPlayerInstance = playerInstance;
-
-			// Si le joueur rejoint une partie en cours
-			if (_gameState != GameState.WaitingForPlayers) {
-
-				// ...
-				// Appliquer des changement pour mettre le joueur en spectateur
-				// ...
 			}
 		}
 
