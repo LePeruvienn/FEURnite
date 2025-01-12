@@ -127,7 +127,7 @@ namespace Starter.ThirdPersonCharacter
 			// Store the player instance for future references 
 			_localPlayerInstance = playerInstance;
 
-			if (_gameState !== GameState.WaitingForPlayers) {
+			if (_gameState != GameState.WaitingForPlayers) {
 
 				Runner.Despawn (_localPlayerInstance);
 
