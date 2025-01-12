@@ -109,10 +109,6 @@ namespace Starter.ThirdPersonCharacter
 				// Store the player instance for future references 
 				_localPlayerInstance = playerInstance;
 
-				// Set Player to spectator mode
-				CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher> ();
-				cameraSwitcher.ToggleFreecam (false);
-
 			// if player join a game that is already in game
 			} else {
 				// Set Player to spectator mode
@@ -358,8 +354,13 @@ namespace Starter.ThirdPersonCharacter
             RPC_RequestSpawnCorpse(deathPosition, deathOrientation);
 
 			// Respawn Player
-			if (_gameState == GameState.WaitingForPlayers)
+			if (_gameState == GameState.WaitingForPlayers) {
+				// Set Player to spectator mode
+				CameraSwitcher cameraSwitcher = FindObjectOfType<CameraSwitcher> ();
+				cameraSwitcher.ToggleFreecam (false);
+
 				playerJoin ();
+			}
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
