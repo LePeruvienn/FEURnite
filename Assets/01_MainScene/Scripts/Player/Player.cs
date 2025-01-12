@@ -114,6 +114,8 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDAim;
 		private int _animIDMoving;
 		private int _animIDReload;
+    private int _animIDEmote;
+		private int _animIDCut;
 
         // ############################# teste dodo
 
@@ -121,6 +123,12 @@ namespace Starter.ThirdPersonCharacter
         private void RPC_Reload()
         {
             Animator.SetTrigger(_animIDReload);
+        }
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        private void RPC_Emote()
+        {
+            Animator.SetTrigger(_animIDEmote);
         }
 
         //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
@@ -314,6 +322,13 @@ namespace Starter.ThirdPersonCharacter
             {
                 PlayerInventory.switchToSelection(3);
             }
+
+            // Emote
+            if (input.Emote)
+            {
+				RPC_Emote();
+            }
+
             // Drop item
             if (input.DropItem)
 			{
@@ -448,10 +463,6 @@ namespace Starter.ThirdPersonCharacter
 			if (input.Shoot)
 			{
 				PlayerInventory.useCurrentSelection();// We use current selected Item
-
-
-
-				// If player is not shooting and his item is a weapon we check if he wants to reaload
 			}
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon)
 			{
@@ -470,7 +481,7 @@ namespace Starter.ThirdPersonCharacter
 			}
 		}
 
-		private void AssignAnimationIDs()
+        private void AssignAnimationIDs()
 		{
 			_animIDSpeed = Animator.StringToHash("Speed");
 			_animIDGrounded = Animator.StringToHash("Grounded");
@@ -479,9 +490,9 @@ namespace Starter.ThirdPersonCharacter
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDAim = Animator.StringToHash("Aim");
 			_animIDMoving = Animator.StringToHash("Moving");
-            // ############################# teste dodo
-            _animIDReload = Animator.StringToHash("ReloadTrigger");
-            // ############################# teste dodo
+      _animIDReload = Animator.StringToHash("ReloadTrigger");
+      _animIDEmote = Animator.StringToHash("EmoteTrigger");
+      _animIDCut = Animator.StringToHash("StabTrigger");
         }
 
         // Animation event

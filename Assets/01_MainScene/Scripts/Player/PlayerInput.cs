@@ -26,7 +26,7 @@ namespace Starter.ThirdPersonCharacter
         public bool SecondInvSlot;
         public bool ThirdInvSlot;
         public bool FourthInvSlot;
-        public bool FEUR; 
+        public bool Emote; 
     }
 
 	/// <summary>
@@ -54,7 +54,7 @@ namespace Starter.ThirdPersonCharacter
             _input.SecondInvSlot = false;
             _input.ThirdInvSlot = false;
             _input.FourthInvSlot = false;
-            _input.FEUR = false;
+            _input.Emote = false;
         }
 
 		private void Update()
@@ -87,6 +87,7 @@ namespace Starter.ThirdPersonCharacter
             _input.SecondInvSlot |= Input.GetKeyDown(KeyCode.Alpha2);
             _input.ThirdInvSlot |= Input.GetKeyDown(KeyCode.Alpha3);
             _input.FourthInvSlot |= Input.GetKeyDown(KeyCode.Alpha4);
+            _input.Emote |= Input.GetKeyDown("i");
         }
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)

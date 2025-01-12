@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Fusion;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine.UIElements;
 
 /// <summary>
@@ -36,6 +38,9 @@ namespace Starter.ThirdPersonCharacter
 
         [Header("In Game HUD")]
 		public Countdown timer;
+        public GameObject _WinnerWindows;
+        public GameObject _LooserWindows;
+        public TextMeshProUGUI _playerInGame;
 
         [Header("Falling Inslad Cycle Config")]
 		public IlesQuiTombent fallingInslandManager;
@@ -44,6 +49,10 @@ namespace Starter.ThirdPersonCharacter
 		public int timeBeforeReset;
 
 
+        
+
+
+		
         [Header("DEBUG TOOLS")]
         public bool startGameManually = false; // Use private field for backing
 		
@@ -72,6 +81,7 @@ namespace Starter.ThirdPersonCharacter
                 startGame ();
 			
 			startGameManually = false;
+			nbPlayer();
 
 			if (_spawned && _gameState == GameState.InGame)
 			{
@@ -90,8 +100,9 @@ namespace Starter.ThirdPersonCharacter
         public override void Spawned()
         {
 			base.Spawned();
-
-			// If Runner is the server we set GameStatus to Waiting for players
+            _WinnerWindows.SetActive(false);
+            _LooserWindows.SetActive(false);
+            // If Runner is the server we set GameStatus to Waiting for players
             if (Runner.IsServer)
                 _gameState = GameState.WaitingForPlayers;
 
@@ -257,7 +268,30 @@ namespace Starter.ThirdPersonCharacter
 
 			Debug.Log(">>> GAME STATUS MESSAGE : ALL ISLANDS ARE GONE !!");
 		}
+		private void nbPlayer()
+		{
+            // Init number of players alive
+            int numberPlayerAlive = 0;
 
+            // Get All players game Object
+            GameObject[] playersObjs = GameObject.FindGameObjectsWithTag("Player");
+
+            // For all players check if there are alivek:
+            foreach (GameObject playerObj in playersObjs)
+            {
+
+                Player player = playerObj.GetComponent<Player>();
+
+                if (player != null && player.isAlive)
+                {
+
+                    numberPlayerAlive++;
+                }
+            }
+
+            Debug.Log("numberPlayerAlive = " + numberPlayerAlive);
+            _playerInGame.text = string.Format("{0:#0}", numberPlayerAlive);
+        }
 		private void checkForWinner ()
 		{
 			// Init number of players alive
@@ -280,6 +314,7 @@ namespace Starter.ThirdPersonCharacter
 			}
 
 			Debug.Log ("numberPlayerAlive = " + numberPlayerAlive);
+            _playerInGame.text = string.Format("{0:#0}", numberPlayerAlive);
 
 			if (numberPlayerAlive <= 1) {
 				
@@ -310,15 +345,15 @@ namespace Starter.ThirdPersonCharacter
 		}
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-		private void RPC_celebrateWinner () {
+		private async void RPC_celebrateWinner () {
 			
 			// GET LOCAL PLAYER
 			Player player = _localPlayerInstance.GetComponent<Player> ();
 			
 			// TODO !!! MUST MAKE A BETTER CELEBRATION
 			if (player.isWinner) {
-
-				Debug.Log ("             ");
+                _WinnerWindows.SetActive(true);
+                Debug.Log ("             ");
 				Debug.Log (">>>>>>>>>>>>>");
 				Debug.Log ("             ");
 				Debug.Log (" YOU WIN GG !");
@@ -327,9 +362,9 @@ namespace Starter.ThirdPersonCharacter
 				Debug.Log ("             ");
 
 			} else {
-
-				Debug.Log (" YOU LOSE :'(");
-			}
+                _LooserWindows.SetActive(true);
+                Debug.Log (" YOU LOSE :'(");
+            }
 				
 		}
 
