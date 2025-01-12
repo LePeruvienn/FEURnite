@@ -115,10 +115,8 @@ namespace Starter.ThirdPersonCharacter
 			}
 		}
 
-        private void AddItemsToPlayer (PlayerInventory inventory)
+        private void AddItemsToPlayer(PlayerInventory inventory)
         {
-			Debug.Log ("ADD ITEMS TO PLAYER");
-
             GameObject[] createdItems = new GameObject[itemPrefabs.Count];
             int i = 0;
             foreach (var itemPrefab in itemPrefabs)
@@ -130,7 +128,6 @@ namespace Starter.ThirdPersonCharacter
                 inventory.AddItem(item,i);
                 i++;
             }
-
             inventory.initAdd(createdItems);
         }
 

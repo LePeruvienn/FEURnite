@@ -44,14 +44,18 @@ namespace Starter.ThirdPersonCharacter
 
 		public override void Spawned()
 		{
-			base.Spawned();
-			_selectedIndex = 0;
-			_canPickUp = false;
+			
+			
+                base.Spawned();
+                _selectedIndex = 0;
+				_canPickUp = false;
 
-			// Initialize inventory arrays
-			_inventory = new GameObject[__HOTBAR_SIZE__];
-			_weapons = new GameObject[__WEAPONS_SIZE__];
-			_items = new GameObject[__ITEMS_SIZE__];
+				// Initialize inventory arrays
+				_inventory = new GameObject[__HOTBAR_SIZE__];
+				_weapons = new GameObject[__WEAPONS_SIZE__];
+				_items = new GameObject[__ITEMS_SIZE__];
+
+				
 		}
 
         public void AddItem(NetworkObject spawnedObject, int i)
@@ -66,14 +70,14 @@ namespace Starter.ThirdPersonCharacter
 						return;
 					}
 
-					// Attribuer l'autorité d'entrée au joueur
+					// Attribuer l'autorit¿ d'entr¿e au joueur
 					/*   if (Runner.IsServer)
 					   {
 						   item.AssignInputAuthority(Object.InputAuthority);
-						   Debug.Log("Autorité d'entrée assignée à l'item.");
+						   Debug.Log("Autorit¿ d'entr¿e assign¿e ¿ l'item.");
 					   }
 		   */
-					// Ajouter l'item à la liste d'inventaire
+					// Ajouter l'item ¿ la liste d'inventaire
 
 					// Get the Item component
 					Item item = spawnedObject.GetComponent<Item>();
@@ -93,15 +97,12 @@ namespace Starter.ThirdPersonCharacter
 					setItem(spawnedObject.gameObject);
 
 					// Hide the item
-					// spawnedObject.gameObject.SetActive(false);
+					spawnedObject.gameObject.SetActive(false);
 					RPC_pickup(spawnedObject.Id);
             }
         }
-
         public void initAdd(GameObject[] starterItems)
         {
-			_inventory = starterItems;
-
             // Initialize the inventory display
             _inventoryDisplay = GetComponentInParent<InventoryDisplay>();
 
@@ -109,7 +110,7 @@ namespace Starter.ThirdPersonCharacter
             _inventoryDisplay.init(starterItems);
 
             // Update current selection
-            updateSelection ();
+            updateSelection();
         }
         public void Update ()
 		{
@@ -219,6 +220,12 @@ namespace Starter.ThirdPersonCharacter
 
 			updateSelection(); // Update current selection
 		}
+
+        public void switchToSelection(int number)
+        {
+            _selectedIndex = number;
+            updateSelection(); // Update current selection
+        }
 		
 		// Function that is use to switch from selected intems in inventory
 		public void switchSelection (float direciton)
@@ -242,15 +249,9 @@ namespace Starter.ThirdPersonCharacter
 				updateSelection(); // Update current selection
 			}
 		}
-
-        public void switchToSelection(int number)
-        {
-            _selectedIndex = number;
-            updateSelection(); // Update current selection
-        }
-
-        // Use current selection
-        public void useCurrentSelection()
+		
+		// Use current selection
+		public void useCurrentSelection()
 		{
 			// Getting current selection
 			GameObject obj = _inventory[_selectedIndex];
@@ -405,6 +406,8 @@ namespace Starter.ThirdPersonCharacter
 			obj.transform.localScale = obj.transform.lossyScale;
 			obj.transform.localRotation = Quaternion.identity;
 
+			return;
+
 			// Setting obj's tranform to his game object param
 			if (item != null) 
 			{
@@ -433,16 +436,13 @@ namespace Starter.ThirdPersonCharacter
 		public void RPC_updateSelection()
 		{
 			// Disable all items
-			disableAllItems ();
+			disableAllItems();
 
 			// Get currentSelection
 			GameObject selection = getCurrentSelection ();
 			// If selection is not null
 			if (selection != null)
 				selection.SetActive (true); // Active current selected item
-			else
-				Debug.Log ("SELECTION IS NULL FOR PLAYER !!"); 
-		
 		}
 
 		private void disableAllItems()
