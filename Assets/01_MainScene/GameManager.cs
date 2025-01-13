@@ -214,7 +214,10 @@ namespace Starter.ThirdPersonCharacter
 				}
 
 				// Get skins !!! Or take default skin if not set
-				NetworkObject prefab = playersPrefabs[lastIndex] ?? PlayerPrefab;
+				NetworkObject prefab = playersPrefabs[lastIndex];
+
+				if (prefab == null)
+					prefab = PlayerPrefab;
 
 				// Move player to spawnPoint
 				RPC_movePlayerToSpawnPoint (lastIndex, playerRef, prefab);
