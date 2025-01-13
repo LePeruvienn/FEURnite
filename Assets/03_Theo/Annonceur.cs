@@ -10,7 +10,7 @@ public class Annonceur : MonoBehaviour
 
     void Start()
     {
-        
+        Clear();
     }
 
     void Update()
