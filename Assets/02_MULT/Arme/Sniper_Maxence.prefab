@@ -173,14 +173,14 @@ MonoBehaviour:
   shootDelay: 3
   stabDelayDamage: 0
   shootType: 1
-  addBulletSpread: 1
+  addBulletSpread: 0
   bulletSpreadVariance: {x: 0.1, y: 0.1, z: 0.1}
   bulletType: 1
   hasATrail: 1
   bulletTrail: {fileID: 79410620700406195, guid: 866dd108e3e67091e9591b90e310dc8c,
     type: 3}
   trailSpeed: 300
-  damage: 10
+  damage: 100
   hasAmmo: 1
   reloadCooldown: 1
   startAmmoAmount: 30
