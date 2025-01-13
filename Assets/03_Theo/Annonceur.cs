@@ -13,6 +13,7 @@ public class Annonceur : MonoBehaviour
     void Start()
     {
         Clear();
+        announceText.color = Color.red;
     }
 
     void Update()
