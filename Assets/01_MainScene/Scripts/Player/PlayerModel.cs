@@ -8,7 +8,6 @@ namespace Starter.ThirdPersonCharacter
 	public class PlayerModel : NetworkBehaviour
 	{
 		private GameManager _gameManager;
-		private DamagePopUpGenerator _popupGenerator;
 
         [Header("Script bar")]
         private Bar HealthBar;
@@ -45,7 +44,6 @@ namespace Starter.ThirdPersonCharacter
 		public override void Spawned () 
 		{
 			_gameManager = FindObjectOfType<GameManager>();
-			_popupGenerator = FindObjectOfType<DamagePopUpGenerator>();
 			
             if (HasStateAuthority == true)
             {
@@ -69,6 +67,9 @@ namespace Starter.ThirdPersonCharacter
                 if (jumpPower < 0f) jumpPower = 1f;
 				
             }
+				
+
+            
 		}
 
 		public int getCurrentTotalHealth () 
@@ -79,9 +80,6 @@ namespace Starter.ThirdPersonCharacter
 		public void takeDamage (int amount) 
 		{
 			Debug.Log ("PLAYER TAKE DAMAGE : " + amount);
-			
-            _popupGenerator.CreatePopUp(transform.position, amount.ToString(), Color.white);
-
 			// Initialisez leftAmount
 			int leftAmount = amount;
 
