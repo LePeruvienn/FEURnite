@@ -37,9 +37,6 @@ namespace Starter.ThirdPersonCharacter
     [RequireComponent(typeof(Rigidbody))]
     public class Weapon : Item
     {
-
-		private DamagePopUpGenerator _popupGenerator;
-
         [Header("Weapon References")]
         public GameObject bulletPrefab; // The bullet to use when shooting
 
@@ -98,10 +95,17 @@ namespace Starter.ThirdPersonCharacter
         private GameObject munition;
         private munitions textMunition;
 
+
+		private void OnDisable()
+		{
+			// Set the weapon state to Ready
+			_currentWeaponState = WeaponState.Ready;
+		}
+
         // Run when program starts
         public override void Spawned()
         {
-			_popupGenerator = FindObjectOfType<DamagePopUpGenerator>();
+            
             audioSource = GetComponent<AudioSource>();
             
             if(audioSource == null)
@@ -345,9 +349,6 @@ namespace Starter.ThirdPersonCharacter
 					hit.collider.GetComponentInParent<PlayerModel> () :
 					null;
 
-				// GeneratePopup
-				_popupGenerator.CreatePopUp(hit.point, damage.ToString(), Color.white);
-
 				// If ELement hit has a player Model we apply the damages
 				if (playerModel != null)
 					RPC_takeDamage (playerModel, damage);
@@ -405,6 +406,8 @@ namespace Starter.ThirdPersonCharacter
             {
                 // If item is already Reloading stop
                 if (_currentWeaponState == WeaponState.Reloading) return;
+
+				Debug.Log ("IIIIIIIIIIIII");
 
                 // Set status to reloading
                 _currentWeaponState = WeaponState.Reloading;

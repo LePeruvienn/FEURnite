@@ -79,6 +79,8 @@ namespace Starter.ThirdPersonCharacter
 		public void takeDamage (int amount) 
 		{
 			Debug.Log ("PLAYER TAKE DAMAGE : " + amount);
+			
+            _popupGenerator.CreatePopUp(transform.position, amount.ToString(), Color.white);
 
 			// Initialisez leftAmount
 			int leftAmount = amount;
