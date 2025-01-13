@@ -198,7 +198,7 @@ namespace Starter.ThirdPersonCharacter
 		public void respawnPlayers () {
 			// Init a list of available indices (0 to 8)
 			List<int> availableIndices = new List<int>();
-			for (int i = 0; i <= 8; i++) {
+			for (int i = 0; i < 8; i++) {
 				availableIndices.Add(i);
 			}
 
