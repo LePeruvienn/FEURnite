@@ -251,13 +251,17 @@ namespace Starter.ThirdPersonCharacter
 
 				// First fall spawns
 				if (repeatCount == 0)
-					fallingInslandManager.fallIslands (IslandType.Spawn);
+				{
+					fallingInslandManager.fallIslands(IslandType.Spawn);
+					timer.spawnIslandFell();
+				}
 				
 				// Fall inter and plateformes
 				if (repeatCount == 1) {
 					fallingInslandManager.fallIslands (IslandType.Plateformes);
 					fallingInslandManager.fallIslands (IslandType.Inter);
-				}
+					timer.intermediateIslandFell();
+                }
 
 				// Increment reapeat count
 				repeatCount++;

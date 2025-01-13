@@ -10,19 +10,16 @@ namespace Starter.ThirdPersonCharacter
 	{
 		[SerializeField] private TextMeshProUGUI timerText;
 		[SerializeField] private float startValue;
-		[SerializeField] private float timeSpawnIsland;
-		[SerializeField] private float timeBetweenTimers;
-        [SerializeField] private float timeIntermediateIsland;
 
         private float remainingTime;
 		private bool isPaused = true;
-		private bool betweenIslandFall = false;
+		//private bool betweenIslandFall = false;
         private bool spawnIslandFallen = false;
 		private bool intermediateIslandFallen = false;
 
         void Start()
 		{
-			InitializeTimer(timeSpawnIsland);
+			InitializeTimer(startValue);
 		}
 
 		void Update()
@@ -68,12 +65,25 @@ namespace Starter.ThirdPersonCharacter
             }
 			else if (!spawnIslandFallen)
 			{
-				timerText.text = string.Format("Time before the spawn island falls : \n {0:00}:{1:00}", minutes, seconds);
+				timerText.color = Color.white;
+				timerText.text = string.Format("Time before the spawn islands fall : \n {0:00}:{1:00}", minutes, seconds);
 			}
 			else if (spawnIslandFallen && !intermediateIslandFallen)
 			{
-                timerText.text = string.Format("Time before the intermediate island falls : \n {0:00}:{1:00}", minutes, seconds);
+                timerText.color = Color.white;
+                timerText.text = string.Format("Time before the intermediate islands fall : \n {0:00}:{1:00}", minutes, seconds);
             }
 		}
-	}
+
+		public void spawnIslandFell()
+		{
+			spawnIslandFallen = true;
+		}
+
+		public void intermediateIslandFell()
+		{
+			intermediateIslandFallen = true;
+		}
+
+    }
 }
