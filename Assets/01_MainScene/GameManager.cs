@@ -45,6 +45,7 @@ namespace Starter.ThirdPersonCharacter
         public GameObject _LooserWindows;
         public TextMeshProUGUI _playerInGame;
 		public Annonceur annonceur;
+        public GameObject buttonStart;
 
         [Header("Falling Inslad Cycle Config")]
 		public IlesQuiTombent fallingInslandManager;
@@ -102,6 +103,15 @@ namespace Starter.ThirdPersonCharacter
 				}
 			}
         }
+		public void startGameButton() {
+			if (_gameState != GameState.InGame)
+			{
+                startGame();
+                buttonStart.SetActive(false);
+
+            }
+
+		}
 
         public override void Spawned()
         {
@@ -306,7 +316,7 @@ namespace Starter.ThirdPersonCharacter
 
                 Player player = playerObj.GetComponent<Player>();
 
-                if (player != null && player.isSpawned && player.isAlive)
+                if (player != null  && player.isAlive)
                 {
 
                     numberPlayerAlive++;
