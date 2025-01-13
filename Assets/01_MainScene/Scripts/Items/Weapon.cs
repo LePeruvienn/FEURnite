@@ -37,6 +37,9 @@ namespace Starter.ThirdPersonCharacter
     [RequireComponent(typeof(Rigidbody))]
     public class Weapon : Item
     {
+
+		private DamagePopUpGenerator _popupGenerator;
+
         [Header("Weapon References")]
         public GameObject bulletPrefab; // The bullet to use when shooting
 
@@ -98,7 +101,7 @@ namespace Starter.ThirdPersonCharacter
         // Run when program starts
         public override void Spawned()
         {
-            
+			_popupGenerator = FindObjectOfType<DamagePopUpGenerator>();
             audioSource = GetComponent<AudioSource>();
             
             if(audioSource == null)
@@ -341,6 +344,9 @@ namespace Starter.ThirdPersonCharacter
                 PlayerModel playerModel = hit.collider != null ?
 					hit.collider.GetComponentInParent<PlayerModel> () :
 					null;
+
+				// GeneratePopup
+				_popupGenerator.CreatePopUp(hit.point, damage.ToString(), Color.white);
 
 				// If ELement hit has a player Model we apply the damages
 				if (playerModel != null)
