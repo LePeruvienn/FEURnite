@@ -13,7 +13,12 @@ namespace Starter.ThirdPersonCharacter
 	/// </summary>
 	public sealed class Player : NetworkBehaviour
 	{
-		[Header("References")]
+
+		[Header("Debug")]
+		public bool DebugIsDead;
+		public bool DebugFreecam;
+
+        [Header("References")]
 		public SimpleKCC KCC;
 		public PlayerModel PlayerModel;
 		public PlayerInput PlayerInput;
@@ -50,22 +55,30 @@ namespace Starter.ThirdPersonCharacter
 		public float FootstepAudioVolume = 0.5f;
 
 		[Networked]
-    private NetworkBool _isJumping { get; set; }
-    [Networked]
-    private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
-    [Networked]
-    private NetworkBool _isMoving { get; set; }
-    private NetworkBool _isShooting { get; set; }
-    private Vector3 _moveVelocity;
+		private NetworkBool _isJumping { get; set; }
+		[Networked]
+		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
+		[Networked]
+		private NetworkBool _isMoving { get; set; }
+		private NetworkBool _isShooting { get; set; }
+		private Vector3 _moveVelocity;
 
-	[Networked]
-    public bool DebugIsDead {get; set;}
+		private bool isFreecamActive = false;
 
-    private GameManager gameManager;
-    private CameraSwitcher cameraSwitcher;
+		[Networked]
+		public bool isAlive {get; set;} = true;
 
-    // Shoot mecanism
-    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+		[Networked]
+		public bool isWinner {get; set;} = false;
+
+		// Check if player has been spawned
+		[Networked] public bool isSpawned { get; set; } = false;
+
+		private GameManager gameManager;
+		private CameraSwitcher cameraSwitcher;
+
+		// Shoot mecanism
+		[SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
 
         // Animation input
         public MultiAimConstraint multiAimConstraintBody;
@@ -104,6 +117,8 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDAim;
 		private int _animIDMoving;
 		private int _animIDReload;
+    private int _animIDEmote;
+		private int _animIDCut;
 
         // ############################# teste dodo
 
@@ -111,6 +126,12 @@ namespace Starter.ThirdPersonCharacter
         private void RPC_Reload()
         {
             Animator.SetTrigger(_animIDReload);
+        }
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        private void RPC_Emote()
+        {
+            Animator.SetTrigger(_animIDEmote);
         }
 
         //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
@@ -131,10 +152,18 @@ namespace Starter.ThirdPersonCharacter
             multiAimConstraintArmObject = multiAimConstraintArm.gameObject.GetComponent<NetworkObject>();
 
             DebugIsDead = false;
+            isAlive = true;
+            DebugFreecam = false;
+			isSpawned = true;
 		}
 
 		public override void FixedUpdateNetwork()
 		{
+			if (HasStateAuthority)
+			{
+				UpdateFreecamState(DebugFreecam);
+			}
+
 			ProcessInput(PlayerInput.CurrentInput);
 
 			if (KCC.IsGrounded)
@@ -182,15 +211,18 @@ namespace Starter.ThirdPersonCharacter
 			// Update camera pivot and transfer properties from camera handle to Main Camera.
 			CameraPivot.rotation = Quaternion.Euler(PlayerInput.CurrentInput.LookRotation);
 
-			Camera.main.transform.SetPositionAndRotation(CameraHandle.position, CameraHandle.rotation);
+			if (Camera.main) {
 
-			// Handle camera zooming based on whether the player is aiming
-			float targetFOV = _isAiming ? aimFOV : normalFOV; // Set target FOV
-			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
+				Camera.main.transform.SetPositionAndRotation(CameraHandle.position, CameraHandle.rotation);
+				// Handle camera zooming based on whether the player is aiming
+				float targetFOV = _isAiming ? aimFOV : normalFOV; // Set target FOV
+				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
+			}
 		}
 
 		private void ProcessInput(GameplayInput input)
 		{
+			if (!isAlive) return;
 
 			float jumpImpulse = 0f;
 
@@ -274,9 +306,33 @@ namespace Starter.ThirdPersonCharacter
 			//Debug.Log ("speed: ", speed);
 
 			// Inventory Update
-			PlayerInventory.switchSelection(input.Scroll);
-			// Drop item
-			if (input.DropItem)
+			PlayerInventory.switchSelection(input.Scroll); 
+			
+			if (input.FirstInvSlot)
+            {
+                PlayerInventory.switchToSelection(0);
+            }
+            if (input.SecondInvSlot)
+            {
+                PlayerInventory.switchToSelection(1);
+            }
+            if (input.ThirdInvSlot)
+            {
+                PlayerInventory.switchToSelection(2);
+            }
+            if (input.FourthInvSlot)
+            {
+                PlayerInventory.switchToSelection(3);
+            }
+
+            // Emote
+            if (input.Emote)
+            {
+				RPC_Emote();
+            }
+
+            // Drop item
+            if (input.DropItem)
 			{
 				PlayerInventory.dropCurrentSelection();
 			}
@@ -409,10 +465,6 @@ namespace Starter.ThirdPersonCharacter
 			if (input.Shoot)
 			{
 				PlayerInventory.useCurrentSelection();// We use current selected Item
-
-
-
-				// If player is not shooting and his item is a weapon we check if he wants to reaload
 			}
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon)
 			{
@@ -431,7 +483,7 @@ namespace Starter.ThirdPersonCharacter
 			}
 		}
 
-		private void AssignAnimationIDs()
+        private void AssignAnimationIDs()
 		{
 			_animIDSpeed = Animator.StringToHash("Speed");
 			_animIDGrounded = Animator.StringToHash("Grounded");
@@ -440,9 +492,9 @@ namespace Starter.ThirdPersonCharacter
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDAim = Animator.StringToHash("Aim");
 			_animIDMoving = Animator.StringToHash("Moving");
-            // ############################# teste dodo
-            _animIDReload = Animator.StringToHash("ReloadTrigger");
-            // ############################# teste dodo
+      _animIDReload = Animator.StringToHash("ReloadTrigger");
+      _animIDEmote = Animator.StringToHash("EmoteTrigger");
+      _animIDCut = Animator.StringToHash("StabTrigger");
         }
 
         // Animation event
@@ -510,21 +562,52 @@ namespace Starter.ThirdPersonCharacter
 
         private void Update()
         {
-            if (DebugIsDead)
+            // if (DebugIsDead)
+            if (DebugIsDead || transform.position[1] <= -30)
             {
+				Debug.Log (">> DEBUG IS DEAD");
+				
 				// PlayerInventory.enabled = false;
 
                 DebugIsDead = false;
+				isAlive = false;
 
                 // Envoie les coordonnées de mort au GameManager
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
-                // Passage du joueur en mode spectateur
-                //cameraSwitcher.ToggleFreecam();
+				if (Object.HasStateAuthority) {
 
-                // Fait disparaître le corps du joueur
-                //Destroy(gameObject);
+					// Passage du joueur en mode spectateur
+					isFreecamActive = !isFreecamActive;
+					cameraSwitcher.ToggleFreecam(isFreecamActive);
+				}
+
+				// Fait disparaître le corps du joueur
+				Destroy(gameObject);
             }
-        }
+
+			if (DebugFreecam)
+			{
+				Debug.Log (">> DEBUG FREE CAM");
+
+				DebugFreecam = false;
+				isFreecamActive = !isFreecamActive;
+				cameraSwitcher.ToggleFreecam(isFreecamActive);
+			}
+		}
+
+		private void UpdateFreecamState(bool isFreecamActive)
+		{
+			if (isFreecamActive)
+			{
+				KCC.enabled = false;
+				Animator.enabled = false;
+			}
+			else
+			{
+				KCC.enabled = true;
+                Animator.enabled = true;
+            }
+		}
     }
 }

@@ -7,11 +7,12 @@ namespace Starter.ThirdPersonCharacter
 {
 	public class PlayerModel : NetworkBehaviour
 	{
+		private GameManager _gameManager;
+
         [Header("Script bar")]
         private Bar HealthBar;
         private Bar ShieldBar;
         private Shield SuperShieldBar;
-
 
 
         [Header("Player's Health")]
@@ -38,8 +39,11 @@ namespace Starter.ThirdPersonCharacter
 		[Networked] private int _shield {get; set;}
 		[Networked] private int _superShield {get; set;}
 
+		[Networked] private bool _isAlive {get; set;} = true;
+
 		public override void Spawned () 
 		{
+			_gameManager = FindObjectOfType<GameManager>();
 			
             if (HasStateAuthority == true)
             {
@@ -130,7 +134,10 @@ namespace Starter.ThirdPersonCharacter
 			if (_health <= 0)
 			{
 				// Make player die
-				die ();
+				if (HasStateAuthority == true)
+				{
+					die ();
+				}
 				// Set health to 0
 				_health = 0;
 			}
@@ -145,10 +152,15 @@ namespace Starter.ThirdPersonCharacter
 
         public void die ()
 		{
-			Debug.LogWarning ("DIE !!!");
+			if (_gameManager.getGameState() == GameState.WaitingForPlayers)
+				return;
 			
 			Player player = GetComponent<Player> ();
+			// pour le debug ???
 			player.DebugIsDead = true;
+
+			// Vrai isAlive qui marche bien (celui qui permet de compter le nombre de joueur vivant restant)
+			player.isAlive = false;
 		}
 
 		public void heal (int amount) 
