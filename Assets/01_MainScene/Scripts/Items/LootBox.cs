@@ -84,7 +84,7 @@ public class LootBox : NetworkBehaviour
         if (lootBoxLoopSound != null)
         {
             Debug.Log("Lecture du son en boucle : 'Chest Loop Sound'.");
-            RPC_PlayChestSound()
+            RPC_PlayChestSound();
         }
         else
         {
@@ -97,7 +97,7 @@ public class LootBox : NetworkBehaviour
     {
         audioSource.clip = lootBoxLoopSound;
         audioSource.loop = true;
-        audioSource.Play()
+        audioSource.Play();
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
@@ -105,7 +105,7 @@ public class LootBox : NetworkBehaviour
     {
         audioSource.clip = openLootBoxSound;
         audioSource.loop = false;
-        audioSource.Play()
+        audioSource.Play();
     }
 
     public void Open()
@@ -244,7 +244,7 @@ public class LootBox : NetworkBehaviour
         {
             // Appel du RPC pour ouvrir le coffre des items pour tous les clients
             RPC_OpenItemBox();
-            RPC_PlayOpenChestSound()
+            RPC_PlayOpenChestSound();
         }
         
     }
