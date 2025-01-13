@@ -73,6 +73,10 @@ namespace Starter.ThirdPersonCharacter
                 timerText.color = Color.white;
                 timerText.text = string.Format("Time before the intermediate islands fall : \n {0:00}:{1:00}", minutes, seconds);
             }
+			else if (intermediateIslandFallen)
+			{
+				timerText.text = "";
+			}
 		}
 
 		public void spawnIslandFell()
