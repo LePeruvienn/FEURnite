@@ -44,6 +44,7 @@ namespace Starter.ThirdPersonCharacter
         public GameObject _WinnerWindows;
         public GameObject _LooserWindows;
         public TextMeshProUGUI _playerInGame;
+		public Annonceur annonceur;
 
         [Header("Falling Inslad Cycle Config")]
 		public IlesQuiTombent fallingInslandManager;
@@ -252,7 +253,10 @@ namespace Starter.ThirdPersonCharacter
 			// On initialise le nombre de répétition à zéro
 			int repeatCount = 0;
 
-			while (repeatCount < maxRepeats)
+            // Initialisation de l'annonceur avec temps de tremblement des îles
+            annonceur.Init(timeBeforeReset);
+
+            while (repeatCount < maxRepeats)
 			{
 				// taking the right waitimg time
 				int timeToWait = repeatCount == 0 ?
@@ -262,18 +266,27 @@ namespace Starter.ThirdPersonCharacter
 				timer.InitializeTimer (timeToWait);
 				timer.ResumeTimer ();
 
-				// Wait
-				yield return new WaitForSeconds(timeToWait); // Wait for 5 minutes
+                
+
+                // Wait
+                yield return new WaitForSeconds(timeToWait); // Wait for 5 minutes
 
 				// First fall spawns
 				if (repeatCount == 0)
-					fallingInslandManager.fallIslands (IslandType.Spawn);
+                {
+                    annonceur.Annonce("Les îles de spawn vont tomber !");
+                    fallingInslandManager.fallIslands(IslandType.Spawn);
+					timer.spawnIslandFell();
+                }
 				
 				// Fall inter and plateformes
-				if (repeatCount == 1) {
-					fallingInslandManager.fallIslands (IslandType.Plateformes);
+				if (repeatCount == 1)
+                {
+                    annonceur.Annonce("Les îles intermédiaires vont tomber !");
+                    fallingInslandManager.fallIslands (IslandType.Plateformes);
 					fallingInslandManager.fallIslands (IslandType.Inter);
-				}
+					timer.intermediateIslandFell();
+                }
 
 				// Increment reapeat count
 				repeatCount++;

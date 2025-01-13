@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -10,10 +11,13 @@ namespace Starter.ThirdPersonCharacter
 		[SerializeField] private TextMeshProUGUI timerText;
 		[SerializeField] private float startValue;
 
-		private float remainingTime;
+        private float remainingTime;
 		private bool isPaused = true;
+		//private bool betweenIslandFall = false;
+        private bool spawnIslandFallen = false;
+		private bool intermediateIslandFallen = false;
 
-		void Start()
+        void Start()
 		{
 			InitializeTimer(startValue);
 		}
@@ -53,7 +57,38 @@ namespace Starter.ThirdPersonCharacter
 		{
 			int minutes = Mathf.FloorToInt(remainingTime / 60);
 			int seconds = Mathf.FloorToInt(remainingTime % 60);
-			timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+            timerText.color = remainingTime <= 15 ?
+                    Color.yellow : Color.white;
+
+            if (isPaused)
+            {
+                timerText.color = Color.yellow;
+                timerText.text = "Waiting for the game to start...";
+            }
+			else if (!spawnIslandFallen)
+			{
+				timerText.text = string.Format("Time before the spawn islands fall : \n {0:00}:{1:00}", minutes, seconds);
+			}
+			else if (spawnIslandFallen && !intermediateIslandFallen)
+			{
+                timerText.text = string.Format("Time before the intermediate islands fall : \n {0:00}:{1:00}", minutes, seconds);
+            }
+			else if (intermediateIslandFallen)
+			{
+				timerText.text = "";
+			}
 		}
-	}
+
+		public void spawnIslandFell()
+		{
+			spawnIslandFallen = true;
+		}
+
+		public void intermediateIslandFell()
+		{
+			intermediateIslandFallen = true;
+		}
+
+    }
 }
