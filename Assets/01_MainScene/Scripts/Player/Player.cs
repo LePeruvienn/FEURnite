@@ -120,6 +120,8 @@ namespace Starter.ThirdPersonCharacter
     private int _animIDEmote;
 		private int _animIDCut;
 
+		private GameObject munition;
+
         // ############################# teste dodo
 
         [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
@@ -155,7 +157,9 @@ namespace Starter.ThirdPersonCharacter
             isAlive = true;
             DebugFreecam = false;
 			isSpawned = true;
-		}
+
+            munition = GameObject.FindGameObjectWithTag("Mun");
+        }
 
 		public override void FixedUpdateNetwork()
 		{
@@ -218,7 +222,28 @@ namespace Starter.ThirdPersonCharacter
 				float targetFOV = _isAiming ? aimFOV : normalFOV; // Set target FOV
 				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
 			}
-		}
+
+            Item item = null;
+            GameObject selectedObj = PlayerInventory.getCurrentSelection();
+
+            if (selectedObj != null)
+                item = selectedObj.GetComponent<Item>();
+
+            if (munition != null)
+			{
+                if (item != null)
+                {
+                    if (item.getType() == ItemType.Weapon && item.getBulletType() != BulletType.Knife)
+                    {
+                        munition.SetActive(true);
+                    }
+                    else
+                        munition.SetActive(false);
+                }
+                else
+                    munition.SetActive(false);
+            }
+        }
 
 		private void ProcessInput(GameplayInput input)
 		{

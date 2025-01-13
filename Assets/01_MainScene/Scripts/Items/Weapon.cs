@@ -97,14 +97,17 @@ namespace Starter.ThirdPersonCharacter
             }
 
             munition = GameObject.FindGameObjectWithTag("Mun");
-            textMunition = munition.GetComponent<munitions>();
-
-            textMunition.setMunitions(_currentAmmoAmount, chargerAmmoAmount);
+            if (munition != null)
+            {
+                textMunition = munition.GetComponent<munitions>();
+                textMunition.setMunitions(_currentAmmoAmount, chargerAmmoAmount);
+            }
         }
 
         public void Update()
         {
-            textMunition.setMunitions(_currentAmmoAmount, chargerAmmoAmount);
+            if (munition != null)
+                textMunition.setMunitions(_currentAmmoAmount, chargerAmmoAmount);
         }
 
         public override ItemType getType()
