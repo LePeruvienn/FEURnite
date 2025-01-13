@@ -110,11 +110,7 @@ namespace Starter.ThirdPersonCharacter
             // If Runner is the server we set GameStatus to Waiting for players
             if (Runner.IsServer)
                 _gameState = GameState.WaitingForPlayers;
-
-			// Shuffle player list and spawn point
-			shuffle (SpawnPoints);
-			shuffle (playersPrefabs);
-
+			
 			// On join spawn Player
 			playerJoin ();
 
@@ -174,7 +170,7 @@ namespace Starter.ThirdPersonCharacter
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-		private void RPC_movePlayerToSpawnPoint (int index, PlayerRef playerRef, NetworkObject prefab) {
+		private void RPC_movePlayerToSpawnPoint (int index, PlayerRef playerRef, int prefabIndex) {
 
 			// If current client is not the player targeted we return
 			if (Runner.LocalPlayer != playerRef)
@@ -188,7 +184,7 @@ namespace Starter.ThirdPersonCharacter
 			index--;
 
 			// Spawn the player at the new position
-			NetworkObject playerInstance = Runner.Spawn(prefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+			NetworkObject playerInstance = Runner.Spawn(playersPrefabs[prefabIndex] ?? PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
 			_localPlayerInstance = playerInstance;  // Store the player instance
 
 			// Ajouter des items au joueur
@@ -200,29 +196,35 @@ namespace Starter.ThirdPersonCharacter
 		}
 
 		public void respawnPlayers () {
-			// Init lastIndex avaible
-			int lastIndex = SpawnPoints.Count - 1;
+			// Init a list of available indices (0 to 8)
+			List<int> availableIndices = new List<int>();
+			for (int i = 0; i <= 8; i++) {
+				availableIndices.Add(i);
+			}
 
-			// For all players avaibles
+			// For all players available
 			foreach (PlayerRef playerRef in Runner.ActivePlayers) {
-				
-				// if index is out of array's bound we return an error
-				if (lastIndex < 0) {
-					
-					Debug.LogError ("GAME MANAGER : Too much players for spawn points. CANNOT SPAWN ALL PLAYER !!");
+
+				// if no indices are left, we return an error
+				if (availableIndices.Count == 0) {
+					Debug.LogError ("GAME MANAGER : Too many players for spawn points. CANNOT SPAWN ALL PLAYERS !!");
 					return;
 				}
 
+				// Get a random index from the available indices
+				int randomIndex = Random.Range(0, availableIndices.Count);
+
+				int selectedIndex = availableIndices[randomIndex];
+				availableIndices.RemoveAt(randomIndex);
+
 				// Get skins !!! Or take default skin if not set
-				NetworkObject prefab = playersPrefabs[lastIndex];
+				NetworkObject prefab = playersPrefabs[selectedIndex];
 
 				if (prefab == null)
 					prefab = PlayerPrefab;
 
 				// Move player to spawnPoint
-				RPC_movePlayerToSpawnPoint (lastIndex, playerRef, prefab);
-				// Update last index
-				lastIndex--;
+				RPC_movePlayerToSpawnPoint(selectedIndex, playerRef, selectedIndex);
 			}
 		}
 
@@ -439,19 +441,6 @@ namespace Starter.ThirdPersonCharacter
 
 		public GameState getGameState () {
 			return _gameState;
-		}
-
-		public static void shuffle<T> (List<T> list)
-		{
-			System.Random random = new System.Random();
-			for (int i = list.Count - 1; i > 0; i--)
-			{
-				int randomIndex = random.Next(i + 1);
-				// Swap the elements
-				T temp = list[i];
-				list[i] = list[randomIndex];
-				list[randomIndex] = temp;
-			}
 		}
     }
 }
