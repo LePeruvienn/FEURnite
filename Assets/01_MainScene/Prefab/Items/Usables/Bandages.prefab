@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1873346197536301621}
   - component: {fileID: -1225543503317757854}
   - component: {fileID: 524048456736431465}
-  - component: {fileID: -102260922914213044}
   - component: {fileID: 2651700936119964263}
   - component: {fileID: 4860249499524485463}
   m_Layer: 0
@@ -136,28 +135,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-102260922914213044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216043043027239904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c4a6b3092b6c7248bd3d7d63ba643d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 3c326a618f044214b86d6b6500027f5f, type: 3}
-  itemName: Bandages
-  stackAmount: 1
-  rarity: 1
-  useCooldown: 3
-  effects:
-  - stats: 1
-    amount: 5
-    duration: 200
-  audioSource: {fileID: 2651700936119964263}
 --- !u!82 &2651700936119964263
 AudioSource:
   m_ObjectHideFlags: 0
@@ -270,5 +247,4 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: -102260922914213044}
+  NetworkedBehaviours: []

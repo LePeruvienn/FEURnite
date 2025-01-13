@@ -80,18 +80,32 @@ public class LootBox : NetworkBehaviour
         }
 
         // Associer le clip et jouer le son
-        audioSource.clip = lootBoxLoopSound;
-        audioSource.loop = true;
-
+      
         if (lootBoxLoopSound != null)
         {
             Debug.Log("Lecture du son en boucle : 'Chest Loop Sound'.");
-            audioSource.Play();
+            RPC_PlayChestSound()
         }
         else
         {
             Debug.LogError("Erreur : Impossible de jouer 'Chest Loop Sound' car le clip est null.");
         }
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    public void RPC_PlayChestSound()
+    {
+        audioSource.clip = lootBoxLoopSound;
+        audioSource.loop = true;
+        audioSource.Play()
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    public void RPC_PlayOpenChestSound()
+    {
+        audioSource.clip = openLootBoxSound;
+        audioSource.loop = false;
+        audioSource.Play()
     }
 
     public void Open()
@@ -230,6 +244,7 @@ public class LootBox : NetworkBehaviour
         {
             // Appel du RPC pour ouvrir le coffre des items pour tous les clients
             RPC_OpenItemBox();
+            RPC_PlayOpenChestSound()
         }
         
     }
