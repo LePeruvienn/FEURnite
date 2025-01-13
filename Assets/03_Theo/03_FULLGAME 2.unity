@@ -654,6 +654,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 18599405}
   startValue: 120
+  timeSpawnIsland: 10
+  timeBetweenTimers: 5
+  timeIntermediateIsland: 15
 --- !u!114 &18599405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2106,7 +2109,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 2591385800
+  SortKey: 2323190974
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
@@ -2640,7 +2643,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 1059982192
+  SortKey: 791787366
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
@@ -4288,7 +4291,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 2524192101
+  SortKey: 2255997275
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
@@ -6760,7 +6763,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 993600795
+  SortKey: 725405969
   ObjectInterest: 1
   Flags: 131073
   NestedObjects: []
@@ -11698,7 +11701,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 1076466832
+  SortKey: 808272006
   ObjectInterest: 1
   Flags: 524289
   NestedObjects: []
@@ -33059,7 +33062,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 3182492727
+  SortKey: 2914297901
   ObjectInterest: 1
   Flags: 131073
   NestedObjects: []

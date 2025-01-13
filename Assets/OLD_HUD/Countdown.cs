@@ -62,8 +62,9 @@ namespace Starter.ThirdPersonCharacter
 			int seconds = Mathf.FloorToInt(remainingTime % 60);
 
 			if (isPaused)
-			{
-				timerText.text = "Waiting for the game to start...";
+            {
+                timerText.color = Color.yellow;
+                timerText.text = "Waiting for the game to start...";
             }
 			else if (!spawnIslandFallen)
 			{
