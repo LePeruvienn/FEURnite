@@ -370,7 +370,7 @@ namespace Starter.ThirdPersonCharacter
 			return direction;
 		}
 
-		// Reload the current weapon
+        // Reload the current weapon
         public void reload()
         {
             if (hasAmmo)
@@ -391,19 +391,19 @@ namespace Starter.ThirdPersonCharacter
                 // ############################# teste dodo
 
 
-            // Start reload coroutine
-            StartCoroutine(reloadCouroutine());
-            if(ReloadAudioClip != null)
-            {
-                audioSource.PlayOneShot(ReloadAudioClip);
-            }
-            else
-            {
-                Debug.Log("audio de rechargement non trouvé");
+                // Start reload coroutine
+                StartCoroutine(reloadCouroutine());
+                if (ReloadAudioClip != null)
+                {
+                    audioSource.PlayOneShot(ReloadAudioClip);
+                }
+                else
+                {
+                    Debug.Log("audio de rechargement non trouvé");
 
+                }
             }
         }
-
         private IEnumerator reloadCouroutine()
         {
             // Wait for reload cooldown
