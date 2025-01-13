@@ -70,42 +70,56 @@ namespace Starter.ThirdPersonCharacter
 
 		private void explode ()
 		{
-			if (_sphereCollider == null)
-			{
-                SphereCollider[] sphereColliders = GetComponentsInChildren<SphereCollider>();
-                foreach (SphereCollider collider in sphereColliders)
-                    if (collider.name == "colliderVide")
-                    {
-                        _sphereCollider = collider;
-                        break;
-                    }
+            if (_sphereCollider == null)
+            {
+                _sphereCollider = GetComponentInParent<SphereCollider> ();
+                _sphereCollider.name = "Collider vide";
             }
-			_sphereCollider.radius = explosionRadius;
+            _sphereCollider.radius = explosionRadius;
             Debug.Log("COLLIDER : " + _sphereCollider.name);
             Debug.Log("RADIUS : " + _sphereCollider.radius);
-			hasExploded = true;
-		}
 
-        private void OnTriggerEnter(Collider other)
-		{
-			if(other.GetComponent<PlayerModel>() != null)
-			{
-                PlayerModel pModel = other.GetComponent<PlayerModel>();
-                Debug.Log("PLAYER: " + pModel.name);
-				if (hasExploded == true)
-				{
-                    float distance = Vector3.Distance(transform.position, other.transform.position);
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
+
+            foreach (Collider hitCollider in hitColliders)
+            {
+                // Vérifier si le collider appartient à un PlayerModel
+                PlayerModel player = hitCollider.GetComponent<PlayerModel>();
+                if (player != null)
+                {
+                    Debug.Log("PLAYER: " + player.name);
+                    // Calculer la distance entre le point d'explosion et le joueur
+                    float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
                     Debug.Log("DISTANCE: " + distance);
-                    Debug.Log("PV AVANT: " + pModel.getCurrentTotalHealth());
-                    if (distance <= maxDamageDistance)
-                        pModel.takeDamage(maxDamage);
-                    else if (distance <= minDamageDistance)
-                        pModel.takeDamage(minDamage);
-                    Debug.Log("PV APRES: " + pModel.getCurrentTotalHealth());
-                    Destroy(gameObject);
+                    Debug.Log("PV AVANT: " + player.getCurrentTotalHealth());
+                    // Calculer les dégâts basés sur la distance
+                    int damage = calculateDamage(distance);
+                    // Appliquer les dégâts
+                    if (damage > 0)
+                    {
+                        player.takeDamage(damage);
+                    }
+                    Debug.Log("PV APRES: " + player.getCurrentTotalHealth());
                 }
-
             }
+            // Explosion terminée
+            hasExploded = true;
+            // Détruire la grenade
+            Destroy(gameObject);
+        }
+
+        private int calculateDamage(float distance)
+        {
+            // Si la distance est inférieure ou égale à la distance max, appliquer maxDamage
+            if (distance <= maxDamageDistance)
+                return maxDamage;
+
+            // Si la distance est entre maxDamageDistance et minDamageDistance, appliquer minDamage
+            if (distance <= minDamageDistance)
+                return minDamage;
+
+            // Si la distance est au-delà de minDamageDistance, pas de dégâts
+            return 0;
         }
     }
 }

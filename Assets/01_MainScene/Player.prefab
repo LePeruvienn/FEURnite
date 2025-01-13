@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 8687737207959842141}
   - component: {fileID: 5944864648535768048}
   - component: {fileID: 4177514750797067451}
+  - component: {fileID: 7546015527988316898}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -596,6 +597,29 @@ MonoBehaviour:
   - {fileID: 8572948724112088405}
   - {fileID: 264555675758390812}
   - {fileID: 3106169652300612739}
+--- !u!136 &7546015527988316898
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609267092368825421}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6748522571112058784
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,9 +925,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51b1b1cbf9995841a0bff562365dc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimColliderLayerMask:
+  _aimColliderLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
 --- !u!1 &8746885593111935576
 GameObject:
   m_ObjectHideFlags: 0
