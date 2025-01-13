@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Fusion;
+using Fusion.Statistics;
 using UnityEngine.UIElements;
 using System.Net;
 
@@ -28,7 +29,8 @@ namespace Starter.ThirdPersonCharacter
 		Rifle = 2,
 		Pistol = 3,
 		Rocket = 4,
-        Knife = 5
+        Knife = 5,
+        Shotgun = 6
     }
 
     [RequireComponent(typeof(Rigidbody))]
@@ -68,6 +70,17 @@ namespace Starter.ThirdPersonCharacter
         [Header("Weapon style")]
         public ParticleSystem muzzleFalshParticles;
 
+        [Header("Weapon Sound")]
+        public AudioSource audioSource;
+        public static AudioClip audioClip;
+        public static AudioClip ReloadAudioClip;
+        public static AudioClip PistolAudioClip;
+        public static AudioClip SniperAudioClip;
+        public static AudioClip RocketAudioClip;
+        public static AudioClip KnifeAudioClip;
+        public static AudioClip ShotgunAudioClip;
+
+
         // Privates
         private Animator _playerAnimator;
         private WeaponState _currentWeaponState;
@@ -77,9 +90,31 @@ namespace Starter.ThirdPersonCharacter
 
         [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
 
+
         // Run when program starts
         public override void Spawned()
         {
+            
+            audioSource = GetComponent<AudioSource>();
+            
+            if(audioSource == null)
+            {
+                Debug.LogWarning("audio source pas trouvé");
+            }
+            else
+            {
+                Debug.LogWarning("audio source trouvé");
+            }
+
+            //chargé les clip audio
+            audioClip = Resources.Load<AudioClip>("Pistol Sound Effect");
+            ReloadAudioClip = Resources.Load<AudioClip>("ReloadAudio");
+            PistolAudioClip = Resources.Load<AudioClip>("DE_Sound");
+            SniperAudioClip = Resources.Load<AudioClip>("SniperSound");
+            RocketAudioClip = Resources.Load<AudioClip>("RocketSound");
+            KnifeAudioClip = Resources.Load<AudioClip>("KnifeSound");
+            ShotgunAudioClip = Resources.Load<AudioClip>("ShotgunSound");
+
             // Set current ammo to start Ammo amount
             _currentAmmoAmount = startAmmoAmount;
             // Set weapon state to ready
@@ -91,6 +126,10 @@ namespace Starter.ThirdPersonCharacter
                 Debug.Log("NetworkRunner n'est pas trouv� dans la sc�ne !");
                 
             }
+
+            
+            
+
         }
 
         public override ItemType getType()
@@ -110,6 +149,7 @@ namespace Starter.ThirdPersonCharacter
             // Check if player can fire
             if (Time.time >= _nextFireTime)
             {
+                RPCFireSound();
                 // Shoot deping on the shoot type
                 if (shootType == ShootType.HitScan)
                 {
@@ -144,10 +184,51 @@ namespace Starter.ThirdPersonCharacter
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
+
+        public void RPCFireSound()
+        {
+            
+            if (audioSource != null)
+            {
+                switch (bulletType)
+                {
+                    case BulletType.Sniper:
+                        audioSource.PlayOneShot(SniperAudioClip);
+                        break;
+                    case BulletType.Rifle:
+                        audioSource.PlayOneShot(audioClip);
+                        break;
+                    case BulletType.Pistol:
+                        audioSource.PlayOneShot(PistolAudioClip);
+                        break;
+                    case BulletType.Rocket:
+                        audioSource.PlayOneShot(RocketAudioClip);
+                        break;
+                    case BulletType.Knife:
+                        audioSource.PlayOneShot(KnifeAudioClip);
+                        break;
+                    case BulletType.Shotgun:
+                        audioSource.PlayOneShot(ShotgunAudioClip);
+                        break;
+                    default:
+                        Debug.LogWarning("PAS DE SON NON NON NON");
+                        break;
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Audio pas trouvé");
+            }
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
         public void RPC_SpawnBullet(Vector3 spawnPos, Vector3 aimDir)
+
         {
             // Spawn bullet sur le serveur
             _runner.Spawn(bulletPrefab, spawnPos, Quaternion.LookRotation(aimDir, Vector3.up),Runner.LocalPlayer);
+            
+
         }
 
 
@@ -186,9 +267,11 @@ namespace Starter.ThirdPersonCharacter
                     // Spawn bullet on the network
                     RPC_SpawnBullet (_spawnBulletPosition.position, aimDir);
 
+
                     // Instantiate muzzle flash (local effect)
                     Instantiate(muzzleFalshParticles, _spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                
+
             }
             catch (Exception e)
             {
@@ -307,8 +390,17 @@ namespace Starter.ThirdPersonCharacter
                 //    _playerAnimator = GetComponentInParent<Animator>();
                 // ############################# teste dodo
 
-                // Start reload coroutine
-                StartCoroutine(reloadCouroutine());
+
+            // Start reload coroutine
+            StartCoroutine(reloadCouroutine());
+            if(ReloadAudioClip != null)
+            {
+                audioSource.PlayOneShot(ReloadAudioClip);
+            }
+            else
+            {
+                Debug.Log("audio de rechargement non trouvé");
+
             }
         }
 
