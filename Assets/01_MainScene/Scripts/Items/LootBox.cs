@@ -42,6 +42,58 @@ public class LootBox : NetworkBehaviour
 
     [Networked] private bool IsOpen { get; set; }
 
+    public AudioSource audioSource;
+    public static AudioClip lootBoxLoopSound;
+    public static AudioClip openLootBoxSound;
+    
+
+    public void Start()
+    {
+        // Charger les sons
+        lootBoxLoopSound = Resources.Load<AudioClip>("SoundEffects/Chest Loop Sound");
+        openLootBoxSound = Resources.Load<AudioClip>("SoundEffects/Open Chest");
+
+        // Vérification des sons chargés
+        if (lootBoxLoopSound == null)
+        {
+            Debug.LogError("Erreur : 'Chest Loop Sound' n'a pas pu être chargé. Vérifiez le chemin ou le fichier.");
+        }
+        else
+        {
+            Debug.Log("'Chest Loop Sound' chargé avec succès.");
+        }
+
+        if (openLootBoxSound == null)
+        {
+            Debug.LogError("Erreur : 'Open Chest' n'a pas pu être chargé. Vérifiez le chemin ou le fichier.");
+        }
+        else
+        {
+            Debug.Log("'Open Chest' chargé avec succès.");
+        }
+
+        // Vérification de l'AudioSource
+        if (audioSource == null)
+        {
+            Debug.LogError("Erreur : L'AudioSource n'est pas assigné dans l'Inspector.");
+            return; // Arrête l'exécution si l'AudioSource est null
+        }
+
+        // Associer le clip et jouer le son
+        audioSource.clip = lootBoxLoopSound;
+        audioSource.loop = true;
+
+        if (lootBoxLoopSound != null)
+        {
+            Debug.Log("Lecture du son en boucle : 'Chest Loop Sound'.");
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogError("Erreur : Impossible de jouer 'Chest Loop Sound' car le clip est null.");
+        }
+    }
+
     public void Open()
     {
         Debug.Log("Attempting to open loot box...");
@@ -74,6 +126,11 @@ public class LootBox : NetworkBehaviour
 
         if (newStatus == Status.IsOpen)
         {
+            if (audioSource != null)
+            {
+                audioSource.Stop(); 
+                audioSource.PlayOneShot(openLootBoxSound);
+            }
             openChestAnimation();
             ChoiceBoxType(); // Ouvre le bon type de coffre
         }
@@ -195,7 +252,9 @@ public class LootBox : NetworkBehaviour
             NetworkObject netObj = item.GetComponent<NetworkObject>();
             if (netObj != null)
             {
-                Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity, null);
+                
+                NetworkObject netObjcreate = Runner.Spawn(item, _spawnItemPosition.position, Quaternion.identity, Runner.LocalPlayer);
+
                 Debug.Log("Item spawned successfully on all clients with no specific authority.");
             }
         }
@@ -224,6 +283,7 @@ public class LootBox : NetworkBehaviour
                 if (netObj != null)
                 {
                     spawnedWeapon = Runner.Spawn(weapon, _spawnItemPosition.position, Quaternion.identity, null);
+                   
                     Debug.Log("Weapon spawned successfully on all clients with no specific authority.");
                 }
             }

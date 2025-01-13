@@ -13,7 +13,12 @@ namespace Starter.ThirdPersonCharacter
 	/// </summary>
 	public sealed class Player : NetworkBehaviour
 	{
-		[Header("References")]
+
+		[Header("Debug")]
+		public bool DebugIsDead;
+		public bool DebugFreecam;
+
+        [Header("References")]
 		public SimpleKCC KCC;
 		public PlayerModel PlayerModel;
 		public PlayerInput PlayerInput;
@@ -50,33 +55,61 @@ namespace Starter.ThirdPersonCharacter
 		public float FootstepAudioVolume = 0.5f;
 
 		[Networked]
-    private NetworkBool _isJumping { get; set; }
-    [Networked]
-    private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
-    [Networked]
-    private NetworkBool _isMoving { get; set; }
-    private NetworkBool _isShooting { get; set; }
-    private Vector3 _moveVelocity;
+		private NetworkBool _isJumping { get; set; }
+		[Networked]
+		private NetworkBool _isAiming { get; set; } // Ajout d'une variable pour savoir si le joueur est en train de vise
+		[Networked]
+		private NetworkBool _isMoving { get; set; }
+		private NetworkBool _isShooting { get; set; }
+		private Vector3 _moveVelocity;
 
-	[Networked]
-    public bool DebugIsDead {get; set;}
+		private bool isFreecamActive = false;
 
-    private GameManager gameManager;
-    private CameraSwitcher cameraSwitcher;
+		[Networked]
+		public bool isAlive {get; set;} = true;
 
-    // Shoot mecanism
-    [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+		[Networked]
+		public bool isWinner {get; set;} = false;
 
-		// Animation input
-		[Header("Animation Constraint")]
-		public MultiAimConstraint multiAimConstraintBody; // Reference to the MultiAimConstraint component
-		public MultiAimConstraint multiAimConstraintHead; // Reference to the MultiAimConstraint component
-		public MultiAimConstraint multiAimConstraintWeapon; // Reference to the TwoBoneIKConstraint component
-		public TwoBoneIKConstraint multiAimConstraintArm; // Reference to the TwoBoneIKConstraint component
+		// Check if player has been spawned
+		[Networked] public bool isSpawned { get; set; } = false;
+
+		private GameManager gameManager;
+		private CameraSwitcher cameraSwitcher;
+
+		// Shoot mecanism
+		[SerializeField] private LayerMask aimColliderLayerMask = new LayerMask(); // à supprimé éventuellement ?
+
+        // Animation input
+        public MultiAimConstraint multiAimConstraintBody;
+        public MultiAimConstraint multiAimConstraintHead;
+        public MultiAimConstraint multiAimConstraintWeapon;
+        public TwoBoneIKConstraint multiAimConstraintArm;
+
+        [Networked]
+        private NetworkObject multiAimConstraintBodyObject { get; set; } // Référence au NetworkObject
+
+        [Networked]
+        private NetworkObject multiAimConstraintHeadObject { get; set; } // Référence au NetworkObject
+
+        [Networked]
+        private NetworkObject multiAimConstraintWeaponObject { get; set; } // Référence au NetworkObject
+
+        [Networked]
+        private NetworkObject multiAimConstraintArmObject { get; set; } // Référence au NetworkObject
+       
+		[Networked]
+		private float BodyWeight { get; set; }
+        [Networked]
+        private float HeadWeight { get; set; }
+        [Networked]
+        private float WeaponWeight { get; set; }
+        [Networked]
+        private float ArmWeight { get; set; }
 
 
-		// Animation IDs
-		private int _animIDSpeed;
+        // Animation IDs
+        private int _animIDSpeed;
 		private int _animIDGrounded;
 		private int _animIDJump;
 		private int _animIDFreeFall;
@@ -84,6 +117,10 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDAim;
 		private int _animIDMoving;
 		private int _animIDReload;
+    private int _animIDEmote;
+		private int _animIDCut;
+
+		private GameObject munition;
 
         // ############################# teste dodo
 
@@ -93,22 +130,44 @@ namespace Starter.ThirdPersonCharacter
             Animator.SetTrigger(_animIDReload);
         }
 
-		//[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-		//private void RPC_UpdateAimState(bool isAiming)
-		//{
-		//	_isAiming = isAiming;
-		//}
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        private void RPC_Emote()
+        {
+            Animator.SetTrigger(_animIDEmote);
+        }
 
-		// ############################# teste dodo
+        //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        //private void RPC_UpdateAimState(bool isAiming)
+        //{
+        //	_isAiming = isAiming;
+        //}
 
-		public override void Spawned() {
+        // ############################# teste dodo
+
+        public override void Spawned() {
 
 			base.Spawned ();
-			DebugIsDead = false;
-		}
+
+            multiAimConstraintBodyObject = multiAimConstraintBody.gameObject.GetComponent<NetworkObject>();
+            multiAimConstraintHeadObject = multiAimConstraintHead.gameObject.GetComponent<NetworkObject>();
+            multiAimConstraintWeaponObject = multiAimConstraintWeapon.gameObject.GetComponent<NetworkObject>();
+            multiAimConstraintArmObject = multiAimConstraintArm.gameObject.GetComponent<NetworkObject>();
+
+            DebugIsDead = false;
+            isAlive = true;
+            DebugFreecam = false;
+			isSpawned = true;
+
+            munition = GameObject.FindGameObjectWithTag("Mun");
+        }
 
 		public override void FixedUpdateNetwork()
 		{
+			if (HasStateAuthority)
+			{
+				UpdateFreecamState(DebugFreecam);
+			}
+
 			ProcessInput(PlayerInput.CurrentInput);
 
 			if (KCC.IsGrounded)
@@ -118,7 +177,7 @@ namespace Starter.ThirdPersonCharacter
 			}
 
             PlayerInput.ResetInput();
-		}
+        }
 
 		public override void Render()
 		{
@@ -129,6 +188,11 @@ namespace Starter.ThirdPersonCharacter
 			Animator.SetBool(_animIDFreeFall, KCC.RealVelocity.y < -10f);
 			Animator.SetBool(_animIDAim, _isAiming);
 			Animator.SetBool(_animIDMoving, _isMoving);
+
+            multiAimConstraintArm.weight = ArmWeight;
+            multiAimConstraintWeapon.weight = WeaponWeight;
+            multiAimConstraintBody.weight = BodyWeight;
+            multiAimConstraintHead.weight = HeadWeight;
         }
 
         private void Awake()
@@ -151,15 +215,39 @@ namespace Starter.ThirdPersonCharacter
 			// Update camera pivot and transfer properties from camera handle to Main Camera.
 			CameraPivot.rotation = Quaternion.Euler(PlayerInput.CurrentInput.LookRotation);
 
-			Camera.main.transform.SetPositionAndRotation(CameraHandle.position, CameraHandle.rotation);
+			if (Camera.main) {
 
-			// Handle camera zooming based on whether the player is aiming
-			float targetFOV = _isAiming ? aimFOV : normalFOV; // Set target FOV
-			Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
-		}
+				Camera.main.transform.SetPositionAndRotation(CameraHandle.position, CameraHandle.rotation);
+				// Handle camera zooming based on whether the player is aiming
+				float targetFOV = _isAiming ? aimFOV : normalFOV; // Set target FOV
+				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
+			}
+
+            Item item = null;
+            GameObject selectedObj = PlayerInventory.getCurrentSelection();
+
+            if (selectedObj != null)
+                item = selectedObj.GetComponent<Item>();
+
+            if (munition != null)
+			{
+                if (item != null)
+                {
+                    if (item.getType() == ItemType.Weapon && item.getBulletType() != BulletType.Knife)
+                    {
+                        munition.SetActive(true);
+                    }
+                    else
+                        munition.SetActive(false);
+                }
+                else
+                    munition.SetActive(false);
+            }
+        }
 
 		private void ProcessInput(GameplayInput input)
 		{
+			if (!isAlive) return;
 
 			float jumpImpulse = 0f;
 
@@ -243,9 +331,33 @@ namespace Starter.ThirdPersonCharacter
 			//Debug.Log ("speed: ", speed);
 
 			// Inventory Update
-			PlayerInventory.switchSelection(input.Scroll);
-			// Drop item
-			if (input.DropItem)
+			PlayerInventory.switchSelection(input.Scroll); 
+			
+			if (input.FirstInvSlot)
+            {
+                PlayerInventory.switchToSelection(0);
+            }
+            if (input.SecondInvSlot)
+            {
+                PlayerInventory.switchToSelection(1);
+            }
+            if (input.ThirdInvSlot)
+            {
+                PlayerInventory.switchToSelection(2);
+            }
+            if (input.FourthInvSlot)
+            {
+                PlayerInventory.switchToSelection(3);
+            }
+
+            // Emote
+            if (input.Emote)
+            {
+				RPC_Emote();
+            }
+
+            // Drop item
+            if (input.DropItem)
 			{
 				PlayerInventory.dropCurrentSelection();
 			}
@@ -302,40 +414,38 @@ namespace Starter.ThirdPersonCharacter
 
 				if ((_isAiming || angleToTarget > 80f) && KCC.IsGrounded) // if is aiming or moving the camera we activate the Constrainte on the animation to make him aim properly
 				{
-					ActivateConstraintAim();
-					targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
+                    ActivateConstraintAim();
+                    targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
 					multiplicator = 4;
 				}
 				else
 				{
-					DeactivateConstraintAim();
-				}
-				// we alwase need te constraint for movement si le joueur ne mouv pas
-				ActivateConstraintMovement();
-			}
+                    DeactivateConstraintAim();
+                }
+                // we alwase need te constraint for movement si le joueur ne mouv pas
+                ActivateConstraintMovement();
+            }
 			else
 			{
 				if (_isAiming && KCC.IsGrounded)// si le joueur mouv et qu'il vise on doit activer les constraint sur l'animation 
 				{
-					ActivateConstraintAim();
-					multiAimConstraintArm.weight = 1f;
-					targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
+                    ActivateConstraintAim();
+                    targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
 					multiplicator = 3;
 				}
 				else
 				{
-					DeactivateConstraintAim();
-					multiAimConstraintArm.weight = 0f;
-					targetRotation = Quaternion.LookRotation(moveDirection);
+                    DeactivateConstraintAim();
+                    targetRotation = Quaternion.LookRotation(moveDirection);
 					multiplicator = 1;
 				}
 				if (angleToTarget > 130f) // si le joueur regarde deriére lui pour évité des bug on désactive la constraint
 				{
-					DeactivateConstraintMovement();
+                    DeactivateConstraintMovement();
 				}
 				else
 				{
-					ActivateConstraintMovement();
+                    ActivateConstraintMovement();
 				}
 			}
 
@@ -380,10 +490,6 @@ namespace Starter.ThirdPersonCharacter
 			if (input.Shoot)
 			{
 				PlayerInventory.useCurrentSelection();// We use current selected Item
-
-
-
-				// If player is not shooting and his item is a weapon we check if he wants to reaload
 			}
 			else if (currentItem != null && input.RealoadWeapon && itemType == ItemType.Weapon)
 			{
@@ -402,7 +508,7 @@ namespace Starter.ThirdPersonCharacter
 			}
 		}
 
-		private void AssignAnimationIDs()
+        private void AssignAnimationIDs()
 		{
 			_animIDSpeed = Animator.StringToHash("Speed");
 			_animIDGrounded = Animator.StringToHash("Grounded");
@@ -411,9 +517,9 @@ namespace Starter.ThirdPersonCharacter
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDAim = Animator.StringToHash("Aim");
 			_animIDMoving = Animator.StringToHash("Moving");
-            // ############################# teste dodo
-            _animIDReload = Animator.StringToHash("ReloadTrigger");
-            // ############################# teste dodo
+      _animIDReload = Animator.StringToHash("ReloadTrigger");
+      _animIDEmote = Animator.StringToHash("EmoteTrigger");
+      _animIDCut = Animator.StringToHash("StabTrigger");
         }
 
         // Animation event
@@ -435,35 +541,35 @@ namespace Starter.ThirdPersonCharacter
 			AudioSource.PlayClipAtPoint(LandingAudioClip, KCC.Position, FootstepAudioVolume);
 		}
 
-		// Activate Constraint on the mouvement. for the head and body.
-		private void ActivateConstraintMovement()
-		{
-			multiAimConstraintBody.weight = 1f;
-			multiAimConstraintHead.weight = 1f;
-		}
+        // Activate Constraint on the mouvement. for the head and body.
+        private void ActivateConstraintMovement()
+        {
+            BodyWeight = 1f;
+            HeadWeight = 1f;
+        }
 
-		// Deactivate Constraint on the mouvement. for the head and body.
-		private void DeactivateConstraintMovement()
-		{
-			multiAimConstraintBody.weight = 0f;
-			multiAimConstraintHead.weight = 0f;
-		}
+        // Deactivate Constraint on the mouvement. for the head and body.
+        private void DeactivateConstraintMovement()
+        {
+            BodyWeight = 0f;
+            HeadWeight = 0f;
+        }
 
-		// Activate Constraint when aiming. for the arm and the weapon.
-		private void ActivateConstraintAim()
-		{
-			multiAimConstraintArm.weight = 1f;
-			multiAimConstraintWeapon.weight = 1f;
-		}
+        // Activate Constraint when aiming. for the arm and the weapon.
+        private void ActivateConstraintAim()
+        {
+            ArmWeight = 1f;
+            WeaponWeight = 1f;
+        }
 
-		// Deactivate Constraint when not aiming. for the arm and the weapon.
-		private void DeactivateConstraintAim()
-		{
-			multiAimConstraintArm.weight = 0f;
-			multiAimConstraintWeapon.weight = 0f;
-		}
+        // Deactivate Constraint when not aiming. for the arm and the weapon.
+        private void DeactivateConstraintAim()
+        {
+            ArmWeight = 0f;
+            WeaponWeight = 0f;
+        }
 
-		private void Start()
+        private void Start()
 		{
 			gameManager = FindObjectOfType<GameManager>();
             cameraSwitcher = FindObjectOfType<CameraSwitcher>();
@@ -481,21 +587,52 @@ namespace Starter.ThirdPersonCharacter
 
         private void Update()
         {
-            if (DebugIsDead)
+            // if (DebugIsDead)
+            if (DebugIsDead || transform.position[1] <= -30)
             {
+				Debug.Log (">> DEBUG IS DEAD");
+				
 				// PlayerInventory.enabled = false;
 
                 DebugIsDead = false;
+				isAlive = false;
 
                 // Envoie les coordonnées de mort au GameManager
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
-                // Passage du joueur en mode spectateur
-                //cameraSwitcher.ToggleFreecam();
+				if (Object.HasStateAuthority) {
 
-                // Fait disparaître le corps du joueur
-                //Destroy(gameObject);
+					// Passage du joueur en mode spectateur
+					isFreecamActive = !isFreecamActive;
+					cameraSwitcher.ToggleFreecam(isFreecamActive);
+				}
+
+				// Fait disparaître le corps du joueur
+				Destroy(gameObject);
             }
-        }
+
+			if (DebugFreecam)
+			{
+				Debug.Log (">> DEBUG FREE CAM");
+
+				DebugFreecam = false;
+				isFreecamActive = !isFreecamActive;
+				cameraSwitcher.ToggleFreecam(isFreecamActive);
+			}
+		}
+
+		private void UpdateFreecamState(bool isFreecamActive)
+		{
+			if (isFreecamActive)
+			{
+				KCC.enabled = false;
+				Animator.enabled = false;
+			}
+			else
+			{
+				KCC.enabled = true;
+                Animator.enabled = true;
+            }
+		}
     }
 }
