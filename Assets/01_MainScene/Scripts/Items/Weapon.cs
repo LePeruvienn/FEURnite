@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 using Fusion;
+using Fusion.Statistics;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -21,7 +22,8 @@ namespace Starter.ThirdPersonCharacter
 		Rifle = 2,
 		Pistol = 3,
 		Rocket = 4,
-        Knife = 5
+        Knife = 5,
+        Shotgun = 6
     }
 
     [RequireComponent(typeof(Rigidbody))]
@@ -48,6 +50,12 @@ namespace Starter.ThirdPersonCharacter
         public AudioSource audioSource;
         public static AudioClip audioClip;
         public static AudioClip ReloadAudioClip;
+        public static AudioClip PistolAudioClip;
+        public static AudioClip SniperAudioClip;
+        public static AudioClip RocketAudioClip;
+        public static AudioClip KnifeAudioClip;
+        public static AudioClip ShotgunAudioClip;
+
 
         // Privates
         private Animator _playerAnimator;
@@ -62,6 +70,7 @@ namespace Starter.ThirdPersonCharacter
         // Run when program starts
         public override void Spawned()
         {
+            
             audioSource = GetComponent<AudioSource>();
             
             if(audioSource == null)
@@ -76,6 +85,12 @@ namespace Starter.ThirdPersonCharacter
             //chargé les clip audio
             audioClip = Resources.Load<AudioClip>("Pistol Sound Effect");
             ReloadAudioClip = Resources.Load<AudioClip>("ReloadAudio");
+            PistolAudioClip = Resources.Load<AudioClip>("DE_Sound");
+            SniperAudioClip = Resources.Load<AudioClip>("SniperSound");
+            RocketAudioClip = Resources.Load<AudioClip>("RocketSound");
+            KnifeAudioClip = Resources.Load<AudioClip>("KnifeSound");
+            ShotgunAudioClip = Resources.Load<AudioClip>("ShotgunSound");
+
 
             // Set current ammo to start Ammo amount
             _currentAmmoAmount = startAmmoAmount;
@@ -139,7 +154,30 @@ namespace Starter.ThirdPersonCharacter
             
             if (audioSource != null)
             {
-                audioSource.PlayOneShot(audioClip);
+                switch (bulletType)
+                {
+                    case BulletType.Sniper:
+                        audioSource.PlayOneShot(SniperAudioClip);
+                        break;
+                    case BulletType.Rifle:
+                        audioSource.PlayOneShot(audioClip);
+                        break;
+                    case BulletType.Pistol:
+                        audioSource.PlayOneShot(PistolAudioClip);
+                        break;
+                    case BulletType.Rocket:
+                        audioSource.PlayOneShot(RocketAudioClip);
+                        break;
+                    case BulletType.Knife:
+                        audioSource.PlayOneShot(KnifeAudioClip);
+                        break;
+                    case BulletType.Shotgun:
+                        audioSource.PlayOneShot(ShotgunAudioClip);
+                        break;
+                    default:
+                        Debug.LogWarning("PAS DE SON NON NON NON");
+                        break;
+                }
             }
             else
             {
