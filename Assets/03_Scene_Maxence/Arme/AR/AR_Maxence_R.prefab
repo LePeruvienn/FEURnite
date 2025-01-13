@@ -10,13 +10,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
+      propertyPath: damage
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
       propertyPath: rarity
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
+      propertyPath: itemName
+      value: M16
       objectReference: {fileID: 0}
     - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
       propertyPath: shootType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
@@ -31,7 +41,7 @@ PrefabInstance:
     - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
       propertyPath: bulletRange
-      value: 500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
@@ -47,9 +57,34 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
+      propertyPath: reloadCooldown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
+      propertyPath: addBulletSpread
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
       propertyPath: _spawnBulletPosition
       value: 
       objectReference: {fileID: 3452228352624048709}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
+      propertyPath: bulletSpreadVariance.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
+      propertyPath: bulletSpreadVariance.y
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 196963406022302323, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
+        type: 3}
+      propertyPath: bulletSpreadVariance.z
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 6894044251790996695, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
       propertyPath: Flags
@@ -58,7 +93,7 @@ PrefabInstance:
     - target: {fileID: 6894044251790996695, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
       propertyPath: SortKey
-      value: 1996969544
+      value: 3241788317
       objectReference: {fileID: 0}
     - target: {fileID: 6894044251790996695, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
@@ -78,7 +113,7 @@ PrefabInstance:
     - target: {fileID: 8192814124301226405, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
       propertyPath: m_Name
-      value: AR_Maxence
+      value: AR_Maxence_R
       objectReference: {fileID: 0}
     - target: {fileID: 8861229901357206303, guid: fe13b9ffcf4bdaf42aaa9f45e814713b,
         type: 3}
