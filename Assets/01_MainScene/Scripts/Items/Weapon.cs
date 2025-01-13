@@ -4,6 +4,7 @@ using UnityEngine;
 using Fusion;
 using UnityEngine.UIElements;
 using System.Net;
+using Unity.VisualScripting;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -77,6 +78,9 @@ namespace Starter.ThirdPersonCharacter
 
         [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
 
+        private GameObject munition;
+        private munitions textMunition;
+
         // Run when program starts
         public override void Spawned()
         {
@@ -91,6 +95,16 @@ namespace Starter.ThirdPersonCharacter
                 Debug.Log("NetworkRunner n'est pas trouv� dans la sc�ne !");
                 
             }
+
+            munition = GameObject.FindGameObjectWithTag("Mun");
+            textMunition = munition.GetComponent<munitions>();
+
+            textMunition.setMunitions(_currentAmmoAmount, chargerAmmoAmount);
+        }
+
+        public void Update()
+        {
+            textMunition.setMunitions(_currentAmmoAmount, chargerAmmoAmount);
         }
 
         public override ItemType getType()
