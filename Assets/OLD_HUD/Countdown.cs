@@ -59,7 +59,7 @@ namespace Starter.ThirdPersonCharacter
 			int seconds = Mathf.FloorToInt(remainingTime % 60);
 
             timerText.color = remainingTime <= 15 ?
-                    Color.red : Color.white;
+                    Color.yellow : Color.white;
 
             if (isPaused)
             {
