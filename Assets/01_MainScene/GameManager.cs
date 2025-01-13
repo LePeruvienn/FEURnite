@@ -36,6 +36,9 @@ namespace Starter.ThirdPersonCharacter
         public Transform SpawnBase;
         public Transform SpawnSpectator;
 
+        [Header("SKIN LIST")]
+        public List<NetworkObject> playersPrefabs;
+
         [Header("In Game HUD")]
 		public Countdown timer;
         public GameObject _WinnerWindows;
@@ -74,7 +77,7 @@ namespace Starter.ThirdPersonCharacter
 		// Only Used for debug startGame
         private void Update()
         {
-            if (startGameManually)
+            if (startGameManually && _gameState != GameState.InGame)
                 startGame ();
 			
 			startGameManually = false;
@@ -107,6 +110,10 @@ namespace Starter.ThirdPersonCharacter
             // If Runner is the server we set GameStatus to Waiting for players
             if (Runner.IsServer)
                 _gameState = GameState.WaitingForPlayers;
+
+			// Shuffle player list and spawn point
+			shuffle (SpawnPoints);
+			shuffle (playersPrefabs);
 
 			// On join spawn Player
 			playerJoin ();
@@ -167,7 +174,7 @@ namespace Starter.ThirdPersonCharacter
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-		private void RPC_movePlayerToSpawnPoint (int index, PlayerRef playerRef) {
+		private void RPC_movePlayerToSpawnPoint (int index, PlayerRef playerRef, NetworkObject prefab) {
 
 			// If current client is not the player targeted we return
 			if (Runner.LocalPlayer != playerRef)
@@ -181,7 +188,7 @@ namespace Starter.ThirdPersonCharacter
 			index--;
 
 			// Spawn the player at the new position
-			NetworkObject playerInstance = Runner.Spawn(PlayerPrefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
+			NetworkObject playerInstance = Runner.Spawn(prefab, spawnPosition, Quaternion.identity, Runner.LocalPlayer);
 			_localPlayerInstance = playerInstance;  // Store the player instance
 
 			// Ajouter des items au joueur
@@ -205,8 +212,12 @@ namespace Starter.ThirdPersonCharacter
 					Debug.LogError ("GAME MANAGER : Too much players for spawn points. CANNOT SPAWN ALL PLAYER !!");
 					return;
 				}
+
+				// Get skins !!! Or take default skin if not set
+				NetworkObject prefab = playersPrefabs[lastIndex] ?? PlayerPrefab;
+
 				// Move player to spawnPoint
-				RPC_movePlayerToSpawnPoint (lastIndex, playerRef);
+				RPC_movePlayerToSpawnPoint (lastIndex, playerRef, prefab);
 				// Update last index
 				lastIndex--;
 			}
@@ -425,6 +436,19 @@ namespace Starter.ThirdPersonCharacter
 
 		public GameState getGameState () {
 			return _gameState;
+		}
+
+		public static void shuffle<T> (List<T> list)
+		{
+			System.Random random = new System.Random();
+			for (int i = list.Count - 1; i > 0; i--)
+			{
+				int randomIndex = random.Next(i + 1);
+				// Swap the elements
+				T temp = list[i];
+				list[i] = list[randomIndex];
+				list[randomIndex] = temp;
+			}
 		}
     }
 }

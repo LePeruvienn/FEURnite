@@ -36673,24 +36673,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnIslands:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1742242434}
+  - {fileID: 1742242433}
+  - {fileID: 1742242414}
+  - {fileID: 1742242403}
+  - {fileID: 1742242385}
+  - {fileID: 1742242384}
+  - {fileID: 1742242381}
+  - {fileID: 1742242350}
   interIslands:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1742242441}
+  - {fileID: 1742242430}
+  - {fileID: 1742242392}
+  - {fileID: 1742242320}
   plateformes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1742242432}
+  - {fileID: 1742242394}
+  - {fileID: 1742242383}
+  - {fileID: 1742242272}
   delaiAvantChute: 60
   delaiAvantDisparition: 120
   dureeTremblement: 10
@@ -42613,7 +42613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e45c75d36d430c9e61c48d32f909d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 3337675589649784955, guid: 4dada6f55b53afb78ab6eb72c72267c1,
+  PlayerPrefab: {fileID: 3337675589649784955, guid: 23027416ce2a73944b7feec4ef297f67,
     type: 3}
   itemPrefabs:
   - RawGuidValue: 52e615f7e32ad7e43bfd393b420c26ec
@@ -42631,6 +42631,15 @@ MonoBehaviour:
   - {fileID: 1629492354}
   SpawnBase: {fileID: 1135064235}
   SpawnSpectator: {fileID: 1523660456}
+  playersPrefabs:
+  - {fileID: 3337675589649784955, guid: 49d69d6801063a94490b96504c00ff71, type: 3}
+  - {fileID: 3337675589649784955, guid: 5013105a1c82c084b823c646563aae41, type: 3}
+  - {fileID: 3337675589649784955, guid: a460d051f721c5747888b69bfe08853c, type: 3}
+  - {fileID: 3337675589649784955, guid: 5a120a9102a4d044787600d5615c240f, type: 3}
+  - {fileID: 3337675589649784955, guid: 23027416ce2a73944b7feec4ef297f67, type: 3}
+  - {fileID: 3337675589649784955, guid: c1b4049a1d89f9a40b72438fdfb17338, type: 3}
+  - {fileID: 3337675589649784955, guid: 2fb2896deabf8dc4fbbce60409890ecc, type: 3}
+  - {fileID: 3337675589649784955, guid: c013750f5756a654f85a3f9c3766b614, type: 3}
   timer: {fileID: 18599404}
   _WinnerWindows: {fileID: 1418938541}
   _LooserWindows: {fileID: 913777618}
