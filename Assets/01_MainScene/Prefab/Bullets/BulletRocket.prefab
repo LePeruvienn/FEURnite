@@ -96,10 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf3c36a64a770945a28ce53d6395fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfxHitRed: {fileID: 6589521632547774029, guid: 76283da71dd4988409d23e6c252cb2f4,
+  vfxHitRed: {fileID: 6057883953926896120, guid: 76283da71dd4988409d23e6c252cb2f4,
     type: 3}
-  vfxHitBlack: {fileID: 6589521632547774029, guid: 76283da71dd4988409d23e6c252cb2f4,
+  vfxHitBlack: {fileID: 6057883953926896120, guid: 76283da71dd4988409d23e6c252cb2f4,
     type: 3}
+  damage: 10
 --- !u!96 &6382879003363125270
 TrailRenderer:
   serializedVersion: 3

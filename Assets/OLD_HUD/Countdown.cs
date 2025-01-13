@@ -3,53 +3,57 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Countdown : MonoBehaviour
+namespace Starter.ThirdPersonCharacter
 {
-    [SerializeField] private TextMeshProUGUI timerText;
-    private float remainingTime;
-    private bool isPaused = false;
+	public class Countdown : MonoBehaviour
+	{
+		[SerializeField] private TextMeshProUGUI timerText;
+		[SerializeField] private float startValue;
 
-    void Start()
-    {
-        InitializeTimer(2f);
-    }
+		private float remainingTime;
+		private bool isPaused = true;
 
-    void Update()
-    {
-        if (!isPaused && remainingTime > 0)
-        {
-            remainingTime -= Time.deltaTime;
-            UpdateTimerText();
-        }
-        else if (remainingTime <= 0 && timerText.color != Color.red)
-        {
-            remainingTime = 0;
-            timerText.color = Color.red;
-            UpdateTimerText();
-        }
-    }
+		void Start()
+		{
+			InitializeTimer(startValue);
+		}
 
-    public void InitializeTimer(float timeInSeconds)
-    {
-        remainingTime = timeInSeconds;
-        isPaused = false;
-        UpdateTimerText();
-    }
+		void Update()
+		{
+			if (!isPaused && remainingTime > 0)
+			{
+				remainingTime -= Time.deltaTime;
+				UpdateTimerText();
+			}
+			else if (remainingTime <= 0 && timerText.color != Color.red)
+			{
+				remainingTime = 0;
+				timerText.color = Color.red;
+				UpdateTimerText();
+			}
+		}
 
-    public void PauseTimer()
-    {
-        isPaused = true;
-    }
+		public void InitializeTimer(float timeInSeconds)
+		{
+			remainingTime = timeInSeconds;
+			UpdateTimerText();
+		}
 
-    public void ResumeTimer()
-    {
-        isPaused = false;
-    }
+		public void PauseTimer()
+		{
+			isPaused = true;
+		}
 
-    private void UpdateTimerText()
-    {
-        int minutes = Mathf.FloorToInt(remainingTime / 60);
-        int seconds = Mathf.FloorToInt(remainingTime % 60);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-    }
+		public void ResumeTimer()
+		{
+			isPaused = false;
+		}
+
+		private void UpdateTimerText()
+		{
+			int minutes = Mathf.FloorToInt(remainingTime / 60);
+			int seconds = Mathf.FloorToInt(remainingTime % 60);
+			timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+		}
+	}
 }
