@@ -58,19 +58,20 @@ namespace Starter.ThirdPersonCharacter
 			int minutes = Mathf.FloorToInt(remainingTime / 60);
 			int seconds = Mathf.FloorToInt(remainingTime % 60);
 
-			if (isPaused)
+            timerText.color = remainingTime <= 15 ?
+                    Color.red : Color.white;
+
+            if (isPaused)
             {
                 timerText.color = Color.yellow;
                 timerText.text = "Waiting for the game to start...";
             }
 			else if (!spawnIslandFallen)
 			{
-				timerText.color = Color.white;
 				timerText.text = string.Format("Time before the spawn islands fall : \n {0:00}:{1:00}", minutes, seconds);
 			}
 			else if (spawnIslandFallen && !intermediateIslandFallen)
 			{
-                timerText.color = Color.white;
                 timerText.text = string.Format("Time before the intermediate islands fall : \n {0:00}:{1:00}", minutes, seconds);
             }
 			else if (intermediateIslandFallen)
