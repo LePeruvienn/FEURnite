@@ -258,7 +258,7 @@ namespace Starter.ThirdPersonCharacter
 				// First fall spawns
 				if (repeatCount == 0)
                 {
-                    annonceur.Annonce("Les îles de spawn tombent !");
+                    annonceur.Annonce("Les îles de spawn vont tomber !");
                     fallingInslandManager.fallIslands(IslandType.Spawn);
 					timer.spawnIslandFell();
                 }
@@ -266,7 +266,7 @@ namespace Starter.ThirdPersonCharacter
 				// Fall inter and plateformes
 				if (repeatCount == 1)
                 {
-                    annonceur.Annonce("Les îles intermédiaires tombent");
+                    annonceur.Annonce("Les îles intermédiaires vont tomber !");
                     fallingInslandManager.fallIslands (IslandType.Plateformes);
 					fallingInslandManager.fallIslands (IslandType.Inter);
 					timer.intermediateIslandFell();
