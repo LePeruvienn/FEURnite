@@ -5,7 +5,7 @@ namespace Starter.ThirdPersonCharacter
 
     public class PlateformesMouvantes : MonoBehaviour
     {
-        public float speed = 2.0f; // Vitesse du mouvement
+        public float speed = 1.0f; // Vitesse du mouvement
         public float height = 5.0f; // Amplitude du mouvement
 
         private Vector3 startPosition;
