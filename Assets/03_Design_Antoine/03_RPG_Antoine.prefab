@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8238226454612951943
+--- !u!1001 &7990637873360195844
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,88 +8,88 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5783979506642164443, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+    - target: {fileID: 171527776781687000, guid: 8326b4c301b1e2548976dff2b904294c,
+        type: 3}
+      propertyPath: m_Name
+      value: 03_RPG_Antoine
+      objectReference: {fileID: 0}
+    - target: {fileID: 523996030516789195, guid: 8326b4c301b1e2548976dff2b904294c,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 7162762255564452209}
+    - target: {fileID: 660537340789195362, guid: 8326b4c301b1e2548976dff2b904294c,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5783979506642164443, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+    - target: {fileID: 660537340789195362, guid: 8326b4c301b1e2548976dff2b904294c,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5783979506642164443, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+    - target: {fileID: 660537340789195362, guid: 8326b4c301b1e2548976dff2b904294c,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5783979506642164443, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+    - target: {fileID: 660537340789195362, guid: 8326b4c301b1e2548976dff2b904294c,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 5783979506642164443, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+    - target: {fileID: 660537340789195362, guid: 8326b4c301b1e2548976dff2b904294c,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5783979506642164443, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+    - target: {fileID: 660537340789195362, guid: 8326b4c301b1e2548976dff2b904294c,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 5783979506642164443, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+    - target: {fileID: 660537340789195362, guid: 8326b4c301b1e2548976dff2b904294c,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5783979506642164443, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+    - target: {fileID: 660537340789195362, guid: 8326b4c301b1e2548976dff2b904294c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5783979506642164443, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+    - target: {fileID: 660537340789195362, guid: 8326b4c301b1e2548976dff2b904294c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5783979506642164443, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+    - target: {fileID: 660537340789195362, guid: 8326b4c301b1e2548976dff2b904294c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6334636471115562921, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
-        type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: -6281231753224748904}
-    - target: {fileID: 6561465501170253921, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
-        type: 3}
-      propertyPath: m_Name
-      value: 03_Antoine_DesertEagle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6561465501170253921, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+    - targetCorrespondingSourceObject: {fileID: 171527776781687000, guid: 8326b4c301b1e2548976dff2b904294c,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -6281231753224748904}
-  m_SourcePrefab: {fileID: 100100000, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d, type: 3}
---- !u!1 &2979990233087837158 stripped
+      addedObject: {fileID: 7162762255564452209}
+  m_SourcePrefab: {fileID: 100100000, guid: 8326b4c301b1e2548976dff2b904294c, type: 3}
+--- !u!1 &7819675388766161372 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 6561465501170253921, guid: a0b06b4b95bd0ba48a80e6a6f7c77b8d,
+  m_CorrespondingSourceObject: {fileID: 171527776781687000, guid: 8326b4c301b1e2548976dff2b904294c,
     type: 3}
-  m_PrefabInstance: {fileID: 8238226454612951943}
+  m_PrefabInstance: {fileID: 7990637873360195844}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &-6281231753224748904
+--- !u!82 &7162762255564452209
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2979990233087837158}
+  m_GameObject: {fileID: 7819675388766161372}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -102,7 +102,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 0
+  DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 30
   Pan2D: 0
@@ -139,7 +139,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
