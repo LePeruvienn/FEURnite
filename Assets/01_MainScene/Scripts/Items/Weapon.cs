@@ -91,7 +91,6 @@ namespace Starter.ThirdPersonCharacter
             KnifeAudioClip = Resources.Load<AudioClip>("KnifeSound");
             ShotgunAudioClip = Resources.Load<AudioClip>("ShotgunSound");
 
-
             // Set current ammo to start Ammo amount
             _currentAmmoAmount = startAmmoAmount;
             // Set weapon state to ready
