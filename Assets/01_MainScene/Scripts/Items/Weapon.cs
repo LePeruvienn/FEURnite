@@ -5,6 +5,7 @@ using Fusion;
 using Fusion.Statistics;
 using UnityEngine.UIElements;
 using System.Net;
+using Unity.VisualScripting;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -89,7 +90,9 @@ namespace Starter.ThirdPersonCharacter
         private float _nextFireTime = 0f;
 
         [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
-
+        
+        private GameObject munition;
+        private munitions textMunition;
 
         // Run when program starts
         public override void Spawned()
@@ -127,9 +130,18 @@ namespace Starter.ThirdPersonCharacter
                 
             }
 
-            
-            
+            munition = GameObject.FindGameObjectWithTag("Mun");
+            if (munition != null)
+            {
+                textMunition = munition.GetComponent<munitions>();
+                textMunition.setMunitions(_currentAmmoAmount, chargerAmmoAmount);
+            }
+        }
 
+        public void Update()
+        {
+            if (munition != null)
+                textMunition.setMunitions(_currentAmmoAmount, chargerAmmoAmount);
         }
 
         public override ItemType getType()
