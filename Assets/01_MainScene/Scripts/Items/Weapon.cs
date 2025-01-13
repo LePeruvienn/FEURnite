@@ -80,6 +80,7 @@ namespace Starter.ThirdPersonCharacter
         public static AudioClip RocketAudioClip;
         public static AudioClip KnifeAudioClip;
         public static AudioClip ShotgunAudioClip;
+        public static AudioClip NoAmmoAudioClip;
 
 
         // Privates
@@ -117,6 +118,7 @@ namespace Starter.ThirdPersonCharacter
             RocketAudioClip = Resources.Load<AudioClip>("RocketSound");
             KnifeAudioClip = Resources.Load<AudioClip>("KnifeSound");
             ShotgunAudioClip = Resources.Load<AudioClip>("ShotgunSound");
+            NoAmmoAudioClip = Resources.Load<AudioClip>("NoAmmoSound");
 
             // Set current ammo to start Ammo amount
             _currentAmmoAmount = startAmmoAmount;
@@ -156,11 +158,20 @@ namespace Starter.ThirdPersonCharacter
 
         public override void use ()
         {
-            // Return if weapon doesn't have ammo left!
-            if (_currentAmmoAmount <= 0 || _currentWeaponState == WeaponState.Reloading) return;
+            
+            
+            if ( _currentWeaponState == WeaponState.Reloading) return;
+            
             // Check if player can fire
             if (Time.time >= _nextFireTime)
             {
+                // Return if weapon doesn't have ammo left!
+                if (_currentAmmoAmount <= 0)
+                {
+                    audioSource.PlayOneShot(NoAmmoAudioClip);
+                    _nextFireTime = Time.time + shootDelay;
+                    return;
+                }
                 RPCFireSound();
                 // Shoot deping on the shoot type
                 if (shootType == ShootType.HitScan)
@@ -199,7 +210,6 @@ namespace Starter.ThirdPersonCharacter
 
         public void RPCFireSound()
         {
-            
             if (audioSource != null)
             {
                 switch (bulletType)
