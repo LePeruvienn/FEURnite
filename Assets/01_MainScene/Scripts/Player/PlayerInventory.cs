@@ -115,7 +115,7 @@ namespace Starter.ThirdPersonCharacter
         }
         public void Update ()
 		{
-			if (!player.isAlive || Object.HasStateAuthority) return;
+			if (!player.isAlive || !Object.HasStateAuthority) return;
 
 			// Set pickUp to false to default
 			_canPickUp = false;
