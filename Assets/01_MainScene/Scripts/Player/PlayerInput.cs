@@ -92,7 +92,7 @@ namespace Starter.ThirdPersonCharacter
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)
 		{
-			lookRotation.x = Mathf.Clamp(lookRotation.x, -30f, 70f);
+			lookRotation.x = Mathf.Clamp(lookRotation.x, -80f, 70f);
 			return lookRotation;
 		}
 	}
