@@ -37,6 +37,8 @@ namespace Starter.ThirdPersonCharacter
     [RequireComponent(typeof(Rigidbody))]
     public class Weapon : Item
     {
+		private DamagePopUpGenerator _popupGenerator;
+
         [Header("Weapon References")]
         public GameObject bulletPrefab; // The bullet to use when shooting
 
@@ -95,10 +97,15 @@ namespace Starter.ThirdPersonCharacter
         private GameObject munition;
         private munitions textMunition;
 
+		void OnDisable()
+		{
+			_currentWeaponState = WeaponState.Ready;
+		}
+
         // Run when program starts
         public override void Spawned()
         {
-            
+			_popupGenerator = FindObjectOfType<DamagePopUpGenerator>();
             audioSource = GetComponent<AudioSource>();
             
             if(audioSource == null)
@@ -342,9 +349,14 @@ namespace Starter.ThirdPersonCharacter
 					hit.collider.GetComponentInParent<PlayerModel> () :
 					null;
 
+
 				// If ELement hit has a player Model we apply the damages
-				if (playerModel != null)
+				if (playerModel != null) {
+
+					// GeneratePopup
+					_popupGenerator.CreatePopUp(hit.point, damage.ToString(), Color.white);
 					RPC_takeDamage (playerModel, damage);
+				}
             }
 
             if (hasATrail)

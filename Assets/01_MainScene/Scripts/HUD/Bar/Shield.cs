@@ -16,7 +16,12 @@ public class Shield : MonoBehaviour
     
     public void SetSuperShield(float health, float maxHealth)
     {
-        
+
+         if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
         //Calculer le pourcentage de vie 
         float healthPercent = health / maxHealth;
         if (health <= 0) { 

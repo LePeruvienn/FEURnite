@@ -29,6 +29,8 @@ namespace Starter.ThirdPersonCharacter
         public bool ThirdInvSlot;
         public bool FourthInvSlot;
         public bool Emote; 
+        public bool Coin;
+        public bool Play;
     }
 
 	/// <summary>
@@ -58,6 +60,8 @@ namespace Starter.ThirdPersonCharacter
             _input.ThirdInvSlot = false;
             _input.FourthInvSlot = false;
             _input.Emote = false;
+            _input.Coin = false;
+			_input.Play = false;
         }
 
         private void Start()
@@ -97,6 +101,8 @@ namespace Starter.ThirdPersonCharacter
             _input.SecondInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha2);
             _input.ThirdInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha3);
             _input.FourthInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha4);
+            _input.Coin |= Input.GetKeyDown("c");
+            _input.Play |= Input.GetKeyDown("p");
         }
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)

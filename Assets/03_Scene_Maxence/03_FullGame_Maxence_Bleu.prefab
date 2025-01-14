@@ -88,6 +88,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[3]
       value: 
       objectReference: {fileID: 2100000, guid: b3f222d7d119a6849acd8cf58d1f1387, type: 2}
+    - target: {fileID: 5695782275450464835, guid: 2fcc195f1597a0f4faf157d978778f30,
+        type: 3}
+      propertyPath: coins.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695782275450464835, guid: 2fcc195f1597a0f4faf157d978778f30,
+        type: 3}
+      propertyPath: coins.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 416d10bded8388a449558fed5785c9d5, type: 3}
     - target: {fileID: 7155205232330914582, guid: 2fcc195f1597a0f4faf157d978778f30,
         type: 3}
       propertyPath: m_Enabled
