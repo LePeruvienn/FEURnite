@@ -12588,6 +12588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7490e8c73665574478c4cacf6a3fcbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 8944336656349189697}
+  freecamCamera: {fileID: 2002338721}
 --- !u!1001 &551505087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63979,7 +63981,6 @@ MonoBehaviour:
   spawnFallingsTime: 120
   interFallingTime: 360
   timeBeforeReset: 10
-  startGameManually: 0
 --- !u!1 &3528164456965068950
 GameObject:
   m_ObjectHideFlags: 0
