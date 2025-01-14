@@ -12,7 +12,5 @@ public sealed class CameraSwitcher : MonoBehaviour
         // Activer/Désactiver les caméras
         playerCamera.SetActive(!isFreecamActive);
         freecamCamera.SetActive(isFreecamActive);
-
-        Debug.Log(isFreecamActive ? "Caméra libre activée" : "Caméra libre désactivée");
     }
 }
