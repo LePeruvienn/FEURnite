@@ -61,8 +61,8 @@ MonoBehaviour:
   timeBeforeExplode: 5
   hasBeenTriggered: 0
   hasExploded: 0
-  maxDamageDistance: 10
-  minDamageDistance: 20
+  maxDamageDistance: 100
+  minDamageDistance: 100
   explosionEffectPrefab: {fileID: 5216129771877358761, guid: 76283da71dd4988409d23e6c252cb2f4,
     type: 3}
   explosionAudioClip: {fileID: 8300000, guid: 6689846e5f4e4954c9d03ba52931dc0e, type: 3}

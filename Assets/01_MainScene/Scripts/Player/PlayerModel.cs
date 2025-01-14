@@ -91,6 +91,7 @@ namespace Starter.ThirdPersonCharacter
 
 				// If supershield can all the damage we stop here
 				if (_superShield > 0) {
+
 					if (HasStateAuthority == true)
 					{
 						SuperShieldBar.SetSuperShield(_superShield, maxShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier

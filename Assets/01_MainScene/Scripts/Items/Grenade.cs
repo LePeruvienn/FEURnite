@@ -110,11 +110,8 @@ namespace Starter.ThirdPersonCharacter
                 PlayerModel player = hitCollider.GetComponent<PlayerModel>();
                 if (player != null)
                 {
-                    Debug.Log("PLAYER: " + player.name);
                     // Calculer la distance entre le point d'explosion et le joueur
                     float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
-                    Debug.Log("DISTANCE: " + distance);
-                    Debug.Log("PV AVANT: " + player.getCurrentTotalHealth());
                     // Calculer les dégâts basés sur la distance
                     int damage = calculateDamage(distance);
                     // Appliquer les dégâts
@@ -122,7 +119,6 @@ namespace Starter.ThirdPersonCharacter
                     {
                         player.takeDamage(damage);
                     }
-                    Debug.Log("PV APRES: " + player.getCurrentTotalHealth());
                 }
             }
             // Explosion terminée
