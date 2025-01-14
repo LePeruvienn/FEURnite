@@ -11,7 +11,12 @@ PrefabInstance:
     - target: {fileID: 2822838603609601941, guid: 9b5d68e2702681a4ea00f13263821318,
         type: 3}
       propertyPath: m_Name
-      value: chestRare
+      value: chestCommon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470598831355874042, guid: 9b5d68e2702681a4ea00f13263821318,
+        type: 3}
+      propertyPath: SortKey
+      value: 2011710787
       objectReference: {fileID: 0}
     - target: {fileID: 3488971596809093544, guid: 9b5d68e2702681a4ea00f13263821318,
         type: 3}

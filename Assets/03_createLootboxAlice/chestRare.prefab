@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 1104994219126073478, guid: 2dd931fec0fd8ee4e811355367eb9c95,
         type: 3}
       propertyPath: m_Name
-      value: chestEpic
+      value: chestRare
       objectReference: {fileID: 0}
     - target: {fileID: 1734545068864151227, guid: 2dd931fec0fd8ee4e811355367eb9c95,
         type: 3}
@@ -62,6 +62,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752759650143180265, guid: 2dd931fec0fd8ee4e811355367eb9c95,
+        type: 3}
+      propertyPath: SortKey
+      value: 4033081263
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
