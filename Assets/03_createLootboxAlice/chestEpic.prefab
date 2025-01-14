@@ -211,6 +211,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8105093614528831879, guid: fa09ae1488b5d8b45a8efd49ae95292e,
         type: 3}
+    - target: {fileID: 7358173599519796574, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: Flags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7358173599519796574, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: SortKey
+      value: 1523395163
+      objectReference: {fileID: 0}
+    - target: {fileID: 7358173599519796574, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7358173599519796574, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: NetworkedBehaviours.Array.data[0]
+      value: 
+      objectReference: {fileID: 5632270456535208364}
     - target: {fileID: 7375807630656759308, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -271,3 +291,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c314d9a65348e1c41a476f72671ba857, type: 3}
+--- !u!114 &5632270456535208364 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+    type: 3}
+  m_PrefabInstance: {fileID: 9101342166682499255}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6927dbb5927efc41aa298926f1978ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
