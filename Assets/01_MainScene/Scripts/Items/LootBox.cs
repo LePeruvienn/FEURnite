@@ -224,27 +224,27 @@ namespace Starter.ThirdPersonCharacter
 
 		private int GetItemFromList()
 		{
-			ItemRarity itemRarity = GetItemDrop();
-			List<GameObject> listObjectRecuperer = new List<GameObject>();
+            ItemRarity itemRarity = GetItemDrop();
+            List<int> listIndexRecuperer = new List<int>();
 
-			foreach (GameObject wp in ListItem)
-			{
-				Item item = wp.GetComponent<Item>();
-				if (item.GetRarity() == itemRarity)
-				{
-					listObjectRecuperer.Add(wp);
-				}
-			}
+            for (int i = 0; i < ListItem.Length; i++)
+            {
+                Item Item = ListItem[i].GetComponent<Item>();
+                if (Item.GetRarity() == itemRarity)
+                {
+                    listIndexRecuperer.Add(i);
+                }
+            }
 
-			if (listObjectRecuperer.Count == 0)
-			{
-				
-				return -1;
-			}
+            if (listIndexRecuperer.Count == 0)
+            {
 
-			int randomIndex = Random.Range(0, listObjectRecuperer.Count);
-			return randomIndex;
-		}
+                return -1;
+            }
+
+            int randomIndex = Random.Range(0, listIndexRecuperer.Count);
+            return listIndexRecuperer[randomIndex];
+        }
 
 		private void ChoiceBoxType()
 		{
