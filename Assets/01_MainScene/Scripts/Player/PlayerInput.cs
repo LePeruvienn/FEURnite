@@ -101,8 +101,8 @@ namespace Starter.ThirdPersonCharacter
             _input.SecondInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha2);
             _input.ThirdInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha3);
             _input.FourthInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha4);
-            _input.Coin |= Input.GetKeyDown("c");
-            _input.Play |= Input.GetKeyDown("p");
+            _input.Coin |= UnityEngine.Input.GetKeyDown("c");
+            _input.Play |= UnityEngine.Input.GetKeyDown("p");
         }
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)
