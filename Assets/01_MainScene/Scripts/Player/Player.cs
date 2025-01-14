@@ -57,7 +57,6 @@ namespace Starter.ThirdPersonCharacter
 
 		[Header("Coin Sound Effect")]
 		public List<AudioClip> coins;
-        public AudioSource audioSource;
 
 		[Networked]
 		private NetworkBool _isJumping { get; set; }
@@ -144,7 +143,6 @@ namespace Starter.ThirdPersonCharacter
         [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
         private void RPC_Coin()
         {
-			Debug.Log (">>> COIN");
 			int randomAudioIndex = Random.Range( 0, coins.Count - 1);
 			AudioSource.PlayClipAtPoint(coins[randomAudioIndex], KCC.Position, 2);
         }
