@@ -195,9 +195,7 @@ namespace Starter.ThirdPersonCharacter
         public void addShield(int amount)
 		{
 			// Add amount to the player
-			Debug.Log("SheildOLD" + _shield);
 			_shield += amount;
-            Debug.Log("SheildNEW" + _shield);
             // Check if shield is above max shield
             if (_shield > maxShield)
 				_shield = maxShield; // Set shield to max shield

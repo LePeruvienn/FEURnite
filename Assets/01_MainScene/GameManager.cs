@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.UIElements;
+using UnityEditor.ShaderKeywordFilter;
+using Unity.VisualScripting;
 
 /// <summary>
 /// Handles player connections (spawning of Player instances) at designated spawn points.
@@ -299,6 +301,7 @@ namespace Starter.ThirdPersonCharacter
 				repeatCount++;
 			}
 		}
+
 		private void nbPlayer()
 		{
             // Init number of players alive
@@ -322,6 +325,7 @@ namespace Starter.ThirdPersonCharacter
 
             _playerInGame.text = string.Format("{0:#0}", numberPlayerAlive);
         }
+
 		private void checkForWinner ()
 		{
 			// Init number of players alive
@@ -360,7 +364,23 @@ namespace Starter.ThirdPersonCharacter
 				// Start endGame couroutine
 				StartCoroutine (endGame ());
 			}
-		}
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public void RPC_DeleteWeapon()
+        {
+            GameObject[] Weapons = GameObject.FindGameObjectsWithTag("Weapon");
+
+            foreach (GameObject Weapon in Weapons)
+            {
+                NetworkObject NetworkWeapon = Weapon.GetComponent<NetworkObject>();
+
+				if(NetworkWeapon != null){
+                    Runner.Despawn(NetworkWeapon);
+                }
+
+            }
+        }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_setWinningPlayer (PlayerRef playerRef) {
@@ -368,7 +388,7 @@ namespace Starter.ThirdPersonCharacter
 			_winningPlayer = playerRef;
 		}
 
-		private IEnumerator endGame () {
+        private IEnumerator endGame () {
 			
 			_gameState = GameState.GameEnd;
 
@@ -405,10 +425,12 @@ namespace Starter.ThirdPersonCharacter
 		{
 			// Reset lootboxes
 			resetAllLootBoxes ();
-			// Respawn all players to base
-			RPC_respawnPlayerToBase ();
-			// Set status = WaitingForPlayers
-			_gameState = GameState.WaitingForPlayers;
+            // Delete all weapon
+            RPC_DeleteWeapon();
+            // Respawn all players to base
+            RPC_respawnPlayerToBase ();
+            // Set status = WaitingForPlayers
+            _gameState = GameState.WaitingForPlayers;
             // Reset all corpse
             clearCorpse();
         }

@@ -419,13 +419,6 @@ namespace Starter.ThirdPersonCharacter
                 // Check if we are already full ammo
                 if (_currentAmmoAmount >= chargerAmmoAmount) return;
 
-                // ############################# teste dodo
-                // Getting PlayerAnimator
-                // if (_playerAnimator == null)
-                //    _playerAnimator = GetComponentInParent<Animator>();
-                // ############################# teste dodo
-
-
                 // Start reload coroutine
                 StartCoroutine(reloadCouroutine());
                 if (ReloadAudioClip != null)
@@ -472,9 +465,6 @@ namespace Starter.ThirdPersonCharacter
 
             // Wait for reload cooldown
             yield return new WaitForSeconds(shootDelay);
-
-            // Debug messsage (delete it later)
-            Debug.Log("stab Complete !");
         }
 
 		// Span bullet trail on hitscan
