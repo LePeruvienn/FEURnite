@@ -45,9 +45,10 @@ namespace Starter.ThirdPersonCharacter
 		{
 			_gameManager = FindObjectOfType<GameManager>();
 			
+			base.Spawned();
+
             if (HasStateAuthority == true)
             {
-                base.Spawned();
                 GameObject barHealt = GameObject.FindGameObjectWithTag("healBar");
                 GameObject barSuperShield = GameObject.FindGameObjectWithTag("superShield");
                 GameObject barShield = GameObject.FindGameObjectWithTag("ShieldBar");
@@ -67,9 +68,6 @@ namespace Starter.ThirdPersonCharacter
                 if (jumpPower < 0f) jumpPower = 1f;
 				
             }
-				
-
-            
 		}
 
 		public int getCurrentTotalHealth () 
