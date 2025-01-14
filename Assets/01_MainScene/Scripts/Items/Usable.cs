@@ -60,7 +60,7 @@ namespace Starter.ThirdPersonCharacter
 		
 
 	
-		[Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+		[Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_PlaySound(int soundId)
 		{
 			AudioClip soundToPlay = null;
@@ -81,6 +81,7 @@ namespace Starter.ThirdPersonCharacter
 					Debug.LogWarning("Unknown sound ID");
 					break;
 			}
+			
 
 			if (audioSource != null && soundToPlay != null)
 			{
@@ -151,7 +152,9 @@ namespace Starter.ThirdPersonCharacter
 				// Play the sound via RPC
 				if (soundId != -1)
 				{
+					
 					RPC_PlaySound(soundId);
+
 				}
 			}
 			
