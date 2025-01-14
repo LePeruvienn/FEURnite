@@ -96,14 +96,23 @@ namespace Starter.ThirdPersonCharacter
 			if (_sphereCollider == null)
 			{
                 SphereCollider[] sphereColliders = GetComponentsInChildren<SphereCollider>();
+                if (sphereColliders == null) { return; }
+                Debug.Log("find spher : " );
                 foreach (SphereCollider collider in sphereColliders)
                     if (collider.name == "colliderVide")
                     {
                         _sphereCollider = collider;
                         break;
                     }
+
             }
-			_sphereCollider.radius = explosionRadius;
+            if (_sphereCollider == null)
+            {
+                hasExploded = true;
+                return;
+
+            }
+            _sphereCollider.radius = explosionRadius;
             Debug.Log("COLLIDER : " + _sphereCollider.name);
             Debug.Log("RADIUS : " + _sphereCollider.radius);
 			hasExploded = true;

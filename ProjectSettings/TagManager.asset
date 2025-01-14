@@ -14,6 +14,14 @@ TagManager:
   - healBar
   - ShieldBar
   - superShield
+  - Winner
+  - Loser
+  - nbPlayerInGame
+  - nbPlayerStart
+  - FallingInslandManager
+  - nbMunArme
+  - nbMunTotal
+  - Mun
   layers:
   - Default
   - TransparentFX
@@ -42,7 +50,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - localPlayerOnly
   - 
   - 
   - 
