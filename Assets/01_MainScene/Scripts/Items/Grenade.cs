@@ -36,17 +36,9 @@ namespace Starter.ThirdPersonCharacter
 
         public override void Spawned()
 		{
-			// Getting PlayerInventory
-			if (_playerInventory == null)
-				_playerInventory = GetComponentInParent<PlayerInventory> ();
-
 			// Getting player rigidBody
 			if (_rigidBody == null)
 				_rigidBody = GetComponent<Rigidbody> ();
-
-            // Getting PlayerAnimator
-            if (_playerAnimator == null)
-                _playerAnimator = GetComponentInParent<Animator>();
 		}
 
         
@@ -62,6 +54,14 @@ namespace Starter.ThirdPersonCharacter
 
         public override void use()
         {
+			// Getting PlayerInventory
+			if (_playerInventory == null)
+				_playerInventory = GetComponentInParent<PlayerInventory> ();
+
+            // Getting PlayerAnimator
+            if (_playerAnimator == null)
+                _playerAnimator = GetComponentInParent<Animator>();
+
             // Start dropAndThrow coroutine
             StartCoroutine(dropAndThrowAfterDelay());
 
