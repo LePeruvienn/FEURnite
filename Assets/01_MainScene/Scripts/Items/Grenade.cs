@@ -92,10 +92,11 @@ namespace Starter.ThirdPersonCharacter
 			hasBeenTriggered = true;
 
             // Make the grenade explode
-            explode ();
+            RPC_explode ();
 		}
 
-		private void explode ()
+		[Rpc(RpcSources.All, RpcTargets.All)]
+		private void RPC_explode ()
 		{
 			if (_sphereCollider == null)
 			{
