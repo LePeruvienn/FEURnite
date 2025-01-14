@@ -33,7 +33,10 @@ namespace Starter
 		private NetworkRunner _runnerInstance;
 		private static string _shutdownStatus;
 
-		public async void StartGame()
+        [SerializeField]
+        private GameObject scoreboard;
+
+        public async void StartGame()
 		{
 			await Disconnect();
 
@@ -133,7 +136,16 @@ namespace Starter
 			{
 				TogglePanelVisibility();
 			}
-		}
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                scoreboard.SetActive(true);
+            }
+            else if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                scoreboard.SetActive(false);
+            }
+        }
 
 		public async Task Disconnect()
 		{
