@@ -108,6 +108,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7155205232330914582, guid: 2fcc195f1597a0f4faf157d978778f30,
+        type: 3}
+      propertyPath: maxShield
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155205232330914582, guid: 2fcc195f1597a0f4faf157d978778f30,
+        type: 3}
+      propertyPath: maxSuperShield
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155205232330914582, guid: 2fcc195f1597a0f4faf157d978778f30,
+        type: 3}
+      propertyPath: superShieldRegenAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7155205232330914582, guid: 2fcc195f1597a0f4faf157d978778f30,
+        type: 3}
+      propertyPath: superShieldRegenCooldown
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7903581207734577154, guid: 2fcc195f1597a0f4faf157d978778f30,
         type: 3}
       propertyPath: m_IsKinematic

@@ -28,7 +28,7 @@ namespace Starter.ThirdPersonCharacter
 		public int maxSuperShield;
 		public int superShieldRegenCooldown;
 		public int superShieldRegenAmount;
-		public float lastTimeHeat;
+		private float lastTimeHeat;
 		private float Timeregen;
 
 		[Header("Others")]
@@ -160,6 +160,8 @@ namespace Starter.ThirdPersonCharacter
 				SuperShieldBar.SetSuperShield(_superShield, maxSuperShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
 			}
 
+
+
 		}
 
 		public void die()
@@ -182,16 +184,20 @@ namespace Starter.ThirdPersonCharacter
 			// Check if health is above max health
 			if (_health > maxHealth)
 				_health = maxHealth; // Set health to max health
-		}
+            HealthBar.SetBar(_health, maxHealth);//set la barre de vie en fonction du max de pv et de la vie actuelle
+        }
 
 		public void addShield(int amount)
 		{
 			// Add amount to the player
+			Debug.Log("SheildOLD" + _shield);
 			_shield += amount;
-			// Check if shield is above max shield
-			if (_shield > maxShield)
+            Debug.Log("SheildNEW" + _shield);
+            // Check if shield is above max shield
+            if (_shield > maxShield)
 				_shield = maxShield; // Set shield to max shield
-		}
+            ShieldBar.SetBar(_shield, maxShield);//set la barre de bouclier en fonction du max de bouclier et du bouclier
+        }
 
 		public void addSuperShield(int amount)
 		{
@@ -200,7 +206,8 @@ namespace Starter.ThirdPersonCharacter
 			// Check if superShield is above max superShield
 			if (_superShield > maxSuperShield)
 				_superShield = maxSuperShield; // Set superShield to max superShield
-		}
+            SuperShieldBar.SetSuperShield(_superShield, maxSuperShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
+        }
 
 		public void handleSuperShield()
 		{
