@@ -33,18 +33,8 @@ namespace Starter.ThirdPersonCharacter
         private Animator _playerAnimator;
         private Rigidbody _rigidBody;
 		private SphereCollider _sphereCollider;
-        
-        public override ItemType getType()
-        {
-            return ItemType.Grenade;
-        }
 
-        public override BulletType getBulletType()
-        {
-            return BulletType.Pistol;
-        }
-
-		public override Spawned ()
+        public override void Spawned()
 		{
 			// Getting PlayerInventory
 			if (_playerInventory == null)
@@ -58,6 +48,17 @@ namespace Starter.ThirdPersonCharacter
             if (_playerAnimator == null)
                 _playerAnimator = GetComponentInParent<Animator>();
 		}
+
+        
+        public override ItemType getType()
+        {
+            return ItemType.Grenade;
+        }
+
+        public override BulletType getBulletType()
+        {
+            return BulletType.Pistol;
+        }
 
         public override void use()
         {
