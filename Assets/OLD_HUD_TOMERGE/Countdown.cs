@@ -64,15 +64,15 @@ namespace Starter.ThirdPersonCharacter
             if (isPaused)
             {
                 timerText.color = Color.yellow;
-                timerText.text = "Waiting for the game to start...";
+                timerText.text = "En attente du lancement de la partie...";
             }
 			else if (!spawnIslandFallen)
 			{
-				timerText.text = string.Format("Time before the spawn islands fall : \n {0:00}:{1:00}", minutes, seconds);
+				timerText.text = string.Format("Chute des spawn dans : \n {0:00}:{1:00}", minutes, seconds);
 			}
 			else if (spawnIslandFallen && !intermediateIslandFallen)
 			{
-                timerText.text = string.Format("Time before the intermediate islands fall : \n {0:00}:{1:00}", minutes, seconds);
+                timerText.text = string.Format("Chute des îles intermédiaire dans : \n {0:00}:{1:00}", minutes, seconds);
             }
 			else if (intermediateIslandFallen)
 			{
