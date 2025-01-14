@@ -128,7 +128,8 @@ namespace Starter.ThirdPersonCharacter
 					if (HasStateAuthority == true)
 					{
 						ShieldBar.SetBar(_shield, maxShield);//set la barre de bouclier en fonction du max de bouclier et du bouclier
-					}
+                        SuperShieldBar.SetSuperShield(_superShield, maxShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
+                    }
 					return;
 				}
 
@@ -184,10 +185,14 @@ namespace Starter.ThirdPersonCharacter
 			// Check if health is above max health
 			if (_health > maxHealth)
 				_health = maxHealth; // Set health to max health
-            HealthBar.SetBar(_health, maxHealth);//set la barre de vie en fonction du max de pv et de la vie actuelle
+
+            if (HasStateAuthority == true)
+            {
+                HealthBar.SetBar(_health, maxHealth);//set la barre de vie en fonction du max de pv et de la vie actuelle
+			}
         }
 
-		public void addShield(int amount)
+        public void addShield(int amount)
 		{
 			// Add amount to the player
 			Debug.Log("SheildOLD" + _shield);
@@ -196,7 +201,10 @@ namespace Starter.ThirdPersonCharacter
             // Check if shield is above max shield
             if (_shield > maxShield)
 				_shield = maxShield; // Set shield to max shield
-            ShieldBar.SetBar(_shield, maxShield);//set la barre de bouclier en fonction du max de bouclier et du bouclier
+            if (HasStateAuthority == true)
+            {
+                ShieldBar.SetBar(_shield, maxShield);//set la barre de bouclier en fonction du max de bouclier et du bouclier
+			}
         }
 
 		public void addSuperShield(int amount)
@@ -206,10 +214,15 @@ namespace Starter.ThirdPersonCharacter
 			// Check if superShield is above max superShield
 			if (_superShield > maxSuperShield)
 				_superShield = maxSuperShield; // Set superShield to max superShield
-            SuperShieldBar.SetSuperShield(_superShield, maxSuperShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
+
+            if (HasStateAuthority == true)
+            {
+                SuperShieldBar.SetSuperShield(_superShield, maxSuperShield);//set la barre du super bouclier en fonction du max du super bouclier et du bouclier
+			}
         }
 
-		public void handleSuperShield()
+
+        public void handleSuperShield()
 		{
 
 
@@ -220,10 +233,13 @@ namespace Starter.ThirdPersonCharacter
 				{
 					Timeregen = Time.time;
 					_superShield += superShieldRegenAmount;
-					SuperShieldBar.SetSuperShield(_superShield, maxSuperShield);
-				}
+                    if (HasStateAuthority == true)
+                    {
+                        SuperShieldBar.SetSuperShield(_superShield, maxSuperShield);
+					}
+                }
 
-			}
+            }
 
 		}
 	}
