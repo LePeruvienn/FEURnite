@@ -1,3 +1,4 @@
+using Fusion;
 using Fusion.Addons.SimpleKCC;
 using System.Collections;
 using System.Collections.Generic;
@@ -146,6 +147,13 @@ namespace Starter.ThirdPersonCharacter
             // Drop Grenade
             _playerInventory.dropCurrentSelection();
 
+			// Throw gernade RPC
+			RPC_ThrowGrenade ();
+        }
+
+		[Rpc(RpcSources.All, RpcTargets.All)]
+		private void RPC_ThrowGrenade () {
+
             // Getting camera transform
             Transform cameraTransform = Camera.main.transform;
 
@@ -156,7 +164,6 @@ namespace Starter.ThirdPersonCharacter
             _rigidBody.AddForce(forceToAdd);
 
             _playerAnimator.ResetTrigger("LaunchTrigger");
-        }
-
+		}
     }
 }
