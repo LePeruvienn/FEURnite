@@ -167,7 +167,11 @@ namespace Starter.ThirdPersonCharacter
             // Add the force to the grenade rigidBody
             _rigidBody.AddForce(forceToAdd);
 
-            _playerAnimator.ResetTrigger("LaunchTrigger");
+            // Getting PlayerAnimator
+            // if (_playerAnimator == null)
+                // _playerAnimator = GetComponentInParent<Animator>();
+
+            // _playerAnimator.ResetTrigger("LaunchTrigger");
 		}
     }
 }
