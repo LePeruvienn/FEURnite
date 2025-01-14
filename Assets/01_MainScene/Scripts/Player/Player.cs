@@ -122,7 +122,7 @@ namespace Starter.ThirdPersonCharacter
 		private int _animIDAim;
 		private int _animIDMoving;
 		private int _animIDReload;
-    private int _animIDEmote;
+		private int _animIDEmote;
 		private int _animIDCut;
 
 		private GameObject munition;
@@ -139,6 +139,14 @@ namespace Starter.ThirdPersonCharacter
         private void RPC_Emote()
         {
             Animator.SetTrigger(_animIDEmote);
+        }
+
+        [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+        private void RPC_Coin()
+        {
+			Debug.Log (">>> COIN");
+			int randomAudioIndex = Random.Range( 0, coins.Count - 1);
+			AudioSource.PlayClipAtPoint(coins[randomAudioIndex], KCC.Position, 2);
         }
 
         //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
@@ -256,15 +264,9 @@ namespace Starter.ThirdPersonCharacter
 
 			float jumpImpulse = 0f;
 
-			Debug.Log (input.Coin);
 			// Player emote sound if emote button is pressed
-			if (input.Coin) {
-
-				Debug.Log ("COIN");
-				int randomAudioIndex = Random.Range( 0, coins.Count - 1);
-				Debug.Log (randomAudioIndex);
-				AudioSource.PlayClipAtPoint(coins[randomAudioIndex], KCC.Position, 2);
-			}
+			if (input.Coin)
+				RPC_Coin ();
  
 			// Comparing current input buttons to previous input buttons - this prevents glitches when input is lost
 			if (KCC.IsGrounded && input.Jump)
