@@ -19,9 +19,16 @@ namespace Starter.ThirdPersonCharacter
         public List<GameObject> interIslands;
         public List<GameObject> plateformes;
 
+        [Header("Chest Lists")]
+        public List<GameObject> spawnChest;
+        public List<GameObject> interChest;
+
         private List<Vector3> _defaultSpawnPos;
         private List<Vector3> _defaultInterPos;
         private List<Vector3> _defaultPlateformesPos;
+
+        private List<Vector3> _defaultSpawnPosChest;
+        private List<Vector3> _defaultInterPosChest;
 
         private List<Quaternion> _defaultSpawnRotation;
         private List<Quaternion> _defaultInterRotation;
@@ -44,6 +51,9 @@ namespace Starter.ThirdPersonCharacter
             _defaultSpawnPos = new List<Vector3>();
             _defaultInterPos = new List<Vector3>();
             _defaultPlateformesPos = new List<Vector3>();
+
+            _defaultSpawnPosChest = new List<Vector3>();
+            _defaultInterPosChest = new List<Vector3>();
 
             _defaultSpawnRotation = new List<Quaternion>();
             _defaultInterRotation = new List<Quaternion>();
@@ -72,11 +82,28 @@ namespace Starter.ThirdPersonCharacter
                 _defaultPlateformesPos.Add(island.transform.position);
                 _defaultPlateformesRotation.Add(island.transform.rotation);
             }
+
+            // Initialize platform islands
+            foreach (var chest in spawnChest)
+            {
+                initObject(chest);
+                _defaultPlateformesPos.Add(chest.transform.position);
+                _defaultPlateformesRotation.Add(chest.transform.rotation);
+            }
+
+            // Initialize platform islands
+            foreach (var chest in interChest)
+            {
+                initObject(chest);
+                _defaultPlateformesPos.Add(chest.transform.position);
+                _defaultPlateformesRotation.Add(chest.transform.rotation);
+            }
         }
 
         public void fallIslands(IslandType type)
         {
             List<GameObject> islands = null;
+            List<GameObject> chests = null;
 
             // Get the selected islands
             switch (type)
@@ -84,11 +111,13 @@ namespace Starter.ThirdPersonCharacter
                 case IslandType.Spawn:
                     Debug.Log("FALLING SPAWN");
                     islands = spawnIslands;
+                    chests = spawnChest;
                     break;
 
                 case IslandType.Inter:
                     Debug.Log("FALLING INTER");
                     islands = interIslands;
+                    chests = interChest;
                     break;
 
                 case IslandType.Plateformes:
@@ -107,6 +136,10 @@ namespace Starter.ThirdPersonCharacter
             foreach (var island in islands)
             {
                 _coroutines.Add (StartCoroutine(TremblementEtChute(island)));
+            }
+            foreach (var chest in chests)
+            {
+                _coroutines.Add(StartCoroutine(TremblementEtChute(chest)));
             }
         }
 
