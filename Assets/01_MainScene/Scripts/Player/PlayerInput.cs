@@ -68,7 +68,9 @@ namespace Starter.ThirdPersonCharacter
         private void Update()
 		{
             _input.DropItem |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["DropItem"]);
-            //_input.Sprint |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["Sprint"]);
+            _input.Sprint |= UnityEngine.Input.GetKey((KeyCode)BindingInput.getInputDico()["Sprint"]);
+			Debug.Log ("SPRINT");
+			Debug.Log (_input.Sprint);
             _input.Emote |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["Emote"]);
             _input.Interact |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["Interact"]);
             _input.RealoadWeapon |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["RealoadWeapon"]);
@@ -95,7 +97,6 @@ namespace Starter.ThirdPersonCharacter
             _input.SecondInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha2);
             _input.ThirdInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha3);
             _input.FourthInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha4);
-            _input.Sprint |= UnityEngine.Input.GetButton("Sprint");
         }
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)

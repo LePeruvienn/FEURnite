@@ -83,7 +83,7 @@ namespace Starter.ThirdPersonCharacter
         private void UpdateUiButton()
         {
             this.ToucheOption.transform.Find("LacherButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["DropItem"]).ToString();
-            //this.ToucheOption.transform.Find("CourirButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["Sprint"]).ToString();
+            this.ToucheOption.transform.Find("CourirButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["Sprint"]).ToString();
             this.ToucheOption.transform.Find("EmoteButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["Emote"]).ToString();
             this.ToucheOption.transform.Find("InteractButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["Interact"]).ToString();
             this.ToucheOption.transform.Find("RealoadButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["RealoadWeapon"]).ToString();
