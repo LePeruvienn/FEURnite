@@ -39,7 +39,6 @@ namespace Starter.ThirdPersonCharacter
 		public InputBinding BindingInput;
         public GameplayInput CurrentInput => _input;
         private GameplayInput _input;
-        private Dictionary<string, char> inputsDictionary;
 
         public void ResetInput()
 		{
@@ -63,15 +62,17 @@ namespace Starter.ThirdPersonCharacter
 
         private void Start()
         {
-            inputsDictionary = BindingInput.getInputDico();
+            BindingInput = FindObjectOfType<InputBinding>();
         }
 
         private void Update()
 		{
-            _input.DropItem |= UnityEngine.Input.GetKeyDown((KeyCode)inputsDictionary["DropItem"]);
-
-
-            _input.ToggleInventory |= UnityEngine.Input.GetKeyDown("e");
+            _input.DropItem |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["DropItem"]);
+            //_input.Sprint |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["Sprint"]);
+            _input.Emote |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["Emote"]);
+            _input.Interact |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["Interact"]);
+            _input.RealoadWeapon |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["RealoadWeapon"]);
+            _input.ToggleInventory |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["ToggleInventory"]);
 
             // Accumulate input only if the cursor is locked.
             if (Cursor.lockState != CursorLockMode.Locked)
@@ -87,17 +88,14 @@ namespace Starter.ThirdPersonCharacter
             _input.MoveDirection = moveDirection.normalized;
 
             _input.Jump |= UnityEngine.Input.GetButtonDown("Jump");
-            _input.Sprint |= UnityEngine.Input.GetButton("Sprint");
             _input.Aiming |= UnityEngine.Input.GetButton("Fire2");
             _input.Shoot |= UnityEngine.Input.GetButton("Fire1");
             _input.Scroll = UnityEngine.Input.GetAxis("Mouse ScrollWheel");
-            _input.Interact |= UnityEngine.Input.GetKeyDown("f");
-            _input.RealoadWeapon |= UnityEngine.Input.GetKeyDown("r");
             _input.FirstInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha1);
             _input.SecondInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha2);
             _input.ThirdInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha3);
             _input.FourthInvSlot |= UnityEngine.Input.GetKeyDown(KeyCode.Alpha4);
-            _input.Emote |= UnityEngine.Input.GetKeyDown("i");
+            _input.Sprint |= UnityEngine.Input.GetButton("Sprint");
         }
 
 		private Vector2 ClampLookRotation(Vector2 lookRotation)

@@ -13,14 +13,30 @@ namespace Starter.ThirdPersonCharacter
 
         private string bindingAxis = "";
 
-        [Header("Boutons Drop")]
+        [Header("Tout les Boutons")]
         public GameObject ToucheOption;
-        private bool DropItem;
 
         void Start()
         {
-            inputsDictionary = new Dictionary<string, char>();
-            LoadDefaultInputs();
+            string json = PlayerPrefs.GetString("inputs");
+            Debug.Log(json);
+            /*inputsDictionary = new Dictionary<string, char>();
+            LoadDefaultInputs();*/
+            /*if (!string.IsNullOrEmpty(json))
+            {
+                InputsData data = JsonUtility.FromJson<InputsData>(json);
+                inputsDictionary = new Dictionary<string, char>();
+                for (int i = 0; i < data.keys.Count; i++)
+                {
+                    inputsDictionary[data.keys[i]] = data.values[i];
+                }
+            }
+            else
+            {*/
+                Debug.Log("No saved inputs found, using defaults.");
+                inputsDictionary = new Dictionary<string, char>();
+                LoadDefaultInputs();
+           // }
             UpdateUiButton();
         }
 
@@ -34,12 +50,23 @@ namespace Starter.ThirdPersonCharacter
                     {
                         inputsDictionary[bindingAxis] = (char)keyCode;
                         bindingAxis = "";
+                        SaveInputs();
                         UpdateUiButton();
                         return;
                     }
                 }
             }
 
+        }
+
+        public void SaveInputs()
+        {
+            InputsData data = new InputsData();
+            data.keys = new List<string>(inputsDictionary.Keys);
+            data.values = new List<char>(inputsDictionary.Values);
+            string json = JsonUtility.ToJson(data);
+            PlayerPrefs.SetString("inputs", json);
+            PlayerPrefs.Save();
         }
 
         public void Bind(string axis)
@@ -52,16 +79,17 @@ namespace Starter.ThirdPersonCharacter
             foreach (InputInfos input in baseInputs)
             {
                 inputsDictionary.Add(input.Name, input.Key);
-                Debug.Log("Adding IMPUT ");
-                Debug.Log(input.Name);
             }
-            Debug.Log("inputsDictionary" + inputsDictionary["DropItem"]);
         }
 
         private void UpdateUiButton()
         {
-
-            this.ToucheOption.transform.Find("DropItemButton").Find("DropItemText").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["DropItem"]).ToString();
+            this.ToucheOption.transform.Find("LacherButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["DropItem"]).ToString();
+            //this.ToucheOption.transform.Find("CourirButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["Sprint"]).ToString();
+            this.ToucheOption.transform.Find("EmoteButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["Emote"]).ToString();
+            this.ToucheOption.transform.Find("InteractButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["Interact"]).ToString();
+            this.ToucheOption.transform.Find("RealoadButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["RealoadWeapon"]).ToString();
+            this.ToucheOption.transform.Find("OpenInvButton").Find("Text").GetComponent<TextMeshProUGUI>().text = ((KeyCode)inputsDictionary["ToggleInventory"]).ToString();
         }
 
         public Dictionary<string, char> getInputDico()
