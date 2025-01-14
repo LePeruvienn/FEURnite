@@ -48,11 +48,18 @@ namespace Starter.ThirdPersonCharacter
 		public static AudioClip lootBoxLoopSound;
 		public static AudioClip openLootBoxSound;
 
-		private NetworkObject _spawnedItem;
+		[Networked]
+		private NetworkObject _spawnedItem { get; set; }
 		
+		void Start () {
+			
+			Spawned ();
+		}
 
-		void Start ()
+		public override void Spawned ()
 		{
+			base.Spawned ();
+
 			// SEt spawned item
 			_spawnedItem = null;
 
@@ -127,7 +134,14 @@ namespace Starter.ThirdPersonCharacter
 
 		public void reset ()
 		{
-			Debug.Log ("RESET COFFRE !!!");
+			// reset animation and remove item
+			RPC_reset ();
+			// reset status
+			RPC_SetStatus(Status.IsClose);
+		}
+
+		[Rpc(RpcSources.All, RpcTargets.All)]
+		private void RPC_reset () {
 
 			// Despawn the item
 			if (_spawnedItem != null) {
@@ -140,9 +154,6 @@ namespace Starter.ThirdPersonCharacter
 
 			// Close chest
 			Animator.SetBool ("isOpen", false);
-
-			// reset status
-			RPC_SetStatus(Status.IsClose);
 		}
 
 
