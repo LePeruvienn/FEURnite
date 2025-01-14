@@ -151,7 +151,6 @@ namespace Starter.ThirdPersonCharacter
                 textMunition = munition.GetComponent<munitions>();
  
                 textMunition.setMunitions(_currentAmmoAmount, chargerAmmoAmount);
-                Debug.Log(_currentAmmoAmount + " " + chargerAmmoAmount);
             }
         }
 

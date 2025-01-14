@@ -201,25 +201,25 @@ namespace Starter.ThirdPersonCharacter
 		private int GetWeaponFromList()
 		{
 			ItemRarity itemRarity = GetItemDrop();
-			List<GameObject> listObjectRecuperer = new List<GameObject>();
+			List<int> listIndexRecuperer = new List<int> ();
 
-			foreach (GameObject wp in ListWeapon)
+			for (int i = 0; i < ListWeapon.Length; i ++)
 			{
-				Item weapon = wp.GetComponent<Item>();
+				Item weapon = ListWeapon[i].GetComponent<Item>();
 				if (weapon.GetRarity() == itemRarity)
 				{
-					listObjectRecuperer.Add(wp);
+					listIndexRecuperer.Add(i);
 				}
 			}
 
-			if (listObjectRecuperer.Count == 0)
+			if (listIndexRecuperer.Count == 0)
 			{
 				
 				return -1;
 			}
 
-			int randomIndex = Random.Range(0, listObjectRecuperer.Count);
-			return randomIndex;
+			int randomIndex = Random.Range(0, listIndexRecuperer.Count);
+			return listIndexRecuperer[randomIndex];
 		}
 
 		private int GetItemFromList()

@@ -73,8 +73,6 @@ namespace Starter.ThirdPersonCharacter
 		{
             _input.DropItem |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["DropItem"]);
             _input.Sprint |= UnityEngine.Input.GetKey((KeyCode)BindingInput.getInputDico()["Sprint"]);
-			Debug.Log ("SPRINT");
-			Debug.Log (_input.Sprint);
             _input.Emote |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["Emote"]);
             _input.Interact |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["Interact"]);
             _input.RealoadWeapon |= UnityEngine.Input.GetKeyDown((KeyCode)BindingInput.getInputDico()["RealoadWeapon"]);

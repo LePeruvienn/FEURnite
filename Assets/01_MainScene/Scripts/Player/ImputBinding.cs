@@ -19,7 +19,6 @@ namespace Starter.ThirdPersonCharacter
         void Start()
         {
             string json = PlayerPrefs.GetString("inputs");
-            Debug.Log(json);
             if (!string.IsNullOrEmpty(json))
             {
                 InputsData data = JsonUtility.FromJson<InputsData>(json);
@@ -31,7 +30,6 @@ namespace Starter.ThirdPersonCharacter
             }
             else
             {
-                Debug.Log("No saved inputs found, using defaults.");
                 inputsDictionary = new Dictionary<string, char>();
                 LoadDefaultInputs();
             }
@@ -92,7 +90,6 @@ namespace Starter.ThirdPersonCharacter
 
         public Dictionary<string, char> getInputDico()
         {
-            Debug.Log(inputsDictionary + "c'est le get Dico");
             return inputsDictionary;
         }
 

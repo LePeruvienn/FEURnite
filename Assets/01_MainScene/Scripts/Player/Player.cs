@@ -350,7 +350,6 @@ namespace Starter.ThirdPersonCharacter
 
             // Multiplie by playerSpeed
             speed *= PlayerModel.speed;
-			//Debug.Log ("speed: ", speed);
 
 			// Inventory Update
 			PlayerInventory.switchSelection(input.Scroll); 
@@ -612,8 +611,6 @@ namespace Starter.ThirdPersonCharacter
             // if (DebugIsDead)
             if (DebugIsDead || transform.position[1] <= -30)
             {
-				Debug.Log (">> DEBUG IS DEAD");
-				
 				// PlayerInventory.enabled = false;
 
                 DebugIsDead = false;
@@ -635,8 +632,6 @@ namespace Starter.ThirdPersonCharacter
 
 			if (DebugFreecam)
 			{
-				Debug.Log (">> DEBUG FREE CAM");
-
 				DebugFreecam = false;
 				isFreecamActive = !isFreecamActive;
 				cameraSwitcher.ToggleFreecam(isFreecamActive);
