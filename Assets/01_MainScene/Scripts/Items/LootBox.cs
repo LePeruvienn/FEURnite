@@ -203,7 +203,7 @@ namespace Starter.ThirdPersonCharacter
 				return ItemRarity.Legendary;
 		}
 
-		private GameObject GetWeaponFromList()
+		private int GetWeaponFromList()
 		{
 			ItemRarity itemRarity = GetItemDrop();
 			List<GameObject> listObjectRecuperer = new List<GameObject>();
@@ -220,14 +220,14 @@ namespace Starter.ThirdPersonCharacter
 			if (listObjectRecuperer.Count == 0)
 			{
 				
-				return null;
+				return -1;
 			}
 
 			int randomIndex = Random.Range(0, listObjectRecuperer.Count);
-			return listObjectRecuperer[randomIndex];
+			return randomIndex;
 		}
 
-		private GameObject GetItemFromList()
+		private int GetItemFromList()
 		{
 			ItemRarity itemRarity = GetItemDrop();
 			List<GameObject> listObjectRecuperer = new List<GameObject>();
@@ -244,11 +244,11 @@ namespace Starter.ThirdPersonCharacter
 			if (listObjectRecuperer.Count == 0)
 			{
 				
-				return null;
+				return -1;
 			}
 
 			int randomIndex = Random.Range(0, listObjectRecuperer.Count);
-			return listObjectRecuperer[randomIndex];
+			return randomIndex;
 		}
 
 		private void ChoiceBoxType()
@@ -264,18 +264,18 @@ namespace Starter.ThirdPersonCharacter
 		{
 			if (HasStateAuthority)
 			{
+				int index = GetItemFromList();
 				// Appel du RPC pour ouvrir le coffre des items pour tous les clients
-				RPC_OpenItemBox();
+				if (index >= 0)
+					RPC_OpenItemBox(index);
 			}
 			
 		}
 		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-		private void RPC_OpenItemBox()
+		private void RPC_OpenItemBox(int index)
 		{
-		   
-
 			Debug.Log("Opening item box...");
-			GameObject item = GetItemFromList();
+			GameObject item = ListItem[index];
 
 			if (item != null)
 			{
@@ -299,12 +299,12 @@ namespace Starter.ThirdPersonCharacter
 
 		// Correction du RPC pour les armes
 		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-		private void RPC_OpenWeaponBox()
+		private void RPC_OpenWeaponBox(int index)
 		{
 		   
 
 			Debug.Log("Opening weapon box");
-			GameObject weapon = GetWeaponFromList();
+			GameObject weapon = ListWeapon[index];
 
 			if (weapon != null)
 			{
@@ -336,8 +336,10 @@ namespace Starter.ThirdPersonCharacter
 		{
 			if (HasStateAuthority)
 			{
+				int index = GetWeaponFromList();
 				// Appel du RPC pour ouvrir le coffre pour tous les clients
-				RPC_OpenWeaponBox();
+				if (index >= 0)
+					RPC_OpenWeaponBox(index);
 			}
 			else
 			{
