@@ -9,6 +9,8 @@ namespace Starter.ThirdPersonCharacter
 {
     public class Grenade : Item
     {
+		private DamagePopUpGenerator _popupGenerator;
+
 		[Header("Grenade Stats")]
         public int maxDamage; // Max damage that the grenade can deal (when player close to explosion)
         public int minDamage; // Min damage taht the grenade can deal (when player far from explosion)
@@ -34,8 +36,15 @@ namespace Starter.ThirdPersonCharacter
         private Rigidbody _rigidBody;
 		private SphereCollider _sphereCollider;
 
+		public AudioSource audioSource;
+		public static AudioClip audioClip;
+	
         public override void Spawned()
 		{
+			audioClip = Resources.Load<AudioClip>("boom");
+
+			_popupGenerator = FindObjectOfType<DamagePopUpGenerator>();
+
 			// Getting player rigidBody
 			if (_rigidBody == null)
 				_rigidBody = GetComponent<Rigidbody> ();
@@ -72,7 +81,6 @@ namespace Starter.ThirdPersonCharacter
         private IEnumerator dropAndThrowAfterDelay()
         {
             _playerAnimator.SetTrigger("LaunchTrigger");
-            Debug.Log("LaunchTrigger");
 
             // Wait the delay before explode
             yield return new WaitForSeconds(0.8f);
@@ -98,6 +106,11 @@ namespace Starter.ThirdPersonCharacter
 		[Rpc(RpcSources.All, RpcTargets.All)]
 		private void RPC_explode ()
 		{
+			// Instancier la particule d'explosion
+			Instantiate (explosionEffectPrefab, transform.position, transform.rotation);
+
+			audioSource.PlayOneShot (audioClip);
+
 			if (_sphereCollider == null)
 			{
                 _sphereCollider = GetComponentInParent<SphereCollider>();
@@ -123,10 +136,12 @@ namespace Starter.ThirdPersonCharacter
                     // Appliquer les dégâts
                     if (damage > 0)
                     {
+						_popupGenerator.CreatePopUp(hitCollider.transform.position, damage.ToString(), Color.white);
                         player.takeDamage(damage);
                     }
                 }
             }
+
             // Explosion terminée
             hasExploded = true;
             // Détruire la grenade
