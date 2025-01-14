@@ -57,16 +57,17 @@ MonoBehaviour:
   minDamage: 50
   throwForce: 100
   throwUpwardForce: 75
-  explosionRadius: 20
+  explosionRadius: 7.5
   timeBeforeExplode: 5
   hasBeenTriggered: 0
   hasExploded: 0
-  maxDamageDistance: 100
-  minDamageDistance: 100
+  maxDamageDistance: 2
+  minDamageDistance: 7.5
   explosionEffectPrefab: {fileID: 5216129771877358761, guid: 76283da71dd4988409d23e6c252cb2f4,
     type: 3}
   explosionAudioClip: {fileID: 8300000, guid: 6689846e5f4e4954c9d03ba52931dc0e, type: 3}
   explosionAudioVolume: 1
+  audioSource: {fileID: -2612514219919069323}
 --- !u!54 &388181743667307460
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -105,19 +106,19 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
+  Priority: 114
+  DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -150,7 +151,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
