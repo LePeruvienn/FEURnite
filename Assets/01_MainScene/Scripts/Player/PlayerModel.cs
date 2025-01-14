@@ -76,7 +76,7 @@ namespace Starter.ThirdPersonCharacter
 		{
 			if (HasStateAuthority == true)
 			{
-				handleSuperShield();
+                handleSuperShield();
 			}
 
 		}
@@ -88,8 +88,9 @@ namespace Starter.ThirdPersonCharacter
 		public void takeDamage (int amount) 
 		{
 			Debug.Log ("PLAYER TAKE DAMAGE : " + amount);
-			// Initialisez leftAmount
-			int leftAmount = amount;
+            lastTimeHeat = Time.time;
+            // Initialisez leftAmount
+            int leftAmount = amount;
 
 			// If player have supershield
 			if (_superShield > 0)
@@ -200,9 +201,11 @@ namespace Starter.ThirdPersonCharacter
 
 		public void handleSuperShield ()
 		{
+            Debug.Log("Look regen MaxShield:"+ maxSuperShield+" Time "+ Time.time + " Last time heat :"+ lastTimeHeat+" regen tout les :"+ superShieldRegenCooldown);
             //regarde si on peut regenere le surbouclier
             if (_superShield < maxSuperShield && Time.time > lastTimeHeat + superShieldRegenCooldown)
             {
+                
                 _superShield += (int)(superShieldRegenAmount * Time.deltaTime);
                 SuperShieldBar.SetSuperShield(_superShield, maxSuperShield);
             }
