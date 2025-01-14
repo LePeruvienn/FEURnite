@@ -36,9 +36,9 @@ namespace Starter.ThirdPersonCharacter
 	/// </summary>
 	public sealed class PlayerInput : MonoBehaviour
 	{
-		public InputBinding BindingInput;
         public GameplayInput CurrentInput => _input;
         private GameplayInput _input;
+        private InputBinding BindingInput;
 
         public void ResetInput()
 		{

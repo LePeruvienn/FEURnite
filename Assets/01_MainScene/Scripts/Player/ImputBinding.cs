@@ -20,9 +20,7 @@ namespace Starter.ThirdPersonCharacter
         {
             string json = PlayerPrefs.GetString("inputs");
             Debug.Log(json);
-            /*inputsDictionary = new Dictionary<string, char>();
-            LoadDefaultInputs();*/
-            /*if (!string.IsNullOrEmpty(json))
+            if (!string.IsNullOrEmpty(json))
             {
                 InputsData data = JsonUtility.FromJson<InputsData>(json);
                 inputsDictionary = new Dictionary<string, char>();
@@ -32,11 +30,11 @@ namespace Starter.ThirdPersonCharacter
                 }
             }
             else
-            {*/
+            {
                 Debug.Log("No saved inputs found, using defaults.");
                 inputsDictionary = new Dictionary<string, char>();
                 LoadDefaultInputs();
-           // }
+            }
             UpdateUiButton();
         }
 
