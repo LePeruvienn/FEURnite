@@ -51,14 +51,11 @@ namespace Starter.ThirdPersonCharacter
 		[Networked]
 		private NetworkObject _spawnedItem { get; set; }
 		
-		void Start () {
-			
-			Spawned ();
-		}
-
-		public override void Spawned ()
+        public override void Spawned()
 		{
-			base.Spawned ();
+			Debug.Log ("SPAWN???ED ");
+
+			base.Spawned();
 
 			// SEt spawned item
 			_spawnedItem = null;
