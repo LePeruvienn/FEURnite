@@ -71,7 +71,15 @@ namespace Starter.ThirdPersonCharacter
 
             
 		}
+		// Update is called once per frame
+		void Update()
+		{
+			if (HasStateAuthority == true)
+			{
+				handleSuperShield();
+			}
 
+		}
 		public int getCurrentTotalHealth () 
 		{
 			return _health + _shield + _superShield;
