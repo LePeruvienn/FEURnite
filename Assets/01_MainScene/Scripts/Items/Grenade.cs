@@ -151,18 +151,18 @@ namespace Starter.ThirdPersonCharacter
             // Drop Grenade
             _playerInventory.dropCurrentSelection();
 
-			// Throw gernade RPC
-			RPC_ThrowGrenade ();
-        }
-
-		[Rpc(RpcSources.All, RpcTargets.All)]
-		private void RPC_ThrowGrenade () {
-
             // Getting camera transform
             Transform cameraTransform = Camera.main.transform;
 
             // Setting up throwForce toward rotation of the camera
             Vector3 forceToAdd = (cameraTransform.forward * throwForce) + (cameraTransform.up * throwUpwardForce);
+
+			// Throw gernade RPC
+			RPC_ThrowGrenade (forceToAdd);
+        }
+
+		[Rpc(RpcSources.All, RpcTargets.All)]
+		private void RPC_ThrowGrenade (Vector3 forceToAdd) {
 
             // Add the force to the grenade rigidBody
             _rigidBody.AddForce(forceToAdd);
