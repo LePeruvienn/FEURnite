@@ -5922,8 +5922,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
       propertyPath: boxRarity
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
@@ -5932,9 +5937,32 @@ PrefabInstance:
       objectReference: {fileID: 299877914}
     - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
+      propertyPath: ListItem.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
       propertyPath: ListWeapon.Array.size
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListItem.Array.data[0]
+      value: 
+      objectReference: {fileID: 216043043027239904, guid: 0f99042d9463d1ca1bea37b32b2a4b41,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListItem.Array.data[1]
+      value: 
+      objectReference: {fileID: 216043043027239904, guid: 592852c6331020869b6d83812153a73f,
+        type: 3}
+    - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: ListItem.Array.data[2]
+      value: 
+      objectReference: {fileID: 216043043027239904, guid: d1c5e355d8caf164888394b7444e5de0,
+        type: 3}
     - target: {fileID: 3487948135455631643, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
       propertyPath: ListWeapon.Array.data[0]
@@ -6094,6 +6122,11 @@ PrefabInstance:
         type: 3}
       propertyPath: MaxDistance
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7358173599519796574, guid: c314d9a65348e1c41a476f72671ba857,
+        type: 3}
+      propertyPath: Flags
+      value: 589825
       objectReference: {fileID: 0}
     - target: {fileID: 7358173599519796574, guid: c314d9a65348e1c41a476f72671ba857,
         type: 3}
