@@ -201,7 +201,8 @@ namespace Starter.ThirdPersonCharacter
 
 		public void handleSuperShield ()
 		{
-            Debug.Log("Look regen MaxShield:"+ maxSuperShield+" Time "+ Time.time + " Last time heat :"+ lastTimeHeat+" regen tout les :"+ superShieldRegenCooldown);
+           
+
             //regarde si on peut regenere le surbouclier
             if (_superShield < maxSuperShield && Time.time > lastTimeHeat + superShieldRegenCooldown)
             {
