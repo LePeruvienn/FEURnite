@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 560455936223210691, guid: 3e1d4f36ee527ca4abb8610b66273bd3,
         type: 3}
       propertyPath: m_Name
-      value: chestCommon
+      value: chestLegendary
       objectReference: {fileID: 0}
     - target: {fileID: 1189177195344747262, guid: 3e1d4f36ee527ca4abb8610b66273bd3,
         type: 3}
@@ -62,6 +62,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207409223217271212, guid: 3e1d4f36ee527ca4abb8610b66273bd3,
+        type: 3}
+      propertyPath: SortKey
+      value: 2179435220
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

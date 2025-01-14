@@ -39,6 +39,9 @@ namespace Starter.ThirdPersonCharacter
         [Header("SKIN LIST")]
         public List<NetworkObject> playersPrefabs;
 
+        [Header("LOOT BOXES")]
+		public List<LootBox> lootboxes;
+
         [Header("In Game HUD")]
 		public Countdown timer;
         public GameObject _WinnerWindows;
@@ -400,6 +403,8 @@ namespace Starter.ThirdPersonCharacter
 
 		private void resetGame ()
 		{
+			// Reset lootboxes
+			resetAllLootBoxes ();
 			// Respawn all players to base
 			RPC_respawnPlayerToBase ();
 			// Set status = WaitingForPlayers
@@ -437,6 +442,16 @@ namespace Starter.ThirdPersonCharacter
 			// Add items to inventory
             if (inventory != null)
                 AddItemsToPlayer(inventory);
+		}
+
+		private void resetAllLootBoxes ()
+		{
+			Debug.Log ("RESET ALL LOOT BOXES");
+			for (int i = 0; i < lootboxes.Count; i++) {
+				
+				LootBox lootbox = lootboxes[i];
+				lootbox.reset ();
+			}
 		}
 
         public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
