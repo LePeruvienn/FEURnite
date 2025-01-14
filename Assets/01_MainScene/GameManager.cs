@@ -54,7 +54,7 @@ namespace Starter.ThirdPersonCharacter
 
 		
         [Header("DEBUG TOOLS")]
-        public bool startGameManually = false; // Use private field for backing
+        private bool startGameButton = false; // Use private field for backing
 		
 		// GAME STATUS
 		[Networked] private PlayerRef _winningPlayer { get; set; }
@@ -78,10 +78,10 @@ namespace Starter.ThirdPersonCharacter
 		// Only Used for debug startGame
         private void Update()
         {
-            if (startGameManually && _gameState != GameState.InGame)
+            if (startGameButton && _gameState != GameState.InGame)
                 startGame ();
 			
-			startGameManually = false;
+			startGameButton = false;
 
 			if (!_spawned) return;
 
@@ -102,7 +102,11 @@ namespace Starter.ThirdPersonCharacter
 				}
 			}
         }
+		public void ActivestartGameButton()
+		{
+			startGameButton = true;
 
+        }
         public override void Spawned()
         {
 			base.Spawned();

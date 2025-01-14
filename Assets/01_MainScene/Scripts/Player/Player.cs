@@ -261,9 +261,13 @@ namespace Starter.ThirdPersonCharacter
 			if (!isAlive) return;
 
 			float jumpImpulse = 0f;
-
-			// Player emote sound if emote button is pressed
-			if (input.Coin)
+            // Play
+            if (input.Play)
+            {
+                gameManager.ActivestartGameButton();
+            }
+            // Player emote sound if emote button is pressed
+            if (input.Coin)
 				RPC_Coin ();
  
 			// Comparing current input buttons to previous input buttons - this prevents glitches when input is lost
