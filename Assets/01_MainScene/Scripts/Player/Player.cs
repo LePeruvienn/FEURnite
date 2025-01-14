@@ -126,6 +126,9 @@ namespace Starter.ThirdPersonCharacter
 
 		private GameObject munition;
 
+        private Item item;
+        private GameObject selectedObj;
+
         // ############################# teste dodo
 
         [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
@@ -234,8 +237,8 @@ namespace Starter.ThirdPersonCharacter
 				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, Time.deltaTime * zoomSpeed); // Smoothly transition to target FOV
 			}
 
-            Item item = null;
-            GameObject selectedObj = PlayerInventory.getCurrentSelection();
+            item = null;
+            selectedObj = PlayerInventory.getCurrentSelection();
 
             if (selectedObj != null)
                 item = selectedObj.GetComponent<Item>();
