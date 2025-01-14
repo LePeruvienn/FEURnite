@@ -479,13 +479,10 @@ namespace Starter.ThirdPersonCharacter
         [Rpc(RpcSources.All, RpcTargets.All)]
         private void RPC_RequestSpawnCorpse(Vector3 deathPosition, Quaternion deathOrientation)
         {
-            Debug.Log("Death :" + deathPosition);
             var corpse = Runner.Spawn(CorpsePrefab, deathPosition, deathOrientation, null);
-			Debug.Log("Corpse :" + corpse);
             if (corpse != null)
 			{
 				corpse.tag = "Corpse";
-                Debug.Log("Corpse tag :" + corpse.tag);
             }
         }
 
