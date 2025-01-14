@@ -48,15 +48,10 @@ namespace Starter.ThirdPersonCharacter
 		public static AudioClip lootBoxLoopSound;
 		public static AudioClip openLootBoxSound;
 
-		[Networked]
-		private NetworkObject _spawnedItem { get; set; }
+		private NetworkObject _spawnedItem;
 		
-        public override void Spawned()
+        void Start ()
 		{
-			Debug.Log ("SPAWN???ED ");
-
-			base.Spawned();
-
 			// SEt spawned item
 			_spawnedItem = null;
 
