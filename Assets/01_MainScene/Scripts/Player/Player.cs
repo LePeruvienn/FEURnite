@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 using Fusion.Addons.SimpleKCC;
@@ -53,6 +54,10 @@ namespace Starter.ThirdPersonCharacter
 		public AudioClip LandingAudioClip;
 		[Range(0f, 1f)]
 		public float FootstepAudioVolume = 0.5f;
+
+		[Header("Coin Sound Effect")]
+		public List<AudioClip> coins;
+        public AudioSource audioSource;
 
 		[Networked]
 		private NetworkBool _isJumping { get; set; }
@@ -251,6 +256,16 @@ namespace Starter.ThirdPersonCharacter
 
 			float jumpImpulse = 0f;
 
+			Debug.Log (input.Coin);
+			// Player emote sound if emote button is pressed
+			if (input.Coin) {
+
+				Debug.Log ("COIN");
+				int randomAudioIndex = Random.Range( 0, coins.Count - 1);
+				Debug.Log (randomAudioIndex);
+				AudioSource.PlayClipAtPoint(coins[randomAudioIndex], KCC.Position, 2);
+			}
+ 
 			// Comparing current input buttons to previous input buttons - this prevents glitches when input is lost
 			if (KCC.IsGrounded && input.Jump)
 			{
