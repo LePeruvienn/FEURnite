@@ -44,8 +44,8 @@ namespace Starter.ThirdPersonCharacter
             return BulletType.Pistol;
         }
 
-        public override void use()
-        {
+		public override Spawned ()
+		{
 			// Getting PlayerInventory
 			if (_playerInventory == null)
 				_playerInventory = GetComponentInParent<PlayerInventory> ();
@@ -57,7 +57,10 @@ namespace Starter.ThirdPersonCharacter
             // Getting PlayerAnimator
             if (_playerAnimator == null)
                 _playerAnimator = GetComponentInParent<Animator>();
+		}
 
+        public override void use()
+        {
             // Start dropAndThrow coroutine
             StartCoroutine(dropAndThrowAfterDelay());
 
