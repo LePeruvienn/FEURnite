@@ -63,6 +63,7 @@ namespace Starter.ThirdPersonCharacter
 			{
 				_inGameBarCells[i].initSelect ();
 				_inGameBarCells[i].resetName ();
+				_inGameBarCells[i].clearIcon ();
 			}
 
 			// Initiating cells
@@ -73,6 +74,7 @@ namespace Starter.ThirdPersonCharacter
 				_hotbarCells[i].setStatus (ItemCellStatus.Free);
 				_hotbarCells[i].setIndex (i);
 				_hotbarCells[i].resetName ();
+				_hotbarCells[i].clearIcon ();
 			}
 
 
@@ -83,6 +85,7 @@ namespace Starter.ThirdPersonCharacter
 				_weaponsCells[i].setStatus (ItemCellStatus.Free);
 				_weaponsCells[i].setIndex (i);
 				_weaponsCells[i].resetName ();
+				_weaponsCells[i].clearIcon ();
 			}
 
 			for (int i = 0; i < _itemsCells.Length; i++)
@@ -92,6 +95,7 @@ namespace Starter.ThirdPersonCharacter
 				_itemsCells[i].setStatus (ItemCellStatus.Free);
 				_itemsCells[i].setIndex (i);
 				_itemsCells[i].resetName ();
+				_itemsCells[i].clearIcon ();
 			}
 		
 

@@ -409,7 +409,9 @@ namespace Starter.ThirdPersonCharacter
 			RPC_respawnPlayerToBase ();
 			// Set status = WaitingForPlayers
 			_gameState = GameState.WaitingForPlayers;
-		}
+            // Reset all corpse
+            clearCorpse();
+        }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
 		private void RPC_respawnPlayerToBase () {
@@ -454,7 +456,17 @@ namespace Starter.ThirdPersonCharacter
 			}
 		}
 
-        public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
+		private void clearCorpse()
+		{
+			GameObject[] corpses = GameObject.FindGameObjectsWithTag("Corpse");
+
+            foreach (GameObject corpse in corpses)
+			{
+				Destroy(corpse);
+			}
+		}
+
+            public void PlayerDeath(Vector3 deathPosition, Quaternion deathOrientation)
         {
 			// Check if a player win the game
 			if (_gameState == GameState.InGame)
@@ -467,8 +479,11 @@ namespace Starter.ThirdPersonCharacter
         [Rpc(RpcSources.All, RpcTargets.All)]
         private void RPC_RequestSpawnCorpse(Vector3 deathPosition, Quaternion deathOrientation)
         {
-            Debug.Log("Death :" + deathPosition);
-            Runner.Spawn(CorpsePrefab, deathPosition, deathOrientation, null);
+            var corpse = Runner.Spawn(CorpsePrefab, deathPosition, deathOrientation, null);
+            if (corpse != null)
+			{
+				corpse.tag = "Corpse";
+            }
         }
 
 		public GameState getGameState () {
