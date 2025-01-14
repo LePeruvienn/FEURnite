@@ -54,10 +54,12 @@ namespace Starter.ThirdPersonCharacter
         // Privates
         private Animator _playerAnimator;
         private UsableState _currentUsableState;
-		private PlayerInventory _playerInverntory;
-		private PlayerModel _playerModel;
-	
 		
+
+		void OnDisable()
+		{
+			_currentUsableState = UsableState.Ready;
+		}
 
 	
 		[Rpc(RpcSources.All, RpcTargets.All)]
@@ -186,34 +188,32 @@ namespace Starter.ThirdPersonCharacter
 				int amount = effects[i].amount;
 				int duration = effects[i].duration;
 
-				// Get player model if null
-				if (_playerModel == null)
-					_playerModel = GetComponentInParent<PlayerModel> ();
+				PlayerModel playerModel = GetComponentInParent<PlayerModel> ();
 
 				// Apply effect to the right player's stat
 				switch (stat)
 				{
 					case EffectStat.Heal:
 						// Heal Player
-						_playerModel.heal (amount);
+						playerModel.heal (amount);
 						// Stop
 						break;
 
 					case EffectStat.JumpPower:
 						// Add JumForce to player
-						_playerModel.jumpPower += amount;
+						playerModel.jumpPower += amount;
 						// Stop
 						break;
 
 					case EffectStat.Speed:
 						// Add Speed to player
-						_playerModel.speed += amount;
+						playerModel.speed += amount;
 						// Stop
 						break;
 
 					case EffectStat.Shield:
 						// Add shield to player
-						_playerModel.addShield (amount);
+						playerModel.addShield (amount);
 						// Stop
 						break;
 				}
@@ -222,12 +222,10 @@ namespace Starter.ThirdPersonCharacter
 			// Debug message (Remove it later)
 			Debug.Log ("Effects Applied !");
 
-			// Get Player inventory if null
-			if (_playerInverntory == null)
-				_playerInverntory = GetComponentInParent<PlayerInventory> ();
+			PlayerInventory playerInverntory = GetComponentInParent<PlayerInventory> ();
 
 			// Destroy objet
-			_playerInverntory.destoryCurrentSelection ();
+			playerInverntory.destoryCurrentSelection ();
 		}
     }
 }

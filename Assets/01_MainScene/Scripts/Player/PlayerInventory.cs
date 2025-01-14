@@ -336,6 +336,8 @@ namespace Starter.ThirdPersonCharacter
 
             // Clearing the data
 			_inventory[_selectedIndex] = null;
+
+			_inventoryDisplay.deleteItem (InventoryType.Hotbar, _selectedIndex);
 		}
 
 		// Return true if player current selection is not attached to an item
