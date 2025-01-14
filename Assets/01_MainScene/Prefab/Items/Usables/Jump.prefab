@@ -113,8 +113,11 @@ MonoBehaviour:
   useCooldown: 3
   effects:
   - stats: 2
-    amount: 5
-    duration: 200
+    amount: 2
+    duration: 60
+  - stats: 3
+    amount: 1
+    duration: 60
   audioSource: {fileID: 2651700936119964263}
 --- !u!82 &2651700936119964263
 AudioSource:
