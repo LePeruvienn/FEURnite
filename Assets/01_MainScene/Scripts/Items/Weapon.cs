@@ -96,6 +96,7 @@ namespace Starter.ThirdPersonCharacter
         
         private GameObject munition;
         private munitions textMunition;
+        private PlayerInventory playerInv;
 
 		void OnDisable()
 		{
@@ -138,19 +139,20 @@ namespace Starter.ThirdPersonCharacter
                 Debug.Log("NetworkRunner n'est pas trouv� dans la sc�ne !");
                 
             }
-
-            munition = GameObject.FindGameObjectWithTag("Mun");
-            if (munition != null)
-            {
-                textMunition = munition.GetComponent<munitions>();
-                textMunition.setMunitions(_currentAmmoAmount, chargerAmmoAmount);
-            }
         }
 
         public void Update()
         {
-            if (munition != null)
+            munition = GameObject.FindGameObjectWithTag("Mun");
+            playerInv = GetComponentInParent<PlayerInventory>();
+
+            if (munition != null && playerInv != null && playerInv.getCurrentSelection() == gameObject)
+            {
+                textMunition = munition.GetComponent<munitions>();
+ 
                 textMunition.setMunitions(_currentAmmoAmount, chargerAmmoAmount);
+                Debug.Log(_currentAmmoAmount + " " + chargerAmmoAmount);
+            }
         }
 
         public override ItemType getType()
