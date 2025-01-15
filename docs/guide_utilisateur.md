@@ -35,7 +35,19 @@
 
 ---
 
-- **Interface Utilisateur** : 
+- **Interface Utilisateur** :
+
+---
+
+- **Inventaire** :
+![alt text](img/inventaire.PNG)
+
+---
+
+- **Barre de vie/bouclier** :
+![alt text](img/barre_de_vie.PNG)
+
+---
 
 ### **3. Gameplay**
 #### Objectif principal
