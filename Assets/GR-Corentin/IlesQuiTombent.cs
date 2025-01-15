@@ -233,9 +233,15 @@ namespace Starter.ThirdPersonCharacter
             }
 
             // Reset platforms
-            for (int i = 0; i < plateformes.Count; i++)
+            for (int i = 0; i < spawnChest.Count; i++)
             {
-                resetIsland(plateformes[i], _defaultPlateformesPos[i], _defaultPlateformesRotation[i]);
+                resetIsland(spawnChest[i], _defaultSpawnPosChest[i], _defaultSpawnChestRotation[i]);
+            }
+			
+            // Reset platforms
+            for (int i = 0; i < interChest.Count; i++)
+            {
+                resetIsland(interChest[i], _defaultInterPosChest[i], _defaultInterChestRotation[i]);
             }
         }
 
