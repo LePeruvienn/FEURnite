@@ -26,13 +26,14 @@ namespace Starter.ThirdPersonCharacter
         private List<Vector3> _defaultSpawnPos;
         private List<Vector3> _defaultInterPos;
         private List<Vector3> _defaultPlateformesPos;
-
         private List<Vector3> _defaultSpawnPosChest;
         private List<Vector3> _defaultInterPosChest;
 
         private List<Quaternion> _defaultSpawnRotation;
         private List<Quaternion> _defaultInterRotation;
         private List<Quaternion> _defaultPlateformesRotation;
+        private List<Quaternion> _defaultSpawnChestRotation;
+        private List<Quaternion> _defaultInterChestRotation;
 
         [Header("Island Falling Timers")]
         public float delaiAvantChute; // Time before the island falls
@@ -58,6 +59,9 @@ namespace Starter.ThirdPersonCharacter
             _defaultSpawnRotation = new List<Quaternion>();
             _defaultInterRotation = new List<Quaternion>();
             _defaultPlateformesRotation = new List<Quaternion>();
+
+			_defaultSpawnChestRotation = new List<Quaternion>();
+			_defaultInterChestRotation = new List<Quaternion>();
 
             // Initialize spawn islands
             foreach (var island in spawnIslands)
@@ -87,16 +91,16 @@ namespace Starter.ThirdPersonCharacter
             foreach (var chest in spawnChest)
             {
                 initObject(chest);
-                _defaultPlateformesPos.Add(chest.transform.position);
-                _defaultPlateformesRotation.Add(chest.transform.rotation);
+                _defaultSpawnPosChest.Add(chest.transform.position);
+                _defaultSpawnChestRotation.Add(chest.transform.rotation);
             }
 
             // Initialize platform islands
             foreach (var chest in interChest)
             {
                 initObject(chest);
-                _defaultPlateformesPos.Add(chest.transform.position);
-                _defaultPlateformesRotation.Add(chest.transform.rotation);
+				_defaultInterPosChest.Add(chest.transform.position);
+                _defaultInterChestRotation.Add(chest.transform.rotation);
             }
         }
 
@@ -217,6 +221,12 @@ namespace Starter.ThirdPersonCharacter
             for (int i = 0; i < interIslands.Count; i++)
             {
                 resetIsland(interIslands[i], _defaultInterPos[i], _defaultInterRotation[i]);
+            }
+
+            // Reset platforms
+            for (int i = 0; i < plateformes.Count; i++)
+            {
+                resetIsland(plateformes[i], _defaultPlateformesPos[i], _defaultPlateformesRotation[i]);
             }
 
             // Reset platforms

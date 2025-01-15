@@ -401,10 +401,10 @@ namespace Starter.ThirdPersonCharacter
             {
                 NetworkObject NetworkWeapon = Weapon.GetComponent<NetworkObject>();
 
-				if(NetworkWeapon != null){
-                    Runner.Despawn(NetworkWeapon);
-                }
+				if( NetworkWeapon != null){
 
+                    Runner.Despawn (NetworkWeapon);
+                }
             }
         }
 
@@ -452,7 +452,7 @@ namespace Starter.ThirdPersonCharacter
 			// Reset lootboxes
 			resetAllLootBoxes ();
             // Delete all weapon
-            RPC_DeleteWeapon();
+            RPC_DeleteWeapon ();
             // Respawn all players to base
             RPC_respawnPlayerToBase ();
             // Set status = WaitingForPlayers

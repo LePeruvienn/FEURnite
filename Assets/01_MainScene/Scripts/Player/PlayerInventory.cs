@@ -523,7 +523,7 @@ namespace Starter.ThirdPersonCharacter
 			RPC_dropAllItems ();
 		}
 
-		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		[Rpc(RpcSources.All, RpcTargets.All)]
 		private void RPC_dropAllItems()
 		{
 			// Loop through all items in the Hotbar inventory
