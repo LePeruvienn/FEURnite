@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Handles player connections (spawning of Player instances) at designated spawn points.
@@ -443,14 +444,22 @@ namespace Starter.ThirdPersonCharacter
             }
 		}
 
-		private void resetGame ()
+        private void resetGame ()
 		{
-			// Reset lootboxes
-			resetAllLootBoxes ();
+			RPC_RealodScene();
+            /*/// Reset lootboxes
+            resetAllLootBoxes ();
             // Respawn all players to base
             RPC_respawnPlayerToBase ();
             // Reset all corpse
-            clearCorpse();
+            clearCorpse();*/
+        }
+
+		[Rpc(RpcSources.All, RpcTargets.All)]
+		private void RPC_RealodScene()
+		{
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(currentSceneName);
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]

@@ -5,25 +5,28 @@ using Fusion;
 using System;
 using ExitGames.Client.Photon.StructWrapping;
 
-public class DeleteItemDup : MonoBehaviour
+namespace Starter.ThirdPersonCharacter
 {
-    [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
-
-    void Start()
+    public class DeleteItemDup : MonoBehaviour
     {
-        if (_runner == null)
+        [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
+
+        void Start()
         {
-            _runner = FindObjectOfType<NetworkRunner>();
-            Debug.Log("NetworkRunner n'est pas trouv� dans la sc�ne !");
+            if (_runner == null)
+            {
+                _runner = FindObjectOfType<NetworkRunner>();
+                Debug.Log("NetworkRunner n'est pas trouv� dans la sc�ne !");
+            }
         }
-    }
 
 
-    [Rpc(RpcSources.All, RpcTargets.All)]
-    void OnTriggerEnter(UnityEngine.Collider other)
-    {
-        NetworkObject net = other.GetComponent<NetworkObject>();
-        Debug.Log(net + "Has Spawn");
-        _runner.Despawn(net);
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        void OnTriggerEnter(UnityEngine.Collider other)
+        {
+            NetworkObject net = other.GetComponent<NetworkObject>();
+            Debug.Log(net + "Has Spawn");
+            //_runner.Despawn(net);
+        }
     }
 }
