@@ -47,8 +47,6 @@ namespace Starter.ThirdPersonCharacter
 
         public override void Render()
         {
-            base.Render();
-
             // Calcule une nouvelle position en oscillant de haut en bas
             newX = transform.position.x;
             newY = startPosition.y + Mathf.Sin(Time.time * speed) * height;

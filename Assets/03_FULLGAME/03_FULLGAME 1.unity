@@ -1379,6 +1379,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 61719568}
+    - targetCorrespondingSourceObject: {fileID: 6078371481971175983, guid: c279f04888e3cf24d9d9c5186314239e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 61719569}
   m_SourcePrefab: {fileID: 100100000, guid: c279f04888e3cf24d9d9c5186314239e, type: 3}
 --- !u!4 &61719562 stripped
 Transform:
@@ -1424,6 +1428,23 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 61719564}
+  - {fileID: 61719569}
+--- !u!114 &61719569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61719563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &64620843
 GameObject:
   m_ObjectHideFlags: 0
@@ -8582,6 +8603,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 400890685}
+    - targetCorrespondingSourceObject: {fileID: 6078371481971175983, guid: c279f04888e3cf24d9d9c5186314239e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 400890686}
   m_SourcePrefab: {fileID: 100100000, guid: c279f04888e3cf24d9d9c5186314239e, type: 3}
 --- !u!4 &400890679 stripped
 Transform:
@@ -8627,6 +8652,23 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 400890681}
+  - {fileID: 400890686}
+--- !u!114 &400890686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400890680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &407401717
 GameObject:
   m_ObjectHideFlags: 0
