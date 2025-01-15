@@ -1,7 +1,7 @@
 ## **Guide Utilisateur**
 
 ### **1. Introduction**
-- FEURnite est un battle royale où nous évoluons dans un univers avec plusieurs biômes qui contiennent plusieurs îles. Vous démarrez sur une île de spawn d'un des 4 biômes existant et votre objectif est de vous équipez du plus grand nombre d'armes possibles disponible dans des coffres, d'avancer vers l'île centrale, afin d'affronter les autres joueurs qui partagent le même objectif que vous, être le dernier survivant. Ne trainez pas car les îles peuvent tomber et disparaître à tout moment !
+- FEURnite est un battle royale où vous évoluez dans un univers avec plusieurs biômes qui contiennent plusieurs îles. Vous démarrez sur une île de spawn d'un des 4 biômes existant et votre objectif est de vous équipez du plus grand nombre d'armes possibles disponible dans des coffres, d'avancer vers l'île centrale, afin d'affronter les autres joueurs qui partagent le même objectif que vous, être le dernier survivant. Ne trainez pas car les îles peuvent tomber et disparaître à tout moment !
 
 ### **2. Prise en main**
 #### Installation
