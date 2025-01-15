@@ -57,6 +57,7 @@ namespace Starter.ThirdPersonCharacter
 
         [Header("SkyBox")]
         public Material newSkybox; // Assign a material in the Inspector
+        public GameObject UIGameMenu; // Assign a material in the Inspector
 
         [Header("DEBUG TOOLS")]
         private bool startGameButton = false; // Use private field for backing
@@ -451,6 +452,8 @@ namespace Starter.ThirdPersonCharacter
 			RPC_RealodScene();
             RenderSettings.skybox = newSkybox;
             DynamicGI.UpdateEnvironment();
+			UIGameMenu.SetActive(false);
+
             /*/// Reset lootboxes
             resetAllLootBoxes ();
             // Respawn all players to base
@@ -464,9 +467,11 @@ namespace Starter.ThirdPersonCharacter
 		{
             //string currentSceneName = SceneManager.GetActiveScene().name;
             //SceneManager.LoadScene(currentSceneName);
-            Runner.UnloadScene(SceneRef.FromIndex(1));
-            Runner.LoadScene(SceneRef.FromIndex(1), LoadSceneMode.Additive);
-
+            if (Runner.IsSceneAuthority)
+            {
+                Runner.UnloadScene(SceneRef.FromIndex(1));
+				Runner.LoadScene(SceneRef.FromIndex(1), LoadSceneMode.Additive);
+            }
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
