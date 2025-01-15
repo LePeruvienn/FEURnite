@@ -6,6 +6,7 @@ using Fusion.Addons.SimpleKCC;
 using Unity.VisualScripting;
 using Random = UnityEngine.Random;
 using UnityEngine.Animations.Rigging;
+using TMPro;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -18,6 +19,9 @@ namespace Starter.ThirdPersonCharacter
 		[Header("Debug")]
 		public bool DebugIsDead;
 		public bool DebugFreecam;
+
+		[Header("Name Plate")]
+		public TextMeshProUGUI namePlate;
 
         [Header("References")]
 		public SimpleKCC KCC;
@@ -74,6 +78,9 @@ namespace Starter.ThirdPersonCharacter
 
 		[Networked]
 		public bool isWinner {get; set;} = false;
+
+		[Networked]
+		public string name {get; set;} = "";
 
 		// Check if player has been spawned
 		[Networked] public bool isSpawned { get; set; } = false;
@@ -173,6 +180,8 @@ namespace Starter.ThirdPersonCharacter
 			isSpawned = true;
 
             munition = GameObject.FindGameObjectWithTag("Mun");
+
+			namePlate.text = PlayerPrefs.GetString("PlayerName");
         }
 
 		public override void FixedUpdateNetwork()
@@ -181,6 +190,7 @@ namespace Starter.ThirdPersonCharacter
 			{
 				UpdateFreecamState(DebugFreecam);
 			}
+
 
 			ProcessInput(PlayerInput.CurrentInput);
 

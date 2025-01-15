@@ -7,12 +7,12 @@ namespace Starter.ThirdPersonCharacter
     {
 		private Camera cam;
 
-		private void Awake()
+		private void Awake ()
 		{
 			cam = Camera.main;
 		}
 
-		private void Update()
+		private void Update ()
 		{
 			transform.forward = cam.transform.forward;
 		}
