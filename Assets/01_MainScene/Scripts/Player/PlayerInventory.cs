@@ -517,5 +517,77 @@ namespace Starter.ThirdPersonCharacter
 
 			return items;
 		}
+
+		public void dropAllItems ()
+		{
+			RPC_dropAllItems ();
+		}
+
+		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		private void RPC_dropAllItems()
+		{
+			// Loop through all items in the Hotbar inventory
+			for (int i = 0; i < _inventory.Length; i++)
+			{
+				if (_inventory[i] != null)
+				{
+					dropItem (_inventory, i);
+				}
+			}
+
+			// Loop through all items in the Weapons inventory
+			for (int i = 0; i < _weapons.Length; i++)
+			{
+				if (_weapons[i] != null)
+				{
+					spawnItem (_weapons, i);
+				}
+			}
+
+			// Loop through all items in the Items inventory
+			for (int i = 0; i < _items.Length; i++)
+			{
+				if (_items[i] != null)
+				{
+					spawnItem (_items, i);
+				}
+			}
+		}
+
+		private void spawnItem (GameObject[] inventory, int index)
+		{
+			Runner.Spawn (inventory[index], transform.position, transform.rotation, null);
+		}
+
+		private void dropItem(GameObject[] inventory, int index)
+		{
+			// Get the item at the specified index
+			GameObject obj = inventory[index];
+
+			// Set the item active
+			obj.SetActive (true);
+
+			// Get the NetworkObject of the item
+			NetworkObject netObj = obj.GetComponent<NetworkObject>();
+			if (netObj != null)
+			{
+				// Release State Authority
+				netObj.ReleaseStateAuthority();
+			}
+
+			// Drop the item on the ground
+			obj.transform.SetParent(null);
+			obj.transform.SetPositionAndRotation(_dropItemOrigin.position, Quaternion.identity);
+
+			// Set item state to OnFloor
+			Item item = obj.GetComponent<Item>();
+			if (item != null)
+			{
+				item.setState(ItemState.OnFloor);
+			}
+
+			// Clear the inventory slot
+			inventory[index] = null;
+		}
 	}
 }

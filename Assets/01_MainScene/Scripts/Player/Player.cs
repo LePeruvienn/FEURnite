@@ -616,6 +616,9 @@ namespace Starter.ThirdPersonCharacter
                 DebugIsDead = false;
 				isAlive = false;
 
+				// Drop all items on death
+				PlayerInventory.dropAllItems ();
+
                 // Envoie les coordonnées de mort au GameManager
                 gameManager.PlayerDeath(transform.position, transform.rotation);
 
