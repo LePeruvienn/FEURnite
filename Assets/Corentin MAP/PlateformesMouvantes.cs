@@ -68,14 +68,7 @@ namespace Starter.ThirdPersonCharacter
 
             // Synchronisez la position avec NetworkTransform
             //thePlatformTransform.Teleport(newPosition);
-            if (Runner.IsClient) // Vérifie si c'est un serveur dédié
-            {
-                // Synchronisation réseau pour les clients
-                GetComponent<NetworkTransform>().Teleport(position);
-            }
-            else
-                // Mise à jour immédiate pour l'hôte
-                transform.position = position;
+            transform.position = position;
         }
     }
 }
