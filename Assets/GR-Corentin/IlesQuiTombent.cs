@@ -141,6 +141,9 @@ namespace Starter.ThirdPersonCharacter
             {
                 _coroutines.Add (StartCoroutine(TremblementEtChute(island)));
             }
+
+			if (chests == null) return;
+
             foreach (var chest in chests)
             {
                 _coroutines.Add(StartCoroutine(TremblementEtChute(chest)));

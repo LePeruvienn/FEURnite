@@ -14,7 +14,11 @@ namespace Starter.ThirdPersonCharacter
 
 		private void Update ()
 		{
-			transform.forward = cam.transform.forward;
+			if (cam == null)
+				cam = Camera.main;
+
+			if (cam != null)
+				transform.forward = cam.transform.forward;
 		}
     }
 }
