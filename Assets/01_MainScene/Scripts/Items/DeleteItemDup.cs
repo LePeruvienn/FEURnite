@@ -20,9 +20,10 @@ public class DeleteItemDup : MonoBehaviour
 
 
     [Rpc(RpcSources.All, RpcTargets.All)]
-    void OnTriggerEnter(NetworkObject ItemCollider)
+    void OnTriggerEnter(UnityEngine.Collider other)
     {
-        Debug.Log(ItemCollider + "Has Spawn");
-        _runner.Despawn(ItemCollider);
+        NetworkObject net = other.GetComponent<NetworkObject>();
+        Debug.Log(net + "Has Spawn");
+        _runner.Despawn(net);
     }
 }
