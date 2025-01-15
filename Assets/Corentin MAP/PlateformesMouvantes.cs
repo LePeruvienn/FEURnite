@@ -1,4 +1,6 @@
 using Fusion;
+using System;
+using UnityEditor.PackageManager;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -66,7 +68,16 @@ namespace Starter.ThirdPersonCharacter
 
             // Synchronisez la position avec NetworkTransform
             //thePlatformTransform.Teleport(newPosition);
-            transform.position = position;
+            if (Runner.IsServer && Runner.IsClient) // Vérifie si c'est l'hôte
+            {
+                // Mise à jour immédiate pour l'hôte
+                transform.position = position;
+            }
+            else if (Runner.IsServer) // Vérifie si c'est un serveur dédié
+            {
+                // Synchronisation réseau pour les clients
+                GetComponent<NetworkTransform>().Teleport(position);
+            }
         }
     }
 }
