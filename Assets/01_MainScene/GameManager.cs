@@ -447,8 +447,6 @@ namespace Starter.ThirdPersonCharacter
 		{
 			// Reset lootboxes
 			resetAllLootBoxes ();
-            // Delete all weapon
-            RPC_DeleteWeapon ();
             // Respawn all players to base
             RPC_respawnPlayerToBase ();
             // Reset all corpse
