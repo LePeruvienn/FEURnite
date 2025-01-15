@@ -2,10 +2,7 @@ using UnityEngine;
 using Fusion;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.UIElements;
-using UnityEditor.ShaderKeywordFilter;
 using Unity.VisualScripting;
 
 /// <summary>
