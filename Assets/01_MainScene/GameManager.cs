@@ -257,9 +257,6 @@ namespace Starter.ThirdPersonCharacter
 
 		public void startGame () {
 
-            // Update game State
-            _gameState = GameState.InGame;
-
 			// Spawn players to spawn points
 			respawnPlayers ();
 			
@@ -271,8 +268,10 @@ namespace Starter.ThirdPersonCharacter
         [Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_startFallingIslandCoroutine () {
 
-			// Clear annonceur
-			annonceur.Annonce("");
+            // Update game State
+            _gameState = GameState.InGame;
+            // Clear annonceur
+            annonceur.Annonce("");
 			// Debut de la coroutine
 			_inslandFallingCoroutine = StartCoroutine (startFallingIslandCycle ());
 		}
@@ -452,8 +451,6 @@ namespace Starter.ThirdPersonCharacter
             RPC_DeleteWeapon ();
             // Respawn all players to base
             RPC_respawnPlayerToBase ();
-            // Set status = WaitingForPlayers
-            _gameState = GameState.WaitingForPlayers;
             // Reset all corpse
             clearCorpse();
         }
@@ -493,7 +490,10 @@ namespace Starter.ThirdPersonCharacter
 			// Add items to inventory
             if (inventory != null)
                 AddItemsToPlayer(inventory);
-		}
+
+            // Set status = WaitingForPlayers
+            _gameState = GameState.WaitingForPlayers;
+        }
 
 		private void resetAllLootBoxes ()
 		{
