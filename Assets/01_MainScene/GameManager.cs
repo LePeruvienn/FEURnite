@@ -55,7 +55,9 @@ namespace Starter.ThirdPersonCharacter
 		public int interFallingTime;
 		public int timeBeforeReset;
 
-		
+        [Header("SkyBox")]
+        public Material newSkybox; // Assign a material in the Inspector
+
         [Header("DEBUG TOOLS")]
         private bool startGameButton = false; // Use private field for backing
 		
@@ -447,6 +449,8 @@ namespace Starter.ThirdPersonCharacter
         private void resetGame ()
 		{
 			RPC_RealodScene();
+            RenderSettings.skybox = newSkybox;
+            DynamicGI.UpdateEnvironment();
             /*/// Reset lootboxes
             resetAllLootBoxes ();
             // Respawn all players to base
@@ -458,8 +462,11 @@ namespace Starter.ThirdPersonCharacter
 		[Rpc(RpcSources.All, RpcTargets.All)]
 		private void RPC_RealodScene()
 		{
-            string currentSceneName = SceneManager.GetActiveScene().name;
-            SceneManager.LoadScene(currentSceneName);
+            //string currentSceneName = SceneManager.GetActiveScene().name;
+            //SceneManager.LoadScene(currentSceneName);
+            Runner.UnloadScene(SceneRef.FromIndex(1));
+            Runner.LoadScene(SceneRef.FromIndex(1), LoadSceneMode.Additive);
+
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
