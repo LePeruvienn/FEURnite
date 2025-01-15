@@ -80,7 +80,11 @@ namespace Starter.ThirdPersonCharacter
 		private float _timeSinceLastCheck = 0f;
 		private const float _checkInterval = 5f; // Interval in seconds
 
-		// Only Used for debug startGame
+        public AudioClip lobySong;
+        private GameObject audioObject;
+        private AudioSource audioSource;
+
+        // Only Used for debug startGame
         private void Update()
         {
             if (startGameButton && _gameState != GameState.InGame)
@@ -106,15 +110,31 @@ namespace Starter.ThirdPersonCharacter
 					_timeSinceLastCheck = 0f; // Reset the timer
 				}
 			}
+
+			if (_gameState != GameState.InGame && !audioSource.isPlaying)
+			{
+                audioSource.Play();
+            }
+
         }
 		public void ActivestartGameButton()
 		{
 			startGameButton = true;
-
         }
         public override void Spawned()
         {
 			base.Spawned();
+
+			// Crée un objet temporaire
+			audioObject = new GameObject("TemporaryAudio");
+            audioSource = audioObject.AddComponent<AudioSource>();
+
+            // Configure l'AudioSource en mode 2D
+            audioSource.clip = lobySong;
+            audioSource.spatialBlend = 0.0f; // Mode 2D
+            audioSource.volume = 0.15f;
+            audioSource.loop = true;
+
             _WinnerWindows.SetActive(false);
             _LooserWindows.SetActive(false);
             // If Runner is the server we set GameStatus to Waiting for players
@@ -239,15 +259,17 @@ namespace Starter.ThirdPersonCharacter
 		}
 
 		public void startGame () {
-			
-			// Update game State
-			_gameState = GameState.InGame;
+
+            // Update game State
+            _gameState = GameState.InGame;
 
 			// Spawn players to spawn points
 			respawnPlayers ();
 			
 			RPC_startFallingIslandCoroutine ();
-		}
+
+            audioSource.Stop();
+        }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_startFallingIslandCoroutine () {
