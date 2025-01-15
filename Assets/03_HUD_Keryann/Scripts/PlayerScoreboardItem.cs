@@ -15,11 +15,11 @@ namespace Starter.ThirdPersonCharacter
         [SerializeField]
         Text deathsText;
 
-        public void Setup(Player player)
+        public void Setup (Player player)
         {
-            usernameText.text = PlayerPrefs.GetString("PlayerName");
-            killsText.text = "Kills : " + 1;
-            deathsText.text = "Deaths : " + 1;
+            usernameText.text = player.name;
+			killsText.text = "";
+            deathsText.text = player.isAlive ? "Alive" : "DEAD!";
         }
 
     }

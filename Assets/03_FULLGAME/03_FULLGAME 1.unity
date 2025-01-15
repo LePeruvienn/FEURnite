@@ -16409,6 +16409,7 @@ GameObject:
   - component: {fileID: 713123487}
   - component: {fileID: 713123489}
   - component: {fileID: 713123488}
+  - component: {fileID: 713123490}
   m_Layer: 5
   m_Name: Scoreboard
   m_TagString: Untagged
@@ -16475,6 +16476,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713123486}
   m_CullTransparentMesh: 1
+--- !u!114 &713123490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713123486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf8f3fa1d1f4314b808132a9da8e4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScoreboardItem: {fileID: 8904420008287868957, guid: 3f3d6e51f86ddd9488071c3ec6afb614,
+    type: 3}
+  playerScoreboardList: {fileID: 1545725393}
 --- !u!1 &718493461
 GameObject:
   m_ObjectHideFlags: 0
