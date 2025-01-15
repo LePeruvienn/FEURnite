@@ -59,11 +59,7 @@
 - **Stratégies avancées** : les parcours mènent souvent à un coffre rare, prenez rapidement la hauteur  
 
 ### **5. Paramètres et personnalisation**
-- **Paramètres de contrôle** : personnalisation des touches à votre guise   
+- **Changement des paramètres en jeu** : appuyez sur Echap  
 - **Personnalisation du personnage** : skins et emote disponibles
-
-### **6. Problèmes courants et dépannage**
-- FAQ pour résoudre les problèmes courants (latence, bugs).
-- Contact du support technique.
 
 ---
