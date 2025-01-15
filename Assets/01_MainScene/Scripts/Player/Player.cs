@@ -185,6 +185,7 @@ namespace Starter.ThirdPersonCharacter
 
 				name = PlayerPrefs.GetString("PlayerName");
 				namePlate.text = "";
+				return;
 			}
 
 			namePlate.text = name;
