@@ -19,13 +19,21 @@ namespace Starter.ThirdPersonCharacter
         public List<GameObject> interIslands;
         public List<GameObject> plateformes;
 
+        [Header("Chest Lists")]
+        public List<GameObject> spawnChest;
+        public List<GameObject> interChest;
+
         private List<Vector3> _defaultSpawnPos;
         private List<Vector3> _defaultInterPos;
         private List<Vector3> _defaultPlateformesPos;
+        private List<Vector3> _defaultSpawnPosChest;
+        private List<Vector3> _defaultInterPosChest;
 
         private List<Quaternion> _defaultSpawnRotation;
         private List<Quaternion> _defaultInterRotation;
         private List<Quaternion> _defaultPlateformesRotation;
+        private List<Quaternion> _defaultSpawnChestRotation;
+        private List<Quaternion> _defaultInterChestRotation;
 
         [Header("Island Falling Timers")]
         public float delaiAvantChute; // Time before the island falls
@@ -45,9 +53,15 @@ namespace Starter.ThirdPersonCharacter
             _defaultInterPos = new List<Vector3>();
             _defaultPlateformesPos = new List<Vector3>();
 
+            _defaultSpawnPosChest = new List<Vector3>();
+            _defaultInterPosChest = new List<Vector3>();
+
             _defaultSpawnRotation = new List<Quaternion>();
             _defaultInterRotation = new List<Quaternion>();
             _defaultPlateformesRotation = new List<Quaternion>();
+
+			_defaultSpawnChestRotation = new List<Quaternion>();
+			_defaultInterChestRotation = new List<Quaternion>();
 
             // Initialize spawn islands
             foreach (var island in spawnIslands)
@@ -72,11 +86,28 @@ namespace Starter.ThirdPersonCharacter
                 _defaultPlateformesPos.Add(island.transform.position);
                 _defaultPlateformesRotation.Add(island.transform.rotation);
             }
+
+            // Initialize platform islands
+            foreach (var chest in spawnChest)
+            {
+                initObject(chest);
+                _defaultSpawnPosChest.Add(chest.transform.position);
+                _defaultSpawnChestRotation.Add(chest.transform.rotation);
+            }
+
+            // Initialize platform islands
+            foreach (var chest in interChest)
+            {
+                initObject(chest);
+				_defaultInterPosChest.Add(chest.transform.position);
+                _defaultInterChestRotation.Add(chest.transform.rotation);
+            }
         }
 
         public void fallIslands(IslandType type)
         {
             List<GameObject> islands = null;
+            List<GameObject> chests = null;
 
             // Get the selected islands
             switch (type)
@@ -84,11 +115,13 @@ namespace Starter.ThirdPersonCharacter
                 case IslandType.Spawn:
                     Debug.Log("FALLING SPAWN");
                     islands = spawnIslands;
+                    chests = spawnChest;
                     break;
 
                 case IslandType.Inter:
                     Debug.Log("FALLING INTER");
                     islands = interIslands;
+                    chests = interChest;
                     break;
 
                 case IslandType.Plateformes:
@@ -107,6 +140,10 @@ namespace Starter.ThirdPersonCharacter
             foreach (var island in islands)
             {
                 _coroutines.Add (StartCoroutine(TremblementEtChute(island)));
+            }
+            foreach (var chest in chests)
+            {
+                _coroutines.Add(StartCoroutine(TremblementEtChute(chest)));
             }
         }
 
@@ -184,6 +221,12 @@ namespace Starter.ThirdPersonCharacter
             for (int i = 0; i < interIslands.Count; i++)
             {
                 resetIsland(interIslands[i], _defaultInterPos[i], _defaultInterRotation[i]);
+            }
+
+            // Reset platforms
+            for (int i = 0; i < plateformes.Count; i++)
+            {
+                resetIsland(plateformes[i], _defaultPlateformesPos[i], _defaultPlateformesRotation[i]);
             }
 
             // Reset platforms

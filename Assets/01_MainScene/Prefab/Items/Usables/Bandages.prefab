@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -4865791379226380532}
   m_Layer: 0
   m_Name: Bandages
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,7 +35,8 @@ Transform:
   m_LocalPosition: {x: -0.034, y: -0.161, z: -0.077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6035438061397145091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4475312737062885119
@@ -107,8 +108,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.15187821, y: 0.23662576, z: 0.14644316}
+  m_Center: {x: 0.017851695, y: 0.11644997, z: 0.023338303}
 --- !u!54 &524048456736431465
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -265,10 +266,41 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 3c326a618f044214b86d6b6500027f5f, type: 3}
   itemName: bandage
   stackAmount: 1
-  rarity: 2
+  rarity: 1
   useCooldown: 5
   effects:
   - stats: 1
-    amount: 5
+    amount: 100
     duration: 100
   audioSource: {fileID: 2651700936119964263}
+--- !u!1 &8858045081833723430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6035438061397145091}
+  m_Layer: 0
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6035438061397145091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8858045081833723430}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.018533625, y: 0.13767903, z: -0.057271592}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 699283538429942106}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

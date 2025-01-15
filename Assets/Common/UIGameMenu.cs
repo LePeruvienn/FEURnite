@@ -30,12 +30,14 @@ namespace Starter
 		public GameObject StartGroup;
 		public GameObject DisconnectGroup;
 
+		public AudioSource menuSong;
+
 		private NetworkRunner _runnerInstance;
 		private static string _shutdownStatus;
 
 		public async void StartGame()
 		{
-			await Disconnect();
+            await Disconnect();
 
 			PlayerPrefs.SetString("PlayerName", NicknameText.text);
 
@@ -73,7 +75,9 @@ namespace Starter
 			{
 				StatusText.text = $"Connection Failed: {startTask.Result.ShutdownReason}";
 			}
-		}
+
+            menuSong.Stop();
+        }
 
 		public async void DisconnectClicked()
 		{
