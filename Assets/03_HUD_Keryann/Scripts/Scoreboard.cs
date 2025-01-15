@@ -15,7 +15,7 @@ namespace Starter.ThirdPersonCharacter
         private void OnEnable()
         {
             string[] players = { "p1", "p2", "p3" };
-
+			/*
             foreach (string player in players)
             {
                 GameObject itemGO = Instantiate(playerScoreboardItem, playerScoreboardList);
@@ -25,6 +25,7 @@ namespace Starter.ThirdPersonCharacter
                     item.Setup(Player player);
                 }
             }
+			*/
         }
 
         private void OnDisable()
