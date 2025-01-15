@@ -181,7 +181,11 @@ namespace Starter.ThirdPersonCharacter
 
             munition = GameObject.FindGameObjectWithTag("Mun");
 
-			namePlate.text = PlayerPrefs.GetString("PlayerName");
+			if (HasStateAuthority) {
+
+				name = PlayerPrefs.GetString("PlayerName");
+				namePlate.text = "";
+			}
         }
 
 		public override void FixedUpdateNetwork()
