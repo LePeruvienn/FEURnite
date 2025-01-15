@@ -5,12 +5,16 @@ namespace Starter.ThirdPersonCharacter
 {
     public class PlayerNameplate : MonoBehaviour
     {
-        [SerializeField]
-        private Text usernameText;
+		private Camera cam;
 
-        void Update()
-        {
-            usernameText.text = "Bonjour";
-        }
+		private void Awake()
+		{
+			cam = Camera.main;
+		}
+
+		private void Update()
+		{
+			transform.forward = cam.transform.forward;
+		}
     }
 }
