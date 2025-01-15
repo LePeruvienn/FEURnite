@@ -1,8 +1,9 @@
+using Starter.ThirdPersonCharacter;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.UIElements;
+using Fusion;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -43,18 +44,65 @@ namespace Starter.ThirdPersonCharacter
 		[Header("Effect Config")]
         public List<Effect> effects = new List<Effect> ();
 
+		public AudioSource audioSource;
+
+		public static AudioClip HealSound;   
+		public static AudioClip JumpSpeedSound;
+		public static AudioClip ShieldSound;
+
 
         // Privates
         private Animator _playerAnimator;
         private UsableState _currentUsableState;
-		private PlayerInventory _playerInverntory;
-		private PlayerModel _playerModel;
+		
+
+		void OnDisable()
+		{
+			_currentUsableState = UsableState.Ready;
+		}
+
+	
+		[Rpc(RpcSources.All, RpcTargets.All)]
+		public void RPC_PlaySound(int soundId)
+		{
+			AudioClip soundToPlay = null;
+
+			// Associe l'ID du son au bon clip audio
+			switch (soundId)
+			{
+				case 1:
+					soundToPlay = HealSound;
+					break;
+				case 2:
+					soundToPlay = JumpSpeedSound;
+					break;
+				case 3:
+					soundToPlay = ShieldSound;
+					break;
+				default:
+					Debug.LogWarning("Unknown sound ID");
+					break;
+			}
+			
+
+			if (audioSource != null && soundToPlay != null)
+			{
+				audioSource.PlayOneShot(soundToPlay);
+			}
+		}
+
+
 
 		// Run when program starts
 		public void Start ()
 		{
+			 HealSound = Resources.Load<AudioClip>("SoundEffects/HealSound");
+			 JumpSpeedSound = Resources.Load<AudioClip>("SoundEffects/JumpSpeedSound");
+			 ShieldSound = Resources.Load<AudioClip>("SoundEffects/ShieldSound");
+
 			// Set state to ready
 			_currentUsableState = UsableState.Ready;
+			
 		}
 
         public override ItemType getType()
@@ -82,6 +130,37 @@ namespace Starter.ThirdPersonCharacter
 
             // Start use couroutine
             StartCoroutine (useCouroutine ());
+			if (effects.Count > 0)
+			{
+				Effect firstEffect = effects[0];
+				int soundId = -1;
+
+				// Associate the sound ID with the effect
+				switch (firstEffect.stats)
+				{
+					case EffectStat.Heal:
+						soundId = 1;
+						break;
+					case EffectStat.JumpPower:
+						soundId = 2;
+						break;
+					case EffectStat.Shield:
+						soundId = 3;
+						break;
+					default:
+						break;
+				}
+
+				// Play the sound via RPC
+				if (soundId != -1)
+				{
+					
+					RPC_PlaySound(soundId);
+
+				}
+			}
+			
+			
         }
 
 		private IEnumerator useCouroutine ()
@@ -109,34 +188,32 @@ namespace Starter.ThirdPersonCharacter
 				int amount = effects[i].amount;
 				int duration = effects[i].duration;
 
-				// Get player model if null
-				if (_playerModel == null)
-					_playerModel = GetComponentInParent<PlayerModel> ();
+				PlayerModel playerModel = GetComponentInParent<PlayerModel> ();
 
 				// Apply effect to the right player's stat
 				switch (stat)
 				{
 					case EffectStat.Heal:
 						// Heal Player
-						_playerModel.heal (amount);
+						playerModel.heal (amount);
 						// Stop
 						break;
 
 					case EffectStat.JumpPower:
 						// Add JumForce to player
-						_playerModel.jumpPower += amount;
+						playerModel.jumpPower += amount;
 						// Stop
 						break;
 
 					case EffectStat.Speed:
 						// Add Speed to player
-						_playerModel.speed += amount;
+						playerModel.speed += amount;
 						// Stop
 						break;
 
 					case EffectStat.Shield:
 						// Add shield to player
-						_playerModel.addShield (amount);
+						playerModel.addShield (amount);
 						// Stop
 						break;
 				}
@@ -145,12 +222,10 @@ namespace Starter.ThirdPersonCharacter
 			// Debug message (Remove it later)
 			Debug.Log ("Effects Applied !");
 
-			// Get Player inventory if null
-			if (_playerInverntory == null)
-				_playerInverntory = GetComponentInParent<PlayerInventory> ();
+			PlayerInventory playerInverntory = GetComponentInParent<PlayerInventory> ();
 
 			// Destroy objet
-			_playerInverntory.destoryCurrentSelection ();
+			playerInverntory.destoryCurrentSelection ();
 		}
     }
 }

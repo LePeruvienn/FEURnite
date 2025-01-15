@@ -30,12 +30,17 @@ namespace Starter
 		public GameObject StartGroup;
 		public GameObject DisconnectGroup;
 
+		public AudioSource menuSong;
+
 		private NetworkRunner _runnerInstance;
 		private static string _shutdownStatus;
 
-		public async void StartGame()
+        [SerializeField]
+        private GameObject scoreboard;
+
+        public async void StartGame()
 		{
-			await Disconnect();
+            await Disconnect();
 
 			PlayerPrefs.SetString("PlayerName", NicknameText.text);
 
@@ -73,7 +78,9 @@ namespace Starter
 			{
 				StatusText.text = $"Connection Failed: {startTask.Result.ShutdownReason}";
 			}
-		}
+
+            menuSong.Stop();
+        }
 
 		public async void DisconnectClicked()
 		{
@@ -133,7 +140,16 @@ namespace Starter
 			{
 				TogglePanelVisibility();
 			}
-		}
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                scoreboard.SetActive(true);
+            }
+            else if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                scoreboard.SetActive(false);
+            }
+        }
 
 		public async Task Disconnect()
 		{
