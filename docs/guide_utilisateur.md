@@ -12,7 +12,7 @@
 
 ---
 
-![alt text](image.png)  
+![alt text](img/menu.png)  
 - **Nickname** : Votre pseudo   
 - **Room Name** : Nom du serveur  
 - **Start Game** : Lancement du jeu     
@@ -21,17 +21,17 @@
 ---
 
 - **Touches** : Changement des touches pour les mécaniques  
-![alt text](image-1.png)   
+![alt text](img/touches.png)   
 
 ---
 
 - **Son** : Changement du son général, effets sonores et musique
-![alt text](image-2.png)
+![alt text](img/son.png)
 
 ---
 
 - **Video** : Changement de la résolution   
-![alt text](image-3.png)
+![alt text](img/resolution.png)
 
 ---
 
