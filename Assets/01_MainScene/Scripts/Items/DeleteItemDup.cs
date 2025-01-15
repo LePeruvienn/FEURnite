@@ -1,12 +1,28 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
+using System;
+using ExitGames.Client.Photon.StructWrapping;
 
 public class DeleteItemDup : MonoBehaviour
 {
-    void OnTriggerEnter(Collider ItemCollider)
+    [NonSerialized] private NetworkRunner _runner; // Prevent _runner from being serialized
+
+    void Start()
     {
-        Debug.Log(ItemCollider.gameObject + "IS DESTROY");
-        //Destroy(ItemCollider.gameObject);
+        if (_runner == null)
+        {
+            _runner = FindObjectOfType<NetworkRunner>();
+            Debug.Log("NetworkRunner n'est pas trouv� dans la sc�ne !");
+        }
+    }
+
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    void OnTriggerEnter(NetworkObject ItemCollider)
+    {
+        Debug.Log(ItemCollider + "Has Spawn");
+        _runner.Despawn(ItemCollider);
     }
 }
