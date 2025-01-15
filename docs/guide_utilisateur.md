@@ -39,12 +39,12 @@
 
 ---
 
-- **Inventaire** :  
+- **Inventaire** : fonctionne en glisser/déposer  
 ![alt text](img/inventaire.PNG)
 
 ---
 
-- **Barre de vie/bouclier** :  
+- **Barre de vie/bouclier** : une fois la barre de vie vidée, vous avez perdu, de multiples potions sont disponibles afin de palier ce problème, faites bien attention !  
 ![alt text](img/barre_de_vie.PNG)
 
 ---
