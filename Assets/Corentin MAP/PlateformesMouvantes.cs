@@ -1,22 +1,41 @@
+using Fusion;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Starter.ThirdPersonCharacter
 {
 
-    public class PlateformesMouvantes : MonoBehaviour
+    public class PlateformesMouvantes : NetworkBehaviour
     {
-        public float speed = 1.0f; // Vitesse du mouvement
-        public float height = 5.0f; // Amplitude du mouvement
+        private GameObject platformObject;
 
-        private Vector3 startPosition;
+        [Networked]
+        public float speed { get; set; } // Vitesse du mouvement
+        [Networked]
+        public float height { get; set; } // Amplitude du mouvement
+        [Networked]
+        private Vector3 startPosition { get; set; }
+        private NetworkObject thePlatform { get; set; }
+        [Networked]
+        private NetworkTransform thePlatformTransform { get; set; }
 
-        void Start()
+        public override void Spawned()
         {
+            base.Spawned();
+
+            platformObject = this.gameObject;
+
+            thePlatform = platformObject.gameObject.GetComponent<NetworkObject>();
+            thePlatformTransform = platformObject.gameObject.GetComponent<NetworkTransform>();
+            speed = 1.0f;
+            height = 5.0f;
             startPosition = transform.position; // Sauvegarde la position de départ
         }
 
-        void Update()
+        public override void Render()
         {
+            base.Render();
+
             // Calcule une nouvelle position en oscillant de haut en bas
             float newY = startPosition.y + Mathf.Sin(Time.time * speed) * height;
             transform.position = new Vector3(transform.position.x, newY, transform.position.z);
