@@ -526,7 +526,13 @@ namespace Starter.ThirdPersonCharacter
         [Rpc(RpcSources.All, RpcTargets.All)]
         private void RPC_RequestSpawnCorpse(Vector3 deathPosition, Quaternion deathOrientation)
         {
-            var corpse = Runner.Spawn(CorpsePrefab, deathPosition, deathOrientation, null);
+			if (deathPosition == Vector3.zero) return;
+
+            NetworkObject corpse = Runner.Spawn(CorpsePrefab, deathPosition, deathOrientation, null);
+			
+			if (corpse.transform.position == Vector3.zero)
+				Runner.Despawn (corpse);
+
             if (corpse != null)
 			{
 				corpse.tag = "Corpse";
