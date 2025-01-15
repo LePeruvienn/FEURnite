@@ -39,12 +39,12 @@
 
 ---
 
-- **Inventaire** :
+- **Inventaire** :  
 ![alt text](img/inventaire.PNG)
 
 ---
 
-- **Barre de vie/bouclier** :
+- **Barre de vie/bouclier** :  
 ![alt text](img/barre_de_vie.PNG)
 
 ---
