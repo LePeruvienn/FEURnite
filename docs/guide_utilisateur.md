@@ -25,7 +25,7 @@
 
 ---
 
-- **Son** : Changement du son général, effets sonores et musique
+- **Son** : Changement du son général, effets sonores et musique  
 ![alt text](img/son.PNG)
 
 ---
