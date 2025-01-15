@@ -1,6 +1,4 @@
 using Fusion;
-using System;
-using UnityEditor.PackageManager;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -50,24 +48,12 @@ namespace Starter.ThirdPersonCharacter
         public override void Render()
         {
             // Calcule une nouvelle position en oscillant de haut en bas
-            //newX = transform.position.x;
-            //newY = startPosition.y + Mathf.Sin(Time.time * speed) * height;
-            //newZ = transform.position.z;
-
-            //position = new Vector3(newX, newY, newZ);
-
-            //transform.position = position;
-        }
-
-        public override void FixedUpdateNetwork()
-        {
             newX = transform.position.x;
             newY = startPosition.y + Mathf.Sin(Time.time * speed) * height;
             newZ = transform.position.z;
+
             position = new Vector3(newX, newY, newZ);
 
-            // Synchronisez la position avec NetworkTransform
-            //thePlatformTransform.Teleport(newPosition);
             transform.position = position;
         }
     }
