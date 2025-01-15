@@ -1,6 +1,7 @@
 using Fusion;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Starter.ThirdPersonCharacter
 {
@@ -13,11 +14,23 @@ namespace Starter.ThirdPersonCharacter
         public float speed { get; set; } // Vitesse du mouvement
         [Networked]
         public float height { get; set; } // Amplitude du mouvement
+
         [Networked]
         private Vector3 startPosition { get; set; }
+        [Networked]
+        private Vector3 position { get; set; }
+
+        [Networked]
         private NetworkObject thePlatform { get; set; }
         [Networked]
         private NetworkTransform thePlatformTransform { get; set; }
+
+        [Networked]
+        private float newX { get; set; }
+        [Networked]
+        private float newY { get; set; }
+        [Networked]
+        private float newZ { get; set; }
 
         public override void Spawned()
         {
@@ -37,8 +50,13 @@ namespace Starter.ThirdPersonCharacter
             base.Render();
 
             // Calcule une nouvelle position en oscillant de haut en bas
-            float newY = startPosition.y + Mathf.Sin(Time.time * speed) * height;
-            transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+            newX = transform.position.x;
+            newY = startPosition.y + Mathf.Sin(Time.time * speed) * height;
+            newZ = transform.position.z;
+
+            position = new Vector3(newX, newY, newZ);
+
+            transform.position = position;
         }
     }
 }
