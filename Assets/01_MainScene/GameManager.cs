@@ -449,29 +449,12 @@ namespace Starter.ThirdPersonCharacter
 
         private void resetGame ()
 		{
-			RPC_RealodScene();
-            RenderSettings.skybox = newSkybox;
-            DynamicGI.UpdateEnvironment();
-			UIGameMenu.SetActive(false);
-
-            /*/// Reset lootboxes
+            /// Reset lootboxes
             resetAllLootBoxes ();
             // Respawn all players to base
             RPC_respawnPlayerToBase ();
             // Reset all corpse
-            clearCorpse();*/
-        }
-
-		[Rpc(RpcSources.All, RpcTargets.All)]
-		private void RPC_RealodScene()
-		{
-            //string currentSceneName = SceneManager.GetActiveScene().name;
-            //SceneManager.LoadScene(currentSceneName);
-            if (Runner.IsSceneAuthority)
-            {
-                Runner.UnloadScene(SceneRef.FromIndex(1));
-				Runner.LoadScene(SceneRef.FromIndex(1), LoadSceneMode.Additive);
-            }
+            clearCorpse();
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
