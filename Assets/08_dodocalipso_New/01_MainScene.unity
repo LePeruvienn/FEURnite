@@ -24335,6 +24335,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: d5856ce13fb4a2746a39e12d6a63bb15, type: 3}
+--- !u!1 &2048485757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2048485758}
+  m_Layer: 0
+  m_Name: test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2048485758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048485757}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.005189657, y: 0.22745204, z: 0.040837646}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2049502994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25482,6 +25513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 176584572663071047, guid: 8a418dcca24d6c4d8ae9fb97b1083fac,
     type: 3}
+  itemPrefabs: []
   CorpsePrefab: {fileID: -8442461170091520878, guid: 76259039dd823d542b4df5209f3cc8f1,
     type: 3}
   SpawnRadius: 3
@@ -25849,3 +25881,4 @@ SceneRoots:
   - {fileID: 1414504195}
   - {fileID: 1361422465}
   - {fileID: 2002338726}
+  - {fileID: 2048485758}
