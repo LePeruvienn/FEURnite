@@ -64,7 +64,7 @@ namespace Starter.ThirdPersonCharacter
             if (isPaused)
             {
                 timerText.color = Color.yellow;
-                timerText.text = "En attente du lancement de la partie...";
+                timerText.text = "En attente du lancement de la partie appuyer sur P";
             }
 			else if (!spawnIslandFallen)
 			{
