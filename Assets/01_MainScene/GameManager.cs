@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.UIElements;
+using UnityEditor.ShaderKeywordFilter;
+using Unity.VisualScripting;
 
 /// <summary>
 /// Handles player connections (spawning of Player instances) at designated spawn points.
@@ -78,7 +80,11 @@ namespace Starter.ThirdPersonCharacter
 		private float _timeSinceLastCheck = 0f;
 		private const float _checkInterval = 5f; // Interval in seconds
 
-		// Only Used for debug startGame
+        public AudioClip lobySong;
+        private GameObject audioObject;
+        private AudioSource audioSource;
+
+        // Only Used for debug startGame
         private void Update()
         {
             if (startGameButton && _gameState != GameState.InGame)
@@ -104,15 +110,31 @@ namespace Starter.ThirdPersonCharacter
 					_timeSinceLastCheck = 0f; // Reset the timer
 				}
 			}
+
+			if (_gameState != GameState.InGame && !audioSource.isPlaying)
+			{
+                audioSource.Play();
+            }
+
         }
 		public void ActivestartGameButton()
 		{
 			startGameButton = true;
-
         }
         public override void Spawned()
         {
 			base.Spawned();
+
+			// Crée un objet temporaire
+			audioObject = new GameObject("TemporaryAudio");
+            audioSource = audioObject.AddComponent<AudioSource>();
+
+            // Configure l'AudioSource en mode 2D
+            audioSource.clip = lobySong;
+            audioSource.spatialBlend = 0.0f; // Mode 2D
+            audioSource.volume = 0.15f;
+            audioSource.loop = true;
+
             _WinnerWindows.SetActive(false);
             _LooserWindows.SetActive(false);
             // If Runner is the server we set GameStatus to Waiting for players
@@ -237,15 +259,17 @@ namespace Starter.ThirdPersonCharacter
 		}
 
 		public void startGame () {
-			
-			// Update game State
-			_gameState = GameState.InGame;
+
+            // Update game State
+            _gameState = GameState.InGame;
 
 			// Spawn players to spawn points
 			respawnPlayers ();
 			
 			RPC_startFallingIslandCoroutine ();
-		}
+
+            audioSource.Stop();
+        }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_startFallingIslandCoroutine () {
@@ -299,6 +323,7 @@ namespace Starter.ThirdPersonCharacter
 				repeatCount++;
 			}
 		}
+
 		private void nbPlayer()
 		{
             // Init number of players alive
@@ -322,6 +347,7 @@ namespace Starter.ThirdPersonCharacter
 
             _playerInGame.text = string.Format("{0:#0}", numberPlayerAlive);
         }
+
 		private void checkForWinner ()
 		{
 			// Init number of players alive
@@ -360,7 +386,23 @@ namespace Starter.ThirdPersonCharacter
 				// Start endGame couroutine
 				StartCoroutine (endGame ());
 			}
-		}
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public void RPC_DeleteWeapon()
+        {
+            GameObject[] Weapons = GameObject.FindGameObjectsWithTag("Weapon");
+
+            foreach (GameObject Weapon in Weapons)
+            {
+                NetworkObject NetworkWeapon = Weapon.GetComponent<NetworkObject>();
+
+				if(NetworkWeapon != null){
+                    Runner.Despawn(NetworkWeapon);
+                }
+
+            }
+        }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_setWinningPlayer (PlayerRef playerRef) {
@@ -368,7 +410,7 @@ namespace Starter.ThirdPersonCharacter
 			_winningPlayer = playerRef;
 		}
 
-		private IEnumerator endGame () {
+        private IEnumerator endGame () {
 			
 			_gameState = GameState.GameEnd;
 
@@ -405,10 +447,12 @@ namespace Starter.ThirdPersonCharacter
 		{
 			// Reset lootboxes
 			resetAllLootBoxes ();
-			// Respawn all players to base
-			RPC_respawnPlayerToBase ();
-			// Set status = WaitingForPlayers
-			_gameState = GameState.WaitingForPlayers;
+            // Delete all weapon
+            RPC_DeleteWeapon();
+            // Respawn all players to base
+            RPC_respawnPlayerToBase ();
+            // Set status = WaitingForPlayers
+            _gameState = GameState.WaitingForPlayers;
             // Reset all corpse
             clearCorpse();
         }
