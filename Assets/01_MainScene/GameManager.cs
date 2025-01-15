@@ -274,11 +274,15 @@ namespace Starter.ThirdPersonCharacter
         [Rpc(RpcSources.All, RpcTargets.All)]
 		public void RPC_startFallingIslandCoroutine () {
 
+			// Clear annonceur
+			annonceur.Annonce("");
+			// Debut de la coroutine
 			_inslandFallingCoroutine = StartCoroutine (startFallingIslandCycle ());
 		}
 
 		private IEnumerator startFallingIslandCycle ()
 		{
+			timer.gameObject.SetActive (true);
 			// On fait tomber 2 fois des iles
 			int maxRepeats = 2;
 			// On initialise le nombre de répétition à zéro
@@ -463,6 +467,10 @@ namespace Starter.ThirdPersonCharacter
 			// Set Win window to false
 			_LooserWindows.SetActive(false);
 			_WinnerWindows.SetActive(false);
+
+			// Set
+			annonceur.Annonce("En attente de joueur !");
+			timer.gameObject.SetActive (false);
 			
 			StopCoroutine (_inslandFallingCoroutine);
 			fallingInslandManager.resetAll ();
