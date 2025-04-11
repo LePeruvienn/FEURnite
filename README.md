@@ -32,8 +32,17 @@ Mélangeant **shooter**, **plateforme**, et **stress aérien**, ce jeu est aussi
 
 ## 📸 Aperçu
 
-![Gameplay GIF](./assets/gif_gameplay1.gif)  
-![Loot](./assets/gif_loot.gif)
+![screenshoot](./readmeAssets/5.png)
+![screenshoot](./readmeAssets/7.png)
+![screenshoot](./readmeAssets/aezsq.png)
+![screenshoot](./readmeAssets/im3age.png)
+![screenshoot](./readmeAssets/image2.png)
+![screenshoot](./readmeAssets/qsdqsd.png)
+![screenshoot](./readmeAssets/qsqsd.png)
+![gameplay](./readmeAssets/sniper.gif)
+![gameplay](./readmeAssets/loot.gif)
+![gameplay](./readmeAssets/gameplay.gif)
+
 
 ---
 
