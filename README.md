@@ -81,7 +81,7 @@ cd FEURnite
 ```
 
 **Pour jouer téléchargez directement la release ici !**
-🔗 [https://github.com/LePeruvienn/Unity-Math/releases/tag/Build](https://github.com/LePeruvienn/FEURnite/releases/tag/Livrable4)
+🔗 https://github.com/LePeruvienn/FEURnite/releases/tag/Livrable4
 
 ---
 
