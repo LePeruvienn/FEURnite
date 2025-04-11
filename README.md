@@ -30,22 +30,6 @@ Mélangeant **shooter**, **plateforme**, et **stress aérien**, ce jeu est aussi
 
 ---
 
-## 📸 Aperçu
-
-![screenshoot](./readmeAssets/5.png)
-![screenshoot](./readmeAssets/7.png)
-![screenshoot](./readmeAssets/aezsq.png)
-![screenshoot](./readmeAssets/im3age.png)
-![screenshoot](./readmeAssets/image2.png)
-![screenshoot](./readmeAssets/qsdqsd.png)
-![screenshoot](./readmeAssets/qsqsd.png)
-![gameplay](./readmeAssets/sniper.gif)
-![gameplay](./readmeAssets/loot.gif)
-![gameplay](./readmeAssets/gameplay.gif)
-
-
----
-
 ## 📂 Documentation
 
 📘 Tout ce que vous devez savoir sur le projet :
@@ -98,6 +82,21 @@ cd FEURnite
 
 **Pour jouer téléchargez directement la release ici !**
 🔗 [https://github.com/LePeruvienn/Unity-Math/releases/tag/Build](https://github.com/LePeruvienn/FEURnite/releases/tag/Livrable4)
+
+---
+
+## 📸 Aperçu
+
+![screenshoot](./readmeAssets/5.png)
+![screenshoot](./readmeAssets/7.png)
+![screenshoot](./readmeAssets/aezsq.png)
+![screenshoot](./readmeAssets/im3age.png)
+![screenshoot](./readmeAssets/image2.png)
+![screenshoot](./readmeAssets/qsdqsd.png)
+![screenshoot](./readmeAssets/qsqsd.png)
+![gameplay](./readmeAssets/sniper.gif)
+![gameplay](./readmeAssets/loot.gif)
+![gameplay](./readmeAssets/gameplay.gif)
 
 ---
 
