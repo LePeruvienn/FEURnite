@@ -30,9 +30,6 @@ Mélangeant **shooter**, **plateforme**, et **stress aérien**, ce jeu est aussi
 
 ---
 
-
----
-
 ## 📸 Aperçu
 
 ![Gameplay GIF](./assets/gif_gameplay1.gif)  
@@ -84,21 +81,14 @@ Projet créé par une escouade de développeurs de choc (et de chocs aussi parfo
 
 ## 🛠️ Installation
 
+Code source
 ```bash
-git clone https://github.com/LePeruvienn/Unity-Math.git
-cd Unity-Math
-# Télécharger la release ou ouvrir dans Unity
+git clone https://github.com/LePeruvienn/FEURnite
+cd FEURnite
 ```
 
-Ou téléchargez directement la release ici :  
+**Pour jouer téléchargez directement la release ici !**
 🔗 [https://github.com/LePeruvienn/Unity-Math/releases/tag/Build](https://github.com/LePeruvienn/FEURnite/releases/tag/Livrable4)
-
----
-
-## 📜 Licence
-
-Projet développé à des fins pédagogiques (S5 - BUT Informatique - IUT D'orsay).  
-N’hésitez pas à cloner, tester, proposer, mais évitez de copier sans hommage à nos valeureux Kouas 🐥💔
 
 ---
 
