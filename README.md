@@ -22,13 +22,21 @@ Mélangeant **shooter**, **plateforme**, et **stress aérien**, ce jeu est aussi
 
 | 🧩 Fonctionnalité | 📋 Description |
 |------------------|----------------|
-| 🌍 **Îles volantes destructibles** | Chaque île disparaît au fil du temps, obligeant les joueurs à se déplacer et s’adapter. |
+| 🌍 **Îles volantes** | Chaque île disparaît au fil du temps, obligeant les joueurs à se déplacer et s’adapter. |
 | 🔫 **Système de loot** | Ramasse des armes et items générés aléatoirement pour améliorer tes chances. |
 | 💣 **Combat multijoueur** | Affronte d'autres Kouas dans une arène instable et chaotique. |
 | 🐣 **Personnage unique : Koua** | Un canard armé jusqu’au bec, agile et prêt à plonger dans la bataille. |
-| 🧭 **Carte dynamique** | Chaque partie est différente avec des zones de loot et de combat en constante évolution. |
-| 🧑‍🤝‍🧑 **Mode multijoueur local ou réseau** | Jusqu’à X joueurs (à adapter) en simultané. |
 | 🎨 **Univers cartoon et fun** | Une DA absurde, colorée et décalée pour un max de plaisir. |
+
+---
+
+
+---
+
+## 📸 Aperçu
+
+![Gameplay GIF](./assets/gif_gameplay1.gif)  
+![Loot](./assets/gif_loot.gif)
 
 ---
 
@@ -62,7 +70,7 @@ Projet créé par une escouade de développeurs de choc (et de chocs aussi parfo
 
 ---
 
-## 🛠️ Outils & Techs
+## 🤖 Outils & Techs
 
 | Type | Outils |
 |------|--------|
@@ -74,46 +82,27 @@ Projet créé par une escouade de développeurs de choc (et de chocs aussi parfo
 
 ---
 
-## 🚀 Lancer le jeu
+## 🛠️ Installation
 
-1. Cloner ce dépôt :  
 ```bash
-git clone https://github.com/votre-repo/feurnite.git
-cd feurnite
+git clone https://github.com/LePeruvienn/Unity-Math.git
+cd Unity-Math
+# Télécharger la release ou ouvrir dans Unity
 ```
 
-2. Ouvrir le projet dans Unity  
-3. Lancer la scène principale `Main.unity`  
-4. Sauter, looter, crier “KOUA ?!”
-
----
-
-## 📸 Aperçu
-
-*Ajoutez ici quelques GIFs ou captures d’écran dans `./assets/` pour illustrer votre gameplay*  
-Exemples :
-
-![Gameplay GIF](./assets/gif_gameplay1.gif)  
-![Loot](./assets/gif_loot.gif)
+Ou téléchargez directement la release ici :  
+🔗 [https://github.com/LePeruvienn/Unity-Math/releases/tag/Build](https://github.com/LePeruvienn/FEURnite/releases/tag/Livrable4)
 
 ---
 
 ## 📜 Licence
 
-Projet développé à des fins pédagogiques (S5 - Ynov).  
+Projet développé à des fins pédagogiques (S5 - BUT Informatique - IUT D'orsay).  
 N’hésitez pas à cloner, tester, proposer, mais évitez de copier sans hommage à nos valeureux Kouas 🐥💔
-
----
-
-## 🐣 À suivre...
-
-- Implémentation de nouveaux items 💼  
-- Amélioration du matchmaking réseau 🔌  
-- Ajout d’emotes canard 😏  
 
 ---
 
 **Merci de soutenir les Kouas dans leur combat pour la survie.**
 
 *Quoi ?*  
-**Koua.**
+**Koua.** (feur)
